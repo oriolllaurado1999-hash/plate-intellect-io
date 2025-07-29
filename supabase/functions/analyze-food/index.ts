@@ -77,7 +77,8 @@ Guidelines:
               {
                 type: 'image_url',
                 image_url: {
-                  url: imageBase64
+                  url: imageBase64,
+                  detail: "high"
                 }
               }
             ]
