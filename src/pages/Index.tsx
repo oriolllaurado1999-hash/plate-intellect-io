@@ -46,7 +46,7 @@ const Index = () => {
             <div className="p-2 bg-primary/10 rounded-lg">
               <Camera className="h-6 w-6 text-primary" />
             </div>
-            <h1 className="text-xl font-bold">Cal Tracker</h1>
+            <h1 className="text-xl font-bold">Calorify</h1>
           </div>
           
           <div className="flex items-center gap-4">
@@ -67,7 +67,7 @@ const Index = () => {
           {/* Welcome Section */}
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              Welcome to Cal Tracker
+              Welcome to Calorify
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Snap a photo of your meal and let AI analyze the nutrition content instantly
