@@ -101,28 +101,36 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
     setIsAnalyzing(true);
     
     try {
+      console.log('Starting image analysis...');
+      console.log('Image data length:', capturedImage.length);
+      
       const { data, error } = await supabase.functions.invoke('analyze-food', {
         body: { imageBase64: capturedImage }
       });
 
+      console.log('Supabase response:', { data, error });
+
       if (error) {
+        console.error('Supabase function error:', error);
         throw error;
       }
 
-      if (data.success) {
+      if (data && data.success) {
+        console.log('Analysis successful:', data.analysis);
         onAnalysisComplete(data.analysis, capturedImage);
         toast({
           title: "Analysis Complete",
           description: `Found ${data.analysis.foods.length} food items`
         });
       } else {
-        throw new Error(data.error || 'Analysis failed');
+        console.error('Analysis failed:', data);
+        throw new Error(data?.error || 'Analysis failed');
       }
     } catch (error) {
       console.error('Analysis error:', error);
       toast({
         title: "Analysis Failed",
-        description: "Unable to analyze the image. Please try again.",
+        description: error instanceof Error ? error.message : "Unable to analyze the image. Please try again.",
         variant: "destructive"
       });
     } finally {
