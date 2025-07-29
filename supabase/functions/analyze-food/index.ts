@@ -14,11 +14,19 @@ serve(async (req) => {
   }
 
   try {
+    console.log('Starting food analysis...');
+    
+    if (!openAIApiKey) {
+      throw new Error('OpenAI API key not configured');
+    }
+    
     const { imageBase64 } = await req.json();
 
     if (!imageBase64) {
       throw new Error('No image provided');
     }
+
+    console.log('Image received, calling OpenAI...');
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -27,7 +35,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4.1-2025-04-14',
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
@@ -82,8 +90,11 @@ Guidelines:
 
     if (!response.ok) {
       const errorData = await response.text();
+      console.error('OpenAI API error:', response.status, errorData);
       throw new Error(`OpenAI API error: ${response.status} - ${errorData}`);
     }
+
+    console.log('OpenAI response received successfully');
 
     const data = await response.json();
     let analysisResult;
@@ -91,9 +102,12 @@ Guidelines:
     try {
       // Parse the JSON response from the AI
       const aiResponse = data.choices[0].message.content;
+      console.log('AI Response:', aiResponse);
       analysisResult = JSON.parse(aiResponse);
+      console.log('Successfully parsed AI response');
     } catch (parseError) {
       console.error('Failed to parse AI response:', parseError);
+      console.error('Raw AI response:', data.choices[0]?.message?.content);
       throw new Error('Invalid AI response format');
     }
 
