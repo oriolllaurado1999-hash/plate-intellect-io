@@ -1,13 +1,40 @@
+import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, User, Calendar, Target, LogOut } from 'lucide-react';
+import CameraScanner from '@/components/CameraScanner';
+import NutritionReview from '@/components/NutritionReview';
 
 const Index = () => {
   const { user, signOut } = useAuth();
+  const [showScanner, setShowScanner] = useState(false);
+  const [showReview, setShowReview] = useState(false);
+  const [analysisData, setAnalysisData] = useState(null);
+  const [capturedImage, setCapturedImage] = useState('');
 
   const handleSignOut = async () => {
     await signOut();
+  };
+
+  const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
+    setAnalysisData(analysis);
+    setCapturedImage(imageUrl);
+    setShowScanner(false);
+    setShowReview(true);
+  };
+
+  const handleMealSaved = () => {
+    setShowReview(false);
+    setAnalysisData(null);
+    setCapturedImage('');
+    // TODO: Refresh meals data
+  };
+
+  const handleReviewCancel = () => {
+    setShowReview(false);
+    setAnalysisData(null);
+    setCapturedImage('');
   };
 
   return (
@@ -49,7 +76,10 @@ const Index = () => {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-dashed border-primary/30 hover:border-primary/50">
+            <Card 
+              className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-dashed border-primary/30 hover:border-primary/50"
+              onClick={() => setShowScanner(true)}
+            >
               <CardHeader className="text-center pb-2">
                 <div className="mx-auto p-3 bg-primary/10 rounded-full w-fit mb-2">
                   <Camera className="h-8 w-8 text-primary" />
@@ -115,6 +145,23 @@ const Index = () => {
           </Card>
         </div>
       </main>
+
+      {/* Modals */}
+      {showScanner && (
+        <CameraScanner
+          onAnalysisComplete={handleAnalysisComplete}
+          onClose={() => setShowScanner(false)}
+        />
+      )}
+
+      {showReview && analysisData && (
+        <NutritionReview
+          analysis={analysisData}
+          imageUrl={capturedImage}
+          onSave={handleMealSaved}
+          onCancel={handleReviewCancel}
+        />
+      )}
     </div>
   );
 };

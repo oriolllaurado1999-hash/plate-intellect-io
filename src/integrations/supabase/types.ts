@@ -14,6 +14,171 @@ export type Database = {
   }
   public: {
     Tables: {
+      food_items: {
+        Row: {
+          barcode: string | null
+          brand: string | null
+          calories_per_100g: number
+          carbs_per_100g: number | null
+          created_at: string
+          fat_per_100g: number | null
+          fiber_per_100g: number | null
+          id: string
+          name: string
+          protein_per_100g: number | null
+          sodium_per_100g: number | null
+          sugar_per_100g: number | null
+          updated_at: string
+        }
+        Insert: {
+          barcode?: string | null
+          brand?: string | null
+          calories_per_100g: number
+          carbs_per_100g?: number | null
+          created_at?: string
+          fat_per_100g?: number | null
+          fiber_per_100g?: number | null
+          id?: string
+          name: string
+          protein_per_100g?: number | null
+          sodium_per_100g?: number | null
+          sugar_per_100g?: number | null
+          updated_at?: string
+        }
+        Update: {
+          barcode?: string | null
+          brand?: string | null
+          calories_per_100g?: number
+          carbs_per_100g?: number | null
+          created_at?: string
+          fat_per_100g?: number | null
+          fiber_per_100g?: number | null
+          id?: string
+          name?: string
+          protein_per_100g?: number | null
+          sodium_per_100g?: number | null
+          sugar_per_100g?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meal_items: {
+        Row: {
+          calories: number
+          carbs: number | null
+          confidence: number | null
+          created_at: string
+          fat: number | null
+          fiber: number | null
+          food_item_id: string | null
+          food_name: string
+          id: string
+          meal_id: string
+          protein: number | null
+          quantity: number
+          updated_at: string
+        }
+        Insert: {
+          calories: number
+          carbs?: number | null
+          confidence?: number | null
+          created_at?: string
+          fat?: number | null
+          fiber?: number | null
+          food_item_id?: string | null
+          food_name: string
+          id?: string
+          meal_id: string
+          protein?: number | null
+          quantity: number
+          updated_at?: string
+        }
+        Update: {
+          calories?: number
+          carbs?: number | null
+          confidence?: number | null
+          created_at?: string
+          fat?: number | null
+          fiber?: number | null
+          food_item_id?: string | null
+          food_name?: string
+          id?: string
+          meal_id?: string
+          protein?: number | null
+          quantity?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meal_items_food_item_id_fkey"
+            columns: ["food_item_id"]
+            isOneToOne: false
+            referencedRelation: "food_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meal_items_meal_id_fkey"
+            columns: ["meal_id"]
+            isOneToOne: false
+            referencedRelation: "meals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meals: {
+        Row: {
+          ai_analyzed: boolean | null
+          ai_confidence: number | null
+          created_at: string
+          id: string
+          image_url: string | null
+          meal_date: string
+          meal_type: string
+          name: string
+          total_calories: number | null
+          total_carbs: number | null
+          total_fat: number | null
+          total_fiber: number | null
+          total_protein: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_analyzed?: boolean | null
+          ai_confidence?: number | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          meal_date?: string
+          meal_type: string
+          name: string
+          total_calories?: number | null
+          total_carbs?: number | null
+          total_fat?: number | null
+          total_fiber?: number | null
+          total_protein?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_analyzed?: boolean | null
+          ai_confidence?: number | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          meal_date?: string
+          meal_type?: string
+          name?: string
+          total_calories?: number | null
+          total_carbs?: number | null
+          total_fat?: number | null
+          total_fiber?: number | null
+          total_protein?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           activity_level: string | null
