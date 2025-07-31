@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Camera, Upload, X, Loader2 } from 'lucide-react';
+import { Camera, Upload, X, Loader2, ScanLine, Zap, CreditCard, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -189,16 +189,55 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
 
               {/* Bottom Controls */}
               <div className="absolute bottom-0 left-0 right-0 pb-safe">
-                <div className="flex items-center justify-center px-8 py-8">
-                  <div className="flex items-center justify-between w-full max-w-sm">
-                    {/* Gallery button placeholder */}
+                {/* Function buttons */}
+                <div className="flex justify-center space-x-4 px-8 mb-6">
+                  <Button
+                    variant="outline"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    onClick={() => {/* Handle scan food */}}
+                  >
+                    <ScanLine className="h-5 w-5 mb-1" />
+                    <span className="text-xs font-medium">Scan Food</span>
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    onClick={() => {/* Handle barcode */}}
+                  >
+                    <CreditCard className="h-5 w-5 mb-1" />
+                    <span className="text-xs font-medium">Barcode</span>
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    onClick={() => {/* Handle food label */}}
+                  >
+                    <Upload className="h-5 w-5 mb-1" />
+                    <span className="text-xs font-medium">Food label</span>
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <ImageIcon className="h-5 w-5 mb-1" />
+                    <span className="text-xs font-medium">Library</span>
+                  </Button>
+                </div>
+
+                {/* Capture button and flash */}
+                <div className="flex items-center justify-center px-8 py-4">
+                  <div className="flex items-center space-x-8">
+                    {/* Flash button */}
                     <Button 
                       variant="ghost" 
                       size="icon"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="w-12 h-12 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
+                      className="w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
                     >
-                      <Upload className="h-5 w-5" />
+                      <Zap className="h-5 w-5" />
                     </Button>
                     
                     {/* Capture button */}
@@ -218,11 +257,11 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
                       </Button>
                     )}
                     
-                    {/* Info button */}
+                    {/* Help button */}
                     <Button 
                       variant="ghost" 
                       size="icon"
-                      className="w-12 h-12 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
+                      className="w-12 h-12 rounded-full bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
                     >
                       <span className="text-lg font-bold">?</span>
                     </Button>
