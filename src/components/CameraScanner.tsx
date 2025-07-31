@@ -161,22 +161,19 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
             {/* Camera Overlay */}
             <div className="absolute inset-0">
               {/* Top Controls */}
-              <div className="absolute top-safe left-4 right-4 flex justify-between items-center pt-4">
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={onClose}
-                  className="bg-black/20 backdrop-blur-sm text-white hover:bg-black/40"
-                >
-                  <X className="h-5 w-5" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="bg-black/20 backdrop-blur-sm text-white hover:bg-black/40"
-                >
-                  <span className="text-lg font-semibold">?</span>
-                </Button>
+              <div className="absolute top-0 left-0 right-0 pt-safe">
+                <div className="flex justify-between items-center px-6 py-4">
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    onClick={onClose}
+                    className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                  <span className="text-white font-medium text-lg">Scan Food</span>
+                  <div className="w-10 h-10"></div> {/* Spacer */}
+                </div>
               </div>
 
               {/* Scanning Frame */}
@@ -191,42 +188,44 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
               </div>
 
               {/* Bottom Controls */}
-              <div className="absolute bottom-safe left-4 right-4 pb-8">
-                <div className="bg-black/50 backdrop-blur-md rounded-2xl p-4 mx-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2 text-white">
-                      <Camera className="h-5 w-5" />
-                      <span className="font-medium">Scan Food</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="ghost" 
-                        size="icon"
-                        onClick={() => fileInputRef.current?.click()}
-                        className="text-white hover:bg-white/20"
-                      >
-                        <Upload className="h-5 w-5" />
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="flex justify-center">
+              <div className="absolute bottom-0 left-0 right-0 pb-safe">
+                <div className="flex items-center justify-center px-8 py-8">
+                  <div className="flex items-center justify-between w-full max-w-sm">
+                    {/* Gallery button placeholder */}
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-12 h-12 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
+                    >
+                      <Upload className="h-5 w-5" />
+                    </Button>
+                    
+                    {/* Capture button */}
                     {!stream ? (
                       <Button 
                         onClick={startCamera}
-                        size="lg"
-                        className="w-16 h-16 rounded-full bg-white text-black hover:bg-gray-200"
+                        className="w-20 h-20 rounded-full bg-white text-black hover:bg-gray-100 shadow-2xl border-4 border-white/20"
                       >
-                        <Camera className="h-6 w-6" />
+                        <Camera className="h-8 w-8" />
                       </Button>
                     ) : (
                       <Button 
                         onClick={capturePhoto}
-                        size="lg" 
-                        className="w-16 h-16 rounded-full bg-white border-4 border-white/30 hover:bg-gray-200"
+                        className="w-20 h-20 rounded-full bg-white text-black hover:bg-gray-100 shadow-2xl border-4 border-white/20"
                       >
+                        <div className="w-4 h-4 bg-black rounded-full"></div>
                       </Button>
                     )}
+                    
+                    {/* Info button */}
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      className="w-12 h-12 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
+                    >
+                      <span className="text-lg font-bold">?</span>
+                    </Button>
                   </div>
                 </div>
               </div>
