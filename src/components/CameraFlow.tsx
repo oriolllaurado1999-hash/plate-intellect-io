@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CameraOptions from './CameraOptions';
 import ScanGuide from './ScanGuide';
 import CameraScanner from './CameraScanner';
+import BarcodeScanner from './BarcodeScanner';
 
 interface FoodAnalysis {
   foods: Array<{
@@ -23,13 +24,17 @@ interface CameraFlowProps {
   onClose: () => void;
 }
 
-type FlowStep = 'options' | 'guide' | 'scanner';
+type FlowStep = 'options' | 'guide' | 'scanner' | 'barcode';
 
 const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
   const [currentStep, setCurrentStep] = useState<FlowStep>('options');
 
   const handleScanFood = () => {
     setCurrentStep('guide');
+  };
+
+  const handleBarcodeScanner = () => {
+    setCurrentStep('barcode');
   };
 
   const handleGuideComplete = () => {
@@ -40,15 +45,29 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
     setCurrentStep('options');
   };
 
+  const handleBarcodeDetected = (barcode: string) => {
+    // TODO: Handle barcode detection
+    console.log('Barcode detected:', barcode);
+  };
+
   switch (currentStep) {
     case 'options':
-      return <CameraOptions onClose={onClose} onScanFood={handleScanFood} />;
+      return (
+        <CameraOptions 
+          onClose={onClose} 
+          onScanFood={handleScanFood}
+          onBarcodeScanner={handleBarcodeScanner}
+        />
+      );
     
     case 'guide':
       return <ScanGuide onClose={handleGuideClose} onComplete={handleGuideComplete} />;
     
     case 'scanner':
       return <CameraScanner onAnalysisComplete={onAnalysisComplete} onClose={onClose} />;
+    
+    case 'barcode':
+      return <BarcodeScanner onClose={onClose} onBarcodeDetected={handleBarcodeDetected} />;
     
     default:
       return null;

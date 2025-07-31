@@ -1,12 +1,13 @@
 import { Button } from '@/components/ui/button';
-import { X, Dumbbell, Bookmark, Search, ScanLine } from 'lucide-react';
+import { X, Dumbbell, Bookmark, Search, ScanLine, CreditCard } from 'lucide-react';
 
 interface CameraOptionsProps {
   onClose: () => void;
   onScanFood: () => void;
+  onBarcodeScanner: () => void;
 }
 
-const CameraOptions = ({ onClose, onScanFood }: CameraOptionsProps) => {
+const CameraOptions = ({ onClose, onScanFood, onBarcodeScanner }: CameraOptionsProps) => {
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-end">
       <div className="bg-background rounded-t-3xl w-full p-6 space-y-6">
@@ -59,6 +60,15 @@ const CameraOptions = ({ onClose, onScanFood }: CameraOptionsProps) => {
           >
             <ScanLine className="h-6 w-6" />
             <span className="text-sm font-medium">Scan food</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent col-span-2"
+            onClick={onBarcodeScanner}
+          >
+            <CreditCard className="h-6 w-6" />
+            <span className="text-sm font-medium">Barcode Scanner</span>
           </Button>
         </div>
       </div>
