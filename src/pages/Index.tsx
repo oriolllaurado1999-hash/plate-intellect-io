@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { useDashboardData } from '@/hooks/useDashboardData';
+import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, User, Calendar, Target } from 'lucide-react';
@@ -10,10 +10,15 @@ import CalorieCircle from '@/components/CalorieCircle';
 import MacroBreakdown from '@/components/MacroBreakdown';
 import WeeklyChart from '@/components/WeeklyChart';
 import StatsCards from '@/components/StatsCards';
+import RecentMeals from '@/components/RecentMeals';
+import DateNavigation from '@/components/DateNavigation';
+import FloatingAddButton from '@/components/FloatingAddButton';
+import WearableSync from '@/components/WearableSync';
 
 const Index = () => {
   const { user } = useAuth();
-  const { data: dashboardData, loading } = useDashboardData();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [analysisData, setAnalysisData] = useState(null);
@@ -31,8 +36,8 @@ const Index = () => {
     setShowReview(false);
     setAnalysisData(null);
     setCapturedImage('');
-    // Refresh dashboard data
-    window.location.reload();
+    // Force re-fetch data by updating the date state
+    setSelectedDate(new Date(selectedDate));
   };
 
   const handleReviewCancel = () => {
@@ -57,15 +62,11 @@ const Index = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Welcome Section */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">
-            Welcome back!
-          </h2>
-          <p className="text-muted-foreground">
-            Here's your nutrition progress for today
-          </p>
-        </div>
+        {/* Date Navigation */}
+        <DateNavigation 
+          currentDate={selectedDate}
+          onDateChange={setSelectedDate}
+        />
 
         {/* Stats Cards */}
         <StatsCards 
@@ -92,22 +93,15 @@ const Index = () => {
         {/* Weekly Chart */}
         <WeeklyChart data={dashboardData.weeklyCalories} />
 
-        {/* Quick Action - Scan Food */}
-        <Card 
-          className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-dashed border-primary/30 hover:border-primary/50"
-          onClick={() => setShowScanner(true)}
-        >
-          <CardHeader className="text-center pb-2">
-            <div className="mx-auto p-3 bg-primary/10 rounded-full w-fit mb-2">
-              <Camera className="h-8 w-8 text-primary" />
-            </div>
-            <CardTitle className="text-lg">Scan Food</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-sm text-muted-foreground">Take a photo to analyze nutrition</p>
-          </CardContent>
-        </Card>
+        {/* Bottom Grid - Recent Meals and Wearable */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <RecentMeals />
+          <WearableSync />
+        </div>
       </div>
+
+      {/* Floating Add Button */}
+      <FloatingAddButton onClick={() => setShowScanner(true)} />
 
       {/* Modals */}
       {showScanner && (

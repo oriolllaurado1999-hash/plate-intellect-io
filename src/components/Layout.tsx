@@ -3,6 +3,7 @@ import { Home, Target, Activity, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const Layout = () => {
   const { user, signOut } = useAuth();
@@ -35,6 +36,7 @@ const Layout = () => {
             <span className="text-sm text-muted-foreground hidden sm:block">
               {user?.email}
             </span>
+            <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Sign Out</span>
