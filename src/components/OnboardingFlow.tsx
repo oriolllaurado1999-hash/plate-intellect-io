@@ -6,12 +6,21 @@ import WorkoutStep from './onboarding/WorkoutStep';
 import SourceStep from './onboarding/SourceStep';
 import ExperienceStep from './onboarding/ExperienceStep';
 import ResultsStep from './onboarding/ResultsStep';
+import DateStep from './onboarding/DateStep';
+import GoalStep from './onboarding/GoalStep';
+import DesiredWeightStep from './onboarding/DesiredWeightStep';
+import MotivationStep from './onboarding/MotivationStep';
+import SpeedStep from './onboarding/SpeedStep';
 
 interface OnboardingData {
   gender: 'male' | 'female' | 'other' | null;
   workouts: '0-2' | '3-5' | '6+' | null;
   source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | null;
   hasTriedOtherApps: boolean | null;
+  birthDate: Date | null;
+  goal: 'lose' | 'maintain' | 'gain' | null;
+  desiredWeight: number | null;
+  lossSpeed: number | null;
 }
 
 interface OnboardingFlowProps {
@@ -25,9 +34,13 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     workouts: null,
     source: null,
     hasTriedOtherApps: null,
+    birthDate: null,
+    goal: null,
+    desiredWeight: null,
+    lossSpeed: null,
   });
 
-  const totalSteps = 5;
+  const totalSteps = 10;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -87,6 +100,40 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
         );
       case 5:
         return <ResultsStep onNext={handleNext} />;
+      case 6:
+        return (
+          <DateStep
+            selected={data.birthDate}
+            onSelect={(birthDate) => updateData('birthDate', birthDate)}
+            onNext={handleNext}
+          />
+        );
+      case 7:
+        return (
+          <GoalStep
+            selected={data.goal}
+            onSelect={(goal) => updateData('goal', goal)}
+            onNext={handleNext}
+          />
+        );
+      case 8:
+        return (
+          <DesiredWeightStep
+            selected={data.desiredWeight}
+            onSelect={(weight) => updateData('desiredWeight', weight)}
+            onNext={handleNext}
+          />
+        );
+      case 9:
+        return <MotivationStep onNext={handleNext} />;
+      case 10:
+        return (
+          <SpeedStep
+            selected={data.lossSpeed}
+            onSelect={(speed) => updateData('lossSpeed', speed)}
+            onNext={handleNext}
+          />
+        );
       default:
         return null;
     }

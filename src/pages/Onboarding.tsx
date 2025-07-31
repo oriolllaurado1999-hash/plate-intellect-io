@@ -8,6 +8,10 @@ interface OnboardingData {
   workouts: '0-2' | '3-5' | '6+' | null;
   source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | null;
   hasTriedOtherApps: boolean | null;
+  birthDate: Date | null;
+  goal: 'lose' | 'maintain' | 'gain' | null;
+  desiredWeight: number | null;
+  lossSpeed: number | null;
 }
 
 const Onboarding = () => {
