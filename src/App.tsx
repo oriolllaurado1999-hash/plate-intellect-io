@@ -10,6 +10,7 @@ import Goals from "./pages/Goals";
 import Activity from "./pages/Activity";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
+import OnboardingPreview from "./pages/OnboardingPreview";
 import Layout from "./components/Layout";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -62,6 +63,7 @@ const App = () => (
           <BrowserRouter>
           <Routes>
             <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
+            <Route path="/onboarding-preview" element={<OnboardingPreview />} />
             <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
             <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
               <Route index element={<Index />} />
