@@ -288,7 +288,7 @@ const OnboardingPreview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col" data-theme="light">
       {/* Preview Header */}
       <div className="bg-muted/50 border-b p-4">
         <div className="flex items-center justify-between">
@@ -305,58 +305,24 @@ const OnboardingPreview = () => {
             style={{ width: `${getProgressWidth()}%` }}
           />
         </div>
-        
-        {/* Navigation */}
-        <div className="flex items-center justify-between mt-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleBack}
-            disabled={currentStep === 1}
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Anterior
-          </Button>
-          
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => goToStep(1)}
-            >
-              Inicio
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => goToStep(26)}
-            >
-              Pricing
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => goToStep(30)}
-            >
-              Final
-            </Button>
-          </div>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleNext}
-            disabled={currentStep === totalSteps}
-          >
-            Siguiente
-            <ArrowRight className="h-4 w-4 ml-2" />
-          </Button>
-        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1">
+      <div className="flex-1 relative">
         {renderStep()}
+        
+        {/* Previous button */}
+        {currentStep > 1 && (
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+            <button
+              onClick={handleBack}
+              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Anterior</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

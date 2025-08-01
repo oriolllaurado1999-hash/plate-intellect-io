@@ -21,7 +21,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
           This will be used to calibrate your custom plan.
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-4 mb-16">
           <Button
             variant={selected === 'male' ? 'default' : 'outline'}
             className="w-full h-16 text-lg justify-center"
@@ -48,14 +48,16 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
         </div>
       </div>
 
-      <Button
-        onClick={handleContinue}
-        disabled={!selected}
-        className="w-full h-12 text-base font-semibold"
-        size="lg"
-      >
-        Continue
-      </Button>
+      <div className="mt-auto pt-8">
+        <Button
+          onClick={handleContinue}
+          disabled={!selected}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };

@@ -115,4 +115,13 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Force light mode for onboarding */
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+  
+  [data-theme="light"] * {
+    color-scheme: light;
+  }
 }

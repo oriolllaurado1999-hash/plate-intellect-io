@@ -177,7 +177,7 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-8">
         <Button
           onClick={handleContinue}
           disabled={!selected}

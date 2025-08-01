@@ -21,7 +21,7 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
           This will be used to calibrate your custom plan.
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-4 mb-16">
           <Button
             variant={selected === '0-2' ? 'default' : 'outline'}
             className="w-full h-20 text-left flex flex-col items-start justify-center px-6"
@@ -75,14 +75,16 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         </div>
       </div>
 
-      <Button
-        onClick={handleContinue}
-        disabled={!selected}
-        className="w-full h-12 text-base font-semibold"
-        size="lg"
-      >
-        Continue
-      </Button>
+      <div className="mt-auto pt-8">
+        <Button
+          onClick={handleContinue}
+          disabled={!selected}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };
