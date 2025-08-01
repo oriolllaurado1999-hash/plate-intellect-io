@@ -17,7 +17,6 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
   const sources = [
     { id: 'instagram' as const, label: 'Instagram', icon: Instagram, highlight: true },
     { id: 'friend' as const, label: 'Friend or family', icon: Users, highlight: false },
-    { id: 'tv' as const, label: 'TV', icon: Tv, highlight: false },
     { id: 'x' as const, label: 'X', icon: Twitter, highlight: false },
     { id: 'facebook' as const, label: 'Facebook', icon: Facebook, highlight: false },
     { id: 'google' as const, label: 'Google', icon: Chrome, highlight: false },
