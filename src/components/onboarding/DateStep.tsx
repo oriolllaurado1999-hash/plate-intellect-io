@@ -45,7 +45,7 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
         setMonth(newValue);
       }
     } else if (field === 'year') {
-      if (value.length <= 4 && (value === '' || parseInt(value) >= 1900)) {
+      if (value.length <= 4) {
         setYear(newValue);
       }
     }
