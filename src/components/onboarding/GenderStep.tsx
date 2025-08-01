@@ -48,7 +48,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-4 pb-12">
         <Button
           onClick={handleContinue}
           disabled={!selected}
