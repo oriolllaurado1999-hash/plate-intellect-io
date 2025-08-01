@@ -35,6 +35,21 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
     return Math.abs(speed - animalSpeed) < tolerance ? 'scale-110' : 'scale-100';
   };
 
+  // Get informative message based on current speed
+  const getInformativeMessage = () => {
+    if (speed <= 0.3) {
+      return "Ritmo muy tranquilo. Ideal para mantener la energía y ser constante a largo plazo.";
+    } else if (speed <= 0.6) {
+      return "Ritmo moderado y sostenible. Perfecto equilibrio entre resultados y bienestar.";
+    } else if (speed <= 1.0) {
+      return "Ritmo óptimo para la mayoría. Buenos resultados manteniendo energía moderada.";
+    } else if (speed <= 1.2) {
+      return "Ritmo acelerado. Resultados rápidos pero requiere más disciplina y energía.";
+    } else {
+      return "Puedes sentirte muy cansado y desarrollar piel floja.";
+    }
+  };
+
   return (
     <div className="flex flex-col h-full px-6 py-8">
       <div className="flex-1 flex flex-col justify-center">
@@ -91,18 +106,16 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
             </div>
           </div>
 
-          {/* Warning message */}
-          {speed > 1.2 && (
-            <div className="bg-muted/50 rounded-xl p-4 mx-4">
-              <p className="text-sm text-muted-foreground text-center">
-                You may feel very tired and develop loose skin
-              </p>
-            </div>
-          )}
+          {/* Informative message */}
+          <div className="bg-muted/50 rounded-xl p-4 mx-4">
+            <p className="text-sm text-muted-foreground text-center">
+              {getInformativeMessage()}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pb-12">
         <Button
           onClick={handleContinue}
           className="w-full h-14 text-lg font-medium rounded-full"
