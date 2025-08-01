@@ -84,13 +84,33 @@ const OnboardingPreview = () => {
   // Force light mode for onboarding
   useEffect(() => {
     const root = document.documentElement;
+    const body = document.body;
+    
+    // Force light theme
     root.classList.add('light');
     root.classList.remove('dark');
-    root.style.colorScheme = 'light';
+    root.setAttribute('data-theme', 'light');
+    body.classList.add('light');
+    body.classList.remove('dark');
+    
+    // Override CSS variables for light mode
+    root.style.setProperty('--background', '0 0% 100%');
+    root.style.setProperty('--foreground', '222.2 84% 4.9%');
+    root.style.setProperty('--muted', '210 40% 96%');
+    root.style.setProperty('--muted-foreground', '215.4 16.3% 46.9%');
+    root.style.setProperty('--primary', '222.2 47.4% 11.2%');
+    root.style.setProperty('--primary-foreground', '210 40% 98%');
     
     return () => {
       root.classList.remove('light');
-      root.style.colorScheme = '';
+      root.removeAttribute('data-theme');
+      body.classList.remove('light');
+      root.style.removeProperty('--background');
+      root.style.removeProperty('--foreground');
+      root.style.removeProperty('--muted');
+      root.style.removeProperty('--muted-foreground');
+      root.style.removeProperty('--primary');
+      root.style.removeProperty('--primary-foreground');
     };
   }, []);
 
@@ -301,7 +321,7 @@ const OnboardingPreview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col light">
+    <div className="min-h-screen flex flex-col" style={{backgroundColor: 'white', color: 'black'}}>
       {/* Preview Header */}
       <div className="bg-muted/50 border-b p-4">
         <div className="flex items-center justify-between">
