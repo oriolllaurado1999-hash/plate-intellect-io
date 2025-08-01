@@ -26,6 +26,11 @@ import ReferralStep from './onboarding/ReferralStep';
 import AllDoneStep from './onboarding/AllDoneStep';
 import GeneratingStep from './onboarding/GeneratingStep';
 import CompletionStep from './onboarding/CompletionStep';
+import TrialOfferStep from './onboarding/TrialOfferStep';
+import TrialReminderStep from './onboarding/TrialReminderStep';
+import PricingPlansStep from './onboarding/PricingPlansStep';
+import TrialTimelineStep from './onboarding/TrialTimelineStep';
+import WelcomeDashboardStep from './onboarding/WelcomeDashboardStep';
 
 interface OnboardingData {
   gender: 'male' | 'female' | 'other' | null;
@@ -71,7 +76,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     referralCode: null,
   });
 
-  const totalSteps = 25;
+  const totalSteps = 30;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -259,7 +264,17 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
       case 24:
         return <GeneratingStep onComplete={handleNext} />;
       case 25:
-        return <CompletionStep onGetStarted={() => onComplete(data)} />;
+        return <CompletionStep onGetStarted={handleNext} />;
+      case 26:
+        return <TrialOfferStep onNext={handleNext} />;
+      case 27:
+        return <TrialReminderStep onNext={handleNext} />;
+      case 28:
+        return <PricingPlansStep onNext={handleNext} />;
+      case 29:
+        return <TrialTimelineStep onNext={handleNext} />;
+      case 30:
+        return <WelcomeDashboardStep onComplete={() => onComplete(data)} />;
       default:
         return null;
     }
