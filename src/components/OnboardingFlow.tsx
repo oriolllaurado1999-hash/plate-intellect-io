@@ -11,6 +11,11 @@ import GoalStep from './onboarding/GoalStep';
 import DesiredWeightStep from './onboarding/DesiredWeightStep';
 import MotivationStep from './onboarding/MotivationStep';
 import SpeedStep from './onboarding/SpeedStep';
+import ComparisonStep from './onboarding/ComparisonStep';
+import ObstaclesStep from './onboarding/ObstaclesStep';
+import DietStep from './onboarding/DietStep';
+import AccomplishStep from './onboarding/AccomplishStep';
+import PotentialStep from './onboarding/PotentialStep';
 
 interface OnboardingData {
   gender: 'male' | 'female' | 'other' | null;
@@ -21,6 +26,9 @@ interface OnboardingData {
   goal: 'lose' | 'maintain' | 'gain' | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
+  obstacle: string | null;
+  diet: string | null;
+  accomplish: string | null;
 }
 
 interface OnboardingFlowProps {
@@ -38,9 +46,12 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     goal: null,
     desiredWeight: null,
     lossSpeed: null,
+    obstacle: null,
+    diet: null,
+    accomplish: null,
   });
 
-  const totalSteps = 10;
+  const totalSteps = 15;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -134,6 +145,34 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             onNext={handleNext}
           />
         );
+      case 11:
+        return <ComparisonStep onNext={handleNext} />;
+      case 12:
+        return (
+          <ObstaclesStep
+            selected={data.obstacle}
+            onSelect={(obstacle) => updateData('obstacle', obstacle)}
+            onNext={handleNext}
+          />
+        );
+      case 13:
+        return (
+          <DietStep
+            selected={data.diet}
+            onSelect={(diet) => updateData('diet', diet)}
+            onNext={handleNext}
+          />
+        );
+      case 14:
+        return (
+          <AccomplishStep
+            selected={data.accomplish}
+            onSelect={(accomplish) => updateData('accomplish', accomplish)}
+            onNext={handleNext}
+          />
+        );
+      case 15:
+        return <PotentialStep onNext={handleNext} />;
       default:
         return null;
     }

@@ -12,6 +12,9 @@ interface OnboardingData {
   goal: 'lose' | 'maintain' | 'gain' | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
+  obstacle: string | null;
+  diet: string | null;
+  accomplish: string | null;
 }
 
 const Onboarding = () => {
