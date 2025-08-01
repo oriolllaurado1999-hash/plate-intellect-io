@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import GenderStep from '@/components/onboarding/GenderStep';
@@ -62,6 +62,18 @@ const stepNames = [
 
 const OnboardingPreview = () => {
   const [currentStep, setCurrentStep] = useState(1);
+
+  // Force light mode for onboarding
+  useEffect(() => {
+    document.documentElement.classList.add('light');
+    document.documentElement.classList.remove('dark');
+    document.documentElement.setAttribute('data-theme', 'light');
+    
+    return () => {
+      document.documentElement.classList.remove('light');
+      document.documentElement.removeAttribute('data-theme');
+    };
+  }, []);
   const [data, setData] = useState<OnboardingData>({
     gender: null,
     workouts: null,
@@ -288,7 +300,7 @@ const OnboardingPreview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col" data-theme="light">
+    <div className="min-h-screen bg-white text-black flex flex-col">
       {/* Preview Header */}
       <div className="bg-muted/50 border-b p-4">
         <div className="flex items-center justify-between">
