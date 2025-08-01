@@ -305,9 +305,6 @@ const OnboardingPreview = () => {
       <div className="bg-muted/50 border-b p-4">
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-semibold">Vista Previa Onboarding</h1>
-          <div className="text-sm text-muted-foreground">
-            Paso {currentStep} de {totalSteps}: {stepNames[currentStep - 1]}
-          </div>
         </div>
         
         {/* Progress bar */}
