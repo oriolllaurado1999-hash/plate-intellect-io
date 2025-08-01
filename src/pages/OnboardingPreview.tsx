@@ -83,13 +83,14 @@ const OnboardingPreview = () => {
 
   // Force light mode for onboarding
   useEffect(() => {
-    document.documentElement.classList.add('light');
-    document.documentElement.classList.remove('dark');
-    document.documentElement.setAttribute('data-theme', 'light');
+    const root = document.documentElement;
+    root.classList.add('light');
+    root.classList.remove('dark');
+    root.style.colorScheme = 'light';
     
     return () => {
-      document.documentElement.classList.remove('light');
-      document.documentElement.removeAttribute('data-theme');
+      root.classList.remove('light');
+      root.style.colorScheme = '';
     };
   }, []);
 
@@ -300,7 +301,7 @@ const OnboardingPreview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col light">
       {/* Preview Header */}
       <div className="bg-muted/50 border-b p-4">
         <div className="flex items-center justify-between">
