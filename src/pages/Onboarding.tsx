@@ -15,6 +15,9 @@ interface OnboardingData {
   obstacle: string | null;
   diet: string | null;
   accomplish: string | null;
+  connectHealth: boolean | null;
+  addBurnedCalories: boolean | null;
+  rolloverCalories: boolean | null;
 }
 
 const Onboarding = () => {

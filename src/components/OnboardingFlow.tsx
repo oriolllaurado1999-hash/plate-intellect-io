@@ -16,6 +16,11 @@ import ObstaclesStep from './onboarding/ObstaclesStep';
 import DietStep from './onboarding/DietStep';
 import AccomplishStep from './onboarding/AccomplishStep';
 import PotentialStep from './onboarding/PotentialStep';
+import TrustStep from './onboarding/TrustStep';
+import HealthConnectStep from './onboarding/HealthConnectStep';
+import CaloriesBurnedStep from './onboarding/CaloriesBurnedStep';
+import RolloverStep from './onboarding/RolloverStep';
+import RatingStep from './onboarding/RatingStep';
 
 interface OnboardingData {
   gender: 'male' | 'female' | 'other' | null;
@@ -29,6 +34,9 @@ interface OnboardingData {
   obstacle: string | null;
   diet: string | null;
   accomplish: string | null;
+  connectHealth: boolean | null;
+  addBurnedCalories: boolean | null;
+  rolloverCalories: boolean | null;
 }
 
 interface OnboardingFlowProps {
@@ -49,9 +57,12 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     obstacle: null,
     diet: null,
     accomplish: null,
+    connectHealth: null,
+    addBurnedCalories: null,
+    rolloverCalories: null,
   });
 
-  const totalSteps = 15;
+  const totalSteps = 20;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -173,6 +184,41 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
         );
       case 15:
         return <PotentialStep onNext={handleNext} />;
+      case 16:
+        return <TrustStep onNext={handleNext} />;
+      case 17:
+        return (
+          <HealthConnectStep
+            onConnect={() => {
+              updateData('connectHealth', true);
+              handleNext();
+            }}
+            onSkip={() => {
+              updateData('connectHealth', false);
+              handleNext();
+            }}
+          />
+        );
+      case 18:
+        return (
+          <CaloriesBurnedStep
+            onSelect={(addBack) => {
+              updateData('addBurnedCalories', addBack);
+              handleNext();
+            }}
+          />
+        );
+      case 19:
+        return (
+          <RolloverStep
+            onSelect={(rollover) => {
+              updateData('rolloverCalories', rollover);
+              handleNext();
+            }}
+          />
+        );
+      case 20:
+        return <RatingStep onNext={handleNext} />;
       default:
         return null;
     }
