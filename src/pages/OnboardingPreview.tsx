@@ -8,6 +8,8 @@ import ExperienceStep from '@/components/onboarding/ExperienceStep';
 import ResultsStep from '@/components/onboarding/ResultsStep';
 import DateStep from '@/components/onboarding/DateStep';
 import GoalStep from '@/components/onboarding/GoalStep';
+import CurrentWeightStep from '@/components/onboarding/CurrentWeightStep';
+import HeightStep from '@/components/onboarding/HeightStep';
 import DesiredWeightStep from '@/components/onboarding/DesiredWeightStep';
 import MotivationStep from '@/components/onboarding/MotivationStep';
 import SpeedStep from '@/components/onboarding/SpeedStep';
@@ -39,6 +41,8 @@ interface OnboardingData {
   hasTriedOtherApps: boolean | null;
   birthDate: Date | null;
   goal: 'lose' | 'maintain' | 'gain' | null;
+  currentWeight: { weight: number; unit: 'kg' | 'lbs' } | null;
+  height: { height: number; unit: 'cm' | 'ft' } | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
   obstacle: string | null;
@@ -53,7 +57,7 @@ interface OnboardingData {
 
 const stepNames = [
   'Género', 'Ejercicio', 'Fuente', 'Experiencia', 'Resultados',
-  'Fecha Nacimiento', 'Objetivo', 'Peso Deseado', 'Motivación', 'Velocidad',
+  'Fecha Nacimiento', 'Objetivo', 'Peso Actual', 'Altura', 'Peso Deseado', 'Motivación', 'Velocidad',
   'Comparación', 'Obstáculos', 'Dieta', 'Logros', 'Potencial',
   'Confianza', 'Health Connect', 'Calorías Quemadas', 'Rollover', 'Rating',
   'Notificaciones', 'Referidos', 'Todo Listo', 'Generando', 'Completado',
@@ -69,6 +73,8 @@ const OnboardingPreview = () => {
     hasTriedOtherApps: null,
     birthDate: null,
     goal: null,
+    currentWeight: null,
+    height: null,
     desiredWeight: null,
     lossSpeed: null,
     obstacle: null,
@@ -114,7 +120,7 @@ const OnboardingPreview = () => {
     };
   }, []);
 
-  const totalSteps = 30;
+  const totalSteps = 32;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -194,15 +200,31 @@ const OnboardingPreview = () => {
         );
       case 8:
         return (
+          <CurrentWeightStep
+            selected={data.currentWeight}
+            onSelect={(weight) => updateData('currentWeight', weight)}
+            onNext={handleNext}
+          />
+        );
+      case 9:
+        return (
+          <HeightStep
+            selected={data.height}
+            onSelect={(height) => updateData('height', height)}
+            onNext={handleNext}
+          />
+        );
+      case 10:
+        return (
           <DesiredWeightStep
             selected={data.desiredWeight}
             onSelect={(weight) => updateData('desiredWeight', weight)}
             onNext={handleNext}
           />
         );
-      case 9:
+      case 11:
         return <MotivationStep onNext={handleNext} />;
-      case 10:
+      case 12:
         return (
           <SpeedStep
             selected={data.lossSpeed}
@@ -210,9 +232,9 @@ const OnboardingPreview = () => {
             onNext={handleNext}
           />
         );
-      case 11:
+      case 13:
         return <ComparisonStep onNext={handleNext} />;
-      case 12:
+      case 14:
         return (
           <ObstaclesStep
             selected={data.obstacle}
@@ -220,7 +242,7 @@ const OnboardingPreview = () => {
             onNext={handleNext}
           />
         );
-      case 13:
+      case 15:
         return (
           <DietStep
             selected={data.diet}
@@ -228,7 +250,7 @@ const OnboardingPreview = () => {
             onNext={handleNext}
           />
         );
-      case 14:
+      case 16:
         return (
           <AccomplishStep
             selected={data.accomplish}
@@ -236,11 +258,11 @@ const OnboardingPreview = () => {
             onNext={handleNext}
           />
         );
-      case 15:
-        return <PotentialStep onNext={handleNext} />;
-      case 16:
-        return <TrustStep onNext={handleNext} />;
       case 17:
+        return <PotentialStep onNext={handleNext} />;
+      case 18:
+        return <TrustStep onNext={handleNext} />;
+      case 19:
         return (
           <HealthConnectStep
             onConnect={() => {
@@ -253,7 +275,7 @@ const OnboardingPreview = () => {
             }}
           />
         );
-      case 18:
+      case 20:
         return (
           <CaloriesBurnedStep
             onSelect={(addBack) => {
@@ -262,7 +284,7 @@ const OnboardingPreview = () => {
             }}
           />
         );
-      case 19:
+      case 21:
         return (
           <RolloverStep
             onSelect={(rollover) => {
@@ -271,9 +293,9 @@ const OnboardingPreview = () => {
             }}
           />
         );
-      case 20:
+      case 22:
         return <RatingStep onNext={handleNext} />;
-      case 21:
+      case 23:
         return (
           <NotificationStep
             onAllow={() => {
@@ -286,7 +308,7 @@ const OnboardingPreview = () => {
             }}
           />
         );
-      case 22:
+      case 24:
         return (
           <ReferralStep
             onSubmit={(code) => {
@@ -299,21 +321,21 @@ const OnboardingPreview = () => {
             }}
           />
         );
-      case 23:
-        return <AllDoneStep onNext={handleNext} />;
-      case 24:
-        return <GeneratingStep onComplete={handleNext} />;
       case 25:
-        return <CompletionStep onGetStarted={handleNext} />;
+        return <AllDoneStep onNext={handleNext} />;
       case 26:
-        return <TrialOfferStep onNext={handleNext} />;
+        return <GeneratingStep onComplete={handleNext} />;
       case 27:
-        return <TrialReminderStep onNext={handleNext} />;
+        return <CompletionStep onGetStarted={handleNext} />;
       case 28:
-        return <PricingPlansStep onNext={handleNext} />;
+        return <TrialOfferStep onNext={handleNext} />;
       case 29:
-        return <TrialTimelineStep onNext={handleNext} />;
+        return <TrialReminderStep onNext={handleNext} />;
       case 30:
+        return <PricingPlansStep onNext={handleNext} />;
+      case 31:
+        return <TrialTimelineStep onNext={handleNext} />;
+      case 32:
         return <WelcomeDashboardStep onComplete={() => console.log('Dashboard!')} />;
       default:
         return null;
