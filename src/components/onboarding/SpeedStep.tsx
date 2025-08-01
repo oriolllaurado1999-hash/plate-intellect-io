@@ -38,15 +38,15 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
   // Get informative message based on current speed
   const getInformativeMessage = () => {
     if (speed <= 0.3) {
-      return "Ritmo muy tranquilo. Ideal para mantener la energía y ser constante a largo plazo.";
+      return "Very calm pace. Ideal for maintaining energy and being consistent long-term.";
     } else if (speed <= 0.6) {
-      return "Ritmo moderado y sostenible. Perfecto equilibrio entre resultados y bienestar.";
+      return "Moderate and sustainable pace. Perfect balance between results and well-being.";
     } else if (speed <= 1.0) {
-      return "Ritmo óptimo para la mayoría. Buenos resultados manteniendo energía moderada.";
+      return "Optimal pace for most people. Good results while maintaining moderate energy.";
     } else if (speed <= 1.2) {
-      return "Ritmo acelerado. Resultados rápidos pero requiere más disciplina y energía.";
+      return "Accelerated pace. Fast results but requires more discipline and energy.";
     } else {
-      return "Puedes sentirte muy cansado y desarrollar piel floja.";
+      return "You may feel very tired and develop loose skin.";
     }
   };
 
