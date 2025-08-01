@@ -343,7 +343,7 @@ const OnboardingPreview = () => {
         
         {/* Previous button */}
         {currentStep > 1 && (
-          <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
             <button
               onClick={handleBack}
               className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors text-sm"

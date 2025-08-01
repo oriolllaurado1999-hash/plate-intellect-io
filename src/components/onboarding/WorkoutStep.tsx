@@ -75,7 +75,7 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-8">
+      <div className="mt-auto pt-4">
         <Button
           onClick={handleContinue}
           disabled={!selected}
