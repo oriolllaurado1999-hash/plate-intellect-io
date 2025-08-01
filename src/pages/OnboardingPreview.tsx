@@ -223,7 +223,14 @@ const OnboardingPreview = () => {
           />
         );
       case 11:
-        return <MotivationStep onNext={handleNext} />;
+        return (
+          <MotivationStep 
+            onNext={handleNext}
+            currentWeight={data.currentWeight}
+            desiredWeight={data.desiredWeight}
+            goal={data.goal}
+          />
+        );
       case 12:
         return (
           <SpeedStep

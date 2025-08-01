@@ -39,6 +39,8 @@ interface OnboardingData {
   hasTriedOtherApps: boolean | null;
   birthDate: Date | null;
   goal: 'lose' | 'maintain' | 'gain' | null;
+  currentWeight: { weight: number; unit: 'kg' | 'lbs' } | null;
+  height: { height: number; unit: 'cm' | 'ft' } | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
   obstacle: string | null;
@@ -64,6 +66,8 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     hasTriedOtherApps: null,
     birthDate: null,
     goal: null,
+    currentWeight: null,
+    height: null,
     desiredWeight: null,
     lossSpeed: null,
     obstacle: null,
@@ -161,7 +165,14 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
           />
         );
       case 9:
-        return <MotivationStep onNext={handleNext} />;
+        return (
+          <MotivationStep 
+            onNext={handleNext}
+            currentWeight={data.currentWeight}
+            desiredWeight={data.desiredWeight}
+            goal={data.goal}
+          />
+        );
       case 10:
         return (
           <SpeedStep
