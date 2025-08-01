@@ -54,8 +54,20 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
       // Chart area
       const chartMargin = 40;
       const chartWidth = width - chartMargin * 2;
-      const chartHeight = height - chartMargin * 2 - 40;
-      const chartY = chartMargin + 20;
+      const chartHeight = height - chartMargin * 2 - 60;
+      const chartY = chartMargin + 50;
+
+      // Draw legend at the top
+      if (progress >= 1) {
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ef4444';
+        ctx.font = 'bold 16px system-ui';
+        ctx.fillText('Traditional Diet', chartMargin, chartMargin - 10);
+        
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold 16px system-ui';
+        ctx.fillText('Kalore Diet', chartMargin + 200, chartMargin - 10);
+      }
 
       // Draw grid lines (subtle)
       ctx.strokeStyle = 'rgba(156, 163, 175, 0.2)';
@@ -69,7 +81,7 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
       }
 
       // Draw lines with animation
-      const drawLine = (points: typeof kaloreLine, color: string, label: string, isKalore: boolean) => {
+      const drawLine = (points: typeof kaloreLine, color: string) => {
         ctx.strokeStyle = color;
         ctx.lineWidth = 3;
         ctx.beginPath();
@@ -118,12 +130,12 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
       };
 
       // Draw traditional diet line (red)
-      drawLine(traditionalLine, '#ef4444', 'Traditional diet', false);
+      drawLine(traditionalLine, '#ef4444');
       
       // Draw Kalore line (black)
-      drawLine(kaloreLine, '#000000', 'Kalore', true);
+      drawLine(kaloreLine, '#000000');
 
-      // Draw labels
+      // Draw month labels
       if (progress >= 1) {
         ctx.fillStyle = '#374151';
         ctx.font = 'bold 14px system-ui';
@@ -132,26 +144,6 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
         
         ctx.textAlign = 'right';
         ctx.fillText('Month 6', chartMargin + chartWidth, chartY + chartHeight + 25);
-
-        // Y-axis label
-        ctx.textAlign = 'left';
-        ctx.fillText('Your weight', chartMargin, chartY - 10);
-
-        // Legend
-        ctx.fillStyle = '#ef4444';
-        ctx.fillText('Traditional diet', chartMargin + chartWidth - 120, chartY + 20);
-        
-        // Kalore legend with logo
-        ctx.fillStyle = '#000000';
-        ctx.font = 'bold 14px system-ui';
-        ctx.fillText('🍎 Kalore', chartMargin, chartY + chartHeight - 20);
-        
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(chartMargin + 60, chartY + chartHeight - 30, 50, 20);
-        ctx.fillStyle = '#000000';
-        ctx.font = '10px system-ui';
-        ctx.textAlign = 'center';
-        ctx.fillText('Weight', chartMargin + 85, chartY + chartHeight - 18);
       }
     };
 
@@ -194,13 +186,15 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
         </div>
       </div>
 
-      <Button
-        onClick={onNext}
-        className="w-full h-12 text-base font-semibold"
-        size="lg"
-      >
-        Continue
-      </Button>
+      <div className="mt-8">
+        <Button
+          onClick={onNext}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };

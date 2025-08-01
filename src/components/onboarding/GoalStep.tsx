@@ -54,7 +54,7 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto mb-8">
         <Button
           onClick={handleContinue}
           disabled={!selected}

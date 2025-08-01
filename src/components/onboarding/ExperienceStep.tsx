@@ -40,14 +40,16 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
         </div>
       </div>
 
-      <Button
-        onClick={handleContinue}
-        disabled={selected === null}
-        className="w-full h-12 text-base font-semibold"
-        size="lg"
-      >
-        Continue
-      </Button>
+      <div className="mb-8">
+        <Button
+          onClick={handleContinue}
+          disabled={selected === null}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };

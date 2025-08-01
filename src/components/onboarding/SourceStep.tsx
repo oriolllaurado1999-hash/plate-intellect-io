@@ -51,14 +51,16 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
         </div>
       </div>
 
-      <Button
-        onClick={handleContinue}
-        disabled={!selected}
-        className="w-full h-12 text-base font-semibold"
-        size="lg"
-      >
-        Continue
-      </Button>
+      <div className="mt-8">
+        <Button
+          onClick={handleContinue}
+          disabled={!selected}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          Continue
+        </Button>
+      </div>
     </div>
   );
 };
