@@ -18,6 +18,8 @@ interface OnboardingData {
   connectHealth: boolean | null;
   addBurnedCalories: boolean | null;
   rolloverCalories: boolean | null;
+  allowNotifications: boolean | null;
+  referralCode: string | null;
 }
 
 const Onboarding = () => {

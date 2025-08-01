@@ -21,6 +21,11 @@ import HealthConnectStep from './onboarding/HealthConnectStep';
 import CaloriesBurnedStep from './onboarding/CaloriesBurnedStep';
 import RolloverStep from './onboarding/RolloverStep';
 import RatingStep from './onboarding/RatingStep';
+import NotificationStep from './onboarding/NotificationStep';
+import ReferralStep from './onboarding/ReferralStep';
+import AllDoneStep from './onboarding/AllDoneStep';
+import GeneratingStep from './onboarding/GeneratingStep';
+import CompletionStep from './onboarding/CompletionStep';
 
 interface OnboardingData {
   gender: 'male' | 'female' | 'other' | null;
@@ -37,6 +42,8 @@ interface OnboardingData {
   connectHealth: boolean | null;
   addBurnedCalories: boolean | null;
   rolloverCalories: boolean | null;
+  allowNotifications: boolean | null;
+  referralCode: string | null;
 }
 
 interface OnboardingFlowProps {
@@ -60,9 +67,11 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     connectHealth: null,
     addBurnedCalories: null,
     rolloverCalories: null,
+    allowNotifications: null,
+    referralCode: null,
   });
 
-  const totalSteps = 20;
+  const totalSteps = 25;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -219,6 +228,38 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
         );
       case 20:
         return <RatingStep onNext={handleNext} />;
+      case 21:
+        return (
+          <NotificationStep
+            onAllow={() => {
+              updateData('allowNotifications', true);
+              handleNext();
+            }}
+            onDeny={() => {
+              updateData('allowNotifications', false);
+              handleNext();
+            }}
+          />
+        );
+      case 22:
+        return (
+          <ReferralStep
+            onSubmit={(code) => {
+              updateData('referralCode', code);
+              handleNext();
+            }}
+            onSkip={() => {
+              updateData('referralCode', null);
+              handleNext();
+            }}
+          />
+        );
+      case 23:
+        return <AllDoneStep onNext={handleNext} />;
+      case 24:
+        return <GeneratingStep onComplete={handleNext} />;
+      case 25:
+        return <CompletionStep onGetStarted={() => onComplete(data)} />;
       default:
         return null;
     }
