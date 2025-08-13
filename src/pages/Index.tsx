@@ -76,7 +76,11 @@ const Index = () => {
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full">
-            <div className="w-4 h-4 rounded-full bg-warning"></div>
+            <img 
+              src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
+              alt="Fire icon" 
+              className="w-4 h-4 object-contain"
+            />
             <span className="font-bold text-foreground">0</span>
           </div>
           <div className="bg-muted px-1.5 py-0 rounded-full">
