@@ -8,7 +8,7 @@ interface PricingPlansStepProps {
 }
 
 const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
-  const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('monthly');
+  const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('yearly');
   const featuresRef = useRef<HTMLDivElement>(null);
   const plansRef = useRef<HTMLDivElement>(null);
 
