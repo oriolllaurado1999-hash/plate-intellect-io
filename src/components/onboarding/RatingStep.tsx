@@ -62,7 +62,8 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className="rating-star h-6 w-6 fill-yellow-400 text-yellow-400"
+                  className="rating-star h-6 w-6 fill-yellow-400 text-yellow-400 animate-fade-in"
+                  style={{ animationDelay: `${0.8 + i * 0.1}s` }}
                 />
               ))}
             </div>
@@ -97,7 +98,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
                 className="w-12 h-12 rounded-full object-cover"
               />
             </div>
-            <div className="text-sm text-muted-foreground">5M+ Kalore Users</div>
+            <div className="text-sm text-muted-foreground">10k+ Kalore Users</div>
           </div>
         </div>
 
