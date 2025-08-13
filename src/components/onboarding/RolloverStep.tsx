@@ -123,11 +123,6 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
             <div className="relative mb-4">
               <div className="text-3xl font-bold text-foreground mb-1">350<span className="text-lg text-muted-foreground">/650</span></div>
               
-              <div className="flex items-center justify-center space-x-1 mb-2 rollover-pulse">
-                <Clock className="h-3 w-3 text-blue-500" />
-                <span className="text-xs text-blue-500 font-medium">150</span>
-              </div>
-              
               <div className="relative w-20 h-20">
                 <svg className="w-full h-full transform -rotate-90">
                   <circle
@@ -157,7 +152,7 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
                     <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-0 h-0 border-r-4 border-r-foreground border-t-2 border-b-2 border-t-transparent border-b-transparent"></div>
                   </div>
                 </div>
-                <Flame className="absolute left-2 bottom-2 h-4 w-4 text-orange-500" />
+                
               </div>
             </div>
           </div>
