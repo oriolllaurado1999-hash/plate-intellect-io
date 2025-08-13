@@ -82,9 +82,9 @@ const Auth = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 light relative">
       {/* Language Selector */}
       <div className="absolute top-4 right-4">
-        <button className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50">
-          <span className="text-lg">🇺🇸</span>
-          <span className="text-sm font-medium text-gray-700">EN</span>
+        <button className="flex items-center gap-1.5 px-2 py-1.5 bg-white rounded-full shadow-sm border border-gray-200 hover:bg-gray-50">
+          <span className="text-sm">🇺🇸</span>
+          <span className="text-xs font-medium text-gray-700">EN</span>
         </button>
       </div>
       
