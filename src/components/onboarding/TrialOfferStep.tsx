@@ -45,10 +45,10 @@ const TrialOfferStep = ({ onNext }: TrialOfferStepProps) => {
       <div className="flex-1 flex flex-col justify-center">
         <div ref={headingRef} className="text-center mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            Queremos que pruebes
+            We want you to try
           </h1>
           <h2 className="text-3xl font-bold text-foreground mb-8">
-            Kalore gratis.
+            Kalore for free.
           </h2>
         </div>
 
