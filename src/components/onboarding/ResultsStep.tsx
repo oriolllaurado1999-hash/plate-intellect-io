@@ -168,10 +168,10 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
 
   return (
     <div className="px-6 py-8 h-full flex flex-col">
-      <div className="flex-1">
-        <h1 className="text-3xl font-bold mb-16">Kalore creates long-term results</h1>
+      <div className="flex-1 flex flex-col justify-center">
+        <h1 className="text-3xl font-bold mb-8 text-center">Kalore creates long-term results</h1>
 
-        <div className="bg-muted/30 rounded-2xl p-6 mb-8">
+        <div className="bg-muted/30 rounded-2xl p-6 mb-8 mx-auto max-w-md">
           <canvas
             ref={canvasRef}
             className="w-full h-64"
@@ -179,9 +179,15 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
           />
         </div>
 
-        <div className="text-center">
+        <div className="text-center mb-12">
           <p className="text-lg font-medium text-muted-foreground">
             80% of Kalore users maintain their weight loss even 6 months later
+          </p>
+        </div>
+
+        <div className="text-center mb-16">
+          <p className="text-lg font-medium text-muted-foreground">
+            Kalore makes it easy and holds you accountable.
           </p>
         </div>
       </div>
