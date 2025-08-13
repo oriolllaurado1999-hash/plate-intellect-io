@@ -152,7 +152,7 @@ const Auth = () => {
             {/* Email Form */}
             <form onSubmit={handleEmailAuth} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -165,7 +165,7 @@ const Auth = () => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
                 <Input
                   id="password"
                   type="password"
