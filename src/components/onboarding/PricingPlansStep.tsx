@@ -80,7 +80,7 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
         )}
 
         {/* Features or Timeline based on selection */}
-        <div className="h-64 mb-8">
+        <div className="h-64 mb-4">
           {selectedPlan === 'yearly' ? (
             // Timeline for Annual plan
             <div className="animate-fade-in space-y-4">
