@@ -34,7 +34,7 @@ const HealthConnectStep = ({ onConnect, onSkip }: HealthConnectStepProps) => {
             <img 
               src="/lovable-uploads/5034b135-3dfb-4ae8-bcbb-9cfbc5d7868e.png" 
               alt="Apple Health Logo" 
-              className="w-24 h-24"
+              className="w-24 h-24 drop-shadow-lg"
             />
           </div>
         </div>
