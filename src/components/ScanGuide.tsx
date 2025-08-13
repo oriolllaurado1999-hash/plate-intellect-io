@@ -77,7 +77,7 @@ const ScanGuide = ({ onClose, onComplete }: ScanGuideProps) => {
                 step === currentStep
                   ? 'bg-foreground text-background'
                   : step < currentStep
-                  ? 'bg-green-500 text-white'
+                  ? `bg-[#4AD4B2] text-white`
                   : 'bg-muted text-muted-foreground'
               }`}
             >
@@ -93,8 +93,8 @@ const ScanGuide = ({ onClose, onComplete }: ScanGuideProps) => {
       <div className="flex-1 px-6 py-8">
         {/* Success indicator */}
         <div className="flex items-center mb-6">
-          <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-          <span className="text-green-500 font-medium">{currentStepData.title}</span>
+          <CheckCircle className="h-5 w-5 mr-2" style={{ color: '#4AD4B2' }} />
+          <span className="font-medium" style={{ color: '#4AD4B2' }}>{currentStepData.title}</span>
         </div>
 
         {/* Image placeholder */}

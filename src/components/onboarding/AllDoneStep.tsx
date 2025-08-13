@@ -68,8 +68,8 @@ const AllDoneStep = ({ onNext }: AllDoneStepProps) => {
 
         <div ref={textRef} className="text-center">
           <div className="inline-flex items-center space-x-2 mb-6">
-            <CheckCircle className="h-6 w-6 text-green-500" />
-            <span className="text-lg font-semibold text-green-600">All done!</span>
+            <CheckCircle className="h-6 w-6" style={{ color: '#4AD4B2' }} />
+            <span className="text-lg font-semibold" style={{ color: '#4AD4B2' }}>All done!</span>
           </div>
           
           <h1 className="text-3xl font-bold text-foreground mb-4">

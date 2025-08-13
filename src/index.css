@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 142 76% 36%;
+    --primary: 162 62% 57%;
     --primary-foreground: 355.7 100% 97.3%;
 
     --secondary: 210 40% 96.1%;
@@ -33,7 +33,7 @@ All colors MUST be HSL.
     --destructive-foreground: 210 40% 98%;
 
     /* Custom app colors */
-    --success: 142 76% 36%;
+    --success: 162 62% 57%;
     --success-foreground: 355.7 100% 97.3%;
     --warning: 38 92% 50%;
     --warning-foreground: 48 96% 89%;
@@ -46,7 +46,7 @@ All colors MUST be HSL.
     --fat: 217 91% 60%;
     
     /* Kalore brand gradient */
-    --kalore-gradient: linear-gradient(180deg, hsl(142 76% 36% / 0.03) 0%, hsl(0 0% 100% / 1) 100%);
+    --kalore-gradient: linear-gradient(180deg, hsl(162 62% 57% / 0.03) 0%, hsl(0 0% 100% / 1) 100%);
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;

@@ -74,7 +74,7 @@ const CaloriesBurnedStep = ({ onSelect }: CaloriesBurnedStepProps) => {
                     </div>
                     <span className="font-medium text-muted-foreground">Running</span>
                   </div>
-                  <div className="text-xl font-bold text-green-600">+100 cals</div>
+                  <div className="text-xl font-bold" style={{ color: '#4AD4B2' }}>+100 cals</div>
                 </div>
               </div>
             </div>

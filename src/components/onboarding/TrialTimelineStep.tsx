@@ -173,7 +173,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
         </div>
 
         <div className="text-center mb-6">
-          <div className="flex items-center justify-center space-x-2 text-green-600 mb-2">
+          <div className="flex items-center justify-center space-x-2 mb-2" style={{ color: '#4AD4B2' }}>
             <span>✓</span>
             <span className="font-medium">Sin Pago Inmediato</span>
           </div>

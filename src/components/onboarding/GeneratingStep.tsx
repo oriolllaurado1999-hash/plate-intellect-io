@@ -105,7 +105,7 @@ const GeneratingStep = ({ onComplete }: GeneratingStepProps) => {
                   className="checkmark opacity-0 transition-all duration-300"
                   style={{ transform: 'scale(0.5)' }}
                 >
-                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <CheckCircle className="h-5 w-5" style={{ color: '#4AD4B2' }} />
                 </div>
               </div>
             ))}

@@ -109,14 +109,14 @@ const Index = () => {
                   <div className={`w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center mb-1 ${
                     isToday ? '' : 'border-border'
                   }`}
-                  style={isToday ? { borderColor: 'hsl(142 76% 36%)' } : {}}>
+                  style={isToday ? { borderColor: '#4AD4B2' } : {}}>
                     <span className={`text-sm font-medium ${isToday ? '' : 'text-muted-foreground'}`}
-                    style={isToday ? { color: 'hsl(142 76% 36%)' } : {}}>
+                    style={isToday ? { color: '#4AD4B2' } : {}}>
                       {day}
                     </span>
                   </div>
                   <span className={`text-sm font-medium ${isToday ? '' : 'text-muted-foreground'}`}
-                  style={isToday ? { color: 'hsl(142 76% 36%)' } : {}}>
+                  style={isToday ? { color: '#4AD4B2' } : {}}>
                     {date.getDate()}
                   </span>
                 </div>
@@ -301,7 +301,7 @@ const Index = () => {
       <button 
         onClick={() => setShowScanner(true)}
         className="fixed bottom-20 right-4 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors"
-        style={{ backgroundColor: 'hsl(142 76% 36%)' }}
+        style={{ backgroundColor: '#4AD4B2' }}
       >
         <span className="text-white text-2xl">+</span>
       </button>

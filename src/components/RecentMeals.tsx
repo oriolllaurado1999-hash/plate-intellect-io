@@ -55,7 +55,7 @@ export default function RecentMeals() {
   const getMealTypeColor = (mealType: string) => {
     switch (mealType.toLowerCase()) {
       case 'breakfast': return 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-200';
-      case 'lunch': return 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200';
+      case 'lunch': return `bg-[#4AD4B2] text-white`;
       case 'dinner': return 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200';
       case 'snack': return 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200';
       default: return 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200';

@@ -55,8 +55,8 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
       <div className="flex-1 flex flex-col justify-center">
         {/* Success header */}
         <div className="text-center mb-8">
-          <div ref={checkRef} className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <CheckCircle className="h-8 w-8 text-green-600" />
+          <div ref={checkRef} className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: '#4AD4B2' }}>
+            <CheckCircle className="h-8 w-8 text-white" />
           </div>
           
           <h1 className="text-3xl font-bold text-foreground mb-4">

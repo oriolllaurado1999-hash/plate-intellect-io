@@ -63,7 +63,7 @@ const CalorieCircle = ({ consumed, goal }: CalorieCircleProps) => {
         <div className="bg-muted/50 rounded-lg p-3">
           <div className="text-lg font-semibold">
             {goal - consumed > 0 ? (
-              <span className="text-green-600 dark:text-green-400">
+              <span style={{ color: '#4AD4B2' }}>
                 {goal - consumed} kcal remaining
               </span>
             ) : (
