@@ -113,7 +113,7 @@ const Index = () => {
         </div>
 
         {/* Main Calorie Card */}
-        <div className="bg-card rounded-2xl p-6 mb-6 shadow-sm border border-border/50">
+        <div className="bg-card rounded-2xl p-6 mb-6 shadow-lg border border-border/50">
           <div className="flex items-center justify-between">
             <div>
               <div className="text-4xl font-bold text-foreground mb-1">
@@ -147,7 +147,7 @@ const Index = () => {
         {/* Macro Cards */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {/* Protein */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-sm border border-border/50">
+          <div className="bg-card rounded-xl p-4 text-center shadow-md border border-border/50">
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
             </div>
@@ -175,7 +175,7 @@ const Index = () => {
           </div>
 
           {/* Carbs */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-sm border border-border/50">
+          <div className="bg-card rounded-xl p-4 text-center shadow-md border border-border/50">
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
             </div>
@@ -203,7 +203,7 @@ const Index = () => {
           </div>
 
           {/* Fat */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-sm border border-border/50">
+          <div className="bg-card rounded-xl p-4 text-center shadow-md border border-border/50">
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
             </div>
