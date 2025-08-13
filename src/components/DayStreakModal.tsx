@@ -49,7 +49,8 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
             <img 
               src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
               alt="Fire streak" 
-              className="w-32 h-32 object-contain"
+              className="w-32 h-32 object-contain filter drop-shadow-none"
+              style={{ imageRendering: 'crisp-edges' }}
             />
           </div>
 
