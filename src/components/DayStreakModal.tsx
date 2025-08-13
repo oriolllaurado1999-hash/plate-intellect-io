@@ -37,7 +37,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
         >
           <ChevronLeft className="h-5 w-5" />
         </Button>
-        <h1 className="text-lg font-semibold text-foreground">DAY STREAK</h1>
+        <h1 className="text-lg font-semibold text-foreground font-inter tracking-wide">DAY STREAK</h1>
         <div className="w-9" /> {/* Spacer for centering */}
       </div>
 
@@ -59,9 +59,9 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
             <div className="text-6xl font-bold text-foreground mb-2">
               {streakCount}
             </div>
-            <div className="text-muted-foreground font-medium tracking-wider">
-              DAY STREAK
-            </div>
+          <div className="text-muted-foreground font-medium tracking-wider font-inter">
+            DAY STREAK
+          </div>
           </div>
 
           {/* Description Card */}
@@ -77,7 +77,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
 
           {/* This Week Card */}
           <div className="bg-card rounded-xl p-6 border border-border/50 shadow-lg w-full max-w-sm">
-            <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">
+            <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider font-inter">
               THIS WEEK
             </h4>
             <div className="flex justify-between items-center">
