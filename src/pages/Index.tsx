@@ -85,7 +85,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
               alt="Fire icon" 
-              className="w-5 h-5 object-contain"
+              className="w-5 h-5 object-contain fire-emoji"
             />
             <span className="font-bold text-foreground">{dayStreak}</span>
           </button>

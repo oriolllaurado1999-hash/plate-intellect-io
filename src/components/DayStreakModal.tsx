@@ -49,7 +49,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
             <img 
               src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
               alt="Fire streak" 
-              className="w-32 h-32 object-contain filter drop-shadow-none"
+              className="w-32 h-32 object-contain filter drop-shadow-none fire-emoji"
               style={{ imageRendering: 'crisp-edges' }}
             />
           </div>
@@ -91,7 +91,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
                       <img 
                         src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
                         alt="Completed day" 
-                        className="w-6 h-6 object-contain"
+                        className="w-6 h-6 object-contain fire-emoji"
                       />
                     ) : (
                       <div className="w-6 h-6 rounded-full border-2 border-dashed border-muted-foreground/30"></div>
