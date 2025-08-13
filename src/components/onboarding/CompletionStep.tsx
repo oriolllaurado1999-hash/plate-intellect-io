@@ -85,7 +85,7 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
           
           <div ref={cardsRef} className="grid grid-cols-2 gap-4 mb-6">
             {metrics.map((metric, index) => (
-              <div key={metric.label} className="metric-card bg-muted/30 rounded-2xl p-4 relative">
+              <div key={metric.label} className="metric-card bg-muted/30 rounded-2xl p-4 relative shadow-lg">
                 <div className="flex items-center space-x-2 mb-3">
                   {typeof metric.icon === 'string' ? (
                     <span className="text-lg">{metric.icon}</span>
@@ -131,7 +131,7 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
           </div>
           
           {/* Health Score */}
-          <div className="metric-card bg-muted/30 rounded-2xl p-4 flex items-center justify-between">
+          <div className="metric-card bg-muted/30 rounded-2xl p-4 flex items-center justify-between shadow-lg">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
                 <span className="text-red-500">💖</span>
