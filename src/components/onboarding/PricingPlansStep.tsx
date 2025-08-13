@@ -65,11 +65,14 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
     <div className="flex flex-col h-full px-6 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground text-center mb-2">
-          Unlock Kalore to reach
+          Unlock Kalore to
         </h1>
-        <h2 className="text-3xl font-bold text-foreground text-center mb-8">
-          your goals faster.
+        <h2 className="text-3xl font-bold text-foreground text-center mb-2">
+          reach your goals
         </h2>
+        <h3 className="text-3xl font-bold text-foreground text-center mb-8">
+          faster.
+        </h3>
 
         {/* Features or Timeline based on selection */}
         <div className="h-64 mb-8">
