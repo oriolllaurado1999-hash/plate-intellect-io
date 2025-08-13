@@ -14,16 +14,16 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
 
   const features = [
     {
-      title: "Escaneo fácil de alimentos",
-      description: "Rastrea tus calorías con solo una foto"
+      title: "Easy food scanning",
+      description: "Track your calories with just a photo"
     },
     {
-      title: "Consigue el cuerpo de tus sueños",
-      description: "Lo mantenemos simple para que obtener resultados sea fácil"
+      title: "Get your dream body",
+      description: "We keep it simple so getting results is easy"
     },
     {
-      title: "Rastrea tu progreso",
-      description: "Mantente en el camino con insights personalizados y recordatorios inteligentes"
+      title: "Track your progress",
+      description: "Stay on track with personalized insights and smart reminders"
     }
   ];
 
@@ -65,10 +65,10 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
     <div className="flex flex-col h-full px-6 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground text-center mb-2">
-          Desbloquea Kalore para
+          Unlock Kalore to reach
         </h1>
         <h2 className="text-3xl font-bold text-foreground text-center mb-8">
-          alcanzar tus objetivos más rápido.
+          your goals faster.
         </h2>
 
         {/* Features */}
@@ -99,8 +99,8 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
             onClick={() => setSelectedPlan('monthly')}
           >
             <div className="text-center">
-              <div className="font-bold text-lg text-foreground">Mensual</div>
-              <div className="text-2xl font-bold text-foreground">9,99 € <span className="text-base font-normal">/mes</span></div>
+              <div className="font-bold text-lg text-foreground">Monthly</div>
+              <div className="text-2xl font-bold text-foreground">$9.99 <span className="text-base font-normal">/month</span></div>
               <div className="mt-2">
                 {selectedPlan === 'monthly' ? (
                   <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center mx-auto">
@@ -122,11 +122,11 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
             onClick={() => setSelectedPlan('yearly')}
           >
             <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
-              3 DÍAS GRATIS
+              3 DAYS FREE
             </div>
             <div className="text-center pt-2">
-              <div className="font-bold text-lg text-foreground">Anual</div>
-              <div className="text-2xl font-bold text-foreground">2,99 € <span className="text-base font-normal">/mes</span></div>
+              <div className="font-bold text-lg text-foreground">Annual</div>
+              <div className="text-2xl font-bold text-foreground">$2.99 <span className="text-base font-normal">/month</span></div>
               <div className="mt-2">
                 {selectedPlan === 'yearly' ? (
                   <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center mx-auto">
@@ -143,7 +143,7 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center space-x-2 text-green-600 mb-2">
             <span>✓</span>
-            <span className="font-medium">Sin Compromiso - Cancela Cuando Quieras</span>
+            <span className="font-medium">No Commitment - Cancel Anytime</span>
           </div>
         </div>
       </div>
@@ -153,12 +153,12 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full mb-4"
         >
-          Comenzar Mi Viaje
+          Start My Journey
         </Button>
         <div className="text-center text-sm text-muted-foreground">
           {selectedPlan === 'monthly' 
-            ? 'Solo 9,99 € al mes' 
-            : '3 días gratis, luego 35,88 € al año (2,99 €/mes)'
+            ? 'Only $9.99 per month' 
+            : '3 days free, then $35.88 per year ($2.99/month)'
           }
         </div>
       </div>
