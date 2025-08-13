@@ -80,7 +80,7 @@ const Index = () => {
         <div className="flex items-center gap-3">
           <button 
             onClick={() => setShowDayStreak(true)}
-            className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full hover:bg-muted/80 transition-colors"
+            className="flex items-center gap-1 bg-white px-3 py-1 rounded-full hover:bg-white/90 transition-colors shadow-md"
           >
             <img 
               src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
@@ -89,7 +89,7 @@ const Index = () => {
             />
             <span className="font-bold text-foreground">{dayStreak}</span>
           </button>
-          <div className="bg-muted px-1.5 py-0 rounded-full">
+          <div className="bg-white px-1.5 py-0 rounded-full shadow-md">
             <ThemeToggle />
           </div>
         </div>
