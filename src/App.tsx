@@ -65,7 +65,7 @@ const App = () => (
             <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
             <Route path="/onboarding-preview" element={<OnboardingPreview />} />
             <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-            <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<Index />} />
               <Route path="goals" element={<Goals />} />
               <Route path="activity" element={<Activity />} />
