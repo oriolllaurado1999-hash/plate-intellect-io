@@ -29,7 +29,6 @@ import GeneratingStep from '@/components/onboarding/GeneratingStep';
 import CompletionStep from '@/components/onboarding/CompletionStep';
 import TrialOfferStep from '@/components/onboarding/TrialOfferStep';
 import TrialReminderStep from '@/components/onboarding/TrialReminderStep';
-import TrialReminderStep from '@/components/onboarding/TrialReminderStep';
 import PricingPlansStep from '@/components/onboarding/PricingPlansStep';
 import TrialTimelineStep from '@/components/onboarding/TrialTimelineStep';
 import WelcomeDashboardStep from '@/components/onboarding/WelcomeDashboardStep';
