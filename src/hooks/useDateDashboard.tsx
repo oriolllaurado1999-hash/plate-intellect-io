@@ -29,93 +29,33 @@ export const useDateDashboard = (selectedDate: Date) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user) return;
-      
       setLoading(true);
+      
+      // Simulate loading time
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       try {
-        // Get user profile for calorie goal
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('daily_calorie_goal')
-          .eq('user_id', user.id)
-          .single();
+        // Mock data for dashboard - replace with real Supabase queries later
+        const mockData = {
+          todayCalories: 1847,
+          todayProtein: 125,
+          todayCarbs: 180,
+          todayFat: 65,
+          totalCaloriesWeek: 12890,
+          avgCaloriesDaily: 1841,
+          calorieGoal: 2000,
+          weeklyCalories: [
+            { date: '2024-01-15', calories: 1850, protein: 120, carbs: 185, fat: 70 },
+            { date: '2024-01-16', calories: 1920, protein: 130, carbs: 190, fat: 68 },
+            { date: '2024-01-17', calories: 1780, protein: 110, carbs: 170, fat: 62 },
+            { date: '2024-01-18', calories: 1950, protein: 135, carbs: 195, fat: 72 },
+            { date: '2024-01-19', calories: 1830, protein: 115, carbs: 175, fat: 65 },
+            { date: '2024-01-20', calories: 1910, protein: 128, carbs: 188, fat: 69 },
+            { date: '2024-01-21', calories: 1650, protein: 100, carbs: 160, fat: 58 },
+          ]
+        };
 
-        const calorieGoal = profile?.daily_calorie_goal || 2000;
-
-        // Format selected date for database query
-        const dateStr = selectedDate.toISOString().split('T')[0];
-
-        // Get selected date's meals
-        const { data: todayMeals } = await supabase
-          .from('meals')
-          .select('total_calories, total_protein, total_carbs, total_fat')
-          .eq('user_id', user.id)
-          .eq('meal_date', dateStr);
-
-        // Calculate today's totals
-        const todayTotals = todayMeals?.reduce((acc, meal) => ({
-          calories: acc.calories + (meal.total_calories || 0),
-          protein: acc.protein + (meal.total_protein || 0),
-          carbs: acc.carbs + (meal.total_carbs || 0),
-          fat: acc.fat + (meal.total_fat || 0),
-        }), { calories: 0, protein: 0, carbs: 0, fat: 0 }) || { calories: 0, protein: 0, carbs: 0, fat: 0 };
-
-        // Get last 7 days for weekly chart (including selected date)
-        const endDate = new Date(selectedDate);
-        const startDate = new Date(selectedDate);
-        startDate.setDate(startDate.getDate() - 6);
-
-        const { data: weekMeals } = await supabase
-          .from('meals')
-          .select('meal_date, total_calories, total_protein, total_carbs, total_fat')
-          .eq('user_id', user.id)
-          .gte('meal_date', startDate.toISOString().split('T')[0])
-          .lte('meal_date', endDate.toISOString().split('T')[0]);
-
-        // Process weekly data
-        const weeklyCalories = [];
-        const dailyTotals: { [key: string]: { calories: number; protein: number; carbs: number; fat: number } } = {};
-
-        weekMeals?.forEach(meal => {
-          const date = meal.meal_date;
-          if (!dailyTotals[date]) {
-            dailyTotals[date] = { calories: 0, protein: 0, carbs: 0, fat: 0 };
-          }
-          dailyTotals[date].calories += meal.total_calories || 0;
-          dailyTotals[date].protein += meal.total_protein || 0;
-          dailyTotals[date].carbs += meal.total_carbs || 0;
-          dailyTotals[date].fat += meal.total_fat || 0;
-        });
-
-        // Create 7-day array
-        for (let i = 6; i >= 0; i--) {
-          const date = new Date(selectedDate);
-          date.setDate(date.getDate() - i);
-          const dateStr = date.toISOString().split('T')[0];
-          const dayData = dailyTotals[dateStr] || { calories: 0, protein: 0, carbs: 0, fat: 0 };
-          
-          weeklyCalories.push({
-            date: dateStr,
-            calories: dayData.calories,
-            protein: dayData.protein,
-            carbs: dayData.carbs,
-            fat: dayData.fat
-          });
-        }
-
-        const totalCaloriesWeek = Object.values(dailyTotals).reduce((sum, day) => sum + day.calories, 0);
-        const avgCaloriesDaily = totalCaloriesWeek / 7;
-
-        setData({
-          todayCalories: todayTotals.calories,
-          todayProtein: todayTotals.protein,
-          todayCarbs: todayTotals.carbs,
-          todayFat: todayTotals.fat,
-          totalCaloriesWeek,
-          avgCaloriesDaily,
-          calorieGoal,
-          weeklyCalories
-        });
+        setData(mockData);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
@@ -124,7 +64,7 @@ export const useDateDashboard = (selectedDate: Date) => {
     };
 
     fetchData();
-  }, [user, selectedDate]);
+  }, [selectedDate]);
 
   return { data, loading };
 };
