@@ -26,9 +26,9 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
   const weekDays = getCurrentWeek();
 
   return (
-    <div className="fixed inset-0 bg-background z-50 flex flex-col">
+    <div className="fixed inset-0 bg-background z-50 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border">
+      <div className="flex items-center justify-between p-4 border-b border-border bg-background">
         <Button 
           variant="ghost" 
           size="sm" 
@@ -41,41 +41,43 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
         <div className="w-9" /> {/* Spacer for centering */}
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6">
-        {/* Fire Icon */}
-        <div className="mb-8">
-          <img 
-            src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
-            alt="Fire streak" 
-            className="w-32 h-32 object-contain"
-          />
-        </div>
-
-        {/* Streak Number */}
-        <div className="text-center mb-8">
-          <div className="text-6xl font-bold text-foreground mb-2">
-            {streakCount}
+      {/* Main Content - Scrollable */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="min-h-full flex flex-col items-center justify-center px-6 py-8">
+          {/* Fire Icon */}
+          <div className="mb-8">
+            <img 
+              src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
+              alt="Fire streak" 
+              className="w-32 h-32 object-contain"
+            />
           </div>
-          <div className="text-muted-foreground font-medium tracking-wider">
-            DAY STREAK
-          </div>
-        </div>
 
-        {/* Description Card */}
-        <div className="bg-card rounded-xl p-6 mb-8 border border-border/50 shadow-sm">
-          <h3 className="text-lg font-semibold text-foreground mb-3">
-            Consistency unlocks clarity
-          </h3>
-          <p className="text-muted-foreground leading-relaxed">
-            Your consistency is working. Using Kalore every day helps capture uninterrupted data so 
-            you can better understand how your body recovers, performs, and adapts over time.
-          </p>
+          {/* Streak Number */}
+          <div className="text-center mb-8">
+            <div className="text-6xl font-bold text-foreground mb-2">
+              {streakCount}
+            </div>
+            <div className="text-muted-foreground font-medium tracking-wider">
+              DAY STREAK
+            </div>
+          </div>
+
+          {/* Description Card */}
+          <div className="bg-card rounded-xl p-6 mb-16 border border-border/50 shadow-sm max-w-sm">
+            <h3 className="text-lg font-semibold text-foreground mb-3">
+              Consistency unlocks clarity
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Your consistency is working. Using Kalore every day helps capture uninterrupted data so 
+              you can better understand how your body recovers, performs, and adapts over time.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* This Week Section - Fixed at bottom */}
-      <div className="px-6 pb-8">
+      <div className="bg-background border-t border-border px-6 py-6">
         <div className="w-full">
           <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">
             THIS WEEK
