@@ -69,7 +69,7 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
           <h1 className="text-3xl font-bold text-foreground mb-2">
             We'll send you a
           </h1>
-          <h2 className="text-3xl font-bold text-foreground mb-8">
+          <h2 className="text-3xl font-bold text-foreground mb-2">
             reminder before your
           </h2>
           <h3 className="text-3xl font-bold text-foreground">
