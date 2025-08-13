@@ -60,9 +60,9 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: 'var(--kalore-gradient)' }}>
       {/* Header */}
-      <header className="bg-white px-4 py-4 flex items-center justify-between">
+      <header className="px-4 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full overflow-hidden">
             <img 
@@ -71,11 +71,11 @@ const Index = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="text-xl font-bold text-gray-900">Kalore</span>
+          <span className="text-xl font-bold text-foreground">Kalore</span>
         </div>
-        <div className="flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-full">
-          <span className="text-lg">🔥</span>
-          <span className="font-bold text-gray-900">0</span>
+        <div className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full">
+          <div className="w-4 h-4 rounded-full bg-warning"></div>
+          <span className="font-bold text-foreground">0</span>
         </div>
       </header>
 
@@ -91,13 +91,13 @@ const Index = () => {
               return (
                 <div key={index} className="text-center">
                   <div className={`w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center mb-1 ${
-                    isToday ? 'border-gray-800' : 'border-gray-300'
+                    isToday ? 'border-primary' : 'border-border'
                   }`}>
-                    <span className={`text-sm font-medium ${isToday ? 'text-gray-800' : 'text-gray-400'}`}>
+                    <span className={`text-sm font-medium ${isToday ? 'text-primary' : 'text-muted-foreground'}`}>
                       {day}
                     </span>
                   </div>
-                  <span className={`text-sm font-medium ${isToday ? 'text-gray-800' : 'text-gray-400'}`}>
+                  <span className={`text-sm font-medium ${isToday ? 'text-primary' : 'text-muted-foreground'}`}>
                     {date.getDate()}
                   </span>
                 </div>
@@ -107,32 +107,32 @@ const Index = () => {
         </div>
 
         {/* Main Calorie Card */}
-        <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+        <div className="bg-card rounded-2xl p-6 mb-6 shadow-sm border border-border/50">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-4xl font-bold text-gray-900 mb-1">
+              <div className="text-4xl font-bold text-foreground mb-1">
                 {dashboardData.calorieGoal - dashboardData.todayCalories}
               </div>
-              <div className="text-gray-600">Calories left</div>
+              <div className="text-muted-foreground">Calories left</div>
             </div>
             <div className="w-20 h-20 relative">
               <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#e5e7eb"
+                  stroke="hsl(var(--border))"
                   strokeWidth="2"
                 />
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#f97316"
+                  stroke="hsl(var(--warning))"
                   strokeWidth="2"
                   strokeDasharray={`${(dashboardData.todayCalories / dashboardData.calorieGoal) * 100}, 100`}
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-2xl">🔥</span>
+                <div className="w-5 h-5 rounded-full bg-warning"></div>
               </div>
             </div>
           </div>
@@ -141,85 +141,85 @@ const Index = () => {
         {/* Macro Cards */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {/* Protein */}
-          <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-            <div className="text-lg font-bold text-gray-900 mb-1">
+          <div className="bg-card rounded-xl p-4 text-center shadow-sm border border-border/50">
+            <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
             </div>
-            <div className="text-xs text-gray-600 mb-3">Protein left</div>
+            <div className="text-xs text-muted-foreground mb-3">Protein left</div>
             <div className="w-12 h-12 mx-auto relative">
               <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#f3f4f6"
+                  stroke="hsl(var(--border))"
                   strokeWidth="3"
                 />
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#ef4444"
+                  stroke="hsl(var(--protein))"
                   strokeWidth="3"
                   strokeDasharray="25, 100"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg">🥩</span>
+                <div className="w-3 h-3 rounded-sm bg-protein"></div>
               </div>
             </div>
           </div>
 
           {/* Carbs */}
-          <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-            <div className="text-lg font-bold text-gray-900 mb-1">
+          <div className="bg-card rounded-xl p-4 text-center shadow-sm border border-border/50">
+            <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
             </div>
-            <div className="text-xs text-gray-600 mb-3">Carbs left</div>
+            <div className="text-xs text-muted-foreground mb-3">Carbs left</div>
             <div className="w-12 h-12 mx-auto relative">
               <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#f3f4f6"
+                  stroke="hsl(var(--border))"
                   strokeWidth="3"
                 />
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#f97316"
+                  stroke="hsl(var(--carbs))"
                   strokeWidth="3"
                   strokeDasharray="40, 100"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg">🌾</span>
+                <div className="w-3 h-3 rounded-sm bg-carbs"></div>
               </div>
             </div>
           </div>
 
           {/* Fat */}
-          <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-            <div className="text-lg font-bold text-gray-900 mb-1">
+          <div className="bg-card rounded-xl p-4 text-center shadow-sm border border-border/50">
+            <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
             </div>
-            <div className="text-xs text-gray-600 mb-3">Fat left</div>
+            <div className="text-xs text-muted-foreground mb-3">Fat left</div>
             <div className="w-12 h-12 mx-auto relative">
               <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#f3f4f6"
+                  stroke="hsl(var(--border))"
                   strokeWidth="3"
                 />
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="#3b82f6"
+                  stroke="hsl(var(--fat))"
                   strokeWidth="3"
                   strokeDasharray="60, 100"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg">🥑</span>
+                <div className="w-3 h-3 rounded-full bg-fat"></div>
               </div>
             </div>
           </div>
@@ -227,27 +227,27 @@ const Index = () => {
 
         {/* Page Indicators */}
         <div className="flex justify-center gap-2 mb-6">
-          <div className="w-2 h-2 rounded-full bg-gray-800"></div>
-          <div className="w-2 h-2 rounded-full bg-gray-300"></div>
+          <div className="w-2 h-2 rounded-full bg-primary"></div>
+          <div className="w-2 h-2 rounded-full bg-border"></div>
         </div>
 
         {/* Recently Uploaded */}
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">Recently uploaded</h3>
-          <div className="bg-white rounded-xl p-4 shadow-sm">
+          <h3 className="text-xl font-bold text-foreground mb-4">Recently uploaded</h3>
+          <div className="bg-card rounded-xl p-4 shadow-sm border border-border/50">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                <span className="text-sm">🔔</span>
+              <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                <div className="w-3 h-3 rounded-full bg-info"></div>
               </div>
               <div className="flex-1">
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                   You can switch apps or turn off your phone.
                 </p>
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                   We'll notify you when the analysis is done.
                 </p>
               </div>
-              <button className="text-gray-400 hover:text-gray-600">
+              <button className="text-muted-foreground hover:text-foreground">
                 <span className="text-xl">×</span>
               </button>
             </div>
@@ -256,24 +256,24 @@ const Index = () => {
 
         {/* Add Meal Section */}
         <div className="text-center">
-          <p className="text-gray-500 text-sm mb-4">Tap + to add your first meal of the day</p>
+          <p className="text-muted-foreground text-sm mb-4">Tap + to add your first meal of the day</p>
         </div>
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+      <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border">
         <div className="flex justify-around items-center py-2">
           <div className="flex flex-col items-center py-2">
-            <div className="w-6 h-6 mb-1">🏠</div>
-            <span className="text-xs font-medium text-gray-900">Home</span>
+            <div className="w-6 h-6 mb-1 bg-primary rounded-sm"></div>
+            <span className="text-xs font-medium text-foreground">Home</span>
           </div>
           <div className="flex flex-col items-center py-2">
-            <div className="w-6 h-6 mb-1">📊</div>
-            <span className="text-xs text-gray-400">Progress</span>
+            <div className="w-6 h-6 mb-1 bg-muted rounded-sm"></div>
+            <span className="text-xs text-muted-foreground">Progress</span>
           </div>
           <div className="flex flex-col items-center py-2">
-            <div className="w-6 h-6 mb-1">⚙️</div>
-            <span className="text-xs text-gray-400">Settings</span>
+            <div className="w-6 h-6 mb-1 bg-muted rounded-sm"></div>
+            <span className="text-xs text-muted-foreground">Settings</span>
           </div>
         </div>
       </div>
@@ -281,9 +281,9 @@ const Index = () => {
       {/* Floating Add Button */}
       <button 
         onClick={() => setShowScanner(true)}
-        className="fixed bottom-20 right-4 w-14 h-14 bg-gray-900 rounded-full flex items-center justify-center shadow-lg"
+        className="fixed bottom-20 right-4 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors"
       >
-        <span className="text-white text-2xl">+</span>
+        <span className="text-primary-foreground text-2xl">+</span>
       </button>
 
       {/* Modals */}
