@@ -93,7 +93,7 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
               {/* Trophy icon at the end */}
               <g className="chart-point" transform="translate(242, 52)">
                 <circle r="8" fill="hsl(var(--primary))" />
-                <text x="0" y="3" textAnchor="middle" fill="white" fontSize="10">🏆</text>
+                <text x="0" y="4" textAnchor="middle" dominantBaseline="central" fill="white" fontSize="10">🏆</text>
               </g>
             </svg>
           </div>
