@@ -199,7 +199,7 @@ const Auth = () => {
               <button
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="text-sm text-primary hover:underline"
+                className="text-sm text-gray-700 hover:text-gray-900 hover:underline font-medium"
                 disabled={loading}
               >
                 {isSignUp 
