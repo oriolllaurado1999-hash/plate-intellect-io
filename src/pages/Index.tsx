@@ -15,6 +15,7 @@ import RecentMeals from '@/components/RecentMeals';
 import DateNavigation from '@/components/DateNavigation';
 import FloatingAddButton from '@/components/FloatingAddButton';
 import WearableSync from '@/components/WearableSync';
+import DayStreakModal from '@/components/DayStreakModal';
 
 const Index = () => {
   const { user } = useAuth();
@@ -22,8 +23,10 @@ const Index = () => {
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
+  const [showDayStreak, setShowDayStreak] = useState(false);
   const [analysisData, setAnalysisData] = useState(null);
   const [capturedImage, setCapturedImage] = useState('');
+  const [dayStreak] = useState(0); // This would come from user data in real app
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
@@ -75,14 +78,17 @@ const Index = () => {
           <span className="text-xl font-bold text-foreground">Kalore</span>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full">
+          <button 
+            onClick={() => setShowDayStreak(true)}
+            className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full hover:bg-muted/80 transition-colors"
+          >
             <img 
               src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
               alt="Fire icon" 
               className="w-5 h-5 object-contain"
             />
-            <span className="font-bold text-foreground">0</span>
-          </div>
+            <span className="font-bold text-foreground">{dayStreak}</span>
+          </button>
           <div className="bg-muted px-1.5 py-0 rounded-full">
             <ThemeToggle />
           </div>
@@ -312,6 +318,12 @@ const Index = () => {
           onCancel={handleReviewCancel}
         />
       )}
+
+      <DayStreakModal 
+        isOpen={showDayStreak}
+        onClose={() => setShowDayStreak(false)}
+        streakCount={dayStreak}
+      />
     </div>
   );
 };
