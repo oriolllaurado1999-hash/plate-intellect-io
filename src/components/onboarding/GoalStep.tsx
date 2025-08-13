@@ -42,11 +42,13 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
               onClick={() => handleGoalSelect(goal.id)}
               className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 ${
                 selected === goal.id
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border bg-background hover:border-primary/50'
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border bg-background hover:border-primary/50 hover:bg-primary/5'
               }`}
             >
-              <span className="text-lg font-medium text-foreground">
+              <span className={`text-lg font-medium ${
+                selected === goal.id ? 'text-primary-foreground' : 'text-foreground'
+              }`}>
                 {goal.label}
               </span>
             </button>
