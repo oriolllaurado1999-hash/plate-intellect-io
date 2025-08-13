@@ -85,7 +85,7 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full"

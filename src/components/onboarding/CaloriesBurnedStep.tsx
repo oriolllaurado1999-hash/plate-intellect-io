@@ -82,7 +82,7 @@ const CaloriesBurnedStep = ({ onSelect }: CaloriesBurnedStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto flex space-x-3">
+      <div className="mt-auto pt-4 pb-16 flex space-x-3">
         <Button
           onClick={() => onSelect(false)}
           variant="outline"

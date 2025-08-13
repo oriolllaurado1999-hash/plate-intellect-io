@@ -126,7 +126,7 @@ const HealthConnectStep = ({ onConnect, onSkip }: HealthConnectStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto space-y-3">
+      <div className="mt-auto pt-4 pb-16 space-y-3">
         <Button
           onClick={onConnect}
           className="w-full h-14 text-lg font-medium rounded-full"

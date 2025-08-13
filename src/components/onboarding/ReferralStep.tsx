@@ -76,7 +76,7 @@ const ReferralStep = ({ onSubmit, onSkip }: ReferralStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleSubmit}
           className="w-full h-14 text-lg font-medium rounded-full"

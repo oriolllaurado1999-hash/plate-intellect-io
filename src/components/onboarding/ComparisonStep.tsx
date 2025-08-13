@@ -85,7 +85,7 @@ const ComparisonStep = ({ onNext }: ComparisonStepProps) => {
 
       </div>
 
-      <div className="mt-auto mb-8">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full"

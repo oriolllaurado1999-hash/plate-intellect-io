@@ -53,7 +53,7 @@ const DietStep = ({ selected, onSelect, onNext }: DietStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
           disabled={!selected}

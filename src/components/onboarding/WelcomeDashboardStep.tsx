@@ -148,7 +148,7 @@ const WelcomeDashboardStep = ({ onComplete }: WelcomeDashboardStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={onComplete}
           variant="ghost"
