@@ -43,7 +43,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
 
       {/* Main Content - Scrollable */}
       <div className="flex-1 overflow-y-auto">
-        <div className="min-h-full flex flex-col items-center justify-center px-6 py-8">
+        <div className="flex flex-col items-center px-6 py-8">
           {/* Fire Icon */}
           <div className="mb-8">
             <img 
@@ -64,7 +64,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
           </div>
 
           {/* Description Card */}
-          <div className="bg-card rounded-xl p-6 mb-16 border border-border/50 shadow-sm max-w-sm">
+          <div className="bg-card rounded-xl p-6 mb-6 border border-border/50 shadow-sm w-full max-w-sm">
             <h3 className="text-lg font-semibold text-foreground mb-3">
               Consistency unlocks clarity
             </h3>
@@ -73,35 +73,34 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
               you can better understand how your body recovers, performs, and adapts over time.
             </p>
           </div>
-        </div>
-      </div>
 
-      {/* This Week Section - Fixed at bottom */}
-      <div className="bg-background border-t border-border px-6 py-6">
-        <div className="w-full">
-          <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">
-            THIS WEEK
-          </h4>
-          <div className="flex justify-between items-center">
-            {weekDays.map(({ day, isCompleted }, index) => (
-              <div key={index} className="text-center">
-                <div className="text-xs text-muted-foreground mb-3 font-medium">
-                  {day}
+          {/* This Week Card */}
+          <div className="bg-card rounded-xl p-6 border border-border/50 shadow-sm w-full max-w-sm">
+            <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">
+              THIS WEEK
+            </h4>
+            <div className="flex justify-between items-center">
+              {weekDays.map(({ day, isCompleted }, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-xs text-muted-foreground mb-3 font-medium">
+                    {day}
+                  </div>
+                  <div className="w-8 h-8 flex items-center justify-center">
+                    {isCompleted ? (
+                      <img 
+                        src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
+                        alt="Completed day" 
+                        className="w-6 h-6 object-contain"
+                      />
+                    ) : (
+                      <div className="w-6 h-6 rounded-full border-2 border-dashed border-muted-foreground/30"></div>
+                    )}
+                  </div>
                 </div>
-                <div className="w-8 h-8 flex items-center justify-center">
-                  {isCompleted ? (
-                    <img 
-                      src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
-                      alt="Completed day" 
-                      className="w-6 h-6 object-contain"
-                    />
-                  ) : (
-                    <div className="w-6 h-6 rounded-full border-2 border-dashed border-muted-foreground/30"></div>
-                  )}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
         </div>
       </div>
     </div>
