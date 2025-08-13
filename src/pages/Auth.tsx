@@ -84,25 +84,25 @@ const Auth = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <div className="w-20 h-20 rounded-full overflow-hidden bg-white shadow-lg p-2">
+            <div className="w-20 h-20 rounded-full overflow-hidden shadow-lg">
               <img 
                 src="/lovable-uploads/8d5a420d-5831-46b7-ae7a-d0a1aa371262.png" 
                 alt="Kalore Logo" 
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold text-[#00D4AA]">
             Kalore
           </h1>
           <p className="text-gray-600 mt-2">
-            Track your nutrition with AI-powered food recognition
+            Improve your nutrition with AI-powered food recognition
           </p>
         </div>
 
         <Card className="shadow-xl border-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
           <CardHeader className="space-y-1 pb-4">
-            <CardTitle className="text-2xl text-center">
+            <CardTitle className="text-2xl text-center text-gray-800 font-bold">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
             </CardTitle>
           </CardHeader>
@@ -113,7 +113,7 @@ const Auth = () => {
               onClick={handleGoogleSignIn}
               disabled={loading}
               variant="outline"
-              className="w-full h-12 font-medium"
+              className="w-full h-12 font-medium bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
             >
               {loading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -160,7 +160,7 @@ const Auth = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loading}
-                  className="h-12"
+                  className="h-12 bg-white border-gray-300"
                 />
               </div>
               
@@ -173,7 +173,7 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
-                  className="h-12"
+                  className="h-12 bg-white border-gray-300"
                 />
               </div>
 
@@ -185,7 +185,7 @@ const Auth = () => {
 
               <Button 
                 type="submit" 
-                className="w-full h-12 font-medium"
+                className="w-full h-12 font-medium bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
                 disabled={loading}
               >
                 {loading ? (
