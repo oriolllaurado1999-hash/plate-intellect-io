@@ -79,114 +79,19 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 light">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 light relative">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4">
+        <button className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50">
+          <span className="text-lg">🇺🇸</span>
+          <span className="text-sm font-medium text-gray-700">EN</span>
+        </button>
+      </div>
+      
       <div className="w-full max-w-sm">
-        {/* iPhone Mockup with Dashboard */}
+        {/* iPhone Image - to be provided */}
         <div className="relative mx-auto mb-8">
-          <div className="w-64 h-[520px] bg-black rounded-[3rem] p-2 shadow-2xl">
-            <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
-              {/* iPhone Status Bar */}
-              <div className="flex justify-between items-center px-6 py-2 text-xs font-medium">
-                <span>2:10</span>
-                <div className="flex items-center gap-1">
-                  <div className="flex gap-1">
-                    <div className="w-1 h-1 bg-black rounded-full"></div>
-                    <div className="w-1 h-1 bg-black rounded-full"></div>
-                    <div className="w-1 h-1 bg-black rounded-full"></div>
-                  </div>
-                  <div className="w-4 h-2 border border-black rounded-sm">
-                    <div className="w-2 h-1 bg-black rounded-sm m-0.5"></div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* App Header */}
-              <div className="flex items-center justify-center gap-2 px-6 py-4">
-                <div className="w-6 h-6 rounded-full overflow-hidden">
-                  <img 
-                    src="/lovable-uploads/8d5a420d-5831-46b7-ae7a-d0a1aa371262.png" 
-                    alt="Kalore Logo" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <span className="text-lg font-bold text-[#00D4AA]">Kalore</span>
-              </div>
-
-              {/* Navigation Pills */}
-              <div className="flex justify-center gap-8 px-6 mb-6">
-                <div className="text-sm font-medium text-black border-b-2 border-black pb-1">Today</div>
-                <div className="text-sm text-gray-400">Yesterday</div>
-              </div>
-
-              {/* Calorie Circle */}
-              <div className="text-center mb-6">
-                <div className="text-4xl font-bold text-black">2199</div>
-                <div className="text-xs text-gray-500">Calories left</div>
-                <div className="w-20 h-20 mx-auto mt-2 border-4 border-gray-200 rounded-full flex items-center justify-center">
-                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                    <div className="w-4 h-4 bg-gray-300 rounded"></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Macro Cards */}
-              <div className="flex justify-between px-6 mb-6">
-                <div className="text-center">
-                  <div className="text-lg font-bold">161g</div>
-                  <div className="text-xs text-gray-500">Protein left</div>
-                  <div className="w-8 h-8 mx-auto mt-2 bg-red-100 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold">251g</div>
-                  <div className="text-xs text-gray-500">Carbs left</div>
-                  <div className="w-8 h-8 mx-auto mt-2 bg-orange-100 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold">61g</div>
-                  <div className="text-xs text-gray-500">Fat left</div>
-                  <div className="w-8 h-8 mx-auto mt-2 bg-blue-100 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Recently eaten */}
-              <div className="px-6">
-                <div className="text-sm font-medium mb-3">Recently eaten</div>
-                <div className="flex items-center gap-3 bg-gray-100 rounded-lg p-3">
-                  <div className="w-12 h-12 bg-gray-300 rounded-lg"></div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium">Analyzing food...</div>
-                    <div className="text-xs text-gray-500 mt-1">We'll notify you when done!</div>
-                  </div>
-                  <div className="text-xs font-medium">8%</div>
-                </div>
-              </div>
-
-              {/* Bottom Navigation */}
-              <div className="absolute bottom-4 left-0 right-0 flex justify-between px-8">
-                <div className="text-center">
-                  <div className="w-6 h-6 mx-auto mb-1 bg-gray-800 rounded"></div>
-                  <div className="text-xs">Home</div>
-                </div>
-                <div className="text-center">
-                  <div className="w-6 h-6 mx-auto mb-1 bg-gray-300 rounded"></div>
-                  <div className="text-xs text-gray-400">Analytics</div>
-                </div>
-                <div className="text-center">
-                  <div className="w-6 h-6 mx-auto mb-1 bg-gray-300 rounded"></div>
-                  <div className="text-xs text-gray-400">Settings</div>
-                </div>
-                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-                  <div className="text-white text-xl">+</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Placeholder for iPhone image */}
         </div>
 
         {/* Title */}
