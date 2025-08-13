@@ -70,7 +70,7 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
 
         <div ref={circlesRef} className="flex justify-center items-start space-x-6 mb-12">
           {/* Yesterday */}
-          <div className="left-circle flex flex-col items-center">
+          <div className="left-circle flex flex-col items-center bg-white rounded-xl p-4 shadow-lg">
             <div className="flex items-center justify-center space-x-1 mb-3">
               <Flame className="h-4 w-4 text-orange-500" />
               <span className="text-sm font-medium text-muted-foreground">Yesterday</span>
@@ -114,7 +114,7 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
           </div>
 
           {/* Today */}
-          <div className="right-circle flex flex-col items-center">
+          <div className="right-circle flex flex-col items-center bg-white rounded-xl p-4 shadow-lg">
             <div className="flex items-center justify-center space-x-1 mb-3">
               <Flame className="h-4 w-4 text-orange-500" />
               <span className="text-sm font-medium text-muted-foreground">Today</span>
