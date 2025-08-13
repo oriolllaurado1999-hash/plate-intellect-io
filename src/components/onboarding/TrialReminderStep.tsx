@@ -67,13 +67,13 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
       <div className="flex-1 flex flex-col justify-center items-center">
         <div ref={textRef} className="text-center mb-16">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            Te enviaremos un
+            We'll send you a
           </h1>
           <h2 className="text-3xl font-bold text-foreground mb-8">
-            recordatorio antes de que
+            reminder before your
           </h2>
           <h3 className="text-3xl font-bold text-foreground">
-            termine tu prueba gratuita
+            free trial ends
           </h3>
         </div>
 
@@ -107,7 +107,7 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center space-x-2 text-green-600 mb-2">
             <span>✓</span>
-            <span className="font-medium">Sin Pago Inmediato</span>
+            <span className="font-medium">No Immediate Payment</span>
           </div>
         </div>
       </div>
@@ -117,10 +117,10 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full mb-4"
         >
-          Continuar GRATIS
+          Continue FREE
         </Button>
         <div className="text-center text-sm text-muted-foreground">
-          Solo 35,88 € al año (2,99 €/mes)
+          Only $35.88 per year ($2.99/month)
         </div>
       </div>
     </div>
