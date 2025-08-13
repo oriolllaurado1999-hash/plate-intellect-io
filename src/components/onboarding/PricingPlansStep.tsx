@@ -121,7 +121,7 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
             }`}
             onClick={() => setSelectedPlan('yearly')}
           >
-            <div className={`absolute -top-3 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium ${
+            <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium shadow-lg ${
               selectedPlan === 'yearly' ? 'bg-primary-foreground text-primary' : 'bg-foreground text-background'
             }`}>
               7 DAYS FREE
