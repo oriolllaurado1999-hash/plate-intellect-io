@@ -93,18 +93,18 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
           <Card 
             className={`plan-card p-4 cursor-pointer transition-all duration-300 ${
               selectedPlan === 'monthly' 
-                ? 'border-2 border-foreground bg-card' 
+                ? 'border-2 border-primary bg-primary text-primary-foreground' 
                 : 'border border-border bg-muted/20'
             }`}
             onClick={() => setSelectedPlan('monthly')}
           >
             <div className="text-center">
-              <div className="font-bold text-lg text-foreground">Monthly</div>
-              <div className="text-2xl font-bold text-foreground">$9.99 <span className="text-base font-normal">/month</span></div>
+              <div className={`font-bold text-lg ${selectedPlan === 'monthly' ? 'text-primary-foreground' : 'text-foreground'}`}>Monthly</div>
+              <div className={`text-2xl font-bold ${selectedPlan === 'monthly' ? 'text-primary-foreground' : 'text-foreground'}`}>$9.99 <span className="text-base font-normal">/month</span></div>
               <div className="mt-2">
                 {selectedPlan === 'monthly' ? (
-                  <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center mx-auto">
-                    <Check className="w-4 h-4 text-background" />
+                  <div className="w-6 h-6 bg-primary-foreground rounded-full flex items-center justify-center mx-auto">
+                    <Check className="w-4 h-4 text-primary" />
                   </div>
                 ) : (
                   <div className="w-6 h-6 border-2 border-muted rounded-full mx-auto"></div>
@@ -116,21 +116,23 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
           <Card 
             className={`plan-card p-4 cursor-pointer transition-all duration-300 relative ${
               selectedPlan === 'yearly' 
-                ? 'border-2 border-foreground bg-card' 
+                ? 'border-2 border-primary bg-primary text-primary-foreground' 
                 : 'border border-border bg-muted/20'
             }`}
             onClick={() => setSelectedPlan('yearly')}
           >
-            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
+            <div className={`absolute -top-2 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium ${
+              selectedPlan === 'yearly' ? 'bg-primary-foreground text-primary' : 'bg-foreground text-background'
+            }`}>
               3 DAYS FREE
             </div>
             <div className="text-center pt-2">
-              <div className="font-bold text-lg text-foreground">Annual</div>
-              <div className="text-2xl font-bold text-foreground">$2.99 <span className="text-base font-normal">/month</span></div>
+              <div className={`font-bold text-lg ${selectedPlan === 'yearly' ? 'text-primary-foreground' : 'text-foreground'}`}>Annual</div>
+              <div className={`text-2xl font-bold ${selectedPlan === 'yearly' ? 'text-primary-foreground' : 'text-foreground'}`}>$2.99 <span className="text-base font-normal">/month</span></div>
               <div className="mt-2">
                 {selectedPlan === 'yearly' ? (
-                  <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center mx-auto">
-                    <Check className="w-4 h-4 text-background" />
+                  <div className="w-6 h-6 bg-primary-foreground rounded-full flex items-center justify-center mx-auto">
+                    <Check className="w-4 h-4 text-primary" />
                   </div>
                 ) : (
                   <div className="w-6 h-6 border-2 border-muted rounded-full mx-auto"></div>
