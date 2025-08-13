@@ -79,7 +79,9 @@ const Index = () => {
             <div className="w-4 h-4 rounded-full bg-warning"></div>
             <span className="font-bold text-foreground">0</span>
           </div>
-          <ThemeToggle />
+          <div className="bg-muted px-2 py-1 rounded-full">
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
