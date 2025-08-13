@@ -72,24 +72,24 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
         </h2>
 
         {/* Features or Timeline based on selection */}
-        <div className="space-y-4 mb-8">
+        <div className="h-64 mb-8">
           {selectedPlan === 'yearly' ? (
             // Timeline for Annual plan
-            <div className="animate-fade-in">
-              <h3 className="text-xl font-bold text-center mb-6 text-foreground">
+            <div className="animate-fade-in space-y-4">
+              <h3 className="text-lg font-bold text-center mb-6 text-foreground">
                 Start your 7-day FREE trial to continue.
               </h3>
               
               <div className="space-y-4">
                 {/* Today */}
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-                      <Unlock className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                      <Unlock className="w-4 h-4 text-white" />
                     </div>
-                    <div className="w-0.5 h-8 bg-orange-400 mx-auto mt-2"></div>
+                    <div className="w-0.5 h-6 bg-orange-400 mx-auto mt-1"></div>
                   </div>
-                  <div className="flex-1 pt-2">
+                  <div className="flex-1">
                     <div className="font-semibold text-foreground">Today</div>
                     <div className="text-sm text-muted-foreground">
                       Unlock all the app's features like AI calorie scanning and more.
@@ -98,14 +98,14 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
                 </div>
 
                 {/* In 5 Days - Reminder */}
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-                      <Bell className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                      <Bell className="w-4 h-4 text-white" />
                     </div>
-                    <div className="w-0.5 h-8 bg-gray-300 mx-auto mt-2"></div>
+                    <div className="w-0.5 h-6 bg-gray-300 mx-auto mt-1"></div>
                   </div>
-                  <div className="flex-1 pt-2">
+                  <div className="flex-1">
                     <div className="font-semibold text-foreground">In 5 Days - Reminder</div>
                     <div className="text-sm text-muted-foreground">
                       We'll send you a reminder that your trial is ending soon.
@@ -114,13 +114,13 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
                 </div>
 
                 {/* In 7 Days - Billing Starts */}
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
-                      <Crown className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+                      <Crown className="w-4 h-4 text-white" />
                     </div>
                   </div>
-                  <div className="flex-1 pt-2">
+                  <div className="flex-1">
                     <div className="font-semibold text-foreground">In 7 Days - Billing Starts</div>
                     <div className="text-sm text-muted-foreground">
                       You'll be charged unless you cancel anytime before.
@@ -131,7 +131,7 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
             </div>
           ) : (
             // Features for Monthly plan
-            <>
+            <div className="space-y-4">
               {features.map((feature, index) => (
                 <div key={index} className="feature-item flex items-start space-x-3">
                   <div className="mt-1">
@@ -143,7 +143,7 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
                   </div>
                 </div>
               ))}
-            </>
+            </div>
           )}
         </div>
       </div>
