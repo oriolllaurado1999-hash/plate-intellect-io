@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Check } from 'lucide-react';
+import { Check, Unlock, Bell, Crown } from 'lucide-react';
 
 interface PricingPlansStepProps {
   onNext: () => void;
@@ -141,6 +141,64 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
             </div>
           </Card>
         </div>
+
+        {/* Trial Timeline - Only show when yearly is selected */}
+        {selectedPlan === 'yearly' && (
+          <div className="mt-6 mb-6 animate-fade-in">
+            <h3 className="text-xl font-bold text-center mb-6 text-foreground">
+              Start your 7-day FREE trial to continue.
+            </h3>
+            
+            <div className="space-y-4">
+              {/* Today */}
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                    <Unlock className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="w-0.5 h-8 bg-orange-400 mx-auto mt-2"></div>
+                </div>
+                <div className="flex-1 pt-2">
+                  <div className="font-semibold text-foreground">Today</div>
+                  <div className="text-sm text-muted-foreground">
+                    Unlock all the app's features like AI calorie scanning and more.
+                  </div>
+                </div>
+              </div>
+
+              {/* In 5 Days - Reminder */}
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                    <Bell className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="w-0.5 h-8 bg-gray-300 mx-auto mt-2"></div>
+                </div>
+                <div className="flex-1 pt-2">
+                  <div className="font-semibold text-foreground">In 5 Days - Reminder</div>
+                  <div className="text-sm text-muted-foreground">
+                    We'll send you a reminder that your trial is ending soon.
+                  </div>
+                </div>
+              </div>
+
+              {/* In 7 Days - Billing Starts */}
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+                    <Crown className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 pt-2">
+                  <div className="font-semibold text-foreground">In 7 Days - Billing Starts</div>
+                  <div className="text-sm text-muted-foreground">
+                    You'll be charged unless you cancel anytime before.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="text-center mb-6">
           <div className="flex items-center justify-center space-x-2 text-green-600 mb-2">
