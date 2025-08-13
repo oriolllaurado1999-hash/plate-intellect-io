@@ -41,7 +41,7 @@ const ReferralStep = ({ onSubmit, onSkip }: ReferralStepProps) => {
         <div ref={formRef}>
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full mb-6">
-              <Gift className="h-8 w-8 text-purple-600 animate-bounce" />
+              <Gift className="h-8 w-8 text-purple-600" />
             </div>
             
             <h1 className="text-3xl font-bold text-foreground mb-2">
