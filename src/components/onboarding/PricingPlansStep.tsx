@@ -91,7 +91,7 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
       <div ref={plansRef} className="flex-1">
         <div className="grid grid-cols-2 gap-3 mb-6">
           <Card 
-            className={`plan-card p-4 cursor-pointer transition-all duration-300 ${
+            className={`plan-card p-4 cursor-pointer transition-all duration-300 shadow-lg ${
               selectedPlan === 'monthly' 
                 ? 'border-2 border-primary bg-primary text-primary-foreground' 
                 : 'border border-border bg-muted/20'
@@ -114,14 +114,14 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
           </Card>
 
           <Card 
-            className={`plan-card p-4 cursor-pointer transition-all duration-300 relative ${
+            className={`plan-card p-4 cursor-pointer transition-all duration-300 relative shadow-lg ${
               selectedPlan === 'yearly' 
                 ? 'border-2 border-primary bg-primary text-primary-foreground' 
                 : 'border border-border bg-muted/20'
             }`}
             onClick={() => setSelectedPlan('yearly')}
           >
-            <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium shadow-lg text-center ${
+            <div className={`absolute -top-5 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium shadow-lg text-center ${
               selectedPlan === 'yearly' ? 'bg-primary-foreground text-primary' : 'bg-foreground text-background'
             }`}>
               7 DAYS <span className="font-bold">FREE</span>
