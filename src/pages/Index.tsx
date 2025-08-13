@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Camera, User, Calendar, Target } from 'lucide-react';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
@@ -73,9 +74,12 @@ const Index = () => {
           </div>
           <span className="text-xl font-bold text-foreground">Kalore</span>
         </div>
-        <div className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full">
-          <div className="w-4 h-4 rounded-full bg-warning"></div>
-          <span className="font-bold text-foreground">0</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full">
+            <div className="w-4 h-4 rounded-full bg-warning"></div>
+            <span className="font-bold text-foreground">0</span>
+          </div>
+          <ThemeToggle />
         </div>
       </header>
 
