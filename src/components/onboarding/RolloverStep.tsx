@@ -68,15 +68,15 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
           </div>
         </div>
 
-        <div ref={circlesRef} className="flex justify-center space-x-8 mb-12">
+        <div ref={circlesRef} className="flex justify-center items-end space-x-12 mb-12">
           {/* Yesterday */}
-          <div className="left-circle text-center">
-            <div className="flex items-center space-x-2 mb-4">
+          <div className="left-circle flex flex-col items-center">
+            <div className="flex items-center justify-center space-x-2 mb-4">
               <Flame className="h-5 w-5 text-orange-500" />
               <span className="text-sm font-medium text-muted-foreground">Yesterday</span>
             </div>
             
-            <div className="relative w-24 h-24">
+            <div className="relative w-24 h-24 mb-4">
               <svg className="w-full h-full transform -rotate-90">
                 <circle
                   cx="48"
@@ -105,19 +105,19 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
               </div>
             </div>
             
-            <div className="mt-2 bg-foreground text-background px-3 py-1 rounded-lg text-sm font-medium">
+            <div className="bg-foreground text-background px-3 py-1 rounded-lg text-sm font-medium">
               Cals left 150
             </div>
           </div>
 
           {/* Today */}
-          <div className="right-circle text-center">
-            <div className="flex items-center space-x-2 mb-4">
+          <div className="right-circle flex flex-col items-center">
+            <div className="flex items-center justify-center space-x-2 mb-4">
               <Flame className="h-5 w-5 text-orange-500" />
               <span className="text-sm font-medium text-muted-foreground">Today</span>
             </div>
             
-            <div className="relative w-24 h-24">
+            <div className="relative w-24 h-24 mb-2">
               <svg className="w-full h-full transform -rotate-90">
                 <circle
                   cx="48"
@@ -146,12 +146,12 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
               </div>
             </div>
             
-            <div className="flex items-center space-x-1 mt-2">
+            <div className="flex items-center justify-center space-x-1 mb-2">
               <Clock className="h-3 w-3 text-blue-500" />
               <span className="text-xs text-blue-500">150</span>
             </div>
             
-            <div className="mt-1 bg-foreground text-background px-3 py-1 rounded-lg text-sm font-medium">
+            <div className="bg-foreground text-background px-3 py-1 rounded-lg text-sm font-medium">
               Cals left 150+150
             </div>
           </div>
