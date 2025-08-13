@@ -26,7 +26,7 @@ import GeneratingStep from './onboarding/GeneratingStep';
 import CompletionStep from './onboarding/CompletionStep';
 import TrialOfferStep from './onboarding/TrialOfferStep';
 import TrialReminderStep from './onboarding/TrialReminderStep';
-import PricingPlansStep from './onboarding/PricingPlansStep';
+
 import TrialTimelineStep from './onboarding/TrialTimelineStep';
 import WelcomeDashboardStep from './onboarding/WelcomeDashboardStep';
 
@@ -275,10 +275,8 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
       case 25:
         return <TrialReminderStep onNext={handleNext} />;
       case 26:
-        return <PricingPlansStep onNext={handleNext} />;
-      case 27:
         return <TrialTimelineStep onNext={handleNext} />;
-      case 28:
+      case 27:
         return <WelcomeDashboardStep onComplete={() => onComplete(data)} />;
       default:
         return null;

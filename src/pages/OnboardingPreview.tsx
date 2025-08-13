@@ -29,7 +29,7 @@ import GeneratingStep from '@/components/onboarding/GeneratingStep';
 import CompletionStep from '@/components/onboarding/CompletionStep';
 import TrialOfferStep from '@/components/onboarding/TrialOfferStep';
 import TrialReminderStep from '@/components/onboarding/TrialReminderStep';
-import PricingPlansStep from '@/components/onboarding/PricingPlansStep';
+
 import TrialTimelineStep from '@/components/onboarding/TrialTimelineStep';
 import WelcomeDashboardStep from '@/components/onboarding/WelcomeDashboardStep';
 
@@ -336,10 +336,8 @@ const OnboardingPreview = () => {
       case 28:
         return <TrialReminderStep onNext={handleNext} />;
       case 29:
-        return <PricingPlansStep onNext={handleNext} />;
-      case 30:
         return <TrialTimelineStep onNext={handleNext} />;
-      case 31:
+      case 30:
         return <WelcomeDashboardStep onComplete={() => console.log('Dashboard!')} />;
       default:
         return null;
