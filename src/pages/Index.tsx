@@ -107,13 +107,16 @@ const Index = () => {
               return (
                 <div key={index} className="text-center">
                   <div className={`w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center mb-1 ${
-                    isToday ? 'border-primary' : 'border-border'
-                  }`}>
-                    <span className={`text-sm font-medium ${isToday ? 'text-primary' : 'text-muted-foreground'}`}>
+                    isToday ? '' : 'border-border'
+                  }`}
+                  style={isToday ? { borderColor: 'hsl(142 76% 36%)' } : {}}>
+                    <span className={`text-sm font-medium ${isToday ? '' : 'text-muted-foreground'}`}
+                    style={isToday ? { color: 'hsl(142 76% 36%)' } : {}}>
                       {day}
                     </span>
                   </div>
-                  <span className={`text-sm font-medium ${isToday ? 'text-primary' : 'text-muted-foreground'}`}>
+                  <span className={`text-sm font-medium ${isToday ? '' : 'text-muted-foreground'}`}
+                  style={isToday ? { color: 'hsl(142 76% 36%)' } : {}}>
                     {date.getDate()}
                   </span>
                 </div>
@@ -297,9 +300,10 @@ const Index = () => {
       {/* Floating Add Button */}
       <button 
         onClick={() => setShowScanner(true)}
-        className="fixed bottom-20 right-4 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors"
+        className="fixed bottom-20 right-4 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors"
+        style={{ backgroundColor: 'hsl(142 76% 36%)' }}
       >
-        <span className="text-primary-foreground text-2xl">+</span>
+        <span className="text-white text-2xl">+</span>
       </button>
 
       {/* Modals */}
