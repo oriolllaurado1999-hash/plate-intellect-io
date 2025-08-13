@@ -79,25 +79,28 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 flex items-center justify-center p-4 light">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <Camera className="h-8 w-8 text-primary" />
+          <div className="flex items-center justify-center mb-4">
+            <div className="w-20 h-20 rounded-full overflow-hidden bg-white shadow-lg p-2">
+              <img 
+                src="/lovable-uploads/8d5a420d-5831-46b7-ae7a-d0a1aa371262.png" 
+                alt="Kalore Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
-            <Utensils className="h-8 w-8 text-primary" />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-            Calorify
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+            Kalore
           </h1>
-          <p className="text-muted-foreground mt-2">
+          <p className="text-gray-600 mt-2">
             Track your nutrition with AI-powered food recognition
           </p>
         </div>
 
-        <Card className="shadow-xl border-0 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+        <Card className="shadow-xl border-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
           <CardHeader className="space-y-1 pb-4">
             <CardTitle className="text-2xl text-center">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
@@ -142,7 +145,7 @@ const Auth = () => {
                 <Separator />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">or</span>
+                <span className="bg-white px-2 text-gray-500">or</span>
               </div>
             </div>
 
@@ -208,7 +211,7 @@ const Auth = () => {
           </CardContent>
         </Card>
 
-        <p className="text-center text-xs text-muted-foreground mt-6">
+        <p className="text-center text-xs text-gray-500 mt-6">
           By continuing, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>
