@@ -42,7 +42,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 pb-20">
+      <div className="flex-1 flex flex-col items-center justify-center px-6">
         {/* Fire Icon */}
         <div className="mb-8">
           <img 
@@ -72,16 +72,18 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
             you can better understand how your body recovers, performs, and adapts over time.
           </p>
         </div>
+      </div>
 
-        {/* This Week Section */}
-        <div className="w-full max-w-sm">
+      {/* This Week Section - Fixed at bottom */}
+      <div className="px-6 pb-8">
+        <div className="w-full">
           <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">
             THIS WEEK
           </h4>
           <div className="flex justify-between items-center">
             {weekDays.map(({ day, isCompleted }, index) => (
               <div key={index} className="text-center">
-                <div className="text-xs text-muted-foreground mb-2 font-medium">
+                <div className="text-xs text-muted-foreground mb-3 font-medium">
                   {day}
                 </div>
                 <div className="w-8 h-8 flex items-center justify-center">
