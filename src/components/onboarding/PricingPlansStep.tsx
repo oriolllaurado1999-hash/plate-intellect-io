@@ -67,10 +67,10 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
         {selectedPlan === 'monthly' ? (
           <>
             <h1 className="text-3xl font-bold text-foreground text-center mb-1">
-              Unlock Kalore to reach your goals
+              Unlock Kalore to reach
             </h1>
             <h2 className="text-3xl font-bold text-foreground text-center mb-8">
-              <span className="italic">faster.</span>
+              your goals <span className="italic">faster</span>
             </h2>
           </>
         ) : (
