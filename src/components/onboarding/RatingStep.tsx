@@ -82,7 +82,11 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
             {/* User avatars */}
             <div className="flex justify-center space-x-2 mb-2">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full" />
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full" />
+              <img 
+                src="/lovable-uploads/da1c207b-3dbf-453e-bcff-f8bdd24a7e06.png" 
+                alt="User avatar" 
+                className="w-12 h-12 rounded-full object-cover"
+              />
               <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full" />
             </div>
             <div className="text-sm text-muted-foreground">5M+ Kalore Users</div>
