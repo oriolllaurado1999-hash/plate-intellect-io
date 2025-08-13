@@ -92,7 +92,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
                 className="w-12 h-12 rounded-full object-cover"
               />
               <img 
-                src="/lovable-uploads/4be6257f-99af-4fe6-abf7-edb872462f8a.png" 
+                src="/lovable-uploads/1dcdc75d-e476-44bc-8319-5be4fe445ee2.png" 
                 alt="User avatar" 
                 className="w-12 h-12 rounded-full object-cover"
               />
@@ -125,7 +125,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
           <div className="testimonial bg-muted/30 rounded-2xl p-4">
             <div className="flex items-center space-x-3 mb-3">
               <img 
-                src="/lovable-uploads/4be6257f-99af-4fe6-abf7-edb872462f8a.png" 
+                src="/lovable-uploads/1dcdc75d-e476-44bc-8319-5be4fe445ee2.png" 
                 alt="User avatar" 
                 className="w-10 h-10 rounded-full object-cover"
               />
