@@ -102,9 +102,6 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
                     strokeLinecap="round"
                   />
                 </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-2xl fire-emoji">🔥</span>
-                </div>
                 <div className="absolute -left-6 top-1/2 transform -translate-y-1/2">
                   <div className="bg-foreground text-background px-2 py-1 rounded text-xs font-medium whitespace-nowrap relative">
                     Cals left<br />150
@@ -148,9 +145,6 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
                     strokeLinecap="round"
                   />
                 </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-2xl fire-emoji">🔥</span>
-                </div>
                 <div className="absolute -right-8 top-1/2 transform -translate-y-1/2">
                   <div className="bg-foreground text-background px-2 py-1 rounded text-xs font-medium whitespace-nowrap relative">
                     Cals left<br />150+<span className="text-blue-300">150</span>
