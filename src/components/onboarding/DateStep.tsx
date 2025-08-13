@@ -37,11 +37,11 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
     let newValue = value;
     
     if (field === 'day') {
-      if (value.length <= 2 && (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 31))) {
+      if (value.length <= 2 && (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 31))) {
         setDay(newValue);
       }
     } else if (field === 'month') {
-      if (value.length <= 2 && (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 12))) {
+      if (value.length <= 2 && (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 12))) {
         setMonth(newValue);
       }
     } else if (field === 'year') {
@@ -135,44 +135,6 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Divider */}
-          <div className="flex items-center justify-center">
-            <div className="flex-1 border-t border-muted"></div>
-            <span className="px-4 text-sm text-muted-foreground">o</span>
-            <div className="flex-1 border-t border-muted"></div>
-          </div>
-
-          {/* Calendar Option */}
-          <div className="flex justify-center">
-            <Popover open={isOpen} onOpenChange={setIsOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "w-72 h-14 text-lg justify-start text-left font-normal border-2",
-                    !selected && "text-muted-foreground",
-                    selected && "border-primary"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-5 w-5" />
-                  {selected ? format(selected, "MMMM d, yyyy") : "Select from calendar"}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="center">
-                <Calendar
-                  mode="single"
-                  selected={selected || undefined}
-                  onSelect={handleDateSelect}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date("1900-01-01")
-                  }
-                  initialFocus
-                  className="pointer-events-auto"
-                />
-              </PopoverContent>
-            </Popover>
           </div>
         </div>
       </div>
