@@ -79,7 +79,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
               alt="Fire icon" 
-              className="w-4 h-4 object-contain"
+              className="w-5 h-5 object-contain"
             />
             <span className="font-bold text-foreground">0</span>
           </div>
