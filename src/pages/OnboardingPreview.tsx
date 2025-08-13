@@ -47,7 +47,7 @@ interface OnboardingData {
   lossSpeed: number | null;
   obstacle: string[];
   diet: string | null;
-  accomplish: string | null;
+  accomplish: string[];
   connectHealth: boolean | null;
   addBurnedCalories: boolean | null;
   rolloverCalories: boolean | null;
@@ -79,7 +79,7 @@ const OnboardingPreview = () => {
     lossSpeed: null,
     obstacle: [],
     diet: null,
-    accomplish: null,
+    accomplish: [],
     connectHealth: null,
     addBurnedCalories: null,
     rolloverCalories: null,

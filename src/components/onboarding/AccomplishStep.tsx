@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Apple, Sun, Target, Heart } from 'lucide-react';
 
 interface AccomplishStepProps {
-  selected: string | null;
-  onSelect: (goal: string) => void;
+  selected: string[];
+  onSelect: (goals: string[]) => void;
   onNext: () => void;
 }
 
@@ -15,8 +15,21 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
     { id: 'body', label: 'Feel better about my body', icon: Heart },
   ];
 
+  const handleGoalSelect = (goalId: string) => {
+    const isSelected = selected.includes(goalId);
+    let newSelected;
+    
+    if (isSelected) {
+      newSelected = selected.filter(id => id !== goalId);
+    } else {
+      newSelected = [...selected, goalId];
+    }
+    
+    onSelect(newSelected);
+  };
+
   const handleContinue = () => {
-    if (selected) {
+    if (selected.length > 0) {
       onNext();
     }
   };
@@ -30,21 +43,22 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
           </h1>
         </div>
 
-        <div className="space-y-4 mb-12">
+        <div className="space-y-4 mb-16">
           {goals.map((goal) => {
             const IconComponent = goal.icon;
+            const isSelected = selected.includes(goal.id);
             return (
               <button
                 key={goal.id}
-                onClick={() => onSelect(goal.id)}
+                onClick={() => handleGoalSelect(goal.id)}
                 className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 flex items-center space-x-4 ${
-                  selected === goal.id
+                  isSelected
                     ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border bg-background hover:border-primary/50'
+                    : 'border-border bg-background hover:border-primary/50 hover:bg-primary/5'
                 }`}
               >
-                <IconComponent className="h-6 w-6" />
-                <span className="text-lg font-medium">
+                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-primary-foreground' : ''}`} />
+                <span className={`text-lg font-medium ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>
                   {goal.label}
                 </span>
               </button>
@@ -53,10 +67,10 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
         </div>
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
-          disabled={!selected}
+          disabled={selected.length === 0}
           className="w-full h-14 text-lg font-medium rounded-full"
         >
           Continue

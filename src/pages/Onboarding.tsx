@@ -14,7 +14,7 @@ interface OnboardingData {
   lossSpeed: number | null;
   obstacle: string[];
   diet: string | null;
-  accomplish: string | null;
+  accomplish: string[];
   connectHealth: boolean | null;
   addBurnedCalories: boolean | null;
   rolloverCalories: boolean | null;
