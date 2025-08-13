@@ -84,8 +84,8 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
   };
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
-      <div className="flex-1 flex flex-col justify-center">
+    <div className="px-6 py-8 h-full flex flex-col">
+      <div className="flex-1">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4">
             When were you born?
@@ -95,7 +95,7 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8 mb-16">
           {/* Manual Date Input */}
           <div className="flex justify-center">
             <div className="space-y-4">
