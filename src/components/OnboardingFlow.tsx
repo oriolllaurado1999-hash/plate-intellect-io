@@ -43,7 +43,7 @@ interface OnboardingData {
   height: { height: number; unit: 'cm' | 'ft' } | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
-  obstacle: string | null;
+  obstacle: string[];
   diet: string | null;
   accomplish: string | null;
   connectHealth: boolean | null;
@@ -70,7 +70,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     height: null,
     desiredWeight: null,
     lossSpeed: null,
-    obstacle: null,
+    obstacle: [],
     diet: null,
     accomplish: null,
     connectHealth: null,

@@ -12,7 +12,7 @@ interface OnboardingData {
   goal: 'lose' | 'maintain' | 'gain' | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
-  obstacle: string | null;
+  obstacle: string[];
   diet: string | null;
   accomplish: string | null;
   connectHealth: boolean | null;
