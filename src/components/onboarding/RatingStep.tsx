@@ -81,7 +81,11 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
             
             {/* User avatars */}
             <div className="flex justify-center space-x-2 mb-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full" />
+              <img 
+                src="/lovable-uploads/4652c667-b491-4fe5-9719-6825139f6e3f.png" 
+                alt="User avatar" 
+                className="w-12 h-12 rounded-full object-cover"
+              />
               <img 
                 src="/lovable-uploads/da1c207b-3dbf-453e-bcff-f8bdd24a7e06.png" 
                 alt="User avatar" 
@@ -101,7 +105,11 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
         <div ref={testimonialsRef} className="space-y-4">
           <div className="testimonial bg-muted/30 rounded-2xl p-4">
             <div className="flex items-center space-x-3 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full" />
+              <img 
+                src="/lovable-uploads/4652c667-b491-4fe5-9719-6825139f6e3f.png" 
+                alt="User avatar" 
+                className="w-10 h-10 rounded-full object-cover"
+              />
               <span className="font-semibold text-foreground">Jake Sullivan</span>
               <div className="flex space-x-1 ml-auto">
                 {[...Array(5)].map((_, i) => (
