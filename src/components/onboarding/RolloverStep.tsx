@@ -108,7 +108,7 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
                     <div className="absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2 w-0 h-0 border-l-4 border-l-foreground border-t-2 border-b-2 border-t-transparent border-b-transparent"></div>
                   </div>
                 </div>
-                <Flame className="absolute right-2 bottom-2 h-4 w-4 text-orange-500" />
+                
               </div>
             </div>
           </div>
