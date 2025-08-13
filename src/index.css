@@ -127,6 +127,12 @@ All colors MUST be HSL.
   [data-theme="light"] * {
     color-scheme: light;
   }
+  }
+  
+  /* Force white background for cards in light mode */
+  :root .bg-card {
+    background-color: #ffffff;
+  }
 }
 
 /* Handshake animation */
