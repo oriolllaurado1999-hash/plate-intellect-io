@@ -121,10 +121,10 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
             }`}
             onClick={() => setSelectedPlan('yearly')}
           >
-            <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium shadow-lg ${
+            <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-medium shadow-lg text-center ${
               selectedPlan === 'yearly' ? 'bg-primary-foreground text-primary' : 'bg-foreground text-background'
             }`}>
-              7 DAYS FREE
+              7 DAYS <span className="font-bold">FREE</span>
             </div>
             <div className="text-center pt-2">
               <div className={`font-bold text-lg ${selectedPlan === 'yearly' ? 'text-primary-foreground' : 'text-foreground'}`}>Annual</div>
