@@ -186,7 +186,7 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={onNext}
           className="w-full h-12 text-base font-semibold"
