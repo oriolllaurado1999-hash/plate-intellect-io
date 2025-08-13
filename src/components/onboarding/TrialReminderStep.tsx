@@ -27,7 +27,7 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
       // Add subtle swing animation
       setTimeout(() => {
         if (bellRef.current) {
-          bellRef.current.style.animation = 'gentle-swing 3s ease-in-out infinite';
+          bellRef.current.style.animation = 'gentle-swing 4s ease-in-out infinite';
         }
       }, 1300);
     }
