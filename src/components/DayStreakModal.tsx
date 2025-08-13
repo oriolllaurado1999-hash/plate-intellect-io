@@ -28,7 +28,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
   return (
     <div className="fixed inset-0 bg-background z-50 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border bg-background">
+      <div className="flex items-center justify-between p-4 bg-background">
         <Button 
           variant="ghost" 
           size="sm" 
@@ -65,7 +65,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
           </div>
 
           {/* Description Card */}
-          <div className="bg-card rounded-xl p-6 mb-6 border border-border/50 shadow-sm w-full max-w-sm">
+          <div className="bg-card rounded-xl p-6 mb-6 border border-border/50 shadow-lg w-full max-w-sm">
             <h3 className="text-lg font-semibold text-foreground mb-3">
               Consistency unlocks clarity
             </h3>
@@ -76,7 +76,7 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
           </div>
 
           {/* This Week Card */}
-          <div className="bg-card rounded-xl p-6 border border-border/50 shadow-sm w-full max-w-sm">
+          <div className="bg-card rounded-xl p-6 border border-border/50 shadow-lg w-full max-w-sm">
             <h4 className="text-sm font-medium text-muted-foreground mb-4 tracking-wider">
               THIS WEEK
             </h4>
