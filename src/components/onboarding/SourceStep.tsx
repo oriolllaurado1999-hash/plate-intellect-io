@@ -51,7 +51,7 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
           disabled={!selected}
