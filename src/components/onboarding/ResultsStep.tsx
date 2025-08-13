@@ -179,7 +179,7 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
           />
         </div>
 
-        <div className="text-center mb-16">
+        <div className="text-center mb-24">
           <p className="text-lg font-medium text-muted-foreground">
             80% of Kalore users maintain their weight loss even 6 months later
           </p>
