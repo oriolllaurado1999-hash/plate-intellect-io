@@ -44,12 +44,12 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
         
         if (leftProgress) {
           leftProgress.style.transition = 'stroke-dashoffset 1.5s ease-out';
-          leftProgress.style.strokeDashoffset = '50';
+          leftProgress.style.strokeDashoffset = '60'; // 350/500 = 70% remaining
         }
         
         if (rightProgress) {
           rightProgress.style.transition = 'stroke-dashoffset 1.5s ease-out';
-          rightProgress.style.strokeDashoffset = '30';
+          rightProgress.style.strokeDashoffset = '92'; // 350/650 = ~46% remaining
         }
       }, 1200);
     }
@@ -68,91 +68,97 @@ const RolloverStep = ({ onSelect }: RolloverStepProps) => {
           </div>
         </div>
 
-        <div ref={circlesRef} className="flex justify-center items-end space-x-12 mb-12">
+        <div ref={circlesRef} className="flex justify-center items-start space-x-6 mb-12">
           {/* Yesterday */}
           <div className="left-circle flex flex-col items-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <Flame className="h-5 w-5 text-orange-500" />
+            <div className="flex items-center justify-center space-x-1 mb-3">
+              <Flame className="h-4 w-4 text-orange-500" />
               <span className="text-sm font-medium text-muted-foreground">Yesterday</span>
             </div>
             
-            <div className="relative w-24 h-24 mb-4">
-              <svg className="w-full h-full transform -rotate-90">
-                <circle
-                  cx="48"
-                  cy="48"
-                  r="36"
-                  stroke="hsl(var(--muted))"
-                  strokeWidth="8"
-                  fill="none"
-                />
-                <circle
-                  className="progress-fill"
-                  cx="48"
-                  cy="48"
-                  r="36"
-                  stroke="hsl(var(--primary))"
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray="226"
-                  strokeDashoffset="226"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-lg font-bold text-foreground">350</div>
-                <div className="text-xs text-muted-foreground">/500</div>
+            <div className="relative mb-4">
+              <div className="text-3xl font-bold text-foreground mb-1">350<span className="text-lg text-muted-foreground">/500</span></div>
+              
+              <div className="relative w-20 h-20">
+                <svg className="w-full h-full transform -rotate-90">
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="32"
+                    stroke="hsl(var(--muted))"
+                    strokeWidth="6"
+                    fill="none"
+                  />
+                  <circle
+                    className="progress-fill"
+                    cx="40"
+                    cy="40"
+                    r="32"
+                    stroke="hsl(var(--foreground))"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeDasharray="201"
+                    strokeDashoffset="201"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute -left-6 top-1/2 transform -translate-y-1/2">
+                  <div className="bg-foreground text-background px-2 py-1 rounded text-xs font-medium whitespace-nowrap relative">
+                    Cals left<br />150
+                    <div className="absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2 w-0 h-0 border-l-4 border-l-foreground border-t-2 border-b-2 border-t-transparent border-b-transparent"></div>
+                  </div>
+                </div>
+                <Flame className="absolute right-2 bottom-2 h-4 w-4 text-orange-500" />
               </div>
-            </div>
-            
-            <div className="bg-foreground text-background px-3 py-1 rounded-lg text-sm font-medium">
-              Cals left 150
             </div>
           </div>
 
           {/* Today */}
           <div className="right-circle flex flex-col items-center">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <Flame className="h-5 w-5 text-orange-500" />
+            <div className="flex items-center justify-center space-x-1 mb-3">
+              <Flame className="h-4 w-4 text-orange-500" />
               <span className="text-sm font-medium text-muted-foreground">Today</span>
             </div>
             
-            <div className="relative w-24 h-24 mb-2">
-              <svg className="w-full h-full transform -rotate-90">
-                <circle
-                  cx="48"
-                  cy="48"
-                  r="36"
-                  stroke="hsl(var(--muted))"
-                  strokeWidth="8"
-                  fill="none"
-                />
-                <circle
-                  className="progress-fill"
-                  cx="48"
-                  cy="48"
-                  r="36"
-                  stroke="hsl(var(--primary))"
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray="226"
-                  strokeDashoffset="226"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-lg font-bold text-foreground">350</div>
-                <div className="text-xs text-muted-foreground">/650</div>
+            <div className="relative mb-4">
+              <div className="text-3xl font-bold text-foreground mb-1">350<span className="text-lg text-muted-foreground">/650</span></div>
+              
+              <div className="flex items-center justify-center space-x-1 mb-2 rollover-pulse">
+                <Clock className="h-3 w-3 text-blue-500" />
+                <span className="text-xs text-blue-500 font-medium">150</span>
               </div>
-            </div>
-            
-            <div className="flex items-center justify-center space-x-1 mb-2">
-              <Clock className="h-3 w-3 text-blue-500" />
-              <span className="text-xs text-blue-500">150</span>
-            </div>
-            
-            <div className="bg-foreground text-background px-3 py-1 rounded-lg text-sm font-medium">
-              Cals left 150+150
+              
+              <div className="relative w-20 h-20">
+                <svg className="w-full h-full transform -rotate-90">
+                  <circle
+                    cx="40"
+                    cy="40"
+                    r="32"
+                    stroke="hsl(var(--muted))"
+                    strokeWidth="6"
+                    fill="none"
+                  />
+                  <circle
+                    className="progress-fill"
+                    cx="40"
+                    cy="40"
+                    r="32"
+                    stroke="hsl(var(--foreground))"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeDasharray="201"
+                    strokeDashoffset="201"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute -right-8 top-1/2 transform -translate-y-1/2">
+                  <div className="bg-foreground text-background px-2 py-1 rounded text-xs font-medium whitespace-nowrap relative">
+                    Cals left<br />150+<span className="text-blue-300">150</span>
+                    <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-0 h-0 border-r-4 border-r-foreground border-t-2 border-b-2 border-t-transparent border-b-transparent"></div>
+                  </div>
+                </div>
+                <Flame className="absolute left-2 bottom-2 h-4 w-4 text-orange-500" />
+              </div>
             </div>
           </div>
         </div>
