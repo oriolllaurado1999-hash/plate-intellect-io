@@ -64,25 +64,29 @@ const PricingPlansStep = ({ onNext }: PricingPlansStepProps) => {
   return (
     <div className="flex flex-col h-full px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground text-center mb-2">
-          Unlock Kalore to
-        </h1>
-        <h2 className="text-3xl font-bold text-foreground text-center mb-2">
-          reach your goals
-        </h2>
-        <h3 className="text-3xl font-bold text-foreground text-center mb-8">
-          faster.
-        </h3>
+        {selectedPlan === 'monthly' ? (
+          <>
+            <h1 className="text-3xl font-bold text-foreground text-center mb-1">
+              Unlock Kalore to
+            </h1>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-1">
+              reach your goals
+            </h2>
+            <h3 className="text-3xl font-bold text-foreground text-center mb-8">
+              faster.
+            </h3>
+          </>
+        ) : (
+          <h1 className="text-3xl font-bold text-foreground text-center mb-8">
+            Start your 7-Day FREE Trial to continue
+          </h1>
+        )}
 
         {/* Features or Timeline based on selection */}
         <div className="h-64 mb-8">
           {selectedPlan === 'yearly' ? (
             // Timeline for Annual plan
             <div className="animate-fade-in space-y-4">
-              <h3 className="text-lg font-bold text-center mb-6 text-foreground">
-                Start your 7-day FREE trial to continue.
-              </h3>
-              
               <div className="space-y-4">
                 {/* Today */}
                 <div className="flex items-start space-x-3">
