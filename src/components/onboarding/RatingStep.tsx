@@ -87,7 +87,11 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
                 alt="User avatar" 
                 className="w-12 h-12 rounded-full object-cover"
               />
-              <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full" />
+              <img 
+                src="/lovable-uploads/4be6257f-99af-4fe6-abf7-edb872462f8a.png" 
+                alt="User avatar" 
+                className="w-12 h-12 rounded-full object-cover"
+              />
             </div>
             <div className="text-sm text-muted-foreground">5M+ Kalore Users</div>
           </div>
@@ -112,7 +116,11 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
 
           <div className="testimonial bg-muted/30 rounded-2xl p-4">
             <div className="flex items-center space-x-3 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full" />
+              <img 
+                src="/lovable-uploads/4be6257f-99af-4fe6-abf7-edb872462f8a.png" 
+                alt="User avatar" 
+                className="w-10 h-10 rounded-full object-cover"
+              />
               <span className="font-semibold text-foreground">Benny Marcs</span>
               <div className="flex space-x-1 ml-auto">
                 {[...Array(5)].map((_, i) => (
