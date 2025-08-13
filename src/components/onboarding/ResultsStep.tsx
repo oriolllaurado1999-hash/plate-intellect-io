@@ -66,7 +66,7 @@ const ResultsStep = ({ onNext }: ResultsStepProps) => {
         
         ctx.fillStyle = '#000000';
         ctx.font = 'bold 16px system-ui';
-        ctx.fillText('Kalore Diet', chartMargin + 200, chartMargin - 10);
+        ctx.fillText('Kalore', chartMargin + 200, chartMargin - 10);
       }
 
       // Draw grid lines (subtle)
