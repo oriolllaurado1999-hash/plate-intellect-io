@@ -83,7 +83,7 @@ const Index = () => {
             className="flex items-center gap-1 bg-muted px-3 py-1 rounded-full hover:bg-muted/80 transition-colors"
           >
             <img 
-              src="/lovable-uploads/64f451b3-7d36-415a-8c22-4713cf3dd73c.png" 
+              src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
               alt="Fire icon" 
               className="w-5 h-5 object-contain"
             />
