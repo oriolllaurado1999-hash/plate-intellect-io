@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
-import { Apple } from 'lucide-react';
 
 interface HealthConnectStepProps {
   onConnect: () => void;
@@ -32,9 +31,11 @@ const HealthConnectStep = ({ onConnect, onSkip }: HealthConnectStepProps) => {
         <div className="text-center mb-12">
           {/* Apple Health Logo */}
           <div ref={appIconRef} className="flex justify-center mb-8">
-            <div className="w-24 h-24 bg-foreground rounded-2xl flex items-center justify-center shadow-lg">
-              <Apple className="h-12 w-12 text-background" />
-            </div>
+            <img 
+              src="/lovable-uploads/5034b135-3dfb-4ae8-bcbb-9cfbc5d7868e.png" 
+              alt="Apple Health Logo" 
+              className="w-24 h-24"
+            />
           </div>
         </div>
 
