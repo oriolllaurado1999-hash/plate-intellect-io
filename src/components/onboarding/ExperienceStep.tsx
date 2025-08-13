@@ -40,7 +40,7 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
         </div>
       </div>
 
-      <div className="mb-8">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
           disabled={selected === null}
