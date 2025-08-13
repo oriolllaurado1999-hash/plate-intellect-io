@@ -19,7 +19,7 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-16">Have you tried other calorie tracking apps?</h1>
 
-        <div className="space-y-6">
+        <div className="space-y-6 mb-16">
           <Button
             variant={selected === false ? 'default' : 'outline'}
             className="w-full h-20 text-left flex items-center justify-start px-6 space-x-4"

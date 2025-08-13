@@ -35,7 +35,7 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
           </p>
         </div>
 
-        <div className="space-y-4 mb-12">
+        <div className="space-y-4 mb-16">
           {goals.map((goal) => (
             <button
               key={goal.id}
@@ -56,7 +56,7 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto mb-8">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
           disabled={!selected}

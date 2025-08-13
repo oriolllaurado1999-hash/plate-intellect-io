@@ -115,7 +115,7 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pb-12">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
           className="w-full h-14 text-lg font-medium rounded-full"

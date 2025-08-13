@@ -93,7 +93,7 @@ const CurrentWeightStep = ({ selected, onSelect, onNext }: CurrentWeightStepProp
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-12">
+      <div className="mt-auto pt-4 pb-16">
         <Button
           onClick={handleContinue}
           disabled={!isValid()}
