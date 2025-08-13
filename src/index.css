@@ -125,3 +125,24 @@ All colors MUST be HSL.
     color-scheme: light;
   }
 }
+
+/* Handshake animation */
+.handshake-animation {
+  animation: handshake 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes handshake {
+  0%, 100% {
+    transform: rotate(0deg) translateX(0px);
+  }
+  25% {
+    transform: rotate(-2deg) translateX(-2px);
+  }
+  50% {
+    transform: rotate(0deg) translateX(0px);
+  }
+  75% {
+    transform: rotate(2deg) translateX(2px);
+  }
+}
