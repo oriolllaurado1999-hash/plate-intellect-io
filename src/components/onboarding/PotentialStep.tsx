@@ -89,11 +89,6 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
               <circle className="chart-point" cx="50" cy="120" r="6" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="2" />
               <circle className="chart-point" cx="150" cy="90" r="6" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="2" />
               <circle className="chart-point" cx="250" cy="60" r="8" fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth="2" />
-              
-              {/* Trophy icon at the end */}
-              <g className="chart-point" transform="translate(242, 52)">
-                <circle r="8" fill="hsl(var(--primary))" />
-              </g>
             </svg>
           </div>
 
