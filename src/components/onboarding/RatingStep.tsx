@@ -104,7 +104,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
 
         {/* Testimonials */}
         <div ref={testimonialsRef} className="space-y-4">
-          <div className="testimonial bg-muted/30 rounded-2xl p-4">
+          <div className="testimonial bg-muted/30 rounded-2xl p-4 shadow-lg">
             <div className="flex items-center space-x-3 mb-3">
               <img 
                 src="/lovable-uploads/4652c667-b491-4fe5-9719-6825139f6e3f.png" 
@@ -123,7 +123,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
             </p>
           </div>
 
-          <div className="testimonial bg-muted/30 rounded-2xl p-4">
+          <div className="testimonial bg-muted/30 rounded-2xl p-4 shadow-lg">
             <div className="flex items-center space-x-3 mb-3">
               <img 
                 src="/lovable-uploads/1dcdc75d-e476-44bc-8319-5be4fe445ee2.png" 
