@@ -71,7 +71,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
             
             {/* Decorative laurels */}
             <div className="flex items-center justify-center mt-4">
-              <div className="text-2xl animate-bounce" style={{ animationDelay: '2s' }}>🏆</div>
+              <div className="text-2xl bg-white rounded-full p-3 shadow-lg">🏆</div>
             </div>
           </div>
 
