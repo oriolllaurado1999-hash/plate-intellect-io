@@ -12,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [showAuthForm, setShowAuthForm] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -103,7 +104,10 @@ const Auth = () => {
 
         {/* Get Started Button */}
         <Button
-          onClick={() => setIsSignUp(true)}
+          onClick={() => {
+            setIsSignUp(true);
+            setShowAuthForm(true);
+          }}
           className="w-full h-14 bg-black text-white font-medium rounded-full text-lg hover:bg-gray-800 mb-4"
         >
           Get Started
@@ -112,7 +116,10 @@ const Auth = () => {
         {/* Sign In Link */}
         <div className="text-center">
           <button
-            onClick={() => setIsSignUp(false)}
+            onClick={() => {
+              setIsSignUp(false);
+              setShowAuthForm(true);
+            }}
             className="text-gray-600 hover:text-gray-800"
           >
             Already have an account? <span className="font-medium">Sign In</span>
@@ -120,7 +127,7 @@ const Auth = () => {
         </div>
 
         {/* Auth Modal/Form */}
-        {(isSignUp || email || password) && (
+        {showAuthForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <Card className="w-full max-w-md shadow-xl border-0 bg-white/95 backdrop-blur">
               <CardHeader className="space-y-1 pb-4">
@@ -130,6 +137,7 @@ const Auth = () => {
                   </CardTitle>
                   <button
                     onClick={() => {
+                      setShowAuthForm(false);
                       setIsSignUp(false);
                       setEmail('');
                       setPassword('');
