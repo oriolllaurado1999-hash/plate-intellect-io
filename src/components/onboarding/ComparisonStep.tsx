@@ -83,11 +83,6 @@ const ComparisonStep = ({ onNext }: ComparisonStepProps) => {
           </div>
         </div>
 
-        <div className="text-center">
-          <p className="text-muted-foreground text-lg">
-            Kalore makes it easy and holds you accountable.
-          </p>
-        </div>
       </div>
 
       <div className="mt-auto mb-8">
