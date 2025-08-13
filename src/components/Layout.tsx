@@ -22,32 +22,6 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/20 flex flex-col">
-      {/* Header */}
-      <header className="border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg overflow-hidden bg-primary/10 p-1">
-              <img 
-                src="/lovable-uploads/8d5a420d-5831-46b7-ae7a-d0a1aa371262.png" 
-                alt="Kalore Logo" 
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <h1 className="text-xl font-bold">Kalore</h1>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground hidden sm:block">
-              {user?.email}
-            </span>
-            <ThemeToggle />
-            <Button variant="ghost" size="sm" onClick={handleSignOut}>
-              <LogOut className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline">Sign Out</span>
-            </Button>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="flex-1 pb-20">
