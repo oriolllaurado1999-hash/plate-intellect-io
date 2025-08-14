@@ -64,12 +64,7 @@ const Progress = () => {
         </Card>
 
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm text-muted-foreground">
-              STREAK
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="flex flex-col items-center">
               <span className="text-6xl mb-2">🔥</span>
               <div className="text-2xl font-bold">2 days</div>
