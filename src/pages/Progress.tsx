@@ -72,7 +72,7 @@ const Progress = () => {
             <div className="flex justify-between items-end px-1">
               {currentWeek.map((day, index) => (
                 <div key={index} className="flex flex-col items-center gap-2">
-                  <div className="text-xs text-muted-foreground font-medium leading-none flex items-baseline justify-center w-4 h-4">{day.day}</div>
+                  <div className="text-xs text-muted-foreground font-medium w-4 h-4 flex items-start justify-center align-top">{day.day}</div>
                   <div className="flex justify-center items-center">
                     {day.completed ? (
                       <span className="text-sm">🔥</span>
