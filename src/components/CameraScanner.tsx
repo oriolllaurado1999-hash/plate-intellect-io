@@ -171,16 +171,14 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
             {/* Camera Overlay */}
             <div className="absolute inset-0">
               {/* Top Controls */}
-              <div className="absolute top-0 left-0 right-0 pt-safe">
+              <div className="absolute top-0 left-0 right-0 pt-4 z-10">
                 <div className="flex justify-between items-center px-6 py-4">
-                  <Button 
-                    variant="ghost" 
-                    size="icon"
+                  <button 
                     onClick={onClose}
-                    className="w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
+                    className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 flex items-center justify-center z-20"
                   >
                     <X className="h-5 w-5" />
-                  </Button>
+                  </button>
                   <span className="text-white font-medium text-lg">Scan Food</span>
                   <div className="w-10 h-10"></div> {/* Spacer */}
                 </div>
@@ -198,12 +196,12 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
               </div>
 
               {/* Bottom Controls */}
-              <div className="absolute bottom-0 left-0 right-0 pb-safe">
+              <div className="absolute bottom-0 left-0 right-0 pb-4">
                 {/* Function buttons */}
-                <div className="flex justify-center space-x-4 px-8 mb-6">
+                <div className="flex justify-center space-x-3 px-6 mb-6">
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/90 text-black border-0 rounded-xl shadow-lg"
                     onClick={capturePhoto}
                   >
                     <ScanLine className="h-5 w-5 mb-1" />
@@ -212,7 +210,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/90 text-black border-0 rounded-xl shadow-lg"
                     onClick={() => {/* Handle barcode */}}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />
@@ -221,7 +219,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/90 text-black border-0 rounded-xl shadow-lg"
                     onClick={() => {/* Handle food label */}}
                   >
                     <Upload className="h-5 w-5 mb-1" />
@@ -230,7 +228,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/90 text-black border-0 rounded-xl shadow-lg"
                     onClick={() => fileInputRef.current?.click()}
                   >
                     <ImageIcon className="h-5 w-5 mb-1" />
@@ -298,15 +296,13 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
             {/* Preview Overlay */}
             <div className="absolute inset-0 bg-black/40">
               {/* Top Controls */}
-              <div className="absolute top-safe left-4 right-4 flex justify-between items-center pt-4">
-                <Button 
-                  variant="ghost" 
-                  size="icon"
+              <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
+                <button 
                   onClick={retakePhoto}
-                  className="bg-black/20 backdrop-blur-sm text-white hover:bg-black/40"
+                  className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 flex items-center justify-center"
                 >
                   <X className="h-5 w-5" />
-                </Button>
+                </button>
               </div>
 
               {/* Bottom Actions */}

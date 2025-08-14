@@ -343,14 +343,16 @@ const Index = () => {
       </div>
 
 
-      {/* Floating Add Button */}
-      <button 
-        onClick={handleAddButtonClick}
-        className="fixed bottom-20 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors z-[60]"
-        style={{ backgroundColor: '#4AD4B2' }}
-      >
-        <span className="text-white text-2xl">+</span>
-      </button>
+      {/* Floating Add Button - Hidden when camera is active */}
+      {!showScanner && (
+        <button 
+          onClick={handleAddButtonClick}
+          className="fixed bottom-20 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors z-[60]"
+          style={{ backgroundColor: '#4AD4B2' }}
+        >
+          <span className="text-white text-2xl">+</span>
+        </button>
+      )}
 
       {/* Add Options Menu */}
       <AddOptionsMenu
