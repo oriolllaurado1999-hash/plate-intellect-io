@@ -29,6 +29,7 @@ const Index = () => {
   const [capturedImage, setCapturedImage] = useState('');
   const [dayStreak] = useState(0); // This would come from user data in real app
   const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Mock meal data - in real app this would come from the dashboard data
   const mockMeals = [
@@ -41,6 +42,7 @@ const Index = () => {
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
+    setIsAnalyzing(false);
     setAnalysisData(analysis);
     setCapturedImage(imageUrl);
     setShowScanner(false);
@@ -51,6 +53,7 @@ const Index = () => {
     setShowReview(false);
     setAnalysisData(null);
     setCapturedImage('');
+    setIsAnalyzing(false);
     // Force re-fetch data by updating the date state
     setSelectedDate(new Date(selectedDate));
   };
@@ -59,6 +62,12 @@ const Index = () => {
     setShowReview(false);
     setAnalysisData(null);
     setCapturedImage('');
+    setIsAnalyzing(false);
+  };
+
+  const handleScannerOpen = () => {
+    setShowScanner(true);
+    setIsAnalyzing(true);
   };
 
   if (loading) {
@@ -276,26 +285,30 @@ const Index = () => {
         {/* Recently Uploaded */}
         <div className="mb-6">
           <h3 className="text-xl font-bold text-foreground mb-4">Recently uploaded</h3>
-          <div className="bg-card rounded-xl p-4 shadow-sm dark:shadow-lg border border-border/50">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
-                <Bell className="w-4 h-4 text-info" />
+          
+          {/* Analysis in progress card - only shown when analyzing */}
+          {isAnalyzing && (
+            <div className="bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                  <Bell className="w-4 h-4 text-info" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-muted-foreground text-sm">
+                    Analysis in progress. We'll notify you when done.
+                  </p>
+                </div>
+                <button className="text-muted-foreground hover:text-foreground">
+                  <span className="text-xl">×</span>
+                </button>
               </div>
-              <div className="flex-1">
-                <p className="text-muted-foreground text-sm">
-                  Analysis in progress. We'll notify you when done.
-                </p>
-              </div>
-              <button className="text-muted-foreground hover:text-foreground">
-                <span className="text-xl">×</span>
-              </button>
             </div>
-          </div>
+          )}
           
           {/* Add Meal Card */}
           <button 
-            onClick={() => setShowScanner(true)}
-            className="w-full bg-card rounded-xl p-4 shadow-sm dark:shadow-lg border border-border/50 hover:shadow-md transition-all duration-200 mt-3"
+            onClick={handleScannerOpen}
+            className="w-full bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 hover:shadow-xl transition-all duration-200"
           >
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
@@ -333,7 +346,7 @@ const Index = () => {
 
       {/* Floating Add Button */}
       <button 
-        onClick={() => setShowScanner(true)}
+        onClick={handleScannerOpen}
         className="fixed bottom-20 right-4 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors"
         style={{ backgroundColor: '#4AD4B2' }}
       >
