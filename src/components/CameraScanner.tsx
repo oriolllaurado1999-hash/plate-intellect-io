@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, Upload, X, Loader2, ScanLine, Zap, CreditCard, Image as ImageIcon } from 'lucide-react';
@@ -33,6 +33,16 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  // Start camera automatically when component mounts
+  useEffect(() => {
+    startCamera();
+    
+    // Cleanup function to stop camera when component unmounts
+    return () => {
+      stopCamera();
+    };
+  }, []);
 
   const startCamera = async () => {
     try {
@@ -194,7 +204,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
                   <Button
                     variant="outline"
                     className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => {/* Handle scan food */}}
+                    onClick={capturePhoto}
                   >
                     <ScanLine className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Scan Food</span>
@@ -241,21 +251,17 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
                     </Button>
                     
                     {/* Capture button */}
-                    {!stream ? (
-                      <Button 
-                        onClick={startCamera}
-                        className="w-20 h-20 rounded-full bg-white text-black hover:bg-gray-100 shadow-2xl border-4 border-white/20"
-                      >
+                    <Button 
+                      onClick={capturePhoto}
+                      disabled={!stream}
+                      className="w-20 h-20 rounded-full bg-white text-black hover:bg-gray-100 shadow-2xl border-4 border-white/20 disabled:opacity-50"
+                    >
+                      {!stream ? (
                         <Camera className="h-8 w-8" />
-                      </Button>
-                    ) : (
-                      <Button 
-                        onClick={capturePhoto}
-                        className="w-20 h-20 rounded-full bg-white text-black hover:bg-gray-100 shadow-2xl border-4 border-white/20"
-                      >
+                      ) : (
                         <div className="w-4 h-4 bg-black rounded-full"></div>
-                      </Button>
-                    )}
+                      )}
+                    </Button>
                     
                     {/* Help button */}
                     <Button 
