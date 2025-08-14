@@ -41,10 +41,20 @@ const ExpandedNutritionCard: React.FC<ExpandedNutritionCardProps> = ({
     if (type === 'calories') return meals;
     
     return meals.filter(meal => {
-      if (type === 'protein' && meal.protein && meal.protein > 0) return true;
-      if (type === 'carbs' && meal.carbs && meal.carbs > 0) return true;
-      if (type === 'fat' && meal.fat && meal.fat > 0) return true;
-      return false;
+      if (!meal.protein || !meal.carbs || !meal.fat) return false;
+      
+      // Find which macronutrient is the highest in this meal
+      const macros = {
+        protein: meal.protein,
+        carbs: meal.carbs,
+        fat: meal.fat
+      };
+      
+      const primaryMacro = Object.keys(macros).reduce((a, b) => 
+        macros[a] > macros[b] ? a : b
+      );
+      
+      return primaryMacro === type;
     });
   };
 
