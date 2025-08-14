@@ -72,7 +72,7 @@ const Progress = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold mb-4 text-center">2 days</div>
-            <div className="grid grid-cols-7 gap-2 px-2">
+            <div className="grid grid-cols-7 gap-3 px-3">
               {currentWeek.map((day, index) => (
                 <div key={index} className="flex flex-col items-center gap-2">
                   <div className="text-xs text-muted-foreground font-medium">{day.day}</div>
