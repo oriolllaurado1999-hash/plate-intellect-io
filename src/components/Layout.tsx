@@ -30,7 +30,7 @@ const Layout = () => {
       {/* Bottom Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 border-t z-50">
         <div className="container mx-auto px-4">
-          <div className="flex items-center h-16 pl-4">
+          <div className="flex items-center h-16 pl-8 gap-2">
             {navItems.map(({ icon: Icon, label, path }) => {
               const isActive = location.pathname === path;
               return (
