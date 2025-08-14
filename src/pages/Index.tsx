@@ -16,6 +16,7 @@ import DateNavigation from '@/components/DateNavigation';
 import FloatingAddButton from '@/components/FloatingAddButton';
 import WearableSync from '@/components/WearableSync';
 import DayStreakModal from '@/components/DayStreakModal';
+import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
 
 const Index = () => {
   const { user } = useAuth();
@@ -27,6 +28,16 @@ const Index = () => {
   const [analysisData, setAnalysisData] = useState(null);
   const [capturedImage, setCapturedImage] = useState('');
   const [dayStreak] = useState(0); // This would come from user data in real app
+  const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | null>(null);
+
+  // Mock meal data - in real app this would come from the dashboard data
+  const mockMeals = [
+    { name: 'Grilled Chicken Breast', amount: '150g', calories: 165, protein: 31, carbs: 0, fat: 3.6, time: '08:30' },
+    { name: 'Brown Rice', amount: '100g', calories: 111, protein: 2.6, carbs: 23, fat: 0.9, time: '12:15' },
+    { name: 'Avocado', amount: '1 medium', calories: 234, protein: 2.9, carbs: 12, fat: 21, time: '12:15' },
+    { name: 'Greek Yogurt', amount: '200g', calories: 130, protein: 10, carbs: 9, fat: 5, time: '16:00' },
+    { name: 'Almonds', amount: '30g', calories: 174, protein: 6.4, carbs: 6.1, fat: 15, time: '16:00' }
+  ];
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
@@ -126,7 +137,10 @@ const Index = () => {
         </div>
 
         {/* Main Calorie Card */}
-        <div className="bg-card rounded-2xl p-6 mb-6 shadow-lg dark:shadow-xl border border-border/50">
+        <button 
+          onClick={() => setExpandedCard('calories')}
+          className="w-full bg-card rounded-2xl p-6 mb-6 shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200 text-left"
+        >
           <div className="flex items-center justify-between">
             <div>
               <div className="text-4xl font-bold text-foreground mb-1">
@@ -155,12 +169,15 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
+        </button>
 
         {/* Macro Cards */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {/* Protein */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+          <button 
+            onClick={() => setExpandedCard('protein')}
+            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
+          >
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
             </div>
@@ -185,10 +202,13 @@ const Index = () => {
                 <Beef className="w-4 h-4 text-protein" />
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Carbs */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+          <button 
+            onClick={() => setExpandedCard('carbs')}
+            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
+          >
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
             </div>
@@ -213,10 +233,13 @@ const Index = () => {
                 <Wheat className="w-4 h-4 text-carbs" />
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Fat */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+          <button 
+            onClick={() => setExpandedCard('fat')}
+            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
+          >
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
             </div>
@@ -241,7 +264,7 @@ const Index = () => {
                 <Leaf className="w-4 h-4 text-fat" />
               </div>
             </div>
-          </div>
+          </button>
         </div>
 
         {/* Page Indicators */}
@@ -327,6 +350,55 @@ const Index = () => {
         isOpen={showDayStreak}
         onClose={() => setShowDayStreak(false)}
         streakCount={dayStreak}
+      />
+
+      {/* Expanded Nutrition Cards */}
+      <ExpandedNutritionCard
+        type="calories"
+        isOpen={expandedCard === 'calories'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={dashboardData.todayCalories}
+        goalValue={dashboardData.calorieGoal}
+        unit=""
+        color="#4AD4B2"
+        icon={<Flame className="w-5 h-5" style={{ color: '#4AD4B2' }} />}
+      />
+
+      <ExpandedNutritionCard
+        type="protein"
+        isOpen={expandedCard === 'protein'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={dashboardData.todayProtein}
+        goalValue={dashboardData.todayProtein * 4}
+        unit="g"
+        color="hsl(var(--protein))"
+        icon={<Beef className="w-4 h-4 text-protein" />}
+      />
+
+      <ExpandedNutritionCard
+        type="carbs"
+        isOpen={expandedCard === 'carbs'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={dashboardData.todayCarbs}
+        goalValue={dashboardData.todayCarbs * 2.5}
+        unit="g"
+        color="hsl(var(--carbs))"
+        icon={<Wheat className="w-4 h-4 text-carbs" />}
+      />
+
+      <ExpandedNutritionCard
+        type="fat"
+        isOpen={expandedCard === 'fat'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={dashboardData.todayFat}
+        goalValue={dashboardData.todayFat * 1.5}
+        unit="g"
+        color="hsl(var(--fat))"
+        icon={<Leaf className="w-4 h-4 text-fat" />}
       />
     </div>
   );
