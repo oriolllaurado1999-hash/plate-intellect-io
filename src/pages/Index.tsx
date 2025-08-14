@@ -291,6 +291,29 @@ const Index = () => {
               </button>
             </div>
           </div>
+          
+          {/* Add Meal Card */}
+          <button 
+            onClick={() => setShowScanner(true)}
+            className="w-full bg-card rounded-xl p-4 shadow-sm dark:shadow-lg border border-border/50 hover:shadow-md transition-all duration-200 mt-3"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/da1c207b-3dbf-453e-bcff-f8bdd24a7e06.png"
+                  alt="Food icon"
+                  className="w-8 h-8 object-contain"
+                />
+              </div>
+              <div className="flex-1 text-left">
+                <div className="w-24 h-3 bg-muted rounded mb-2"></div>
+                <div className="w-16 h-3 bg-muted rounded"></div>
+              </div>
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
+            </div>
+          </button>
         </div>
 
         {/* Add Meal Section */}
