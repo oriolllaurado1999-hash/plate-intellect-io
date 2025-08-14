@@ -306,6 +306,9 @@ const Index = () => {
                 <div className="w-16 h-3 bg-muted rounded"></div>
               </div>
             </div>
+            <div className="mt-4 text-center">
+              <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
+            </div>
           </button>
         </div>
       </div>
