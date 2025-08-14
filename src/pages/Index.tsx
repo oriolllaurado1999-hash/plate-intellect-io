@@ -4,7 +4,7 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings } from 'lucide-react';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
@@ -328,17 +328,17 @@ const Index = () => {
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border dark:shadow-2xl">
-        <div className="flex justify-around items-center py-2">
+        <div className="flex justify-around items-center py-3">
           <div className="flex flex-col items-center py-2">
-            <div className="w-6 h-6 mb-1 bg-primary rounded-sm"></div>
+            <Home className="w-5 h-5 mb-1 text-foreground" />
             <span className="text-xs font-medium text-foreground">Home</span>
           </div>
           <div className="flex flex-col items-center py-2">
-            <div className="w-6 h-6 mb-1 bg-muted rounded-sm"></div>
+            <BarChart3 className="w-5 h-5 mb-1 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">Progress</span>
           </div>
           <div className="flex flex-col items-center py-2">
-            <div className="w-6 h-6 mb-1 bg-muted rounded-sm"></div>
+            <Settings className="w-5 h-5 mb-1 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">Settings</span>
           </div>
         </div>
