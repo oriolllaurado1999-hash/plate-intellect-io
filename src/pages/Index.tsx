@@ -4,7 +4,7 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed } from 'lucide-react';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
@@ -299,26 +299,14 @@ const Index = () => {
           >
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                <img 
-                  src="/lovable-uploads/da1c207b-3dbf-453e-bcff-f8bdd24a7e06.png"
-                  alt="Food icon"
-                  className="w-8 h-8 object-contain"
-                />
+                <UtensilsCrossed className="w-6 h-6 text-muted-foreground" />
               </div>
               <div className="flex-1 text-left">
                 <div className="w-24 h-3 bg-muted rounded mb-2"></div>
                 <div className="w-16 h-3 bg-muted rounded"></div>
               </div>
             </div>
-            <div className="mt-4 text-center">
-              <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
-            </div>
           </button>
-        </div>
-
-        {/* Add Meal Section */}
-        <div className="text-center">
-          <p className="text-muted-foreground text-sm mb-4">Tap + to add your first meal of the day</p>
         </div>
       </div>
 
