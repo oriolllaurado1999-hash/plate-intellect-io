@@ -4,7 +4,7 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Dumbbell, Wheat, Droplet } from 'lucide-react';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
@@ -151,7 +151,7 @@ const Index = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-5 h-5 rounded-full bg-warning"></div>
+                <Flame className="w-5 h-5 text-warning" />
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@ const Index = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-sm bg-protein"></div>
+                <Dumbbell className="w-4 h-4 text-protein" />
               </div>
             </div>
           </div>
@@ -210,7 +210,7 @@ const Index = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-sm bg-carbs"></div>
+                <Wheat className="w-4 h-4 text-carbs" />
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ const Index = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-fat"></div>
+                <Droplet className="w-4 h-4 text-fat" />
               </div>
             </div>
           </div>
