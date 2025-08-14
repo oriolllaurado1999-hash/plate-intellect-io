@@ -72,15 +72,15 @@ const Progress = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold mb-4 text-center">2 days</div>
-            <div className="grid grid-cols-7 gap-1 px-1">
+            <div className="grid grid-cols-7 gap-2 px-2">
               {currentWeek.map((day, index) => (
-                <div key={index} className="flex flex-col items-center gap-1.5">
-                  <div className="text-xs text-muted-foreground font-medium w-full text-center">{day.day}</div>
-                  <div className="flex justify-center items-center h-8">
+                <div key={index} className="flex flex-col items-center gap-2">
+                  <div className="text-xs text-muted-foreground font-medium">{day.day}</div>
+                  <div className="flex justify-center items-center h-6 w-6">
                     {day.completed ? (
-                      <span className="text-xl">🔥</span>
+                      <span className="text-sm">🔥</span>
                     ) : (
-                      <div className="w-6 h-6 border-2 border-dashed border-muted-foreground/30 rounded-full"></div>
+                      <div className="w-4 h-4 border-2 border-dashed border-muted-foreground/30 rounded-full"></div>
                     )}
                   </div>
                 </div>
