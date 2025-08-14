@@ -80,7 +80,7 @@ const Index = () => {
         <div className="flex items-center gap-3">
           <button 
             onClick={() => setShowDayStreak(true)}
-            className="flex items-center gap-1 bg-white px-3 py-1 rounded-full hover:bg-white/90 transition-colors shadow-md"
+            className="flex items-center gap-1 bg-card px-3 py-1 rounded-full hover:bg-card/90 transition-colors shadow-md dark:shadow-lg"
           >
             <img 
               src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
@@ -89,7 +89,7 @@ const Index = () => {
             />
             <span className="font-bold text-foreground">{dayStreak}</span>
           </button>
-          <div className="bg-white px-1.5 py-0 rounded-full shadow-md">
+          <div className="bg-card px-1.5 py-0 rounded-full shadow-md dark:shadow-lg">
             <ThemeToggle />
           </div>
         </div>
@@ -126,7 +126,7 @@ const Index = () => {
         </div>
 
         {/* Main Calorie Card */}
-        <div className="bg-card rounded-2xl p-6 mb-6 shadow-lg border border-border/50">
+        <div className="bg-card rounded-2xl p-6 mb-6 shadow-lg dark:shadow-xl border border-border/50">
           <div className="flex items-center justify-between">
             <div>
               <div className="text-4xl font-bold text-foreground mb-1">
@@ -160,7 +160,7 @@ const Index = () => {
         {/* Macro Cards */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           {/* Protein */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-md border border-border/50">
+          <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
             </div>
@@ -188,7 +188,7 @@ const Index = () => {
           </div>
 
           {/* Carbs */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-md border border-border/50">
+          <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
             </div>
@@ -216,7 +216,7 @@ const Index = () => {
           </div>
 
           {/* Fat */}
-          <div className="bg-card rounded-xl p-4 text-center shadow-md border border-border/50">
+          <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
             <div className="text-lg font-bold text-foreground mb-1">
               {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
             </div>
@@ -253,7 +253,7 @@ const Index = () => {
         {/* Recently Uploaded */}
         <div className="mb-6">
           <h3 className="text-xl font-bold text-foreground mb-4">Recently uploaded</h3>
-          <div className="bg-card rounded-xl p-4 shadow-sm border border-border/50">
+          <div className="bg-card rounded-xl p-4 shadow-sm dark:shadow-lg border border-border/50">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
                 <div className="w-3 h-3 rounded-full bg-info"></div>
@@ -280,7 +280,7 @@ const Index = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border">
+      <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border dark:shadow-2xl">
         <div className="flex justify-around items-center py-2">
           <div className="flex flex-col items-center py-2">
             <div className="w-6 h-6 mb-1 bg-primary rounded-sm"></div>
