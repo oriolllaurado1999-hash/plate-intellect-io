@@ -4,7 +4,7 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell } from 'lucide-react';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
@@ -279,14 +279,11 @@ const Index = () => {
           <div className="bg-card rounded-xl p-4 shadow-sm dark:shadow-lg border border-border/50">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-info"></div>
+                <Bell className="w-4 h-4 text-info" />
               </div>
               <div className="flex-1">
                 <p className="text-muted-foreground text-sm">
-                  You can switch apps or turn off your phone.
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  We'll notify you when the analysis is done.
+                  Analysis in progress. We'll notify you when done.
                 </p>
               </div>
               <button className="text-muted-foreground hover:text-foreground">
