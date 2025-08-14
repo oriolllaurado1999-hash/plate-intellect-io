@@ -145,13 +145,13 @@ const Index = () => {
                 <path
                   d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                   fill="none"
-                  stroke="hsl(var(--warning))"
+                  stroke="#4AD4B2"
                   strokeWidth="2"
                   strokeDasharray={`${(dashboardData.todayCalories / dashboardData.calorieGoal) * 100}, 100`}
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Flame className="w-5 h-5 text-warning" />
+                <Flame className="w-5 h-5" style={{ color: '#4AD4B2' }} />
               </div>
             </div>
           </div>
