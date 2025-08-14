@@ -8,6 +8,7 @@ import { ThemeProvider } from "next-themes";
 import { CameraProvider } from "@/contexts/CameraContext";
 import Index from "./pages/Index";
 import Goals from "./pages/Goals";
+import Progress from "./pages/Progress";
 import Activity from "./pages/Activity";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
@@ -70,6 +71,7 @@ const App = () => (
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
                 <Route path="goals" element={<Goals />} />
+                <Route path="progress" element={<Progress />} />
                 <Route path="activity" element={<Activity />} />
                 <Route path="profile" element={<Profile />} />
               </Route>

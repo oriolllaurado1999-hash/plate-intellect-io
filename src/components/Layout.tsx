@@ -17,7 +17,7 @@ const Layout = () => {
 
   const navItems = [
     { icon: Home, label: 'Home', path: '/' },
-    { icon: BarChart3, label: 'Progress', path: '/goals' },
+    { icon: BarChart3, label: 'Progress', path: '/progress' },
     { icon: Settings, label: 'Settings', path: '/profile' },
   ];
 
