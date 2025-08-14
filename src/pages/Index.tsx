@@ -330,7 +330,7 @@ const Index = () => {
       {/* Floating Add Button */}
       <button 
         onClick={handleScannerOpen}
-        className="fixed bottom-20 right-4 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors"
+        className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors z-50"
         style={{ backgroundColor: '#4AD4B2' }}
       >
         <span className="text-white text-2xl">+</span>
