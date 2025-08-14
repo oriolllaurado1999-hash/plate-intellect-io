@@ -40,7 +40,7 @@ const Layout = () => {
                   className={cn(
                     "flex flex-col items-center gap-1 p-2 rounded-lg transition-colors min-w-[60px]",
                     isActive 
-                      ? "text-primary bg-primary/10" 
+                      ? "text-primary" 
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
                 >
