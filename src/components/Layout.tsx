@@ -1,5 +1,5 @@
 import { Outlet, useLocation, Link } from 'react-router-dom';
-import { Home, Target, Activity, User, LogOut } from 'lucide-react';
+import { Home, BarChart3, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
@@ -14,10 +14,9 @@ const Layout = () => {
   };
 
   const navItems = [
-    { icon: Home, label: 'Dashboard', path: '/' },
-    { icon: Target, label: 'Goals', path: '/goals' },
-    { icon: Activity, label: 'Activity', path: '/activity' },
-    { icon: User, label: 'Profile', path: '/profile' },
+    { icon: Home, label: 'Home', path: '/' },
+    { icon: BarChart3, label: 'Progress', path: '/goals' },
+    { icon: Settings, label: 'Settings', path: '/profile' },
   ];
 
   return (

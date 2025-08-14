@@ -326,23 +326,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border dark:shadow-2xl">
-        <div className="flex justify-around items-center py-3">
-          <div className="flex flex-col items-center py-2">
-            <Home className="w-5 h-5 mb-1 text-foreground" />
-            <span className="text-xs font-medium text-foreground">Home</span>
-          </div>
-          <div className="flex flex-col items-center py-2">
-            <BarChart3 className="w-5 h-5 mb-1 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">Progress</span>
-          </div>
-          <div className="flex flex-col items-center py-2">
-            <Settings className="w-5 h-5 mb-1 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">Settings</span>
-          </div>
-        </div>
-      </div>
 
       {/* Floating Add Button */}
       <button 
