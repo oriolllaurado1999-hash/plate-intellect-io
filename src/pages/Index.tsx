@@ -8,7 +8,7 @@ import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, Utensil
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
-import MacroBreakdown from '@/components/MacroBreakdown';
+import SwipeableStats from '@/components/SwipeableStats';
 import WeeklyChart from '@/components/WeeklyChart';
 import StatsCards from '@/components/StatsCards';
 import RecentMeals from '@/components/RecentMeals';
@@ -196,106 +196,13 @@ const Index = () => {
           </div>
         </button>
 
-        {/* Macro Cards */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          {/* Protein */}
-          <button 
-            onClick={() => setExpandedCard('protein')}
-            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-          >
-            <div className="text-lg font-bold text-foreground mb-1">
-              {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
-            </div>
-            <div className="text-xs text-muted-foreground mb-3">Protein left</div>
-            <div className="w-12 h-12 mx-auto relative">
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--protein))"
-                  strokeWidth="3"
-                  strokeDasharray="25, 100"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Beef className="w-4 h-4 text-protein" />
-              </div>
-            </div>
-          </button>
-
-          {/* Carbs */}
-          <button 
-            onClick={() => setExpandedCard('carbs')}
-            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-          >
-            <div className="text-lg font-bold text-foreground mb-1">
-              {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
-            </div>
-            <div className="text-xs text-muted-foreground mb-3">Carbs left</div>
-            <div className="w-12 h-12 mx-auto relative">
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--carbs))"
-                  strokeWidth="3"
-                  strokeDasharray="40, 100"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Wheat className="w-4 h-4 text-carbs" />
-              </div>
-            </div>
-          </button>
-
-          {/* Fat */}
-          <button 
-            onClick={() => setExpandedCard('fat')}
-            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-          >
-            <div className="text-lg font-bold text-foreground mb-1">
-              {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
-            </div>
-            <div className="text-xs text-muted-foreground mb-3">Fat left</div>
-            <div className="w-12 h-12 mx-auto relative">
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--fat))"
-                  strokeWidth="3"
-                  strokeDasharray="60, 100"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Leaf className="w-4 h-4 text-fat" />
-              </div>
-            </div>
-          </button>
-        </div>
-
-        {/* Page Indicators */}
-        <div className="flex justify-center gap-2 mb-6">
-          <div className="w-2 h-2 rounded-full bg-primary"></div>
-          <div className="w-2 h-2 rounded-full bg-border"></div>
+        {/* Swipeable Stats */}
+        <div className="mb-6">
+          <SwipeableStats
+            protein={dashboardData.todayProtein}
+            carbs={dashboardData.todayCarbs}
+            fat={dashboardData.todayFat}
+          />
         </div>
 
         {/* Recently Uploaded */}
