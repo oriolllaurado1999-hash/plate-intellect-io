@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { useCameraContext } from '@/contexts/CameraContext';
 
 const Layout = () => {
   const { user, signOut } = useAuth();
   const location = useLocation();
+  const { isCameraActive } = useCameraContext();
 
   const handleSignOut = async () => {
     await signOut();
@@ -27,31 +29,33 @@ const Layout = () => {
         <Outlet />
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 border-t z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-evenly h-16 px-4">
-            {navItems.map(({ icon: Icon, label, path }) => {
-              const isActive = location.pathname === path;
-              return (
-                <Link
-                  key={path}
-                  to={path}
-                  className={cn(
-                    "flex flex-col items-center gap-1 p-2 rounded-lg transition-colors min-w-[80px]",
-                    isActive 
-                      ? "text-primary" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <Icon className="h-5 w-5" />
-                  <span className="text-xs font-medium">{label}</span>
-                </Link>
-              );
-            })}
+      {/* Bottom Navigation - Hidden when camera is active */}
+      {!isCameraActive && (
+        <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 border-t z-50">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-evenly h-16 px-4">
+              {navItems.map(({ icon: Icon, label, path }) => {
+                const isActive = location.pathname === path;
+                return (
+                  <Link
+                    key={path}
+                    to={path}
+                    className={cn(
+                      "flex flex-col items-center gap-1 p-2 rounded-lg transition-colors min-w-[80px]",
+                      isActive 
+                        ? "text-primary" 
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="text-xs font-medium">{label}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
     </div>
   );
 };

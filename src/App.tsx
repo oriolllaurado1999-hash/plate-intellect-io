@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { ThemeProvider } from "next-themes";
+import { CameraProvider } from "@/contexts/CameraContext";
 import Index from "./pages/Index";
 import Goals from "./pages/Goals";
 import Activity from "./pages/Activity";
@@ -57,25 +58,27 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-          <Routes>
-            <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
-            <Route path="/onboarding-preview" element={<OnboardingPreview />} />
-            <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Index />} />
-              <Route path="goals" element={<Goals />} />
-              <Route path="activity" element={<Activity />} />
-              <Route path="profile" element={<Profile />} />
-            </Route>
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <CameraProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+            <Routes>
+              <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
+              <Route path="/onboarding-preview" element={<OnboardingPreview />} />
+              <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Index />} />
+                <Route path="goals" element={<Goals />} />
+                <Route path="activity" element={<Activity />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </CameraProvider>
       </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>

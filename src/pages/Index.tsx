@@ -18,9 +18,11 @@ import WearableSync from '@/components/WearableSync';
 import DayStreakModal from '@/components/DayStreakModal';
 import AddOptionsMenu from '@/components/AddOptionsMenu';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
+import { useCameraContext } from '@/contexts/CameraContext';
 
 const Index = () => {
   const { user } = useAuth();
+  const { setIsCameraActive } = useCameraContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const [showScanner, setShowScanner] = useState(false);
@@ -45,6 +47,7 @@ const Index = () => {
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
     setIsAnalyzing(false);
+    setIsCameraActive(false);
     setAnalysisData(analysis);
     setCapturedImage(imageUrl);
     setShowScanner(false);
@@ -72,8 +75,15 @@ const Index = () => {
   };
 
   const handleScanFood = () => {
+    setIsCameraActive(true);
     setShowScanner(true);
     setIsAnalyzing(true);
+  };
+
+  const handleCameraClose = () => {
+    setIsCameraActive(false);
+    setShowScanner(false);
+    setIsAnalyzing(false);
   };
 
   if (loading) {
@@ -353,7 +363,7 @@ const Index = () => {
       {showScanner && (
         <CameraScanner
           onAnalysisComplete={handleAnalysisComplete}
-          onClose={() => setShowScanner(false)}
+          onClose={handleCameraClose}
         />
       )}
 
