@@ -16,6 +16,7 @@ import DateNavigation from '@/components/DateNavigation';
 import FloatingAddButton from '@/components/FloatingAddButton';
 import WearableSync from '@/components/WearableSync';
 import DayStreakModal from '@/components/DayStreakModal';
+import AddOptionsMenu from '@/components/AddOptionsMenu';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
 
 const Index = () => {
@@ -30,6 +31,7 @@ const Index = () => {
   const [dayStreak] = useState(0); // This would come from user data in real app
   const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showAddOptions, setShowAddOptions] = useState(false);
 
   // Mock meal data - in real app this would come from the dashboard data
   const mockMeals = [
@@ -65,7 +67,11 @@ const Index = () => {
     setIsAnalyzing(false);
   };
 
-  const handleScannerOpen = () => {
+  const handleAddButtonClick = () => {
+    setShowAddOptions(true);
+  };
+
+  const handleScanFood = () => {
     setShowScanner(true);
     setIsAnalyzing(true);
   };
@@ -307,7 +313,7 @@ const Index = () => {
           
           {/* Add Meal Card */}
           <button 
-            onClick={handleScannerOpen}
+            onClick={handleAddButtonClick}
             className="w-full bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 hover:shadow-xl transition-all duration-200"
           >
             <div className="flex items-center gap-3">
@@ -329,12 +335,19 @@ const Index = () => {
 
       {/* Floating Add Button */}
       <button 
-        onClick={handleScannerOpen}
+        onClick={handleAddButtonClick}
         className="fixed bottom-20 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors z-[60]"
         style={{ backgroundColor: '#4AD4B2' }}
       >
         <span className="text-white text-2xl">+</span>
       </button>
+
+      {/* Add Options Menu */}
+      <AddOptionsMenu
+        isOpen={showAddOptions}
+        onClose={() => setShowAddOptions(false)}
+        onScanFood={handleScanFood}
+      />
 
       {/* Modals */}
       {showScanner && (
