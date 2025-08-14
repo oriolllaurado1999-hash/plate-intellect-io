@@ -4,7 +4,7 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target, Flame, Dumbbell, Wheat, Droplet } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Apple } from 'lucide-react';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
@@ -182,7 +182,7 @@ const Index = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Dumbbell className="w-4 h-4 text-protein" />
+                <Beef className="w-4 h-4 text-protein" />
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ const Index = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Droplet className="w-4 h-4 text-fat" />
+                <Apple className="w-4 h-4 text-fat" />
               </div>
             </div>
           </div>
