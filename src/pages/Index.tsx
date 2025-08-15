@@ -19,6 +19,7 @@ import FloatingAddButton from '@/components/FloatingAddButton';
 import WearableSync from '@/components/WearableSync';
 import DayStreakModal from '@/components/DayStreakModal';
 import AddOptionsMenu from '@/components/AddOptionsMenu';
+import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
 import { useCameraContext } from '@/contexts/CameraContext';
 
@@ -38,6 +39,7 @@ const Index = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
+  const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
 
   // Mock meal data - in real app this would come from the dashboard data
   const mockMeals = [
@@ -122,6 +124,15 @@ const Index = () => {
 
   const healthScore = calculateHealthScore();
   const healthScoreColor = interpolateColor(healthScore);
+
+  // Water handling functions
+  const addWater = () => {
+    setWaterConsumed(prev => Math.min(prev + 250, 2000)); // Añadir 250ml, máximo 2000ml
+  };
+
+  const removeWater = () => {
+    setWaterConsumed(prev => Math.max(prev - 250, 0)); // Quitar 250ml, mínimo 0ml
+  };
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
@@ -546,9 +557,9 @@ const Index = () => {
                 {/* Water Intake Card */}
                 <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
                   <div className="flex items-center gap-4">
-                    {/* Large Water Icon - Left Side */}
+                    {/* Large Water Icon with Dynamic Level - Left Side */}
                     <div className="flex-shrink-0">
-                      <GlassWater className="w-16 h-16" style={{ color: '#3B82F6' }} />
+                      <WaterGlass currentWater={waterConsumed} maxWater={2000} className="w-16 h-16" style={{ color: '#3B82F6' }} />
                     </div>
                     
                     {/* Content - Right Side */}
@@ -561,12 +572,18 @@ const Index = () => {
                       </div>
                       
                       <div className="flex items-center justify-between">
-                        <div className="text-2xl font-bold text-foreground">0 ml</div>
+                        <div className="text-2xl font-bold text-foreground">{waterConsumed} ml</div>
                         <div className="flex items-center gap-2">
-                          <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
+                          <button 
+                            onClick={removeWater}
+                            className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
+                          >
                             <span className="text-foreground text-lg">−</span>
                           </button>
-                          <button className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity">
+                          <button 
+                            onClick={addWater}
+                            className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity"
+                          >
                             <span className="text-background text-lg">+</span>
                           </button>
                         </div>
