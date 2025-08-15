@@ -326,6 +326,24 @@ const Index = () => {
                       <div className="text-muted-foreground">Health Score</div>
                     </div>
                     <div className="w-20 h-20 relative">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="hsl(var(--border))"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="#4AD4B2"
+                          strokeWidth="2"
+                          strokeDasharray="0, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-2xl">😊</span>
+                      </div>
                     </div>
                   </div>
                 </div>
