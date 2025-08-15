@@ -342,7 +342,7 @@ const Index = () => {
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-2xl">😊</span>
+                        <Heart className="w-5 h-5" style={{ color: '#4AD4B2' }} />
                       </div>
                     </div>
                   </div>
