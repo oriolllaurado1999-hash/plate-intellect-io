@@ -485,19 +485,16 @@ const Index = () => {
         {/* Page Indicators */}
         <div className="flex justify-center gap-2 mb-6">
           <div 
-            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-              activeCarouselSection === 0 ? 'bg-green-500' : 'bg-border'
-            }`}
+            className={`w-2 h-2 rounded-full transition-colors duration-200`}
+            style={{ backgroundColor: activeCarouselSection === 0 ? '#4AD4B2' : 'hsl(var(--border))' }}
           ></div>
           <div 
-            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-              activeCarouselSection === 1 ? 'bg-green-500' : 'bg-border'
-            }`}
+            className={`w-2 h-2 rounded-full transition-colors duration-200`}
+            style={{ backgroundColor: activeCarouselSection === 1 ? '#4AD4B2' : 'hsl(var(--border))' }}
           ></div>
           <div 
-            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-              activeCarouselSection === 2 ? 'bg-green-500' : 'bg-border'
-            }`}
+            className={`w-2 h-2 rounded-full transition-colors duration-200`}
+            style={{ backgroundColor: activeCarouselSection === 2 ? '#4AD4B2' : 'hsl(var(--border))' }}
           ></div>
         </div>
 
