@@ -555,35 +555,39 @@ const Index = () => {
                 </div>
 
                 {/* Water Intake Card */}
-                <div className="w-full bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-4xl font-bold text-foreground mb-1">{waterConsumed} ml</div>
-                      <div className="text-muted-foreground">Water</div>
+                <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                  <div className="flex items-center gap-4">
+                    {/* Large Water Icon with Dynamic Level - Left Side */}
+                    <div className="flex-shrink-0">
+                      <WaterGlass currentWater={waterConsumed} maxWater={2000} className="w-16 h-16" style={{ color: '#3B82F6' }} />
                     </div>
-                    <div className="w-20 h-20 relative flex items-center justify-center">
-                      <WaterGlass currentWater={waterConsumed} maxWater={2000} className="w-20 h-20" style={{ color: '#3B82F6' }} />
-                    </div>
-                  </div>
-                  
-                  {/* Controls Row */}
-                  <div className="flex items-center justify-between mt-4">
-                    <button className="w-6 h-6 flex items-center justify-center">
-                      <Settings className="w-4 h-4 text-muted-foreground" />
-                    </button>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        onClick={removeWater}
-                        className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
-                      >
-                        <span className="text-foreground text-lg">−</span>
-                      </button>
-                      <button 
-                        onClick={addWater}
-                        className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity"
-                      >
-                        <span className="text-background text-lg">+</span>
-                      </button>
+                    
+                    {/* Content - Right Side */}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-lg font-semibold text-foreground">Water</div>
+                        <button className="w-6 h-6 flex items-center justify-center">
+                          <Settings className="w-4 h-4 text-muted-foreground" />
+                        </button>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="text-2xl font-bold text-foreground">{waterConsumed} ml</div>
+                        <div className="flex items-center gap-2">
+                          <button 
+                            onClick={removeWater}
+                            className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
+                          >
+                            <span className="text-foreground text-lg">−</span>
+                          </button>
+                          <button 
+                            onClick={addWater}
+                            className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity"
+                          >
+                            <span className="text-background text-lg">+</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
