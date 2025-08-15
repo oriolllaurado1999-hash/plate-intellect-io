@@ -543,16 +543,6 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Apple Health Connect */}
-                <div className="bg-muted/50 rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
-                  <div className="flex items-center gap-3">
-                    <Heart className="w-5 h-5 text-red-500" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-foreground">Connect Apple Health to track your steps</p>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Additional Cards Grid */}
                 <div className="grid grid-cols-2 gap-3">
                   {/* Calories Burned */}
