@@ -319,12 +319,12 @@ const Index = () => {
             <CarouselItem>
               <div className="space-y-4">
                 {/* Health Score Section */}
-                <div className="bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-lg font-bold text-foreground">Health Score</h4>
-                    <span className="text-lg font-bold text-muted-foreground">N/A</span>
+                <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-base font-bold text-foreground">Health Score</h4>
+                    <span className="text-base font-bold text-muted-foreground">N/A</span>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     Track what you eat and see your health score instantly. The higher the better!
                   </p>
                 </div>
