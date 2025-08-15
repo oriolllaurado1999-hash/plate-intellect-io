@@ -439,7 +439,7 @@ const Index = () => {
                 </div>
 
                 {/* Micronutrient Cards */}
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-3 pb-4">
                   {/* Fiber */}
                   <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">38g</div>
