@@ -35,7 +35,7 @@ const Index = () => {
   const [analysisData, setAnalysisData] = useState(null);
   const [capturedImage, setCapturedImage] = useState('');
   const [dayStreak] = useState(0); // This would come from user data in real app
-  const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | null>(null);
+  const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | 'fiber' | 'sugar' | 'sodium' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
@@ -441,7 +441,10 @@ const Index = () => {
                 {/* Micronutrient Cards */}
                 <div className="grid grid-cols-3 gap-3 pb-4">
                   {/* Fiber */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
+                  <button 
+                    onClick={() => setExpandedCard('fiber')}
+                    className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
+                  >
                     <div className="text-lg font-bold text-foreground mb-1">38g</div>
                     <div className="text-xs text-muted-foreground mb-3">Fiber left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -464,10 +467,13 @@ const Index = () => {
                         <Grape className="w-4 h-4" style={{ color: '#8B5FBF' }} />
                       </div>
                     </div>
-                  </div>
+                  </button>
 
                   {/* Sugar */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
+                  <button 
+                    onClick={() => setExpandedCard('sugar')}
+                    className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
+                  >
                     <div className="text-lg font-bold text-foreground mb-1">96g</div>
                     <div className="text-xs text-muted-foreground mb-3">Sugar left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -490,10 +496,13 @@ const Index = () => {
                         <Candy className="w-4 h-4" style={{ color: '#FF6B9D' }} />
                       </div>
                     </div>
-                  </div>
+                  </button>
 
                   {/* Sodium */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
+                  <button 
+                    onClick={() => setExpandedCard('sodium')}
+                    className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
+                  >
                     <div className="text-lg font-bold text-foreground mb-1">2300mg</div>
                     <div className="text-xs text-muted-foreground mb-3">Sodium left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -516,7 +525,7 @@ const Index = () => {
                         <Salad className="w-4 h-4" style={{ color: '#FFB366' }} />
                       </div>
                     </div>
-                  </div>
+                  </button>
                 </div>
               </div>
             </CarouselItem>
@@ -745,6 +754,42 @@ const Index = () => {
         unit="g"
         color="hsl(var(--fat))"
         icon={<Leaf className="w-4 h-4 text-fat" />}
+      />
+
+      <ExpandedNutritionCard
+        type="fiber"
+        isOpen={expandedCard === 'fiber'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={10}
+        goalValue={38}
+        unit="g"
+        color="#8B5FBF"
+        icon={<Grape className="w-4 h-4" style={{ color: '#8B5FBF' }} />}
+      />
+
+      <ExpandedNutritionCard
+        type="sugar"
+        isOpen={expandedCard === 'sugar'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={50}
+        goalValue={96}
+        unit="g"
+        color="#FF6B9D"
+        icon={<Candy className="w-4 h-4" style={{ color: '#FF6B9D' }} />}
+      />
+
+      <ExpandedNutritionCard
+        type="sodium"
+        isOpen={expandedCard === 'sodium'}
+        onClose={() => setExpandedCard(null)}
+        meals={mockMeals}
+        totalValue={1800}
+        goalValue={2300}
+        unit="mg"
+        color="#FFB366"
+        icon={<Salad className="w-4 h-4" style={{ color: '#FFB366' }} />}
       />
     </div>
   );

@@ -13,7 +13,7 @@ interface MealItem {
 }
 
 interface ExpandedNutritionCardProps {
-  type: 'calories' | 'protein' | 'carbs' | 'fat';
+  type: 'calories' | 'protein' | 'carbs' | 'fat' | 'fiber' | 'sugar' | 'sodium';
   isOpen: boolean;
   onClose: () => void;
   meals: MealItem[];
