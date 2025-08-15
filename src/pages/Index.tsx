@@ -4,7 +4,7 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings, Grape, Candy, Salad } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings, Grape, Candy, Salad, Activity, Footprints, Heart, Droplets } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
@@ -394,6 +394,74 @@ const Index = () => {
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Track a few foods to generate your health score for today. Your score reflects nutritional content and how processed your meals are.
                   </p>
+                </div>
+              </div>
+            </CarouselItem>
+
+            {/* Section 3: Activity & Fitness */}
+            <CarouselItem>
+              <div className="space-y-4">
+                {/* Steps Today - Large Card */}
+                <div className="bg-card rounded-xl p-6 shadow-lg dark:shadow-xl border border-border/50">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <div className="text-3xl font-bold text-foreground mb-1">0</div>
+                      <div className="text-sm text-muted-foreground">/10,000</div>
+                      <div className="text-muted-foreground">Steps today</div>
+                    </div>
+                    <div className="w-16 h-16 relative">
+                      <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="hsl(var(--border))"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="#22C55E"
+                          strokeWidth="2"
+                          strokeDasharray="0, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Footprints className="w-5 h-5" style={{ color: '#22C55E' }} />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Apple Health Connect */}
+                  <div className="bg-muted/50 rounded-lg p-3 flex items-center gap-3">
+                    <Heart className="w-5 h-5 text-red-500" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-foreground">Connect Apple Health to track your steps</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Additional Cards Grid */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Calories Burned */}
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                    <div className="text-2xl font-bold text-foreground mb-1">0</div>
+                    <div className="text-xs text-muted-foreground mb-3">Calories burned</div>
+                    <div className="w-10 h-10 mx-auto relative">
+                      <Activity className="w-5 h-5" style={{ color: '#F97316' }} />
+                    </div>
+                  </div>
+
+                  {/* Water Intake */}
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                    <div className="text-2xl font-bold text-foreground mb-1">0</div>
+                    <div className="text-xs text-muted-foreground mb-3">ml</div>
+                    <div className="w-10 h-10 mx-auto relative flex items-center justify-center">
+                      <Droplets className="w-5 h-5" style={{ color: '#3B82F6' }} />
+                    </div>
+                    <div className="mt-2">
+                      <div className="text-xs text-muted-foreground">Water</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CarouselItem>
