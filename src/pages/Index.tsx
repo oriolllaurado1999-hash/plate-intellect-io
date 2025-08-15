@@ -545,29 +545,33 @@ const Index = () => {
 
                 {/* Water Intake Card */}
                 <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 flex items-center justify-center">
-                        <GlassWater className="w-6 h-6" style={{ color: '#3B82F6' }} />
-                      </div>
-                      <div>
+                  <div className="flex items-center gap-4">
+                    {/* Large Water Icon - Left Side */}
+                    <div className="flex-shrink-0">
+                      <GlassWater className="w-16 h-16" style={{ color: '#3B82F6' }} />
+                    </div>
+                    
+                    {/* Content - Right Side */}
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
                         <div className="text-lg font-semibold text-foreground">Water</div>
+                        <button className="w-6 h-6 flex items-center justify-center">
+                          <Settings className="w-4 h-4 text-muted-foreground" />
+                        </button>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="text-2xl font-bold text-foreground">0 ml</div>
+                        <div className="flex items-center gap-2">
+                          <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
+                            <span className="text-foreground text-lg">−</span>
+                          </button>
+                          <button className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity">
+                            <span className="text-background text-lg">+</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
-                        <span className="text-foreground text-lg">−</span>
-                      </button>
-                      <button className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity">
-                        <span className="text-background text-lg">+</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="text-2xl font-bold text-foreground">0 ml</div>
-                    <button className="w-6 h-6 flex items-center justify-center">
-                      <Settings className="w-4 h-4 text-muted-foreground" />
-                    </button>
                   </div>
                 </div>
               </div>
