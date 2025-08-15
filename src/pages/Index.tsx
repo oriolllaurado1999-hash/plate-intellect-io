@@ -319,7 +319,7 @@ const Index = () => {
             <CarouselItem>
               <div className="space-y-4">
                 {/* Health Score Section */}
-                <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                <div className="bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="text-base font-bold text-foreground">Health Score</h4>
                     <span className="text-base font-bold text-muted-foreground">N/A</span>
