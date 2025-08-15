@@ -67,7 +67,11 @@ const Progress = () => {
         <Card className="shadow-lg dark:shadow-xl">
           <CardContent className="space-y-4 pt-6">
             <div className="flex flex-col items-center">
-              <span className="text-6xl mb-2">🔥</span>
+              <img 
+                src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
+                alt="Fire icon" 
+                className="w-12 h-12 object-contain mb-2"
+              />
               <div className="text-2xl font-bold">2 days</div>
             </div>
             <div className="flex justify-center gap-0.5 px-1">
