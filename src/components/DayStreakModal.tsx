@@ -70,8 +70,9 @@ const DayStreakModal = ({ isOpen, onClose, streakCount }: DayStreakModalProps) =
               Consistency unlocks clarity
             </h3>
             <p className="text-muted-foreground leading-relaxed">
-              Your consistency is working. Using Kalore every day helps capture uninterrupted data so 
-              you can better understand how your body recovers, performs, and adapts over time.
+              Your consistency is paying off. Using Kalore every day helps you track your calorie intake 
+              with precision, giving you a clearer picture of your daily nutrition so you can reach your 
+              goals faster and with greater success.
             </p>
           </div>
 
