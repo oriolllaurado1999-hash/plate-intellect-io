@@ -70,7 +70,7 @@ const Progress = () => {
               <img 
                 src="/lovable-uploads/7d142eb3-f8e4-4a19-9101-57f54c233e78.png" 
                 alt="Fire icon" 
-                className="w-12 h-12 object-contain mb-2"
+                className="w-16 h-16 object-contain mb-2"
               />
               <div className="text-2xl font-bold">2 days</div>
             </div>
