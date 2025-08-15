@@ -406,7 +406,7 @@ const Index = () => {
                     <span className="text-lg font-bold text-muted-foreground">N/A</span>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Track a few foods to generate your health score for today. Your score reflects nutritional content and how processed your meals are.
+                    Track what you eat and see your health score instantly. The higher the better!
                   </p>
                 </div>
               </div>
