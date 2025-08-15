@@ -5,10 +5,13 @@ import { Progress as ProgressBar } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { BarChart3, HelpCircle } from 'lucide-react';
+import DayStreakModal from '@/components/DayStreakModal';
 
 const Progress = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('90 Days');
   const [selectedWeek, setSelectedWeek] = useState('This week');
+  const [showDayStreak, setShowDayStreak] = useState(false);
+  const dayStreak = 2; // This would come from user data in real app
 
   const periodOptions = ['90 Days', '6 Months', '1 Year', 'All time'];
   const weekOptions = ['This week', 'Last week', '2 wks. ago', '3 wks. ago'];
@@ -64,7 +67,10 @@ const Progress = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg dark:shadow-xl">
+        <Card 
+          className="shadow-lg dark:shadow-xl cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-shadow"
+          onClick={() => setShowDayStreak(true)}
+        >
           <CardContent className="space-y-4 pt-6">
             <div className="flex flex-col items-center">
               <img 
@@ -72,7 +78,7 @@ const Progress = () => {
                 alt="Fire icon" 
                 className="w-16 h-16 object-contain mb-2"
               />
-              <div className="text-2xl font-bold">2 days</div>
+              <div className="text-2xl font-bold">{dayStreak} days</div>
             </div>
             <div className="flex justify-center gap-0.5 px-1">
               {currentWeek.map((day, index) => (
@@ -244,6 +250,13 @@ const Progress = () => {
         </CardContent>
       </Card>
       </div>
+      
+      {/* Day Streak Modal */}
+      <DayStreakModal 
+        isOpen={showDayStreak}
+        onClose={() => setShowDayStreak(false)}
+        streakCount={dayStreak}
+      />
     </div>
   );
 };
