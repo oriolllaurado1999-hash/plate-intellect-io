@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
@@ -35,6 +35,7 @@ const Index = () => {
   const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
+  const [activeCarouselSection, setActiveCarouselSection] = useState(0);
 
   // Mock meal data - in real app this would come from the dashboard data
   const mockMeals = [
@@ -163,7 +164,20 @@ const Index = () => {
         </div>
 
         {/* Nutrition Carousel */}
-        <Carousel className="mb-6">
+        <Carousel 
+          className="mb-6"
+          setApi={(api) => {
+            if (!api) return;
+            
+            // Set initial active section
+            setActiveCarouselSection(api.selectedScrollSnap());
+            
+            // Listen for scroll changes
+            api.on('select', () => {
+              setActiveCarouselSection(api.selectedScrollSnap());
+            });
+          }}
+        >
           <CarouselContent>
             {/* Section 1: Main Macros */}
             <CarouselItem>
@@ -470,9 +484,21 @@ const Index = () => {
 
         {/* Page Indicators */}
         <div className="flex justify-center gap-2 mb-6">
-          <div className="w-2 h-2 rounded-full bg-primary"></div>
-          <div className="w-2 h-2 rounded-full bg-border"></div>
-          <div className="w-2 h-2 rounded-full bg-border"></div>
+          <div 
+            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              activeCarouselSection === 0 ? 'bg-green-500' : 'bg-border'
+            }`}
+          ></div>
+          <div 
+            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              activeCarouselSection === 1 ? 'bg-green-500' : 'bg-border'
+            }`}
+          ></div>
+          <div 
+            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              activeCarouselSection === 2 ? 'bg-green-500' : 'bg-border'
+            }`}
+          ></div>
         </div>
 
         {/* Recently Uploaded */}
