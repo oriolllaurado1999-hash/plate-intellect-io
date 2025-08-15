@@ -70,17 +70,17 @@ const Progress = () => {
               <span className="text-6xl mb-2">🔥</span>
               <div className="text-2xl font-bold">2 days</div>
             </div>
-            <div className="flex justify-center gap-3 px-2">
+            <div className="flex justify-center gap-1 px-2">
               {currentWeek.map((day, index) => (
                 <div key={index} className="flex items-center justify-center">
                   <div 
-                    className={`w-7 h-7 rounded-full border-2 flex items-center justify-center ${
+                    className={`w-5 h-5 rounded-full border flex items-center justify-center ${
                       day.completed 
                         ? 'bg-orange-400/70 border-orange-400/70' 
                         : 'border-dashed border-muted-foreground/40'
                     }`}
                   >
-                    <span className={`text-xs font-medium ${
+                    <span className={`text-[10px] font-medium ${
                       day.completed ? 'text-white' : 'text-muted-foreground'
                     }`}>
                       {day.day}
