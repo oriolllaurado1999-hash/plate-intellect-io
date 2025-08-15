@@ -318,49 +318,21 @@ const Index = () => {
             {/* Section 2: Micronutrients */}
             <CarouselItem>
               <div className="space-y-4">
-                {/* Health Score Card */}
-                <button 
-                  className="w-full bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200 text-left"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-4xl font-bold text-foreground mb-1">N/A</div>
-                      <div className="text-muted-foreground">Health Score</div>
-                    </div>
-                    <div className="w-20 h-20 relative">
-                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
-                        <path
-                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                          fill="none"
-                          stroke="hsl(var(--border))"
-                          strokeWidth="2"
-                        />
-                        <path
-                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                          fill="none"
-                          stroke="#4AD4B2"
-                          strokeWidth="2"
-                          strokeDasharray="0, 100"
-                        />
-                      </svg>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <Flame className="w-5 h-5" style={{ color: '#4AD4B2' }} />
-                      </div>
-                    </div>
+                {/* Health Score Section */}
+                <div className="bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-lg font-bold text-foreground">Health Score</h4>
+                    <span className="text-lg font-bold text-muted-foreground">N/A</span>
                   </div>
-                  <div className="mt-3">
-                    <p className="text-sm text-muted-foreground">
-                      Track what you eat and see your health score instantly. The higher the better!
-                    </p>
-                  </div>
-                </button>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Track what you eat and see your health score instantly. The higher the better!
+                  </p>
+                </div>
 
                 {/* Micronutrient Cards */}
                 <div className="grid grid-cols-3 gap-3">
                   {/* Fiber */}
-                  <button 
-                    className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-                  >
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">38g</div>
                     <div className="text-xs text-muted-foreground mb-3">Fiber left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -383,12 +355,10 @@ const Index = () => {
                         <Grape className="w-4 h-4" style={{ color: '#8B5FBF' }} />
                       </div>
                     </div>
-                  </button>
+                  </div>
 
                   {/* Sugar */}
-                  <button 
-                    className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-                  >
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">96g</div>
                     <div className="text-xs text-muted-foreground mb-3">Sugar left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -411,12 +381,10 @@ const Index = () => {
                         <Candy className="w-4 h-4" style={{ color: '#FF6B9D' }} />
                       </div>
                     </div>
-                  </button>
+                  </div>
 
                   {/* Sodium */}
-                  <button 
-                    className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-                  >
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">2300mg</div>
                     <div className="text-xs text-muted-foreground mb-3">Sodium left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -439,7 +407,7 @@ const Index = () => {
                         <Salad className="w-4 h-4" style={{ color: '#FFB366' }} />
                       </div>
                     </div>
-                  </button>
+                  </div>
                 </div>
               </div>
             </CarouselItem>
