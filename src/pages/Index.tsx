@@ -514,15 +514,14 @@ const Index = () => {
             <CarouselItem>
               <div className="space-y-4">
                 {/* Steps Today - Large Card */}
-                <div className="bg-card rounded-xl p-6 shadow-lg dark:shadow-xl border border-border/50">
-                  <div className="flex items-center justify-between mb-4">
+                <div className="w-full bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
+                  <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-3xl font-bold text-foreground mb-1">0</div>
-                      <div className="text-sm text-muted-foreground">/10,000</div>
+                      <div className="text-4xl font-bold text-foreground mb-1">0</div>
                       <div className="text-muted-foreground">Steps today</div>
                     </div>
-                    <div className="w-16 h-16 relative">
-                      <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                    <div className="w-20 h-20 relative">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
                         <path
                           d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                           fill="none"
@@ -542,9 +541,11 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Apple Health Connect */}
-                  <div className="bg-muted/50 rounded-lg p-3 flex items-center gap-3">
+                </div>
+
+                {/* Apple Health Connect */}
+                <div className="bg-muted/50 rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                  <div className="flex items-center gap-3">
                     <Heart className="w-5 h-5 text-red-500" />
                     <div className="flex-1">
                       <p className="text-sm font-medium text-foreground">Connect Apple Health to track your steps</p>
