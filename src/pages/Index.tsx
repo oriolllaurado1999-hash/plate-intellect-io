@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
+import { useDashboardData } from '@/hooks/useDashboardData';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
@@ -26,6 +27,7 @@ const Index = () => {
   const { setIsCameraActive } = useCameraContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
+  const { data: realDashboardData } = useDashboardData();
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [showDayStreak, setShowDayStreak] = useState(false);
@@ -45,6 +47,81 @@ const Index = () => {
     { name: 'Greek Yogurt', amount: '200g', calories: 130, protein: 10, carbs: 9, fat: 5, time: '16:00' },
     { name: 'Almonds', amount: '30g', calories: 174, protein: 6.4, carbs: 6.1, fat: 15, time: '16:00' }
   ];
+
+  // Health Score calculation functions
+  const interpolateColor = (score: number): string => {
+    // Clamp score between 1 and 10
+    const clampedScore = Math.max(1, Math.min(10, score));
+    
+    // Convert score from 1-10 range to 0-1 range
+    const normalized = (clampedScore - 1) / 9;
+    
+    // Red color: #D44949 (RGB: 212, 73, 73)
+    // Green color: #4AD4B2 (RGB: 74, 212, 178)
+    const red = Math.round(212 + (74 - 212) * normalized);
+    const green = Math.round(73 + (212 - 73) * normalized);
+    const blue = Math.round(73 + (178 - 73) * normalized);
+    
+    return `rgb(${red}, ${green}, ${blue})`;
+  };
+
+  const calculateHealthScore = (): number => {
+    if (!realDashboardData) return 7; // Default score when no data
+    
+    const { weeklyCalories, calorieGoal } = realDashboardData;
+    
+    // Calculate weekly averages
+    const weeklyAvg = {
+      calories: weeklyCalories.reduce((sum, day) => sum + day.calories, 0) / 7,
+      protein: weeklyCalories.reduce((sum, day) => sum + day.protein, 0) / 7,
+      carbs: weeklyCalories.reduce((sum, day) => sum + day.carbs, 0) / 7,
+      fat: weeklyCalories.reduce((sum, day) => sum + day.fat, 0) / 7,
+    };
+    
+    // Define goals based on calorie goal (rough estimates)
+    const proteinGoal = calorieGoal * 0.25 / 4; // 25% of calories from protein (4 cal/g)
+    const carbsGoal = calorieGoal * 0.45 / 4; // 45% of calories from carbs (4 cal/g)
+    const fatGoal = calorieGoal * 0.30 / 9; // 30% of calories from fat (9 cal/g)
+    
+    // Calculate compliance percentages
+    const calculateCompliance = (actual: number, goal: number): number => {
+      if (goal === 0) return 10; // Perfect score if no goal set
+      
+      const percentage = actual / goal;
+      
+      // Optimal range: 90-110% = 10 points
+      if (percentage >= 0.9 && percentage <= 1.1) return 10;
+      
+      // Good range: 80-89% or 111-120% = 8 points
+      if ((percentage >= 0.8 && percentage < 0.9) || (percentage > 1.1 && percentage <= 1.2)) return 8;
+      
+      // Fair range: 70-79% or 121-130% = 6 points
+      if ((percentage >= 0.7 && percentage < 0.8) || (percentage > 1.2 && percentage <= 1.3)) return 6;
+      
+      // Poor range: 60-69% or 131-140% = 4 points
+      if ((percentage >= 0.6 && percentage < 0.7) || (percentage > 1.3 && percentage <= 1.4)) return 4;
+      
+      // Very poor: <60% or >140% = 2 points
+      if (percentage < 0.6 || percentage > 1.4) return 2;
+      
+      return 1; // Fallback
+    };
+    
+    // Calculate weighted scores
+    const calorieScore = calculateCompliance(weeklyAvg.calories, calorieGoal) * 0.4; // 40% weight
+    const proteinScore = calculateCompliance(weeklyAvg.protein, proteinGoal) * 0.3; // 30% weight
+    const carbsScore = calculateCompliance(weeklyAvg.carbs, carbsGoal) * 0.15; // 15% weight
+    const fatScore = calculateCompliance(weeklyAvg.fat, fatGoal) * 0.15; // 15% weight
+    
+    // Total score
+    const totalScore = calorieScore + proteinScore + carbsScore + fatScore;
+    
+    // Round to nearest integer and ensure it's between 1-10
+    return Math.max(1, Math.min(10, Math.round(totalScore)));
+  };
+
+  const healthScore = calculateHealthScore();
+  const healthScoreColor = interpolateColor(healthScore);
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
@@ -322,7 +399,9 @@ const Index = () => {
                 <div className="w-full bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-4xl font-bold text-foreground mb-1">N/A</div>
+                      <div className="text-4xl font-bold text-foreground mb-1" style={{ color: healthScoreColor }}>
+                        {healthScore}
+                      </div>
                       <div className="text-muted-foreground">Health Score</div>
                     </div>
                     <div className="w-20 h-20 relative">
@@ -336,13 +415,13 @@ const Index = () => {
                         <path
                           d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
                           fill="none"
-                          stroke="#4AD4B2"
+                          stroke={healthScoreColor}
                           strokeWidth="2"
-                          strokeDasharray="0, 100"
+                          strokeDasharray={`${healthScore * 10}, 100`}
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <Heart className="w-5 h-5" style={{ color: '#4AD4B2' }} />
+                        <Heart className="w-5 h-5" style={{ color: healthScoreColor }} />
                       </div>
                     </div>
                   </div>
