@@ -326,9 +326,6 @@ const Index = () => {
                       <div className="text-muted-foreground">Health Score</div>
                     </div>
                     <div className="w-20 h-20 relative">
-                      <div className="text-xs text-muted-foreground leading-relaxed text-right">
-                        Track what you eat and see your health score instantly. The higher the better!
-                      </div>
                     </div>
                   </div>
                 </div>
