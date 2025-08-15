@@ -44,7 +44,8 @@ const Progress = () => {
   const bmiInfo = getBMIStatus(currentBMI);
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-lg space-y-6">
+    <div className="min-h-screen" style={{ background: 'var(--kalore-gradient)' }}>
+      <div className="container mx-auto px-4 py-6 max-w-lg space-y-6">
       {/* Header */}
       <div className="text-left">
         <h1 className="text-3xl font-bold text-foreground">Progress</h1>
@@ -52,7 +53,7 @@ const Progress = () => {
 
       {/* Weight and Streak Cards */}
       <div className="grid grid-cols-2 gap-4">
-        <Card>
+        <Card className="shadow-lg dark:shadow-xl">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm text-muted-foreground">My Weight</CardTitle>
           </CardHeader>
@@ -63,7 +64,7 @@ const Progress = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-lg dark:shadow-xl">
           <CardContent className="space-y-4 pt-6">
             <div className="flex flex-col items-center">
               <span className="text-6xl mb-2">🔥</span>
@@ -107,7 +108,7 @@ const Progress = () => {
       </div>
 
       {/* Goal Progress Chart */}
-      <Card>
+      <Card className="shadow-lg dark:shadow-xl">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg">Goal Progress</CardTitle>
@@ -169,7 +170,7 @@ const Progress = () => {
       </div>
 
       {/* Total Calories */}
-      <Card>
+      <Card className="shadow-lg dark:shadow-xl">
         <CardHeader className="pb-4">
           <CardTitle className="text-lg">Total Calories</CardTitle>
         </CardHeader>
@@ -185,7 +186,7 @@ const Progress = () => {
       </Card>
 
       {/* BMI Section */}
-      <Card>
+      <Card className="shadow-lg dark:shadow-xl">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg">Your BMI</CardTitle>
@@ -233,6 +234,7 @@ const Progress = () => {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };
