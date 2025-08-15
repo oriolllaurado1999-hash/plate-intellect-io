@@ -543,27 +543,31 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Additional Cards Grid */}
-                <div className="grid grid-cols-2 gap-3">
-                  {/* Calories Burned */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
-                    <div className="text-2xl font-bold text-foreground mb-1">0</div>
-                    <div className="text-xs text-muted-foreground mb-3">Calories burned</div>
-                    <div className="w-10 h-10 mx-auto relative">
-                      <Activity className="w-5 h-5" style={{ color: '#F97316' }} />
+                {/* Water Intake Card */}
+                <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 flex items-center justify-center">
+                        <Droplets className="w-6 h-6" style={{ color: '#3B82F6' }} />
+                      </div>
+                      <div>
+                        <div className="text-lg font-semibold text-foreground">Water</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
+                        <span className="text-foreground text-lg">−</span>
+                      </button>
+                      <button className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center hover:opacity-80 transition-opacity">
+                        <span className="text-background text-lg">+</span>
+                      </button>
                     </div>
                   </div>
-
-                  {/* Water Intake */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
-                    <div className="text-2xl font-bold text-foreground mb-1">0</div>
-                    <div className="text-xs text-muted-foreground mb-3">ml</div>
-                    <div className="w-10 h-10 mx-auto relative flex items-center justify-center">
-                      <Droplets className="w-5 h-5" style={{ color: '#3B82F6' }} />
-                    </div>
-                    <div className="mt-2">
-                      <div className="text-xs text-muted-foreground">Water</div>
-                    </div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-2xl font-bold text-foreground">0 ml</div>
+                    <button className="w-6 h-6 flex items-center justify-center">
+                      <Settings className="w-4 h-4 text-muted-foreground" />
+                    </button>
                   </div>
                 </div>
               </div>
