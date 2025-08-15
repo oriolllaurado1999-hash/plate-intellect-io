@@ -310,7 +310,7 @@ const Index = () => {
                   {/* Protein */}
                   <button 
                     onClick={() => setExpandedCard('protein')}
-                    className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
+                    className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">
                       {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
@@ -341,7 +341,7 @@ const Index = () => {
                   {/* Carbs */}
                   <button 
                     onClick={() => setExpandedCard('carbs')}
-                    className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
+                    className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">
                       {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
@@ -372,7 +372,7 @@ const Index = () => {
                   {/* Fat */}
                   <button 
                     onClick={() => setExpandedCard('fat')}
-                    className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
+                    className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">
                       {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
@@ -441,7 +441,7 @@ const Index = () => {
                 {/* Micronutrient Cards */}
                 <div className="grid grid-cols-3 gap-3">
                   {/* Fiber */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                  <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">38g</div>
                     <div className="text-xs text-muted-foreground mb-3">Fiber left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -467,7 +467,7 @@ const Index = () => {
                   </div>
 
                   {/* Sugar */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                  <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">96g</div>
                     <div className="text-xs text-muted-foreground mb-3">Sugar left</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -493,7 +493,7 @@ const Index = () => {
                   </div>
 
                   {/* Sodium */}
-                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                  <div className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50">
                     <div className="text-lg font-bold text-foreground mb-1">2300mg</div>
                     <div className="text-xs text-muted-foreground mb-3">Sodium left</div>
                     <div className="w-12 h-12 mx-auto relative">
