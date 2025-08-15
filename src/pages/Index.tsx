@@ -318,6 +318,17 @@ const Index = () => {
             {/* Section 2: Micronutrients */}
             <CarouselItem>
               <div className="space-y-4">
+                {/* Health Score Section */}
+                <div className="bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-lg font-bold text-foreground">Health Score</h4>
+                    <span className="text-lg font-bold text-muted-foreground">N/A</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Track what you eat and see your health score instantly. The higher the better!
+                  </p>
+                </div>
+
                 {/* Micronutrient Cards */}
                 <div className="grid grid-cols-3 gap-3">
                   {/* Fiber */}
@@ -397,17 +408,6 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Health Score Section */}
-                <div className="bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-lg font-bold text-foreground">Health Score</h4>
-                    <span className="text-lg font-bold text-muted-foreground">N/A</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Track what you eat and see your health score instantly. The higher the better!
-                  </p>
                 </div>
               </div>
             </CarouselItem>
