@@ -555,7 +555,7 @@ const Index = () => {
                 </div>
 
                 {/* Water Intake Card */}
-                <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                <div className="w-full bg-card rounded-2xl p-6 shadow-lg dark:shadow-xl border border-border/50">
                   <div className="flex items-center gap-4">
                     {/* Large Water Icon with Dynamic Level - Left Side */}
                     <div className="flex-shrink-0">
