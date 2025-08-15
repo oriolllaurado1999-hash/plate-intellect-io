@@ -4,7 +4,8 @@ import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings } from 'lucide-react';
+import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings, Grape, Candy, Salad } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import CameraScanner from '@/components/CameraScanner';
 import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
@@ -196,104 +197,111 @@ const Index = () => {
           </div>
         </button>
 
-        {/* Macro Cards */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          {/* Protein */}
-          <button 
-            onClick={() => setExpandedCard('protein')}
-            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-          >
-            <div className="text-lg font-bold text-foreground mb-1">
-              {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
-            </div>
-            <div className="text-xs text-muted-foreground mb-3">Protein left</div>
-            <div className="w-12 h-12 mx-auto relative">
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--protein))"
-                  strokeWidth="3"
-                  strokeDasharray="25, 100"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Beef className="w-4 h-4 text-protein" />
-              </div>
-            </div>
-          </button>
+        {/* Nutrition Carousel */}
+        <Carousel className="mb-6">
+          <CarouselContent>
+            {/* Section 2: Micronutrients */}
+            <CarouselItem>
+              <div className="space-y-4">
+                {/* Micronutrient Cards */}
+                <div className="grid grid-cols-3 gap-3">
+                  {/* Fiber */}
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                    <div className="text-lg font-bold text-foreground mb-1">38g</div>
+                    <div className="text-xs text-muted-foreground mb-3">Fiber left</div>
+                    <div className="w-12 h-12 mx-auto relative">
+                      <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="hsl(var(--border))"
+                          strokeWidth="3"
+                        />
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="#8B5FBF"
+                          strokeWidth="3"
+                          strokeDasharray="30, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Grape className="w-4 h-4" style={{ color: '#8B5FBF' }} />
+                      </div>
+                    </div>
+                  </div>
 
-          {/* Carbs */}
-          <button 
-            onClick={() => setExpandedCard('carbs')}
-            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-          >
-            <div className="text-lg font-bold text-foreground mb-1">
-              {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
-            </div>
-            <div className="text-xs text-muted-foreground mb-3">Carbs left</div>
-            <div className="w-12 h-12 mx-auto relative">
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--carbs))"
-                  strokeWidth="3"
-                  strokeDasharray="40, 100"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Wheat className="w-4 h-4 text-carbs" />
-              </div>
-            </div>
-          </button>
+                  {/* Sugar */}
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                    <div className="text-lg font-bold text-foreground mb-1">96g</div>
+                    <div className="text-xs text-muted-foreground mb-3">Sugar left</div>
+                    <div className="w-12 h-12 mx-auto relative">
+                      <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="hsl(var(--border))"
+                          strokeWidth="3"
+                        />
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="#FF6B9D"
+                          strokeWidth="3"
+                          strokeDasharray="45, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Candy className="w-4 h-4" style={{ color: '#FF6B9D' }} />
+                      </div>
+                    </div>
+                  </div>
 
-          {/* Fat */}
-          <button 
-            onClick={() => setExpandedCard('fat')}
-            className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50 hover-scale transition-all duration-200"
-          >
-            <div className="text-lg font-bold text-foreground mb-1">
-              {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
-            </div>
-            <div className="text-xs text-muted-foreground mb-3">Fat left</div>
-            <div className="w-12 h-12 mx-auto relative">
-              <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                  fill="none"
-                  stroke="hsl(var(--fat))"
-                  strokeWidth="3"
-                  strokeDasharray="60, 100"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Leaf className="w-4 h-4 text-fat" />
+                  {/* Sodium */}
+                  <div className="bg-card rounded-xl p-4 text-center shadow-md dark:shadow-lg border border-border/50">
+                    <div className="text-lg font-bold text-foreground mb-1">2300mg</div>
+                    <div className="text-xs text-muted-foreground mb-3">Sodium left</div>
+                    <div className="w-12 h-12 mx-auto relative">
+                      <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="hsl(var(--border))"
+                          strokeWidth="3"
+                        />
+                        <path
+                          d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
+                          fill="none"
+                          stroke="#FFB366"
+                          strokeWidth="3"
+                          strokeDasharray="20, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Salad className="w-4 h-4" style={{ color: '#FFB366' }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Health Score Section */}
+                <div className="bg-card rounded-xl p-4 shadow-md dark:shadow-lg border border-border/50">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-lg font-bold text-foreground">Health Score</h4>
+                    <span className="text-lg font-bold text-muted-foreground">N/A</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Track a few foods to generate your health score for today. Your score reflects nutritional content and how processed your meals are.
+                  </p>
+                </div>
               </div>
-            </div>
-          </button>
-        </div>
+            </CarouselItem>
+          </CarouselContent>
+        </Carousel>
 
         {/* Page Indicators */}
         <div className="flex justify-center gap-2 mb-6">
+          <div className="w-2 h-2 rounded-full bg-border"></div>
           <div className="w-2 h-2 rounded-full bg-primary"></div>
           <div className="w-2 h-2 rounded-full bg-border"></div>
         </div>
