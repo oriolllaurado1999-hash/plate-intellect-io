@@ -5,6 +5,7 @@ import { Progress as ProgressBar } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { BarChart3, HelpCircle } from 'lucide-react';
+import fireIcon from '@/assets/fire-icon.png';
 
 const Progress = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('90 Days');
@@ -67,7 +68,7 @@ const Progress = () => {
         <Card className="shadow-lg dark:shadow-xl">
           <CardContent className="space-y-4 pt-6">
             <div className="flex flex-col items-center">
-              <span className="text-6xl mb-2">🔥</span>
+              <img src={fireIcon} alt="Fire" className="w-12 h-12 mb-2" />
               <div className="text-2xl font-bold">2 days</div>
             </div>
             <div className="flex justify-center gap-0.5 px-1">
