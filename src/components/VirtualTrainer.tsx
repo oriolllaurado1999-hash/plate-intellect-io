@@ -2,10 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MessageCircle, Send, Bot, User, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { MessageCircle, Send, Bot, User, ChevronDown, ChevronUp, Sparkles, Bell } from 'lucide-react';
 import VoiceRecorder from '@/components/VoiceRecorder';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useCoachMessages } from '@/hooks/useCoachMessages';
+import { Badge } from '@/components/ui/badge';
 
 interface Message {
   id: string;
@@ -49,6 +51,7 @@ const VirtualTrainer = () => {
   const [currentLanguage, setCurrentLanguage] = useState<'es' | 'en'>('en');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { unreadMessages, latestMessage, markAsRead, markAllAsRead } = useCoachMessages();
 
   const texts: LanguageTexts = {
     es: {
@@ -97,16 +100,33 @@ const VirtualTrainer = () => {
 
   useEffect(() => {
     if (isExpanded && messages.length === 0) {
-      // Welcome message when first opened
-      const welcomeMessage: Message = {
-        id: '1',
-        content: texts[currentLanguage].welcomeMessage,
-        role: 'assistant',
-        timestamp: new Date()
-      };
-      setMessages([welcomeMessage]);
+      // Add coach message first if available, then welcome message
+      const messagesToAdd: Message[] = [];
+      
+      if (latestMessage) {
+        messagesToAdd.push({
+          id: latestMessage.id,
+          content: latestMessage.message_content,
+          role: 'assistant',
+          timestamp: new Date(latestMessage.created_at)
+        });
+      } else {
+        messagesToAdd.push({
+          id: '1',
+          content: texts[currentLanguage].welcomeMessage,
+          role: 'assistant',
+          timestamp: new Date()
+        });
+      }
+      
+      setMessages(messagesToAdd);
+      
+      // Mark coach message as read when opened
+      if (latestMessage) {
+        markAsRead(latestMessage.id);
+      }
     }
-  }, [isExpanded, currentLanguage]);
+  }, [isExpanded, currentLanguage, latestMessage]);
 
   const sendMessage = async (message?: string) => {
     const messageToSend = message || inputMessage;
@@ -191,25 +211,36 @@ const VirtualTrainer = () => {
   if (!isExpanded) {
     return (
       <Card 
-        className="shadow-lg dark:shadow-xl cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 border-2"
+        className="shadow-lg dark:shadow-xl cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 border-2 relative"
         style={{ borderColor: '#4AD4B2' }}
         onClick={() => setIsExpanded(true)}
       >
         <CardContent className="p-4">
           <div className="flex items-center gap-3">
             <div 
-              className="w-12 h-12 rounded-full flex items-center justify-center"
+              className="w-12 h-12 rounded-full flex items-center justify-center relative"
               style={{ backgroundColor: 'rgba(74, 212, 178, 0.15)' }}
             >
               <Bot className="w-6 h-6" style={{ color: '#4AD4B2' }} />
+              {unreadMessages.length > 0 && (
+                <Badge 
+                  className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center text-xs"
+                  style={{ backgroundColor: '#EF4444', color: 'white' }}
+                >
+                  {unreadMessages.length}
+                </Badge>
+              )}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h3 className="font-semibold text-foreground">Kalore Coach</h3>
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
+                {unreadMessages.length > 0 && (
+                  <Bell className="w-4 h-4 text-orange-500 animate-pulse" />
+                )}
               </div>
               <p className="text-sm text-muted-foreground">
-                {texts[currentLanguage].readyToHelp}
+                {latestMessage ? latestMessage.message_preview : texts[currentLanguage].readyToHelp}
               </p>
             </div>
             <MessageCircle className="w-5 h-5 text-muted-foreground" />

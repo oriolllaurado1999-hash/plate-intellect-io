@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { useDashboardData } from '@/hooks/useDashboardData';
+import { useCoachMessages } from '@/hooks/useCoachMessages';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
@@ -30,6 +31,7 @@ const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const { data: realDashboardData } = useDashboardData();
+  const { generateDailyMessage } = useCoachMessages();
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [showDayStreak, setShowDayStreak] = useState(false);
@@ -134,6 +136,21 @@ const Index = () => {
   const removeWater = () => {
     setWaterConsumed(prev => Math.max(prev - 250, 0)); // Quitar 250ml, mínimo 0ml
   };
+
+  // Generate daily coach message when user enters the app
+  useEffect(() => {
+    const generateCoachMessage = async () => {
+      if (user?.id && !loading) {
+        try {
+          await generateDailyMessage('es'); // Generate Spanish message by default
+        } catch (error) {
+          console.error('Error generating daily coach message:', error);
+        }
+      }
+    };
+
+    generateCoachMessage();
+  }, [user?.id, loading, generateDailyMessage]);
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
