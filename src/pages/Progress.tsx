@@ -190,9 +190,9 @@ const Progress = () => {
             <Badge variant="secondary" className="text-xs">{goalProgress}% of goal</Badge>
           </div>
         </CardHeader>
-        <CardContent className="flex flex-col items-center">
-          <div className="h-48 w-full flex justify-center">
-            <div className="w-full max-w-md">
+        <CardContent className="flex flex-col items-center px-2">
+          <div className="h-48 w-full flex justify-center items-center">
+            <div className="w-full max-w-sm mx-auto">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={weightData}>
                   <XAxis 
