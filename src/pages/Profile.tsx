@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const Profile = () => {
   const { user, signOut } = useAuth();
@@ -15,6 +16,25 @@ const Profile = () => {
   const [addBurnedCalories, setAddBurnedCalories] = useState(true);
   const [rolloverCalories, setRolloverCalories] = useState(true);
   const [autoAdjustMacros, setAutoAdjustMacros] = useState(true);
+  const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+
+  const languageNames = {
+    en: 'English',
+    es: 'Español',
+    zh: '中国人',
+    pt: 'Português',
+    fr: 'Français',
+    de: 'Deutsch',
+    it: 'Italiano',
+    ru: 'Русский',
+  };
+
+  const handleLanguageSelect = (languageCode: string) => {
+    setSelectedLanguage(languageCode);
+    // Here you can add logic to apply the language change globally
+    console.log('Language selected:', languageCode);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -105,9 +125,18 @@ const Profile = () => {
           {/* Language */}
           <Card>
             <CardContent className="p-4">
-              <Button variant="ghost" className="w-full justify-start p-4">
-                <Globe className="h-5 w-5 text-primary mr-3" />
-                <span>Language</span>
+              <Button 
+                variant="ghost" 
+                className="w-full justify-between p-4"
+                onClick={() => setIsLanguageSelectorOpen(true)}
+              >
+                <div className="flex items-center">
+                  <Globe className="h-5 w-5 text-primary mr-3" />
+                  <span>Language</span>
+                </div>
+                <span className="text-sm text-muted-foreground">
+                  {languageNames[selectedLanguage as keyof typeof languageNames]}
+                </span>
               </Button>
             </CardContent>
           </Card>
@@ -266,6 +295,14 @@ const Profile = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Language Selector Modal */}
+        <LanguageSelector
+          isOpen={isLanguageSelectorOpen}
+          onClose={() => setIsLanguageSelectorOpen(false)}
+          currentLanguage={selectedLanguage}
+          onLanguageSelect={handleLanguageSelect}
+        />
       </div>
     </div>
   );
