@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress as ProgressBar } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import { BarChart3, HelpCircle } from 'lucide-react';
 import DayStreakModal from '@/components/DayStreakModal';
 
@@ -65,6 +65,52 @@ const Progress = () => {
     }
   };
 
+  // Mock data for different weeks
+  const getWeeklyCalorieData = (week: string) => {
+    const baseData = {
+      'This week': [
+        { day: 'Sun', calories: 0, protein: 0, carbs: 0, fat: 0 },
+        { day: 'Mon', calories: 0, protein: 0, carbs: 0, fat: 0 },
+        { day: 'Tue', calories: 0, protein: 0, carbs: 0, fat: 0 },
+        { day: 'Wed', calories: 0, protein: 0, carbs: 0, fat: 0 },
+        { day: 'Thu', calories: 0, protein: 0, carbs: 0, fat: 0 },
+        { day: 'Fri', calories: 1224, protein: 89, carbs: 156, fat: 45 },
+        { day: 'Sat', calories: 0, protein: 0, carbs: 0, fat: 0 },
+      ],
+      'Last week': [
+        { day: 'Sun', calories: 1850, protein: 125, carbs: 200, fat: 65 },
+        { day: 'Mon', calories: 1920, protein: 140, carbs: 180, fat: 70 },
+        { day: 'Tue', calories: 1680, protein: 110, carbs: 190, fat: 55 },
+        { day: 'Wed', calories: 2100, protein: 150, carbs: 220, fat: 80 },
+        { day: 'Thu', calories: 1750, protein: 115, carbs: 185, fat: 60 },
+        { day: 'Fri', calories: 1950, protein: 135, carbs: 205, fat: 75 },
+        { day: 'Sat', calories: 1600, protein: 105, carbs: 170, fat: 50 },
+      ],
+      '2 wks. ago': [
+        { day: 'Sun', calories: 1720, protein: 120, carbs: 175, fat: 58 },
+        { day: 'Mon', calories: 1890, protein: 130, carbs: 195, fat: 68 },
+        { day: 'Tue', calories: 1650, protein: 108, carbs: 182, fat: 52 },
+        { day: 'Wed', calories: 2000, protein: 145, carbs: 210, fat: 78 },
+        { day: 'Thu', calories: 1780, protein: 118, carbs: 188, fat: 62 },
+        { day: 'Fri', calories: 1920, protein: 132, carbs: 198, fat: 72 },
+        { day: 'Sat', calories: 1580, protein: 102, carbs: 168, fat: 48 },
+      ],
+      '3 wks. ago': [
+        { day: 'Sun', calories: 1800, protein: 115, carbs: 185, fat: 60 },
+        { day: 'Mon', calories: 1950, protein: 135, carbs: 200, fat: 70 },
+        { day: 'Tue', calories: 1700, protein: 110, carbs: 180, fat: 55 },
+        { day: 'Wed', calories: 2050, protein: 148, carbs: 215, fat: 78 },
+        { day: 'Thu', calories: 1820, protein: 122, carbs: 190, fat: 65 },
+        { day: 'Fri', calories: 1900, protein: 128, carbs: 195, fat: 68 },
+        { day: 'Sat', calories: 1650, protein: 108, carbs: 175, fat: 52 },
+      ]
+    };
+    return baseData[week as keyof typeof baseData] || baseData['This week'];
+  };
+
+  const weeklyCalorieData = getWeeklyCalorieData(selectedWeek);
+  const totalWeeklyCalories = weeklyCalorieData.reduce((sum, day) => sum + day.calories, 0);
+  const maxDailyCalories = Math.max(...weeklyCalorieData.map(d => d.calories));
   const weightData = getWeightDataForPeriod(selectedPeriod);
 
   // Streak data for the current week
@@ -264,15 +310,94 @@ const Progress = () => {
       {/* Total Calories */}
       <Card className="shadow-lg dark:shadow-xl">
         <CardHeader className="pb-4">
-          <CardTitle className="text-lg">Total Calories</CardTitle>
+          <CardTitle className="text-lg flex items-center justify-between">
+            <span>Total Calories</span>
+            <span className="text-2xl font-bold">{totalWeeklyCalories.toLocaleString()}</span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col items-center justify-center py-12">
-            <BarChart3 className="h-12 w-12 text-muted-foreground mb-4" />
-            <h3 className="text-xl font-semibold mb-2">No data to show</h3>
-            <p className="text-sm text-muted-foreground text-center">
-              This will update as you log more food.
-            </p>
+          {/* Daily calorie bars */}
+          <div className="h-32 mb-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={weeklyCalorieData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                <XAxis 
+                  dataKey="day" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                />
+                <YAxis 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  domain={[0, maxDailyCalories || 1500]}
+                />
+                <Bar dataKey="calories" radius={[4, 4, 0, 0]}>
+                  {weeklyCalorieData.map((entry, index) => {
+                    const total = entry.protein + entry.carbs + entry.fat;
+                    return (
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={entry.calories > 0 ? "hsl(var(--primary))" : "hsl(var(--muted))"}
+                      />
+                    );
+                  })}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          
+          {/* Stacked macro bars for each day */}
+          <div className="space-y-2 mb-4">
+            {weeklyCalorieData.map((day, index) => {
+              const total = day.protein + day.carbs + day.fat;
+              const proteinPercent = total > 0 ? (day.protein / total) * 100 : 0;
+              const carbsPercent = total > 0 ? (day.carbs / total) * 100 : 0;
+              const fatPercent = total > 0 ? (day.fat / total) * 100 : 0;
+              
+              return (
+                <div key={day.day} className="flex items-center gap-2">
+                  <span className="text-xs w-8 text-center font-medium">{day.day}</span>
+                  <div className="flex-1 h-4 bg-muted rounded-sm overflow-hidden flex">
+                    {total > 0 && (
+                      <>
+                        <div 
+                          className="h-full bg-red-400" 
+                          style={{ width: `${proteinPercent}%` }} 
+                        />
+                        <div 
+                          className="h-full bg-orange-400" 
+                          style={{ width: `${carbsPercent}%` }} 
+                        />
+                        <div 
+                          className="h-full bg-blue-400" 
+                          style={{ width: `${fatPercent}%` }} 
+                        />
+                      </>
+                    )}
+                  </div>
+                  <span className="text-xs w-12 text-right text-muted-foreground">
+                    {day.calories > 0 ? day.calories : ''}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Legend */}
+          <div className="flex justify-center gap-4 text-xs">
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <span>Protein</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-orange-400" />
+              <span>Carbs</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-blue-400" />
+              <span>Fats</span>
+            </div>
           </div>
         </CardContent>
       </Card>
