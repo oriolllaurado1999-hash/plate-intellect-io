@@ -19,29 +19,46 @@ serve(async (req) => {
 
     // Create Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    // Get user from auth header
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!
+    
+    // Get user from auth header using anon client
     const authHeader = req.headers.get('authorization')
     if (!authHeader) {
+      console.error('No authorization header found')
       throw new Error('No authorization header')
     }
 
-    const token = authHeader.replace('Bearer ', '')
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token)
+    // Create client with anon key for user authentication
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: {
+        headers: {
+          authorization: authHeader
+        }
+      }
+    })
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser()
     if (authError || !user) {
+      console.error('Authentication error:', authError)
       throw new Error('Invalid token')
     }
 
     console.log('User authenticated:', user.id)
 
+    // Create service role client for database operations
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
     // Get user profile
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('*')
       .eq('user_id', user.id)
       .single()
+
+    if (profileError) {
+      console.error('Profile error:', profileError)
+    }
 
     console.log('User profile:', profile)
 
