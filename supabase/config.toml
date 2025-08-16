@@ -1,1 +1,4 @@
 project_id = "binzsdvpbzbnspqgbnvg"
+
+[functions.virtual-trainer]
+verify_jwt = false
