@@ -273,8 +273,8 @@ const Progress = () => {
             </ResponsiveContainer>
           </div>
           
-          <div className="mt-4 p-3 bg-green-50 rounded-lg">
-            <p className="text-sm text-green-700 font-medium">
+          <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: '#4AD4B2' }}>
+            <p className="text-sm font-medium" style={{ color: '#ffffff' }}>
               Getting started is the hardest part. You're ready for this!
             </p>
           </div>
