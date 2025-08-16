@@ -289,13 +289,13 @@ const Progress = () => {
       </Card>
 
       {/* Week Selection */}
-      <div className="flex gap-2 bg-muted rounded-lg p-1">
+      <div className="flex gap-1 bg-muted rounded-lg p-1">
         {weekOptions.map((week) => (
           <Button
             key={week}
             variant={selectedWeek === week ? "default" : "ghost"}
             size="sm"
-            className={`flex-1 text-xs ${
+            className={`flex-1 text-xs px-2 ${
               selectedWeek === week 
                 ? 'bg-background text-foreground shadow-sm' 
                 : 'text-muted-foreground hover:text-foreground'
