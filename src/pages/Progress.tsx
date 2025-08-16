@@ -85,6 +85,24 @@ const Progress = () => {
     return { status: 'Obese', color: 'bg-red-500' };
   };
 
+  // User weight data (this would come from user profile/onboarding)
+  const currentWeight = 55; // kg
+  const goalWeight = 75; // kg
+  const startingWeight = 82; // kg (from onboarding or first entry)
+  
+  // Calculate progress percentage towards goal
+  const calculateGoalProgress = () => {
+    if (Math.abs(startingWeight - goalWeight) < 0.1) return 100;
+    
+    const totalWeightChange = Math.abs(startingWeight - goalWeight);
+    const currentWeightChange = Math.abs(startingWeight - currentWeight);
+    const progress = (currentWeightChange / totalWeightChange) * 100;
+    
+    return Math.min(Math.round(progress), 100);
+  };
+  
+  const goalProgress = calculateGoalProgress();
+
   const currentBMI = 16.0;
   const bmiInfo = getBMIStatus(currentBMI);
 
@@ -169,7 +187,7 @@ const Progress = () => {
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg">Goal Progress</CardTitle>
-            <Badge variant="secondary" className="text-xs">0% of goal</Badge>
+            <Badge variant="secondary" className="text-xs">{goalProgress}% of goal</Badge>
           </div>
         </CardHeader>
         <CardContent>
