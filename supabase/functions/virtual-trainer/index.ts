@@ -17,48 +17,44 @@ serve(async (req) => {
     const { message } = await req.json()
     console.log('Received message:', message)
 
-    // Create Supabase client
+    // Create Supabase client with service role key
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!
-    
-    // Get user from auth header using anon client
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+    // Get authorization header
     const authHeader = req.headers.get('authorization')
     if (!authHeader) {
       console.error('No authorization header found')
       throw new Error('No authorization header')
     }
 
-    // Create client with anon key for user authentication
-    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: {
-          authorization: authHeader
-        }
-      }
-    })
+    console.log('Auth header present:', authHeader.substring(0, 20) + '...')
 
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser()
+    // Extract JWT token and verify it
+    const jwt = authHeader.replace('Bearer ', '')
+    
+    // Use the JWT to get user info
+    const { data: { user }, error: authError } = await supabase.auth.getUser(jwt)
     if (authError || !user) {
       console.error('Authentication error:', authError)
-      throw new Error('Invalid token')
+      throw new Error(`Authentication failed: ${authError?.message || 'Invalid token'}`)
     }
 
-    console.log('User authenticated:', user.id)
-
-    // Create service role client for database operations
-    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+    console.log('User authenticated successfully:', user.id)
 
     // Get user profile
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('*')
       .eq('user_id', user.id)
-      .single()
+      .maybeSingle()
 
     if (profileError) {
       console.error('Profile error:', profileError)
     }
+
+    console.log('Profile loaded:', profile ? 'Yes' : 'No')
 
     console.log('User profile:', profile)
 
