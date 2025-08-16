@@ -90,29 +90,25 @@ const BMIDetailModal = ({ isOpen, onClose, bmi, bmiStatus, bmiPosition }: BMIDet
             <div className="space-y-3">
               <h3 className="text-xl font-semibold">Disclaimer</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                As with most measures of health, BMI is not a perfect test. For example, results can be thrown 
-                off by pregnancy or high muscle mass, and it may not be a good measure of health for children or 
-                the elderly.
+                Like many health indicators, BMI isn't flawless. Factors such as pregnancy or having a lot of muscle can skew the results, and it's not always the best measure for children or older adults.
               </p>
             </div>
 
             {/* Why BMI Matters */}
             <div className="space-y-3">
-              <h3 className="text-xl font-semibold">So then, why does BMI matter?</h3>
+              <h3 className="text-xl font-semibold">Why pay attention to BMI?</h3>
               <div className="space-y-3">
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  In general, the higher your BMI, the higher the risk of developing a range of conditions linked with 
-                  excess weight,
+                  While it's not perfect, BMI can still give a quick snapshot of weight-related health risks. Generally, a higher BMI is linked to a greater chance of developing conditions like:
                 </p>
-                <p className="text-sm text-muted-foreground">including:</p>
                 <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-                  <li>• diabetes</li>
-                  <li>• arthritis</li>
-                  <li>• liver disease</li>
-                  <li>• several types of cancer (such as those of the breast, colon, and prostate)</li>
-                  <li>• high blood pressure (hypertension)</li>
-                  <li>• high cholesterol</li>
-                  <li>• sleep apnea.</li>
+                  <li>* Diabetes</li>
+                  <li>* Arthritis</li>
+                  <li>* Liver disease</li>
+                  <li>* Certain cancers (including breast, colon, and prostate)</li>
+                  <li>* High blood pressure</li>
+                  <li>* High cholesterol</li>
+                  <li>* Sleep apnea</li>
                 </ul>
               </div>
             </div>
