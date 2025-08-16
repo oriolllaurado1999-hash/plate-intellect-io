@@ -16,14 +16,56 @@ const Progress = () => {
   const periodOptions = ['1 month', '3 months', '6 months', '1 year'];
   const weekOptions = ['This week', 'Last week', '2 wks. ago', '3 wks. ago'];
 
-  // Mock data for the weight progress chart
-  const weightData = [
-    { date: 'Aug 1', weight: 82 },
-    { date: 'Aug 4', weight: 78 },
-    { date: 'Aug 7', weight: 71 },
-    { date: 'Aug 10', weight: 65 },
-    { date: 'Aug 14', weight: 55 },
-  ];
+  // Mock data for different periods
+  const getWeightDataForPeriod = (period: string) => {
+    switch (period) {
+      case '1 month':
+        return [
+          { date: 'Aug 1', weight: 82 },
+          { date: 'Aug 4', weight: 80 },
+          { date: 'Aug 7', weight: 78 },
+          { date: 'Aug 10', weight: 76 },
+          { date: 'Aug 14', weight: 74 },
+          { date: 'Aug 18', weight: 72 },
+          { date: 'Aug 22', weight: 70 },
+          { date: 'Aug 26', weight: 68 },
+          { date: 'Aug 30', weight: 66 },
+        ];
+      case '3 months':
+        return [
+          { date: 'Jun 1', weight: 85 },
+          { date: 'Jun 15', weight: 83 },
+          { date: 'Jul 1', weight: 81 },
+          { date: 'Jul 15', weight: 79 },
+          { date: 'Aug 1', weight: 77 },
+          { date: 'Aug 15', weight: 75 },
+          { date: 'Aug 30', weight: 73 },
+        ];
+      case '6 months':
+        return [
+          { date: 'Mar', weight: 88 },
+          { date: 'Apr', weight: 86 },
+          { date: 'May', weight: 84 },
+          { date: 'Jun', weight: 82 },
+          { date: 'Jul', weight: 80 },
+          { date: 'Aug', weight: 78 },
+        ];
+      case '1 year':
+        return [
+          { date: 'Sep 23', weight: 92 },
+          { date: 'Nov 23', weight: 90 },
+          { date: 'Jan 24', weight: 88 },
+          { date: 'Mar 24', weight: 86 },
+          { date: 'May 24', weight: 84 },
+          { date: 'Jul 24', weight: 82 },
+          { date: 'Aug 24', weight: 80 },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const weightData = getWeightDataForPeriod(selectedPeriod);
 
   // Streak data for the current week
   const currentWeek = [
