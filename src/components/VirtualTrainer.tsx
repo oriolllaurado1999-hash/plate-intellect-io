@@ -6,6 +6,7 @@ import { MessageCircle, Send, Bot, User, ChevronDown, ChevronUp, Sparkles } from
 import VoiceRecorder from '@/components/VoiceRecorder';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 interface Message {
   id: string;
@@ -19,8 +20,10 @@ const VirtualTrainer = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [coachTone, setCoachTone] = useState<'formal' | 'informal'>('formal');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,6 +32,34 @@ const VirtualTrainer = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Load coach preferences
+  useEffect(() => {
+    const loadCoachPreferences = async () => {
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('coach_preferences')
+          .select('tone_style')
+          .eq('user_id', user.id)
+          .single();
+
+        if (error && error.code !== 'PGRST116') { // Not found error is ok
+          console.error('Error loading coach preferences:', error);
+          return;
+        }
+
+        if (data) {
+          setCoachTone(data.tone_style as 'formal' | 'informal');
+        }
+      } catch (error) {
+        console.error('Error loading coach preferences:', error);
+      }
+    };
+
+    loadCoachPreferences();
+  }, [user]);
 
   useEffect(() => {
     if (isExpanded && messages.length === 0) {
@@ -60,7 +91,10 @@ const VirtualTrainer = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('virtual-trainer', {
-        body: { message: messageToSend }
+        body: { 
+          message: messageToSend,
+          coachTone: coachTone
+        }
       });
 
       if (error) {

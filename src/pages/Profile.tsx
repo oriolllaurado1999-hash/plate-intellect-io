@@ -1,20 +1,94 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, Settings, HelpCircle, Monitor, Moon, Sun, Users, Target, Scale, Clock, Globe, FileText, Shield, Mail, RefreshCw, Trash2, LogOut, Activity, Calculator } from 'lucide-react';
+import { User, Settings, HelpCircle, Monitor, Moon, Sun, Users, Target, Scale, Clock, Globe, FileText, Shield, Mail, RefreshCw, Trash2, LogOut, Activity, Calculator, Bot, MessageSquare } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/components/ui/use-toast';
 
 const Profile = () => {
   const { user, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
+  const { toast } = useToast();
   const [liveActivity, setLiveActivity] = useState(false);
   const [addBurnedCalories, setAddBurnedCalories] = useState(true);
   const [rolloverCalories, setRolloverCalories] = useState(true);
   const [autoAdjustMacros, setAutoAdjustMacros] = useState(true);
+  const [coachTone, setCoachTone] = useState<'formal' | 'informal'>('formal');
+  const [isLoadingCoachPrefs, setIsLoadingCoachPrefs] = useState(true);
+
+  // Load coach preferences
+  useEffect(() => {
+    const loadCoachPreferences = async () => {
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('coach_preferences')
+          .select('tone_style')
+          .eq('user_id', user.id)
+          .single();
+
+        if (error && error.code !== 'PGRST116') { // Not found error is ok
+          console.error('Error loading coach preferences:', error);
+          return;
+        }
+
+        if (data) {
+          setCoachTone(data.tone_style as 'formal' | 'informal');
+        }
+      } catch (error) {
+        console.error('Error loading coach preferences:', error);
+      } finally {
+        setIsLoadingCoachPrefs(false);
+      }
+    };
+
+    loadCoachPreferences();
+  }, [user]);
+
+  // Save coach tone preference
+  const saveCoachTone = async (newTone: 'formal' | 'informal') => {
+    if (!user) return;
+
+    try {
+      const { error } = await supabase
+        .from('coach_preferences')
+        .upsert({
+          user_id: user.id,
+          tone_style: newTone
+        }, {
+          onConflict: 'user_id'
+        });
+
+      if (error) {
+        console.error('Error saving coach preferences:', error);
+        toast({
+          title: "Error",
+          description: "Failed to save coach preferences. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      setCoachTone(newTone);
+      toast({
+        title: "Success",
+        description: `Kalore Coach will now use ${newTone} tone.`
+      });
+    } catch (error) {
+      console.error('Error saving coach preferences:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save coach preferences. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -109,6 +183,63 @@ const Profile = () => {
                 <Globe className="h-5 w-5 text-primary mr-3" />
                 <span>Language</span>
               </Button>
+            </CardContent>
+          </Card>
+
+          {/* Kalore Coach Settings */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bot className="h-5 w-5 text-primary" />
+                Kalore Coach Settings
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <div>
+                    <h4 className="font-medium">Coach Tone</h4>
+                    <p className="text-sm text-muted-foreground">Choose how your virtual trainer communicates with you</p>
+                  </div>
+                  <div className="text-sm text-muted-foreground capitalize">{coachTone}</div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button
+                    variant={coachTone === 'formal' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => saveCoachTone('formal')}
+                    disabled={isLoadingCoachPrefs}
+                    className="flex flex-col items-center gap-2 h-auto py-4"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    <div className="text-center">
+                      <div className="text-xs font-medium">Formal</div>
+                      <div className="text-xs text-muted-foreground">Professional and polite</div>
+                    </div>
+                  </Button>
+                  <Button
+                    variant={coachTone === 'informal' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => saveCoachTone('informal')}
+                    disabled={isLoadingCoachPrefs}
+                    className="flex flex-col items-center gap-2 h-auto py-4"
+                  >
+                    <Bot className="h-4 w-4" />
+                    <div className="text-center">
+                      <div className="text-xs font-medium">Informal</div>
+                      <div className="text-xs text-muted-foreground">Casual and adaptive</div>
+                    </div>
+                  </Button>
+                </div>
+                <div className="mt-3 p-3 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground">
+                    <strong>Formal:</strong> Professional, educational tone with proper grammar and vocabulary.
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    <strong>Informal:</strong> Casual tone that adapts to your communication style. Tell your coach if you don't like specific language.
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
