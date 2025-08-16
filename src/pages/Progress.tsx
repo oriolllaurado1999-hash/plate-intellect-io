@@ -8,12 +8,12 @@ import { BarChart3, HelpCircle } from 'lucide-react';
 import DayStreakModal from '@/components/DayStreakModal';
 
 const Progress = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState('90 Days');
+  const [selectedPeriod, setSelectedPeriod] = useState('1 month');
   const [selectedWeek, setSelectedWeek] = useState('This week');
   const [showDayStreak, setShowDayStreak] = useState(false);
   const dayStreak = 2; // This would come from user data in real app
 
-  const periodOptions = ['90 Days', '6 Months', '1 Year', 'All time'];
+  const periodOptions = ['1 month', '3 months', '6 months', '1 year'];
   const weekOptions = ['This week', 'Last week', '2 wks. ago', '3 wks. ago'];
 
   // Mock data for the weight progress chart
