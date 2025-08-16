@@ -9,9 +9,11 @@ import { supabase } from '@/integrations/supabase/client';
 interface VoiceRecorderProps {
   onSendMessage: (message: string) => void;
   isLoading: boolean;
+  variant?: 'default' | 'inline';
+  buttonStyle?: React.CSSProperties;
 }
 
-const VoiceRecorder = ({ onSendMessage, isLoading }: VoiceRecorderProps) => {
+const VoiceRecorder = ({ onSendMessage, isLoading, variant = 'default', buttonStyle }: VoiceRecorderProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
   const [transcribedText, setTranscribedText] = useState('');
@@ -228,6 +230,38 @@ const VoiceRecorder = ({ onSendMessage, isLoading }: VoiceRecorderProps) => {
           </div>
         </CardContent>
       </Card>
+    );
+  }
+
+  if (variant === 'inline') {
+    return (
+      <>
+        {isRecording && (
+          <div className="flex items-center gap-2 px-3 py-1 bg-red-100 dark:bg-red-900/20 rounded-full">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-red-600 dark:text-red-400">
+              {formatTime(recordingTime)}
+            </span>
+          </div>
+        )}
+        
+        {isTranscribing && (
+          <div className="flex items-center gap-2 px-3 py-1 bg-muted rounded-full">
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+            <span className="text-xs font-medium">Transcribiendo...</span>
+          </div>
+        )}
+        
+        <Button
+          size="sm"
+          onClick={isRecording ? stopRecording : startRecording}
+          disabled={isLoading || isTranscribing}
+          style={isRecording ? { backgroundColor: '#ef4444' } : buttonStyle}
+          className={`text-white hover:opacity-90 ${isRecording ? '' : ''}`}
+        >
+          {isRecording ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+        </Button>
+      </>
     );
   }
 

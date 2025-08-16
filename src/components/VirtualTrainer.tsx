@@ -270,7 +270,7 @@ const VirtualTrainer = () => {
           </div>
         )}
 
-        {/* Voice Recorder */}
+        {/* Voice Recorder (edit mode) */}
         <VoiceRecorder onSendMessage={sendMessage} isLoading={isLoading} />
 
         {/* Input */}
@@ -282,6 +282,12 @@ const VirtualTrainer = () => {
             placeholder="Escribe tu pregunta..."
             disabled={isLoading}
             className="flex-1"
+          />
+          <VoiceRecorder 
+            onSendMessage={sendMessage} 
+            isLoading={isLoading} 
+            variant="inline"
+            buttonStyle={{ backgroundColor: '#4AD4B2' }}
           />
           <Button
             onClick={handleSendTextMessage}
