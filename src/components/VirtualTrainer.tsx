@@ -238,13 +238,13 @@ const VirtualTrainer = () => {
         {messages.length <= 1 && (
           <div className="mb-4">
             <p className="text-xs text-muted-foreground mb-2">Preguntas rápidas:</p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 gap-2">
               {quickQuestions.map((question) => (
                 <Button
                   key={question}
                   variant="outline"
                   size="sm"
-                  className="text-xs h-8 justify-start"
+                  className="text-xs h-auto py-2 px-3 justify-start text-left whitespace-normal"
                   onClick={() => handleQuickQuestion(question)}
                   disabled={isLoading}
                 >
