@@ -270,9 +270,6 @@ const VirtualTrainer = () => {
           </div>
         )}
 
-        {/* Voice Recorder (edit mode) */}
-        <VoiceRecorder onSendMessage={sendMessage} isLoading={isLoading} />
-
         {/* Input */}
         <div className="flex gap-2">
           <Input
