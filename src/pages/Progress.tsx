@@ -6,11 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import { BarChart3, HelpCircle } from 'lucide-react';
 import DayStreakModal from '@/components/DayStreakModal';
+import BMIDetailModal from '@/components/BMIDetailModal';
 
 const Progress = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('1 month');
   const [selectedWeek, setSelectedWeek] = useState('This week');
   const [showDayStreak, setShowDayStreak] = useState(false);
+  const [showBMIDetail, setShowBMIDetail] = useState(false);
   const dayStreak = 2; // This would come from user data in real app
 
   const periodOptions = ['1 month', '3 months', '6 months', '1 year'];
@@ -410,7 +412,10 @@ const Progress = () => {
       </Card>
 
       {/* BMI Section */}
-      <Card className="shadow-lg dark:shadow-xl">
+      <Card 
+        className="shadow-lg dark:shadow-xl cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-shadow"
+        onClick={() => setShowBMIDetail(true)}
+      >
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg">Your BMI</CardTitle>
@@ -465,6 +470,15 @@ const Progress = () => {
         isOpen={showDayStreak}
         onClose={() => setShowDayStreak(false)}
         streakCount={dayStreak}
+      />
+      
+      {/* BMI Detail Modal */}
+      <BMIDetailModal 
+        isOpen={showBMIDetail}
+        onClose={() => setShowBMIDetail(false)}
+        bmi={currentBMI}
+        bmiStatus={bmiInfo}
+        bmiPosition={bmiPosition}
       />
     </div>
   );
