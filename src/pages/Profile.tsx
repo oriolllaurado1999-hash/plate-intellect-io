@@ -207,8 +207,11 @@ const Profile = () => {
                   <Button
                     variant={coachTone === 'formal' ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => saveCoachTone('formal')}
-                    disabled={isLoadingCoachPrefs}
+                    onClick={async () => {
+                      console.log('Formal button clicked');
+                      await saveCoachTone('formal');
+                    }}
+                    disabled={isLoadingCoachPrefs || !user}
                     className="flex flex-col items-center gap-2 h-auto py-4"
                   >
                     <MessageSquare className="h-4 w-4" />
@@ -220,8 +223,11 @@ const Profile = () => {
                   <Button
                     variant={coachTone === 'informal' ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => saveCoachTone('informal')}
-                    disabled={isLoadingCoachPrefs}
+                    onClick={async () => {
+                      console.log('Informal button clicked');
+                      await saveCoachTone('informal');
+                    }}
+                    disabled={isLoadingCoachPrefs || !user}
                     className="flex flex-col items-center gap-2 h-auto py-4"
                   >
                     <Bot className="h-4 w-4" />
@@ -238,6 +244,10 @@ const Profile = () => {
                   <p className="text-xs text-muted-foreground mt-1">
                     <strong>Informal:</strong> Casual tone that adapts to your communication style. Tell your coach if you don't like specific language.
                   </p>
+                  {/* Debug Info */}
+                  <div className="mt-2 text-xs text-muted-foreground">
+                    Debug: User: {user ? 'Logged in' : 'Not logged in'} | Loading: {isLoadingCoachPrefs ? 'Yes' : 'No'} | Current tone: {coachTone}
+                  </div>
                 </div>
               </div>
             </CardContent>
