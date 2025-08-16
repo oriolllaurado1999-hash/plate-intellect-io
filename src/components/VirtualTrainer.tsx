@@ -35,7 +35,7 @@ const VirtualTrainer = () => {
       // Welcome message when first opened
       const welcomeMessage: Message = {
         id: '1',
-        content: '¡Hola! 👋 Soy tu entrenador virtual Kalore Coach. Estoy aquí para ayudarte con tus objetivos nutricionales. ¿En qué puedo ayudarte hoy?',
+        content: 'Hello! 👋 I\'m your virtual trainer Kalore Coach. I\'m here to help you with your nutritional goals. How can I help you today?',
         role: 'assistant',
         timestamp: new Date()
       };
@@ -79,13 +79,13 @@ const VirtualTrainer = () => {
       console.error('Error calling virtual trainer:', error);
       toast({
         title: "Error",
-        description: "No pude procesar tu mensaje. Intenta de nuevo.",
+        description: "I couldn't process your message. Please try again.",
         variant: "destructive"
       });
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "Lo siento, hubo un problema procesando tu mensaje. ¿Podrías intentar de nuevo? 😔",
+        content: "Sorry, there was a problem processing your message. Could you try again? 😔",
         role: 'assistant',
         timestamp: new Date()
       };
@@ -114,10 +114,10 @@ const VirtualTrainer = () => {
   };
 
   const quickQuestions = [
-    "¿Qué debería comer ahora?",
-    "¿Cómo voy con mis objetivos hoy?",
-    "Sugerencias para la cena",
-    "¿Necesito más proteína?"
+    "What should I eat now?",
+    "How am I doing with my goals today?",
+    "Dinner suggestions",
+    "Do I need more protein?"
   ];
 
   const handleQuickQuestion = (question: string) => {
@@ -145,7 +145,7 @@ const VirtualTrainer = () => {
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </div>
               <p className="text-sm text-muted-foreground">
-                Tu entrenador virtual está listo para ayudarte
+                Your virtual trainer is ready to help you
               </p>
             </div>
             <MessageCircle className="w-5 h-5 text-muted-foreground" />
@@ -175,7 +175,7 @@ const VirtualTrainer = () => {
                 Kalore Coach
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </CardTitle>
-              <p className="text-xs text-muted-foreground">Tu entrenador virtual personalizado</p>
+              <p className="text-xs text-muted-foreground">Your personalized virtual trainer</p>
             </div>
           </div>
           <ChevronUp className="w-5 h-5 text-muted-foreground" />
@@ -252,7 +252,7 @@ const VirtualTrainer = () => {
         {/* Quick Questions */}
         {messages.length <= 1 && (
           <div className="mb-4">
-            <p className="text-xs text-muted-foreground mb-2">Preguntas rápidas:</p>
+            <p className="text-xs text-muted-foreground mb-2">Quick questions:</p>
             <div className="grid grid-cols-1 gap-2">
               {quickQuestions.map((question) => (
                 <Button
@@ -276,7 +276,7 @@ const VirtualTrainer = () => {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Escribe tu pregunta..."
+            placeholder="Type your question..."
             disabled={isLoading}
             className="flex-1"
           />
