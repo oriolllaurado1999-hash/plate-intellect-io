@@ -118,10 +118,10 @@ const Progress = () => {
   ];
 
   const getBMIStatus = (bmi: number) => {
-    if (bmi < 18.5) return { status: 'Underweight', color: 'bg-blue-500' };
-    if (bmi < 25) return { status: 'Healthy', color: 'bg-green-500' };
-    if (bmi < 30) return { status: 'Overweight', color: 'bg-yellow-500' };
-    return { status: 'Obese', color: 'bg-red-500' };
+    if (bmi < 18.5) return { status: 'Underweight', color: 'bg-blue-500', textColor: '#3b82f6' };
+    if (bmi < 25) return { status: 'Healthy', color: 'bg-green-500', textColor: '#22c55e' };
+    if (bmi < 30) return { status: 'Overweight', color: 'bg-yellow-500', textColor: '#eab308' };
+    return { status: 'Obese', color: 'bg-red-500', textColor: '#ef4444' };
   };
 
   // User weight data (this would come from user profile/onboarding)
@@ -414,7 +414,7 @@ const Progress = () => {
         </CardHeader>
         <CardContent>
           <div className="flex items-baseline gap-3 mb-4">
-            <span className="text-4xl font-bold">{currentBMI}</span>
+            <span className="text-4xl font-bold" style={{ color: bmiInfo.textColor }}>{currentBMI}</span>
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">Your weight is</span>
               <Badge className="bg-blue-500 text-white">
