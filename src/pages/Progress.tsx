@@ -90,6 +90,14 @@ const Progress = () => {
   const goalWeight = 75; // kg
   const startingWeight = 82; // kg (from onboarding or first entry)
   
+  // Calculate Y-axis domain and ticks (always 5 numbers from starting weight to goal weight)
+  const yAxisMin = Math.min(startingWeight, goalWeight);
+  const yAxisMax = Math.max(startingWeight, goalWeight);
+  const yAxisRange = yAxisMax - yAxisMin;
+  const yAxisTicks = Array.from({ length: 5 }, (_, i) => 
+    Math.round((yAxisMin + (yAxisRange * i / 4)) * 10) / 10
+  );
+  
   // Calculate progress percentage towards goal
   const calculateGoalProgress = () => {
     if (Math.abs(startingWeight - goalWeight) < 0.1) return 100;
@@ -204,7 +212,8 @@ const Progress = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-                  domain={[50, 90]}
+                  domain={[yAxisMin, yAxisMax]}
+                  ticks={yAxisTicks}
                 />
                 <Line 
                   type="monotone" 
