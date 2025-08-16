@@ -213,7 +213,7 @@ const Progress = () => {
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   domain={[yAxisMin, yAxisMax]}
-                  tickCount={5}
+                  ticks={yAxisTicks}
                   type="number"
                 />
                 <Line 
