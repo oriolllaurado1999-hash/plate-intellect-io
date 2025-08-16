@@ -245,6 +245,12 @@ const Progress = () => {
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
                <LineChart data={weightData}>
+                <defs>
+                  <linearGradient id="weightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#4AD4B2" />
+                    <stop offset="100%" stopColor="#D44949" />
+                  </linearGradient>
+                </defs>
                 <XAxis 
                   dataKey="date" 
                   axisLine={false}
@@ -265,8 +271,8 @@ const Progress = () => {
                 <Line 
                   type="monotone" 
                   dataKey="weight" 
-                  stroke="hsl(var(--foreground))" 
-                  strokeWidth={2}
+                  stroke="url(#weightGradient)" 
+                  strokeWidth={3}
                   dot={false}
                 />
               </LineChart>
