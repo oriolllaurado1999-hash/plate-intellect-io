@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Progress as ProgressBar } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
-import { BarChart3, HelpCircle } from 'lucide-react';
+import { BarChart3, HelpCircle, Beef, Wheat, Leaf } from 'lucide-react';
 import DayStreakModal from '@/components/DayStreakModal';
 import BMIDetailModal from '@/components/BMIDetailModal';
 
@@ -389,15 +389,15 @@ const Progress = () => {
           {/* Legend */}
           <div className="flex justify-center gap-4 text-xs">
             <div className="flex items-center gap-1">
-              <span className="text-base">🥩</span>
+              <Beef className="w-3 h-3 text-protein" />
               <span>Protein</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-base">🌾</span>
+              <Wheat className="w-3 h-3 text-carbs" />
               <span>Carbs</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-base">🥑</span>
+              <Leaf className="w-3 h-3 text-fat" />
               <span>Fats</span>
             </div>
           </div>
