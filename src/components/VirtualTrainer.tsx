@@ -14,13 +14,78 @@ interface Message {
   timestamp: Date;
 }
 
+interface LanguageTexts {
+  es: {
+    title: string;
+    subtitle: string;
+    readyToHelp: string;
+    welcomeMessage: string;
+    quickQuestions: string[];
+    quickQuestionsLabel: string;
+    placeholder: string;
+    error: string;
+    errorDescription: string;
+    errorMessage: string;
+  };
+  en: {
+    title: string;
+    subtitle: string;
+    readyToHelp: string;
+    welcomeMessage: string;
+    quickQuestions: string[];
+    quickQuestionsLabel: string;
+    placeholder: string;
+    error: string;
+    errorDescription: string;
+    errorMessage: string;
+  };
+}
+
 const VirtualTrainer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<'es' | 'en'>('en');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const texts: LanguageTexts = {
+    es: {
+      title: "Kalore Coach",
+      subtitle: "Tu entrenador virtual personalizado",
+      readyToHelp: "Tu entrenador virtual está listo para ayudarte",
+      welcomeMessage: "¡Hola! 👋 Soy tu entrenador virtual Kalore Coach. Estoy aquí para ayudarte con tus objetivos nutricionales. ¿Cómo puedo ayudarte hoy?",
+      quickQuestions: [
+        "¿Qué debería comer ahora?",
+        "¿Cómo voy con mis objetivos hoy?",
+        "Sugerencias para la cena",
+        "¿Necesito más proteína?"
+      ],
+      quickQuestionsLabel: "Preguntas rápidas:",
+      placeholder: "Escribe tu pregunta...",
+      error: "Error",
+      errorDescription: "No pude procesar tu mensaje. Por favor intenta de nuevo.",
+      errorMessage: "Lo siento, hubo un problema procesando tu mensaje. ¿Podrías intentar de nuevo? 😔"
+    },
+    en: {
+      title: "Kalore Coach",
+      subtitle: "Your personalized virtual trainer",
+      readyToHelp: "Your virtual trainer is ready to help you",
+      welcomeMessage: "Hello! 👋 I'm your virtual trainer Kalore Coach. I'm here to help you with your nutritional goals. How can I help you today?",
+      quickQuestions: [
+        "What should I eat now?",
+        "How am I doing with my goals today?",
+        "Dinner suggestions",
+        "Do I need more protein?"
+      ],
+      quickQuestionsLabel: "Quick questions:",
+      placeholder: "Type your question...",
+      error: "Error",
+      errorDescription: "I couldn't process your message. Please try again.",
+      errorMessage: "Sorry, there was a problem processing your message. Could you try again? 😔"
+    }
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,13 +100,13 @@ const VirtualTrainer = () => {
       // Welcome message when first opened
       const welcomeMessage: Message = {
         id: '1',
-        content: 'Hello! 👋 I\'m your virtual trainer Kalore Coach. I\'m here to help you with your nutritional goals. How can I help you today?',
+        content: texts[currentLanguage].welcomeMessage,
         role: 'assistant',
         timestamp: new Date()
       };
       setMessages([welcomeMessage]);
     }
-  }, [isExpanded]);
+  }, [isExpanded, currentLanguage]);
 
   const sendMessage = async (message?: string) => {
     const messageToSend = message || inputMessage;
@@ -74,18 +139,23 @@ const VirtualTrainer = () => {
         timestamp: new Date()
       };
 
+      // Update language if detected from response
+      if (data.language && data.language !== currentLanguage) {
+        setCurrentLanguage(data.language);
+      }
+
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error calling virtual trainer:', error);
       toast({
-        title: "Error",
-        description: "I couldn't process your message. Please try again.",
+        title: texts[currentLanguage].error,
+        description: texts[currentLanguage].errorDescription,
         variant: "destructive"
       });
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "Sorry, there was a problem processing your message. Could you try again? 😔",
+        content: texts[currentLanguage].errorMessage,
         role: 'assistant',
         timestamp: new Date()
       };
@@ -113,12 +183,6 @@ const VirtualTrainer = () => {
     sendMessage();
   };
 
-  const quickQuestions = [
-    "What should I eat now?",
-    "How am I doing with my goals today?",
-    "Dinner suggestions",
-    "Do I need more protein?"
-  ];
 
   const handleQuickQuestion = (question: string) => {
     setInputMessage(question);
@@ -145,7 +209,7 @@ const VirtualTrainer = () => {
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </div>
               <p className="text-sm text-muted-foreground">
-                Your virtual trainer is ready to help you
+                {texts[currentLanguage].readyToHelp}
               </p>
             </div>
             <MessageCircle className="w-5 h-5 text-muted-foreground" />
@@ -172,10 +236,10 @@ const VirtualTrainer = () => {
             </div>
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
-                Kalore Coach
+                {texts[currentLanguage].title}
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </CardTitle>
-              <p className="text-xs text-muted-foreground">Your personalized virtual trainer</p>
+              <p className="text-xs text-muted-foreground">{texts[currentLanguage].subtitle}</p>
             </div>
           </div>
           <ChevronUp className="w-5 h-5 text-muted-foreground" />
@@ -252,9 +316,9 @@ const VirtualTrainer = () => {
         {/* Quick Questions */}
         {messages.length <= 1 && (
           <div className="mb-4">
-            <p className="text-xs text-muted-foreground mb-2">Quick questions:</p>
+            <p className="text-xs text-muted-foreground mb-2">{texts[currentLanguage].quickQuestionsLabel}</p>
             <div className="grid grid-cols-1 gap-2">
-              {quickQuestions.map((question) => (
+              {texts[currentLanguage].quickQuestions.map((question) => (
                 <Button
                   key={question}
                   variant="outline"
@@ -276,7 +340,7 @@ const VirtualTrainer = () => {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Type your question..."
+            placeholder={texts[currentLanguage].placeholder}
             disabled={isLoading}
             className="flex-1"
           />
