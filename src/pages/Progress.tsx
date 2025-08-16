@@ -257,8 +257,10 @@ const Progress = () => {
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
                   domain={[75, 82]}
-                  ticks={yAxisTicks}
-                  interval={0}
+                  ticks={[75, 76.75, 78.5, 80.25, 82]}
+                  type="number"
+                  allowDataOverflow={true}
+                  allowDecimals={false}
                 />
                 <Line 
                   type="monotone" 
