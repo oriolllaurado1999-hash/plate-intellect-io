@@ -112,11 +112,6 @@ const BMIDetailModal = ({ isOpen, onClose, bmi, bmiStatus, bmiPosition }: BMIDet
                 </ul>
               </div>
             </div>
-
-            {/* Source */}
-            <div className="pb-4">
-              <p className="text-sm text-muted-foreground underline">Source</p>
-            </div>
           </div>
         </div>
       </DialogContent>
