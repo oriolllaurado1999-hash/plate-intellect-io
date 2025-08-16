@@ -131,16 +131,9 @@ const Progress = () => {
   const userHeight = 1.75; // meters (this would come from user profile/onboarding)
   
   // Calculate Y-axis domain and ticks (always 5 numbers from starting weight to goal weight)
-  const yAxisMin = Math.min(startingWeight, goalWeight);
-  const yAxisMax = Math.max(startingWeight, goalWeight);
-  const yAxisRange = yAxisMax - yAxisMin;
-  const yAxisTicks = [
-    yAxisMin,
-    yAxisMin + (yAxisRange * 0.25),
-    yAxisMin + (yAxisRange * 0.5),
-    yAxisMin + (yAxisRange * 0.75),
-    yAxisMax
-  ];
+  const yAxisMin = Math.min(startingWeight, goalWeight); // 75
+  const yAxisMax = Math.max(startingWeight, goalWeight); // 82
+  const yAxisTicks = [75, 76.75, 78.5, 80.25, 82]; // Fixed positions
   
   // Calculate progress percentage towards goal
   const calculateGoalProgress = () => {
@@ -263,7 +256,7 @@ const Progress = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-                  domain={[yAxisMin, yAxisMax]}
+                  domain={[75, 82]}
                   ticks={yAxisTicks}
                   interval={0}
                 />
