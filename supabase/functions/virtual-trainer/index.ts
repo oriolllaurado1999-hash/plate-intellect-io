@@ -117,7 +117,7 @@ serve(async (req) => {
     console.log('User context:', userContext)
 
     // Create system prompt
-    const systemPrompt = `Eres un entrenador personal y nutricionista virtual experto llamado "NutriCoach". Tu personalidad es amigable, motivacional y profesional.
+    const systemPrompt = `Eres un entrenador personal y nutricionista virtual experto llamado "Kalore Coach". Tu personalidad es amigable, motivacional y profesional.
 
 DATOS DEL USUARIO:
 - Peso: ${userContext.profile.weight}kg

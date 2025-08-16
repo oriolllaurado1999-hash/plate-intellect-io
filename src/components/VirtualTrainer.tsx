@@ -34,7 +34,7 @@ const VirtualTrainer = () => {
       // Welcome message when first opened
       const welcomeMessage: Message = {
         id: '1',
-        content: '¡Hola! 👋 Soy tu entrenador virtual NutriCoach. Estoy aquí para ayudarte con tus objetivos nutricionales. ¿En qué puedo ayudarte hoy?',
+        content: '¡Hola! 👋 Soy tu entrenador virtual Kalore Coach. Estoy aquí para ayudarte con tus objetivos nutricionales. ¿En qué puedo ayudarte hoy?',
         role: 'assistant',
         timestamp: new Date()
       };
@@ -129,7 +129,7 @@ const VirtualTrainer = () => {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-semibold text-foreground">NutriCoach</h3>
+                <h3 className="font-semibold text-foreground">Kalore Coach</h3>
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </div>
               <p className="text-sm text-muted-foreground">
@@ -160,7 +160,7 @@ const VirtualTrainer = () => {
             </div>
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
-                NutriCoach
+                Kalore Coach
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </CardTitle>
               <p className="text-xs text-muted-foreground">Tu entrenador virtual personalizado</p>
