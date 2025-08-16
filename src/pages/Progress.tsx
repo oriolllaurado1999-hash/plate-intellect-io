@@ -389,15 +389,15 @@ const Progress = () => {
           {/* Legend */}
           <div className="flex justify-center gap-4 text-xs">
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <span className="text-base">🥩</span>
               <span>Protein</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-orange-400" />
+              <span className="text-base">🌾</span>
               <span>Carbs</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-blue-400" />
+              <span className="text-base">🥑</span>
               <span>Fats</span>
             </div>
           </div>
