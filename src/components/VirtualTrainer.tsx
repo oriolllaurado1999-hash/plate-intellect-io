@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MessageCircle, Send, Bot, User, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import VoiceRecorder from '@/components/VoiceRecorder';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -42,23 +43,24 @@ const VirtualTrainer = () => {
     }
   }, [isExpanded]);
 
-  const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+  const sendMessage = async (message?: string) => {
+    const messageToSend = message || inputMessage;
+    if (!messageToSend.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: inputMessage,
+      content: messageToSend,
       role: 'user',
       timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
+    if (!message) setInputMessage(''); // Only clear if it's from input, not voice
     setIsLoading(true);
 
     try {
       const { data, error } = await supabase.functions.invoke('virtual-trainer', {
-        body: { message: inputMessage }
+        body: { message: messageToSend }
       });
 
       if (error) {
@@ -103,8 +105,12 @@ const VirtualTrainer = () => {
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      sendMessage();
+      handleSendTextMessage();
     }
+  };
+
+  const handleSendTextMessage = () => {
+    sendMessage();
   };
 
   const quickQuestions = [
@@ -264,6 +270,9 @@ const VirtualTrainer = () => {
           </div>
         )}
 
+        {/* Voice Recorder */}
+        <VoiceRecorder onSendMessage={sendMessage} isLoading={isLoading} />
+
         {/* Input */}
         <div className="flex gap-2">
           <Input
@@ -275,7 +284,7 @@ const VirtualTrainer = () => {
             className="flex-1"
           />
           <Button
-            onClick={sendMessage}
+            onClick={handleSendTextMessage}
             disabled={isLoading || !inputMessage.trim()}
             size="sm"
             style={{ backgroundColor: '#4AD4B2' }}
