@@ -135,6 +135,7 @@ const Progress = () => {
   const currentWeight = 55; // kg
   const goalWeight = 75; // kg
   const startingWeight = 82; // kg (from onboarding or first entry)
+  const userHeight = 1.75; // meters (this would come from user profile/onboarding)
   
   // Calculate Y-axis domain and ticks (always 5 numbers from starting weight to goal weight)
   const yAxisMin = Math.min(startingWeight, goalWeight);
@@ -161,8 +162,14 @@ const Progress = () => {
   
   const goalProgress = calculateGoalProgress();
 
-  const currentBMI = 16.0;
+  // Calculate BMI: weight (kg) / height (m)²
+  const currentBMI = Math.round((currentWeight / (userHeight * userHeight)) * 10) / 10;
   const bmiInfo = getBMIStatus(currentBMI);
+  
+  // Calculate BMI position on scale (BMI range: 15-40)
+  const bmiMinRange = 15;
+  const bmiMaxRange = 40;
+  const bmiPosition = Math.min(Math.max(((currentBMI - bmiMinRange) / (bmiMaxRange - bmiMinRange)) * 100, 0), 100);
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--kalore-gradient)' }}>
@@ -426,7 +433,7 @@ const Progress = () => {
             <div className="h-2 bg-gradient-to-r from-blue-500 via-green-500 via-yellow-500 to-red-500 rounded-full relative">
               <div 
                 className="absolute w-1 h-6 bg-foreground rounded-full -top-2"
-                style={{ left: `${(currentBMI / 40) * 100}%` }}
+                style={{ left: `${bmiPosition}%` }}
               />
             </div>
             
