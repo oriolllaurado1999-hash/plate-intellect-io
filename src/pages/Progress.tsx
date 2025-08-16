@@ -330,6 +330,9 @@ const Progress = () => {
                   tickLine={false}
                   tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
                   domain={[0, maxDailyCalories || 1500]}
+                  ticks={[0, (maxDailyCalories || 1500) * 0.25, (maxDailyCalories || 1500) * 0.5, (maxDailyCalories || 1500) * 0.75, maxDailyCalories || 1500]}
+                  type="number"
+                  allowDataOverflow={false}
                 />
                 <Bar dataKey="calories" radius={[4, 4, 0, 0]}>
                   {weeklyCalorieData.map((entry, index) => {
