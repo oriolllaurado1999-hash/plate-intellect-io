@@ -94,6 +94,12 @@ const VirtualTrainer = () => {
     }
   };
 
+  const formatMessage = (content: string) => {
+    // Convert **text** to <strong>text</strong> for bold formatting
+    const formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    return formattedContent;
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -195,7 +201,10 @@ const VirtualTrainer = () => {
                 }`}
                 style={message.role === 'user' ? { backgroundColor: '#4AD4B2' } : {}}
               >
-                <p className="whitespace-pre-wrap">{message.content}</p>
+                <div 
+                  className="whitespace-pre-wrap"
+                  dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
+                />
                 <p className={`text-xs mt-1 ${
                   message.role === 'user' ? 'text-white/70' : 'text-muted-foreground'
                 }`}>
