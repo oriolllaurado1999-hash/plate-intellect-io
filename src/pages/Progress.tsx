@@ -191,32 +191,30 @@ const Progress = () => {
           </div>
         </CardHeader>
         <CardContent className="flex flex-col items-center px-2">
-          <div className="h-48 w-full flex justify-center items-center">
-            <div className="w-full max-w-sm mx-auto">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={weightData}>
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-                    domain={[50, 90]}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="weight" 
-                    stroke="hsl(var(--foreground))" 
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+          <div className="h-48 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={weightData}>
+                <XAxis 
+                  dataKey="date" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                />
+                <YAxis 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                  domain={[50, 90]}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="weight" 
+                  stroke="hsl(var(--foreground))" 
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
           
           <div className="mt-4 p-3 bg-green-50 rounded-lg">
