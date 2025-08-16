@@ -47,11 +47,11 @@ const Progress = () => {
         ];
       case '1 year':
         return [
-          { date: 'Sep 2023', weight: 92 },
-          { date: 'Dec 2023', weight: 90 },
-          { date: 'Mar 2024', weight: 88 },
-          { date: 'Jun 2024', weight: 86 },
-          { date: 'Aug 2024', weight: 84 },
+          { date: 'Sep', weight: 92 },
+          { date: 'Dec', weight: 90 },
+          { date: 'Mar', weight: 88 },
+          { date: 'Jun', weight: 86 },
+          { date: 'Aug', weight: 84 },
         ];
       default:
         return [];
