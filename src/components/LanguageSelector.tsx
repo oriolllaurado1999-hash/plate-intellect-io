@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
 
 interface Language {
   code: string;
@@ -36,18 +35,10 @@ export const LanguageSelector = ({ isOpen, onClose, currentLanguage, onLanguageS
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md bg-background border-2 shadow-xl">
-        <DialogHeader className="relative">
+        <DialogHeader>
           <DialogTitle className="text-xl font-semibold text-center text-foreground">
             Select Language
           </DialogTitle>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute right-0 top-0 p-2"
-            onClick={onClose}
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
         
         <div className="space-y-2 py-4">
