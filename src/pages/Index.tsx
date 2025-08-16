@@ -21,6 +21,7 @@ import DayStreakModal from '@/components/DayStreakModal';
 import AddOptionsMenu from '@/components/AddOptionsMenu';
 import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
+import VirtualTrainer from '@/components/VirtualTrainer';
 import { useCameraContext } from '@/contexts/CameraContext';
 
 const Index = () => {
@@ -662,6 +663,11 @@ const Index = () => {
               <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
             </div>
           </button>
+        </div>
+
+        {/* Virtual Trainer */}
+        <div className="mb-6">
+          <VirtualTrainer />
         </div>
       </div>
 
