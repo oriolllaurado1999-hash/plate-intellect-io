@@ -18,49 +18,40 @@ const Progress = () => {
   const periodOptions = ['1 month', '3 months', '6 months', '1 year'];
   const weekOptions = ['This week', 'Last week', '2 weeks', '1 month'];
 
-  // Mock data for different periods
+  // Mock data for different periods with exactly 5 data points
   const getWeightDataForPeriod = (period: string) => {
     switch (period) {
       case '1 month':
         return [
           { date: 'Aug 1', weight: 82 },
-          { date: 'Aug 4', weight: 80 },
-          { date: 'Aug 7', weight: 78 },
-          { date: 'Aug 10', weight: 76 },
-          { date: 'Aug 14', weight: 74 },
-          { date: 'Aug 18', weight: 72 },
-          { date: 'Aug 22', weight: 70 },
-          { date: 'Aug 26', weight: 68 },
-          { date: 'Aug 30', weight: 66 },
+          { date: 'Aug 8', weight: 80 },
+          { date: 'Aug 15', weight: 78 },
+          { date: 'Aug 22', weight: 76 },
+          { date: 'Aug 30', weight: 74 },
         ];
       case '3 months':
         return [
           { date: 'Jun 1', weight: 85 },
-          { date: 'Jun 15', weight: 83 },
-          { date: 'Jul 1', weight: 81 },
-          { date: 'Jul 15', weight: 79 },
-          { date: 'Aug 1', weight: 77 },
-          { date: 'Aug 15', weight: 75 },
-          { date: 'Aug 30', weight: 73 },
+          { date: 'Jun 30', weight: 83 },
+          { date: 'Jul 15', weight: 81 },
+          { date: 'Aug 1', weight: 79 },
+          { date: 'Aug 30', weight: 77 },
         ];
       case '6 months':
         return [
-          { date: 'Mar', weight: 88 },
-          { date: 'Apr', weight: 86 },
-          { date: 'May', weight: 84 },
-          { date: 'Jun', weight: 82 },
-          { date: 'Jul', weight: 80 },
-          { date: 'Aug', weight: 78 },
+          { date: 'Mar 1', weight: 88 },
+          { date: 'Apr 15', weight: 86 },
+          { date: 'Jun 1', weight: 84 },
+          { date: 'Jul 15', weight: 82 },
+          { date: 'Aug 30', weight: 80 },
         ];
       case '1 year':
         return [
-          { date: 'Sep 23', weight: 92 },
-          { date: 'Nov 23', weight: 90 },
-          { date: 'Jan 24', weight: 88 },
-          { date: 'Mar 24', weight: 86 },
-          { date: 'May 24', weight: 84 },
-          { date: 'Jul 24', weight: 82 },
-          { date: 'Aug 24', weight: 80 },
+          { date: 'Sep 2023', weight: 92 },
+          { date: 'Dec 2023', weight: 90 },
+          { date: 'Mar 2024', weight: 88 },
+          { date: 'Jun 2024', weight: 86 },
+          { date: 'Aug 2024', weight: 84 },
         ];
       default:
         return [];
@@ -260,23 +251,21 @@ const Progress = () => {
         <CardContent className="flex flex-col items-center px-2">
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={weightData}>
+               <LineChart data={weightData}>
                 <XAxis 
                   dataKey="date" 
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                  interval={0}
                 />
                 <YAxis 
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-                  domain={['dataMin - 1', 'dataMax + 1']}
+                  domain={[yAxisMin, yAxisMax]}
+                  ticks={yAxisTicks}
                   interval={0}
-                  tickFormatter={(value) => {
-                    const roundedValue = Math.round(value * 10) / 10;
-                    return yAxisTicks.includes(roundedValue) ? roundedValue.toString() : '';
-                  }}
                 />
                 <Line 
                   type="monotone" 
