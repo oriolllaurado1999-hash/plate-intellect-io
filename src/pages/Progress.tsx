@@ -14,7 +14,7 @@ const Progress = () => {
   const dayStreak = 2; // This would come from user data in real app
 
   const periodOptions = ['1 month', '3 months', '6 months', '1 year'];
-  const weekOptions = ['This week', 'Last week', '2 wks. ago', '3 wks. ago'];
+  const weekOptions = ['This week', 'Last week', '2 wks. ago', '1 month ago'];
 
   // Mock data for different periods
   const getWeightDataForPeriod = (period: string) => {
@@ -95,7 +95,7 @@ const Progress = () => {
         { day: 'Fri', calories: 1920, protein: 132, carbs: 198, fat: 72 },
         { day: 'Sat', calories: 1580, protein: 102, carbs: 168, fat: 48 },
       ],
-      '3 wks. ago': [
+      '1 month ago': [
         { day: 'Sun', calories: 1800, protein: 115, carbs: 185, fat: 60 },
         { day: 'Mon', calories: 1950, protein: 135, carbs: 200, fat: 70 },
         { day: 'Tue', calories: 1700, protein: 110, carbs: 180, fat: 55 },
