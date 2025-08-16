@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 interface BMIDetailModalProps {
   isOpen: boolean;
@@ -24,11 +24,11 @@ const BMIDetailModal = ({ isOpen, onClose, bmi, bmiStatus, bmiPosition }: BMIDet
             <div className="flex items-center gap-3">
               <Button 
                 variant="ghost" 
-                size="icon" 
-                className="h-10 w-10 rounded-full bg-muted"
+                size="sm" 
                 onClick={onClose}
+                className="p-2"
               >
-                <ArrowLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5" />
               </Button>
               <DialogTitle className="text-xl font-semibold">BMI</DialogTitle>
             </div>
