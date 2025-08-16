@@ -94,9 +94,13 @@ const Progress = () => {
   const yAxisMin = Math.min(startingWeight, goalWeight);
   const yAxisMax = Math.max(startingWeight, goalWeight);
   const yAxisRange = yAxisMax - yAxisMin;
-  const yAxisTicks = Array.from({ length: 5 }, (_, i) => 
-    Math.round((yAxisMin + (yAxisRange * i / 4)) * 10) / 10
-  );
+  const yAxisTicks = [
+    yAxisMin,
+    yAxisMin + (yAxisRange * 0.25),
+    yAxisMin + (yAxisRange * 0.5),
+    yAxisMin + (yAxisRange * 0.75),
+    yAxisMax
+  ];
   
   // Calculate progress percentage towards goal
   const calculateGoalProgress = () => {
@@ -212,9 +216,12 @@ const Progress = () => {
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
-                  domain={[yAxisMin, yAxisMax]}
-                  ticks={yAxisTicks}
-                  type="number"
+                  domain={['dataMin - 1', 'dataMax + 1']}
+                  interval={0}
+                  tickFormatter={(value) => {
+                    const roundedValue = Math.round(value * 10) / 10;
+                    return yAxisTicks.includes(roundedValue) ? roundedValue.toString() : '';
+                  }}
                 />
                 <Line 
                   type="monotone" 
