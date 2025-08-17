@@ -17,33 +17,6 @@ interface Message {
   timestamp: Date;
 }
 
-interface LanguageTexts {
-  es: {
-    title: string;
-    subtitle: string;
-    readyToHelp: string;
-    welcomeMessage: string;
-    quickQuestions: string[];
-    quickQuestionsLabel: string;
-    placeholder: string;
-    error: string;
-    errorDescription: string;
-    errorMessage: string;
-  };
-  en: {
-    title: string;
-    subtitle: string;
-    readyToHelp: string;
-    welcomeMessage: string;
-    quickQuestions: string[];
-    quickQuestionsLabel: string;
-    placeholder: string;
-    error: string;
-    errorDescription: string;
-    errorMessage: string;
-  };
-}
-
 const VirtualTrainer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -54,31 +27,18 @@ const VirtualTrainer = () => {
   const { toast } = useToast();
   const { unreadMessages, latestMessage, markAsRead, markAllAsRead } = useCoachMessages();
 
-  const texts = {
-    es: {
-      title: t.kaloreCoach,
-      subtitle: t.yourPersonalizedVirtualTrainer,
-      readyToHelp: t.virtualTrainerReady,
-      welcomeMessage: t.welcomeMessage,
-      quickQuestions: t.quickQuestions,
-      quickQuestionsLabel: t.quickQuestionsLabel,
-      placeholder: t.placeholder,
-      error: t.error,
-      errorDescription: t.errorDescription,
-      errorMessage: t.errorMessage
-    },
-    en: {
-      title: t.kaloreCoach,
-      subtitle: t.yourPersonalizedVirtualTrainer,
-      readyToHelp: t.virtualTrainerReady,
-      welcomeMessage: t.welcomeMessage,
-      quickQuestions: t.quickQuestions,
-      quickQuestionsLabel: t.quickQuestionsLabel,
-      placeholder: t.placeholder,
-      error: t.error,
-      errorDescription: t.errorDescription,
-      errorMessage: t.errorMessage
-    }
+  // Get current language-specific texts
+  const currentTexts = {
+    title: t.kaloreCoach,
+    subtitle: t.yourPersonalizedVirtualTrainer,
+    readyToHelp: t.virtualTrainerReady,
+    welcomeMessage: t.welcomeMessage,
+    quickQuestions: t.quickQuestions,
+    quickQuestionsLabel: t.quickQuestionsLabel,
+    placeholder: t.placeholder,
+    error: t.error,
+    errorDescription: t.errorDescription,
+    errorMessage: t.errorMessage
   };
 
   const scrollToBottom = () => {
@@ -116,7 +76,7 @@ const VirtualTrainer = () => {
       } else {
         messagesToAdd.push({
           id: '1',
-          content: texts[currentLanguage as keyof typeof texts].welcomeMessage,
+          content: currentTexts.welcomeMessage,
           role: 'assistant',
           timestamp: new Date()
         });
@@ -152,7 +112,10 @@ const VirtualTrainer = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('virtual-trainer', {
-        body: { message: messageToSend }
+        body: { 
+          message: messageToSend,
+          language: currentLanguage // Send the current language to the backend
+        }
       });
 
       if (error) {
@@ -169,7 +132,6 @@ const VirtualTrainer = () => {
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error calling virtual trainer:', error);
-      const currentTexts = texts[currentLanguage as keyof typeof texts];
       toast({
         title: currentTexts.error,
         description: currentTexts.errorDescription,
@@ -178,7 +140,7 @@ const VirtualTrainer = () => {
 
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: texts[currentLanguage as keyof typeof texts].errorMessage,
+        content: currentTexts.errorMessage,
         role: 'assistant',
         timestamp: new Date()
       };
@@ -243,7 +205,7 @@ const VirtualTrainer = () => {
                 )}
               </div>
               <p className="text-sm text-muted-foreground">
-                {latestMessage ? latestMessage.message_preview : texts[currentLanguage as keyof typeof texts].readyToHelp}
+                {latestMessage ? latestMessage.message_preview : currentTexts.readyToHelp}
               </p>
             </div>
             <MessageCircle className="w-5 h-5 text-muted-foreground" />
@@ -270,10 +232,10 @@ const VirtualTrainer = () => {
             </div>
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
-                {texts[currentLanguage as keyof typeof texts].title}
+                {currentTexts.title}
                 <Sparkles className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </CardTitle>
-              <p className="text-xs text-muted-foreground">{texts[currentLanguage as keyof typeof texts].subtitle}</p>
+              <p className="text-xs text-muted-foreground">{currentTexts.subtitle}</p>
             </div>
           </div>
           <ChevronUp className="w-5 h-5 text-muted-foreground" />
@@ -350,9 +312,9 @@ const VirtualTrainer = () => {
         {/* Quick Questions */}
         {messages.length <= 1 && (
           <div className="mb-4">
-            <p className="text-xs text-muted-foreground mb-2">{texts[currentLanguage as keyof typeof texts].quickQuestionsLabel}</p>
+            <p className="text-xs text-muted-foreground mb-2">{currentTexts.quickQuestionsLabel}</p>
             <div className="grid grid-cols-1 gap-2">
-              {texts[currentLanguage as keyof typeof texts].quickQuestions.map((question) => (
+              {currentTexts.quickQuestions.map((question) => (
                 <Button
                   key={question}
                   variant="outline"
@@ -374,7 +336,7 @@ const VirtualTrainer = () => {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={texts[currentLanguage as keyof typeof texts].placeholder}
+            placeholder={currentTexts.placeholder}
             disabled={isLoading}
             className="flex-1"
           />

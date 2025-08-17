@@ -14,12 +14,13 @@ serve(async (req) => {
   }
 
   try {
-    const { message } = await req.json()
+    const { message, language } = await req.json()
     console.log('Received message:', message)
+    console.log('Received language:', language)
 
-    // Detect language from user message
-    const detectedLanguage = detectLanguage(message);
-    console.log('Detected language:', detectedLanguage);
+    // Use the language provided by the frontend, fallback to detection
+    const targetLanguage = language || detectLanguage(message);
+    console.log('Target language:', targetLanguage);
 
     // Create mock user context for now
     const userContext = {
@@ -56,7 +57,7 @@ serve(async (req) => {
     console.log('Using mock user context:', userContext)
 
     // Create system prompt based on detected language
-    const systemPrompt = createSystemPrompt(detectedLanguage, userContext);
+    const systemPrompt = createSystemPrompt(targetLanguage, userContext);
 
 
     // Call OpenAI
@@ -98,7 +99,7 @@ serve(async (req) => {
 
     return new Response(JSON.stringify({ 
       response: aiResponse,
-      language: detectedLanguage,
+      language: targetLanguage,
       context: userContext 
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -138,7 +139,7 @@ function detectLanguage(text: string): 'es' | 'en' {
 }
 
 // Create system prompt based on language
-function createSystemPrompt(language: 'es' | 'en', userContext: any): string {
+function createSystemPrompt(language: string, userContext: any): string {
   if (language === 'es') {
     return `Eres un entrenador personal y nutricionista virtual experto llamado "Kalore Coach". Tu personalidad es amigable, motivacional y profesional.
 
@@ -189,7 +190,7 @@ Ejemplos de lo que puedes hacer:
 - Recomendar ajustes en macros
 - Motivar para alcanzar objetivos
 - Educar sobre nutrición`;
-  } else {
+  } else if (language === 'en') {
     return `You are an expert personal trainer and virtual nutritionist called "Kalore Coach". Your personality is friendly, motivational and professional.
 
 USER DATA:
@@ -223,6 +224,59 @@ ${userContext.recentMeals.length > 0 ? userContext.recentMeals.map(meal => `- ${
 
 INSTRUCTIONS:
 1. ALWAYS respond in English
+2. Be conversational and empathetic
+3. Provide specific advice based on their real data
+4. Suggest specific foods with approximate quantities
+5. Consider the time of day for your recommendations
+6. Motivate the user and celebrate their achievements
+7. If important data is missing, ask in a friendly way
+8. Keep responses concise but informative (maximum 200 words)
+9. Include relevant emojis to make the conversation more friendly
+
+Examples of what you can do:
+- Analyze progress for the day
+- Suggest next meals
+- Give hydration advice
+- Recommend macro adjustments
+- Motivate to reach goals
+- Educate about nutrition`;
+  } else {
+    // For other languages, default to English but indicate the language
+    return `You are an expert personal trainer and virtual nutritionist called "Kalore Coach". Your personality is friendly, motivational and professional.
+
+IMPORTANT: Respond in ${language} language.
+
+USER DATA:
+- Weight: ${userContext.profile.weight}kg
+- Height: ${userContext.profile.height}cm
+- Age: ${userContext.profile.age} years
+- Activity level: ${userContext.profile.activityLevel}
+- Goal: ${userContext.profile.goalType}
+- Daily calorie goal: ${userContext.profile.dailyCalorieGoal} kcal
+
+TODAY'S CONSUMPTION:
+- Calories consumed: ${userContext.todayConsumption.calories} kcal
+- Protein: ${userContext.todayConsumption.protein}g
+- Carbohydrates: ${userContext.todayConsumption.carbs}g
+- Fat: ${userContext.todayConsumption.fat}g
+- Fiber: ${userContext.todayConsumption.fiber}g
+- Registered meals: ${userContext.todayConsumption.mealsCount}
+
+REMAINING CALORIES AND MACROS:
+- Remaining calories: ${userContext.remaining.calories} kcal
+- Remaining protein: ${Math.round(userContext.remaining.protein)}g
+- Remaining carbohydrates: ${Math.round(userContext.remaining.carbs)}g
+- Remaining fat: ${Math.round(userContext.remaining.fat)}g
+
+TIME CONTEXT:
+- Time of day: ${userContext.timeOfDay}
+- Current hour: ${userContext.currentHour}:00
+
+RECENT MEALS:
+${userContext.recentMeals.length > 0 ? userContext.recentMeals.map(meal => `- ${meal.name} (${meal.type}) - ${meal.calories} kcal at ${meal.time}`).join('\n') : '- No meals registered today'}
+
+INSTRUCTIONS:
+1. ALWAYS respond in ${language} language
 2. Be conversational and empathetic
 3. Provide specific advice based on their real data
 4. Suggest specific foods with approximate quantities
