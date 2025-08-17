@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Clock, Camera } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
@@ -15,35 +14,10 @@ interface RecentMeal {
   image_url?: string;
 }
 
-interface RecentMealsProps {
-  isAnalyzing?: boolean;
-  analysisProgress?: number;
-}
-
-export default function RecentMeals({ isAnalyzing = false, analysisProgress = 0 }: RecentMealsProps) {
+export default function RecentMeals() {
   const [recentMeals, setRecentMeals] = useState<RecentMeal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [internalProgress, setInternalProgress] = useState(0);
   const { user } = useAuth();
-
-  // Simulate analysis progress when isAnalyzing is true
-  useEffect(() => {
-    if (isAnalyzing) {
-      const interval = setInterval(() => {
-        setInternalProgress(prev => {
-          if (prev >= 85) {
-            clearInterval(interval);
-            return 85;
-          }
-          return prev + Math.random() * 15 + 5; // Increment by 5-20% each time
-        });
-      }, 800);
-      
-      return () => clearInterval(interval);
-    } else {
-      setInternalProgress(0);
-    }
-  }, [isAnalyzing]);
 
   useEffect(() => {
     const fetchRecentMeals = async () => {
@@ -120,34 +94,11 @@ export default function RecentMeals({ isAnalyzing = false, analysisProgress = 0 
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <Clock className="h-5 w-5 text-primary" />
-          Recently uploaded
+          Recently Eaten
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {isAnalyzing && (
-          <div className="mb-4 p-4 rounded-lg bg-muted/30 border border-border/50">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-primary/10 animate-pulse"></div>
-                <Camera className="h-6 w-6 text-primary relative z-10" />
-              </div>
-              
-              <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-foreground mb-2">Separating ingredients...</h4>
-                <div className="space-y-2">
-                  <Progress value={analysisProgress || internalProgress} className="h-2" />
-                  <p className="text-xs text-muted-foreground">We'll notify you when done!</p>
-                </div>
-              </div>
-              
-              <div className="text-right">
-                <div className="text-2xl font-bold text-primary">{Math.round(analysisProgress || internalProgress)}%</div>
-              </div>
-            </div>
-          </div>
-        )}
-        
-        {!isAnalyzing && recentMeals.length === 0 ? (
+        {recentMeals.length === 0 ? (
           <div className="text-center py-8">
             <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
               <Camera className="h-8 w-8 text-muted-foreground" />
