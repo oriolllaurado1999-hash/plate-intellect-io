@@ -41,6 +41,7 @@ const Index = () => {
   const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | 'fiber' | 'sugar' | 'sodium' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
 
@@ -167,8 +168,9 @@ const Index = () => {
     setAnalysisData(null);
     setCapturedImage('');
     setIsAnalyzing(false);
-    // Force re-fetch data by updating the date state
+    // Force re-fetch data by updating the date state and refresh key
     setSelectedDate(new Date(selectedDate));
+    setRefreshKey(prev => prev + 1);
   };
 
   const handleReviewCancel = () => {
@@ -641,7 +643,8 @@ const Index = () => {
 
         {/* Recently Uploaded */}
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-foreground mb-4">Recently uploaded</h3>
+          <RecentMeals key={refreshKey} />
+          
           
           {/* Analysis in progress card - only shown when analyzing */}
           {isAnalyzing && (
