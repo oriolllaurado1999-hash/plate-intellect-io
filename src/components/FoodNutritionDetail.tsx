@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Separator } from './ui/separator';
 import { Badge } from './ui/badge';
-import { X, Minus, Plus, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { X, Minus, Plus, ThumbsUp, ThumbsDown, Edit3, Trash2, PlusCircle } from 'lucide-react';
 import { useToast } from './ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -35,10 +35,13 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
   const [mealName, setMealName] = useState(analysis.meal_name);
   const [mealType, setMealType] = useState('lunch');
   const [isLoading, setIsLoading] = useState(false);
+  const [foods, setFoods] = useState<FoodItem[]>(analysis.foods);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
   const { toast } = useToast();
 
   const calculateTotals = () => {
-    return analysis.foods.reduce(
+    return foods.reduce(
       (totals, food) => ({
         calories: totals.calories + (food.calories * servings),
         protein: totals.protein + (food.protein * servings),
@@ -51,6 +54,41 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
   };
 
   const totals = calculateTotals();
+
+  const calculateHealthScore = () => {
+    const totalCalories = totals.calories;
+    const totalFiber = totals.fiber;
+    const totalProtein = totals.protein;
+    const totalFat = totals.fat;
+    const totalCarbs = totals.carbs;
+    
+    let score = 5; // Base score
+    
+    // Fiber bonus (high fiber is good)
+    if (totalFiber > 10) score += 2;
+    else if (totalFiber > 5) score += 1;
+    
+    // Protein bonus (adequate protein is good)
+    const proteinRatio = (totalProtein * 4) / totalCalories;
+    if (proteinRatio > 0.25) score += 1.5;
+    else if (proteinRatio > 0.15) score += 1;
+    
+    // Fat penalty for too much
+    const fatRatio = (totalFat * 9) / totalCalories;
+    if (fatRatio > 0.35) score -= 1;
+    
+    // Carb balance
+    const carbRatio = (totalCarbs * 4) / totalCalories;
+    if (carbRatio > 0.6) score -= 0.5;
+    
+    // Calorie density (prefer whole foods)
+    if (totalCalories < 200 && totalFiber > 3) score += 1;
+    
+    // Ensure score is between 1-10
+    return Math.max(1, Math.min(10, Math.round(score)));
+  };
+
+  const healthScore = calculateHealthScore();
 
   const saveMeal = async () => {
     setIsLoading(true);
@@ -81,11 +119,34 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
         meal_date: new Date().toISOString().split('T')[0],
       };
 
-      const { error } = await supabase
+      const { data: mealResponse, error } = await supabase
         .from('meals')
-        .insert([mealData]);
+        .insert([mealData])
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Save individual food items
+      const mealId = mealResponse.id;
+      const foodItems = foods.map(food => ({
+
+        meal_id: mealId,
+        food_name: food.name,
+        quantity: food.quantity,
+        calories: food.calories,
+        protein: food.protein,
+        carbs: food.carbs,
+        fat: food.fat,
+        fiber: food.fiber,
+        confidence: food.confidence,
+      }));
+
+      const { error: itemsError } = await supabase
+        .from('meal_items')
+        .insert(foodItems);
+
+      if (itemsError) throw itemsError;
 
       toast({
         title: "Success",
@@ -105,6 +166,58 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
     }
   };
 
+  const updateFoodItem = (index: number, field: keyof FoodItem, value: string | number) => {
+    const updatedFoods = [...foods];
+    if (field === 'quantity') {
+      const ratio = Number(value) / updatedFoods[index].quantity;
+      updatedFoods[index] = {
+        ...updatedFoods[index],
+        quantity: Number(value),
+        calories: updatedFoods[index].calories * ratio,
+        protein: updatedFoods[index].protein * ratio,
+        carbs: updatedFoods[index].carbs * ratio,
+        fat: updatedFoods[index].fat * ratio,
+        fiber: updatedFoods[index].fiber * ratio,
+      };
+    } else {
+      updatedFoods[index] = { ...updatedFoods[index], [field]: value };
+    }
+    setFoods(updatedFoods);
+  };
+
+  const removeFoodItem = (index: number) => {
+    const updatedFoods = foods.filter((_, i) => i !== index);
+    setFoods(updatedFoods);
+  };
+
+  const addFoodItem = () => {
+    const newFood: FoodItem = {
+      name: 'New Food',
+      quantity: 100,
+      calories: 100,
+      protein: 5,
+      carbs: 15,
+      fat: 3,
+      fiber: 2,
+      confidence: 1,
+    };
+    setFoods([...foods, newFood]);
+    setEditingIndex(foods.length);
+  };
+
+  const getHealthScoreColor = (score: number) => {
+    if (score >= 8) return 'text-green-600';
+    if (score >= 6) return 'text-yellow-600';
+    return 'text-red-600';
+  };
+
+  const getHealthScoreLabel = (score: number) => {
+    if (score >= 8) return 'Excellent';
+    if (score >= 6) return 'Good';
+    if (score >= 4) return 'Fair';
+    return 'Poor';
+  };
+
   return (
     <div className="fixed inset-0 bg-background z-50 overflow-y-auto">
       <div className="min-h-screen p-4">
@@ -112,9 +225,19 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <h2 className="text-lg font-semibold">Nutrition Details</h2>
-            <Button variant="ghost" size="icon" onClick={onClose}>
-              <X className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsEditing(!isEditing)}
+                className={isEditing ? 'bg-primary text-primary-foreground' : ''}
+              >
+                <Edit3 className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="icon" onClick={onClose}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
           <div className="p-4 space-y-6">
@@ -180,7 +303,17 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
 
             {/* Nutrition Summary */}
             <div className="bg-muted/50 rounded-lg p-4">
-              <h3 className="font-semibold mb-3">Nutrition Summary</h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold">Nutrition Summary</h3>
+                <div className="flex items-center gap-2">
+                  <span className={`text-lg font-bold ${getHealthScoreColor(healthScore)}`}>
+                    {healthScore}/10
+                  </span>
+                  <Badge variant="outline" className={getHealthScoreColor(healthScore)}>
+                    {getHealthScoreLabel(healthScore)}
+                  </Badge>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary">{Math.round(totals.calories)}</div>
@@ -205,22 +338,139 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
 
             {/* Food Items */}
             <div>
-              <h3 className="font-semibold mb-3">Ingredients</h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold">Ingredients</h3>
+                {isEditing && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={addFoodItem}
+                    className="flex items-center gap-1"
+                  >
+                    <PlusCircle className="h-4 w-4" />
+                    Add Food
+                  </Button>
+                )}
+              </div>
               <div className="space-y-3">
-                {analysis.foods.map((food, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
-                    <div>
-                      <div className="font-medium">{food.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {Math.round(food.quantity * servings)}g
+                {foods.map((food, index) => (
+                  <div key={index} className="p-3 bg-muted/30 rounded-lg">
+                    {isEditing && editingIndex === index ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={food.name}
+                            onChange={(e) => updateFoodItem(index, 'name', e.target.value)}
+                            className="flex-1 p-2 border rounded text-sm"
+                            placeholder="Food name"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeFoodItem(index)}
+                            className="text-red-500 hover:bg-red-50"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div>
+                            <label className="text-xs text-muted-foreground">Quantity (g)</label>
+                            <input
+                              type="number"
+                              value={food.quantity}
+                              onChange={(e) => updateFoodItem(index, 'quantity', Number(e.target.value))}
+                              className="w-full p-1 border rounded text-xs"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs text-muted-foreground">Calories</label>
+                            <input
+                              type="number"
+                              value={Math.round(food.calories)}
+                              onChange={(e) => updateFoodItem(index, 'calories', Number(e.target.value))}
+                              className="w-full p-1 border rounded text-xs"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs text-muted-foreground">Protein (g)</label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              value={food.protein.toFixed(1)}
+                              onChange={(e) => updateFoodItem(index, 'protein', Number(e.target.value))}
+                              className="w-full p-1 border rounded text-xs"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs text-muted-foreground">Carbs (g)</label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              value={food.carbs.toFixed(1)}
+                              onChange={(e) => updateFoodItem(index, 'carbs', Number(e.target.value))}
+                              className="w-full p-1 border rounded text-xs"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs text-muted-foreground">Fat (g)</label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              value={food.fat.toFixed(1)}
+                              onChange={(e) => updateFoodItem(index, 'fat', Number(e.target.value))}
+                              className="w-full p-1 border rounded text-xs"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-xs text-muted-foreground">Fiber (g)</label>
+                            <input
+                              type="number"
+                              step="0.1"
+                              value={food.fiber.toFixed(1)}
+                              onChange={(e) => updateFoodItem(index, 'fiber', Number(e.target.value))}
+                              className="w-full p-1 border rounded text-xs"
+                            />
+                          </div>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setEditingIndex(null)}
+                          className="w-full"
+                        >
+                          Done Editing
+                        </Button>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-semibold">{Math.round(food.calories * servings)} cal</div>
-                      <div className="text-xs text-muted-foreground">
-                        {Math.round(food.confidence * 100)}% match
+                    ) : (
+                      <div className="flex justify-between items-center">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium">{food.name}</span>
+                            {isEditing && (
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => setEditingIndex(index)}
+                                className="h-6 w-6"
+                              >
+                                <Edit3 className="h-3 w-3" />
+                              </Button>
+                            )}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            {Math.round(food.quantity * servings)}g
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-semibold">{Math.round(food.calories * servings)} cal</div>
+                          <div className="text-xs text-muted-foreground">
+                            {Math.round(food.confidence * 100)}% match
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 ))}
               </div>
