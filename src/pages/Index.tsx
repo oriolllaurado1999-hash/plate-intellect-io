@@ -29,6 +29,7 @@ import { useCameraContext } from '@/contexts/CameraContext';
 
 const Index = () => {
   const { t, currentLanguage } = useTranslation();
+  const { user } = useAuth();
   const { setIsCameraActive } = useCameraContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);

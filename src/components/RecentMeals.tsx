@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Clock, Camera, Flame, Drumstick, Wheat, Droplet } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from '@/hooks/useTranslation';
 import FoodNutritionDetail from './FoodNutritionDetail';
 
 interface RecentMeal {
@@ -23,6 +24,7 @@ export default function RecentMeals() {
   const [loading, setLoading] = useState(true);
   const [selectedMeal, setSelectedMeal] = useState<any>(null);
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchRecentMeals = async () => {
@@ -76,7 +78,7 @@ export default function RecentMeals() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <Clock className="h-5 w-5 text-primary" />
-            Recently uploaded
+            {t.recentlyUploaded}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -102,7 +104,7 @@ export default function RecentMeals() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <Clock className="h-5 w-5 text-primary" />
-          Recently uploaded
+          {t.recentlyUploaded}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -111,8 +113,8 @@ export default function RecentMeals() {
             <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
               <Camera className="h-8 w-8 text-muted-foreground" />
             </div>
-            <p className="text-muted-foreground">No recent meals found</p>
-            <p className="text-sm text-muted-foreground mt-1">Start scanning your food!</p>
+            <p className="text-muted-foreground">{t.noRecentMeals}</p>
+            <p className="text-sm text-muted-foreground mt-1">{t.startScanning}</p>
           </div>
         ) : (
           <div className="space-y-3">
