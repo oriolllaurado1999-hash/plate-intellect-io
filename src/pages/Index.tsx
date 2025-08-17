@@ -9,7 +9,7 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings, Grape, Candy, Salad, Activity, Footprints, Heart, Droplets, GlassWater } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import CameraScanner from '@/components/CameraScanner';
-import NutritionReview from '@/components/NutritionReview';
+import FoodNutritionDetail from '@/components/FoodNutritionDetail';
 import CalorieCircle from '@/components/CalorieCircle';
 import MacroBreakdown from '@/components/MacroBreakdown';
 import WeeklyChart from '@/components/WeeklyChart';
@@ -716,11 +716,15 @@ const Index = () => {
       )}
 
       {showReview && analysisData && (
-        <NutritionReview
+        <FoodNutritionDetail
           analysis={analysisData}
           imageUrl={capturedImage}
-          onSave={handleMealSaved}
-          onCancel={handleReviewCancel}
+          onClose={() => {
+            setShowReview(false);
+            setAnalysisData(null);
+            setCapturedImage('');
+            setIsAnalyzing(false);
+          }}
         />
       )}
 

@@ -306,8 +306,8 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
               </div>
 
               {/* Bottom Actions */}
-              <div className="absolute bottom-safe left-4 right-4 pb-8">
-                <div className="bg-black/80 backdrop-blur-md rounded-2xl p-6 mx-4">
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-6 mx-4">
                   <div className="space-y-4">
                     <Button
                       onClick={analyzeImage}
