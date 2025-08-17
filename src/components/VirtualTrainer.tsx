@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCoachMessages } from '@/hooks/useCoachMessages';
 import { Badge } from '@/components/ui/badge';
 import { useTranslation } from '@/hooks/useTranslation';
+import { TypingIndicator } from '@/components/ui/typing-indicator';
 
 interface Message {
   id: string;
@@ -308,17 +309,13 @@ const VirtualTrainer = () => {
           {isLoading && (
             <div className="flex gap-3 justify-start">
               <div 
-                className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
                 style={{ backgroundColor: 'rgba(74, 212, 178, 0.15)' }}
               >
                 <Bot className="w-4 h-4" style={{ color: '#4AD4B2' }} />
               </div>
-              <div className="bg-muted p-3 rounded-2xl rounded-bl-md">
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                </div>
+              <div className="bg-muted rounded-2xl rounded-bl-md">
+                <TypingIndicator />
               </div>
             </div>
           )}
