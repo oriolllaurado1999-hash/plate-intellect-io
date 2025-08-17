@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Clock, Camera, Flame, Drumstick, Wheat, Droplet } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import FoodNutritionDetail from './FoodNutritionDetail';
 
 interface RecentMeal {
   id: string;
@@ -20,6 +21,7 @@ interface RecentMeal {
 export default function RecentMeals() {
   const [recentMeals, setRecentMeals] = useState<RecentMeal[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMeal, setSelectedMeal] = useState<any>(null);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -117,7 +119,8 @@ export default function RecentMeals() {
             {recentMeals.map((meal) => (
               <div
                 key={meal.id}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                onClick={() => setSelectedMeal(meal)}
               >
                 <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center overflow-hidden">
                   {meal.image_url ? (
@@ -162,6 +165,28 @@ export default function RecentMeals() {
           </div>
         )}
       </CardContent>
+
+      {/* Food Nutrition Detail Modal */}
+      {selectedMeal && (
+        <FoodNutritionDetail
+          analysis={{
+            foods: [{
+              name: selectedMeal.name,
+              quantity: 1,
+              calories: selectedMeal.total_calories || 0,
+              protein: selectedMeal.total_protein || 0,
+              carbs: selectedMeal.total_carbs || 0,
+              fat: selectedMeal.total_fat || 0,
+              fiber: 0,
+              confidence: 0.8
+            }],
+            overall_confidence: 0.8,
+            meal_name: selectedMeal.name
+          }}
+          imageUrl={selectedMeal.image_url || ''}
+          onClose={() => setSelectedMeal(null)}
+        />
+      )}
     </Card>
   );
 }

@@ -48,7 +48,10 @@ const VirtualTrainer = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'es' | 'en'>('en');
+  const [currentLanguage, setCurrentLanguage] = useState<'es' | 'en'>(() => {
+    const savedLanguage = localStorage.getItem('appLanguage') as 'es' | 'en';
+    return savedLanguage || 'en';
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const { unreadMessages, latestMessage, markAsRead, markAllAsRead } = useCoachMessages();
@@ -98,6 +101,18 @@ const VirtualTrainer = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Listen for language changes
+  useEffect(() => {
+    const handleLanguageChange = (event: CustomEvent) => {
+      setCurrentLanguage(event.detail);
+    };
+
+    window.addEventListener('languageChange', handleLanguageChange as EventListener);
+    return () => {
+      window.removeEventListener('languageChange', handleLanguageChange as EventListener);
+    };
+  }, []);
+
   useEffect(() => {
     if (isExpanded && messages.length === 0) {
       // Add coach message first if available, then welcome message
@@ -124,6 +139,10 @@ const VirtualTrainer = () => {
       // Mark coach message as read when opened
       if (latestMessage) {
         markAsRead(latestMessage.id);
+      }
+      // Mark all unread messages as read when chat is opened
+      if (unreadMessages.length > 0) {
+        markAllAsRead();
       }
     }
   }, [isExpanded, currentLanguage, latestMessage]);
@@ -227,7 +246,7 @@ const VirtualTrainer = () => {
                   className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center text-xs"
                   style={{ backgroundColor: '#EF4444', color: 'white' }}
                 >
-                  {unreadMessages.length}
+                  1
                 </Badge>
               )}
             </div>

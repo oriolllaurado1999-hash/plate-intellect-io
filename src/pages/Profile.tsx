@@ -17,7 +17,9 @@ const Profile = () => {
   const [rolloverCalories, setRolloverCalories] = useState(true);
   const [autoAdjustMacros, setAutoAdjustMacros] = useState(true);
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedLanguage, setSelectedLanguage] = useState(() => {
+    return localStorage.getItem('appLanguage') || 'en';
+  });
 
   const languageNames = {
     en: 'English',
@@ -32,7 +34,9 @@ const Profile = () => {
 
   const handleLanguageSelect = (languageCode: string) => {
     setSelectedLanguage(languageCode);
-    // Here you can add logic to apply the language change globally
+    localStorage.setItem('appLanguage', languageCode);
+    // Dispatch a custom event to notify other components about language change
+    window.dispatchEvent(new CustomEvent('languageChange', { detail: languageCode }));
     console.log('Language selected:', languageCode);
   };
 

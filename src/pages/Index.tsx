@@ -170,7 +170,8 @@ const Index = () => {
     const generateCoachMessage = async () => {
       if (user?.id && !loading) {
         try {
-          await generateDailyMessage('es'); // Generate Spanish message by default
+          const appLanguage = localStorage.getItem('appLanguage') || 'en';
+          await generateDailyMessage(appLanguage);
         } catch (error) {
           console.error('Error generating daily coach message:', error);
         }
