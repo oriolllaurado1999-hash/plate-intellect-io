@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Separator } from './ui/separator';
 import { Badge } from './ui/badge';
 import { X, Minus, Plus, ThumbsUp, ThumbsDown, Edit3, Trash2, PlusCircle } from 'lucide-react';
-import { useToast } from './ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
 interface FoodItem {
@@ -38,6 +38,7 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
   const [foods, setFoods] = useState<FoodItem[]>(analysis.foods);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [feedbackState, setFeedbackState] = useState<'initial' | 'thanking' | 'hidden'>('initial');
   const { toast } = useToast();
 
   const calculateTotals = () => {
@@ -216,6 +217,19 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
     if (score >= 6) return 'Good';
     if (score >= 4) return 'Fair';
     return 'Poor';
+  };
+
+  const handleFeedback = (feedbackType: 'accurate' | 'needs_work') => {
+    // Save feedback to database (optional)
+    console.log('Feedback received:', feedbackType);
+    
+    // Start animation sequence
+    setFeedbackState('thanking');
+    
+    // Hide thank you message after 3 seconds
+    setTimeout(() => {
+      setFeedbackState('hidden');
+    }, 3000);
   };
 
   return (
@@ -477,19 +491,44 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
             </div>
 
             {/* AI Feedback */}
-            <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4">
-              <h4 className="font-medium mb-2">How accurate was this analysis?</h4>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1">
-                  <ThumbsUp className="h-4 w-4 mr-2" />
-                  Accurate
-                </Button>
-                <Button variant="outline" size="sm" className="flex-1">
-                  <ThumbsDown className="h-4 w-4 mr-2" />
-                  Needs work
-                </Button>
+            {feedbackState !== 'hidden' && (
+              <div className={`bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 transition-all duration-500 ${
+                feedbackState === 'thanking' ? 'animate-fade-in' : ''
+              }`}>
+                {feedbackState === 'initial' ? (
+                  <>
+                    <h4 className="font-medium mb-2">How accurate was this analysis?</h4>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => handleFeedback('accurate')}
+                      >
+                        <ThumbsUp className="h-4 w-4 mr-2" />
+                        Accurate
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => handleFeedback('needs_work')}
+                      >
+                        <ThumbsDown className="h-4 w-4 mr-2" />
+                        Needs work
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center animate-fade-in">
+                    <h4 className="font-medium mb-2">¡Gracias por tu feedback! 🙏</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Esta información se utilizará como referencia para que la IA analice más correctamente futuras comidas.
+                    </p>
+                  </div>
+                )}
               </div>
-            </div>
+            )}
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-4">
