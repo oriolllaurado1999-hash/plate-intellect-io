@@ -76,12 +76,13 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini-2025-08-07',
+        model: 'gpt-4.1-mini-2025-04-14',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: message }
         ],
-        max_completion_tokens: 500
+        max_tokens: 500,
+        temperature: 0.7
       }),
     })
 
@@ -93,8 +94,10 @@ serve(async (req) => {
 
     const data = await response.json()
     console.log('OpenAI response received successfully')
+    console.log('OpenAI response data:', data)
 
-    const aiResponse = data.choices[0].message.content
+    const aiResponse = data.choices?.[0]?.message?.content || "Lo siento, no pude generar una respuesta. Por favor intenta de nuevo. 😔"
+    console.log('AI Response:', aiResponse)
 
     return new Response(JSON.stringify({ 
       response: aiResponse,
@@ -108,7 +111,7 @@ serve(async (req) => {
     console.error('Error in virtual-trainer function:', error)
     return new Response(JSON.stringify({ 
       error: error.message,
-      response: "Sorry, something went wrong. Please try again in a few moments. 😔"
+      response: language === 'es' ? "Lo siento, algo salió mal. Por favor intenta de nuevo en unos momentos. 😔" : "Sorry, something went wrong. Please try again in a few moments. 😔"
     }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
