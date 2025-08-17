@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Camera } from 'lucide-react';
+import { Clock, Camera, Flame, Drumstick, Wheat, Droplet } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -10,6 +10,9 @@ interface RecentMeal {
   name: string;
   meal_type: string;
   total_calories: number;
+  total_protein: number;
+  total_carbs: number;
+  total_fat: number;
   created_at: string;
   image_url?: string;
 }
@@ -24,12 +27,15 @@ export default function RecentMeals() {
       if (!user) return;
 
       try {
+        // Get today's date in YYYY-MM-DD format
+        const today = new Date().toISOString().split('T')[0];
+        
         const { data, error } = await supabase
           .from('meals')
-          .select('id, name, meal_type, total_calories, created_at, image_url')
+          .select('id, name, meal_type, total_calories, total_protein, total_carbs, total_fat, created_at, image_url')
           .eq('user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(5);
+          .eq('meal_date', today)
+          .order('created_at', { ascending: false });
 
         if (error) throw error;
         setRecentMeals(data || []);
@@ -45,10 +51,10 @@ export default function RecentMeals() {
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: 'numeric',
+    return date.toLocaleTimeString('es-ES', { 
+      hour: '2-digit',
       minute: '2-digit',
-      hour12: true 
+      hour12: false 
     });
   };
 
@@ -68,7 +74,7 @@ export default function RecentMeals() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <Clock className="h-5 w-5 text-primary" />
-            Recently Eaten
+            Recently uploaded
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -94,7 +100,7 @@ export default function RecentMeals() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <Clock className="h-5 w-5 text-primary" />
-          Recently Eaten
+          Recently uploaded
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -127,22 +133,29 @@ export default function RecentMeals() {
                 
                 <div className="flex-1 min-w-0">
                   <h4 className="font-medium truncate">{meal.name}</h4>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Badge 
-                      variant="secondary" 
-                      className={`text-xs ${getMealTypeColor(meal.meal_type)}`}
-                    >
-                      {meal.meal_type}
-                    </Badge>
+                  <div className="flex items-center gap-1 mt-1">
                     <span className="text-xs text-muted-foreground">
                       {formatTime(meal.created_at)}
                     </span>
                   </div>
-                </div>
-                
-                <div className="text-right">
-                  <div className="font-semibold text-sm">{Math.round(meal.total_calories)}</div>
-                  <div className="text-xs text-muted-foreground">kcal</div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-1">
+                      <Flame className="h-3 w-3 text-orange-500" />
+                      <span className="text-xs font-medium">{Math.round(meal.total_calories)}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Drumstick className="h-3 w-3 text-red-500" />
+                      <span className="text-xs">{Math.round(meal.total_protein)}g</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Wheat className="h-3 w-3 text-yellow-500" />
+                      <span className="text-xs">{Math.round(meal.total_carbs)}g</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Droplet className="h-3 w-3 text-blue-500" />
+                      <span className="text-xs">{Math.round(meal.total_fat)}g</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
