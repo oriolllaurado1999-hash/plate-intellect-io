@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface MacroProgressBarProps {
   label: string;
@@ -40,28 +41,30 @@ interface MacroBreakdownProps {
 }
 
 const MacroBreakdown = ({ protein, carbs, fat }: MacroBreakdownProps) => {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Today's Macros</CardTitle>
+        <CardTitle className="text-lg">{t.todaysMacros}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <MacroProgressBar
-          label="Protein"
+          label={t.protein}
           value={protein}
           unit="g"
           color="hsl(var(--protein))"
           maxValue={120}
         />
         <MacroProgressBar
-          label="Carbs"
+          label={t.carbs}
           value={carbs}
           unit="g"
           color="hsl(var(--carbs))"
           maxValue={300}
         />
         <MacroProgressBar
-          label="Fat"
+          label={t.fat}
           value={fat}
           unit="g"
           color="hsl(var(--fat))"

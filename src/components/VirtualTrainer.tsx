@@ -62,38 +62,54 @@ const VirtualTrainer = () => {
   }, []);
 
   useEffect(() => {
-    if (isExpanded && messages.length === 0) {
-      // Add coach message first if available, then welcome message
-      const messagesToAdd: Message[] = [];
-      
-      if (latestMessage) {
-        messagesToAdd.push({
-          id: latestMessage.id,
-          content: latestMessage.message_content,
-          role: 'assistant',
-          timestamp: new Date(latestMessage.created_at)
-        });
-      } else {
-        messagesToAdd.push({
-          id: '1',
-          content: currentTexts.welcomeMessage,
-          role: 'assistant',
-          timestamp: new Date()
-        });
+    const initializeChatMessages = async () => {
+      if (isExpanded && messages.length === 0) {
+        const messagesToAdd: Message[] = [];
+        
+        // Try to get or generate a message in the current language
+        let messageToShow = latestMessage;
+        
+        // If no message or message is empty, try to generate one in current language
+        if (!messageToShow || !messageToShow.message_content) {
+          try {
+            console.log('Generating daily message for language:', currentLanguage);
+            messageToShow = await regenerateDailyMessage(currentLanguage);
+          } catch (error) {
+            console.error('Error generating daily message:', error);
+          }
+        }
+        
+        if (messageToShow && messageToShow.message_content) {
+          messagesToAdd.push({
+            id: messageToShow.id,
+            content: messageToShow.message_content,
+            role: 'assistant',
+            timestamp: new Date(messageToShow.created_at)
+          });
+        } else {
+          messagesToAdd.push({
+            id: '1',
+            content: currentTexts.welcomeMessage,
+            role: 'assistant',
+            timestamp: new Date()
+          });
+        }
+        
+        setMessages(messagesToAdd);
+        
+        // Mark coach message as read when opened
+        if (messageToShow) {
+          markAsRead(messageToShow.id);
+        }
+        // Mark all unread messages as read when chat is opened
+        if (unreadMessages.length > 0) {
+          markAllAsRead();
+        }
       }
-      
-      setMessages(messagesToAdd);
-      
-      // Mark coach message as read when opened
-      if (latestMessage) {
-        markAsRead(latestMessage.id);
-      }
-      // Mark all unread messages as read when chat is opened
-      if (unreadMessages.length > 0) {
-        markAllAsRead();
-      }
-    }
-  }, [isExpanded, latestMessage]);
+    };
+
+    initializeChatMessages();
+  }, [isExpanded, latestMessage, currentTexts.welcomeMessage, currentLanguage, regenerateDailyMessage]);
 
   const sendMessage = async (message?: string) => {
     const messageToSend = message || inputMessage;

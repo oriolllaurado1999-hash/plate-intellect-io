@@ -22,6 +22,14 @@ export interface Translations {
   carbs: string;
   fat: string;
   fiber: string;
+  totalCalories: string;
+  thisWeek: string;
+  dailyAvg: string;
+  perDay: string;
+  todaysMacros: string;
+  proteinLeft: string;
+  carbsLeft: string;
+  fatLeft: string;
   
   // Recently uploaded
   recentlyUploaded: string;
@@ -93,7 +101,6 @@ export interface Translations {
   // Time
   today: string;
   yesterday: string;
-  thisWeek: string;
   thisMonth: string;
   
   // Food
@@ -139,6 +146,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Carbs",
     fat: "Fat",
     fiber: "Fiber",
+    totalCalories: "Total Calories",
+    thisWeek: "This Week",
+    dailyAvg: "Daily Avg",
+    perDay: "Per Day",
+    todaysMacros: "Today's Macros",
+    proteinLeft: "Protein left",
+    carbsLeft: "Carbs left",
+    fatLeft: "Fat left",
 
     // Recently uploaded
     recentlyUploaded: "Recently uploaded",
@@ -215,7 +230,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Today",
     yesterday: "Yesterday",
-    thisWeek: "This Week",
     thisMonth: "This Month",
 
     // Food
@@ -260,6 +274,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Carbohidratos",
     fat: "Grasa",
     fiber: "Fibra",
+    totalCalories: "Calorías Totales",
+    thisWeek: "Esta Semana",
+    dailyAvg: "Promedio Diario",
+    perDay: "Por día",
+    todaysMacros: "Macros de Hoy",
+    proteinLeft: "Proteína restante",
+    carbsLeft: "Carbohidratos restantes",
+    fatLeft: "Grasa restante",
 
     // Recently uploaded
     recentlyUploaded: "Subido recientemente",
@@ -336,7 +358,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Hoy",
     yesterday: "Ayer",
-    thisWeek: "Esta Semana",
     thisMonth: "Este Mes",
 
     // Food
@@ -381,6 +402,14 @@ export const translations: Record<string, Translations> = {
     carbs: "碳水化合物",
     fat: "脂肪",
     fiber: "纤维",
+    totalCalories: "总卡路里",
+    thisWeek: "本周",
+    dailyAvg: "每日平均",
+    perDay: "每天",
+    todaysMacros: "今日宏量营养素",
+    proteinLeft: "剩余蛋白质",
+    carbsLeft: "剩余碳水化合物",
+    fatLeft: "剩余脂肪",
 
     // Recently uploaded
     recentlyUploaded: "最近上传",
@@ -457,7 +486,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "今天",
     yesterday: "昨天",
-    thisWeek: "本周",
     thisMonth: "本月",
 
     // Food
@@ -502,6 +530,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Carboidratos",
     fat: "Gordura",
     fiber: "Fibra",
+    totalCalories: "Calorias Totais",
+    thisWeek: "Esta Semana",
+    dailyAvg: "Média Diária",
+    perDay: "Por dia",
+    todaysMacros: "Macros de Hoje",
+    proteinLeft: "Proteína restante",
+    carbsLeft: "Carboidratos restantes",
+    fatLeft: "Gordura restante",
 
     // Recently uploaded
     recentlyUploaded: "Carregado recentemente",
@@ -578,7 +614,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Hoje",
     yesterday: "Ontem",
-    thisWeek: "Esta Semana",
     thisMonth: "Este Mês",
 
     // Food
@@ -623,6 +658,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Glucides",
     fat: "Graisse",
     fiber: "Fibre",
+    totalCalories: "Calories Totales",
+    thisWeek: "Cette Semaine",
+    dailyAvg: "Moyenne Quotidienne",
+    perDay: "Par jour",
+    todaysMacros: "Macros d'Aujourd'hui",
+    proteinLeft: "Protéine restante",
+    carbsLeft: "Glucides restants",
+    fatLeft: "Graisse restante",
 
     // Recently uploaded
     recentlyUploaded: "Récemment téléchargé",
@@ -699,7 +742,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Aujourd'hui",
     yesterday: "Hier",
-    thisWeek: "Cette Semaine",
     thisMonth: "Ce Mois",
 
     // Food
@@ -744,6 +786,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Kohlenhydrate",
     fat: "Fett",
     fiber: "Ballaststoffe",
+    totalCalories: "Gesamtkalorien",
+    thisWeek: "Diese Woche",
+    dailyAvg: "Täglicher Durchschnitt",
+    perDay: "Pro Tag",
+    todaysMacros: "Heutige Makros",
+    proteinLeft: "Protein übrig",
+    carbsLeft: "Kohlenhydrate übrig",
+    fatLeft: "Fett übrig",
 
     // Recently uploaded
     recentlyUploaded: "Kürzlich hochgeladen",
@@ -820,7 +870,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Heute",
     yesterday: "Gestern",
-    thisWeek: "Diese Woche",
     thisMonth: "Dieser Monat",
 
     // Food
@@ -865,6 +914,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Carboidrati",
     fat: "Grassi",
     fiber: "Fibre",
+    totalCalories: "Calorie Totali",
+    thisWeek: "Questa Settimana",
+    dailyAvg: "Media Giornaliera",
+    perDay: "Al giorno",
+    todaysMacros: "Macro di Oggi",
+    proteinLeft: "Proteine rimanenti",
+    carbsLeft: "Carboidrati rimanenti",
+    fatLeft: "Grassi rimanenti",
 
     // Recently uploaded
     recentlyUploaded: "Caricato di recente",
@@ -941,7 +998,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Oggi",
     yesterday: "Ieri",
-    thisWeek: "Questa Settimana",
     thisMonth: "Questo Mese",
 
     // Food
@@ -986,6 +1042,14 @@ export const translations: Record<string, Translations> = {
     carbs: "Углеводы",
     fat: "Жиры",
     fiber: "Клетчатка",
+    totalCalories: "Общие Калории",
+    thisWeek: "На Этой Неделе",
+    dailyAvg: "Среднее За День",
+    perDay: "В день",
+    todaysMacros: "Макросы Сегодня",
+    proteinLeft: "Белки осталось",
+    carbsLeft: "Углеводы осталось",
+    fatLeft: "Жиры осталось",
 
     // Recently uploaded
     recentlyUploaded: "Недавно загружено",
@@ -1062,7 +1126,6 @@ export const translations: Record<string, Translations> = {
     // Time
     today: "Сегодня",
     yesterday: "Вчера",
-    thisWeek: "На Этой Неделе",
     thisMonth: "В Этом Месяце",
 
     // Food

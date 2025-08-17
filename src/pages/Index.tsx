@@ -380,7 +380,7 @@ const Index = () => {
                     <div className="text-lg font-bold text-foreground mb-1">
                       {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
                     </div>
-                    <div className="text-xs text-muted-foreground mb-3">Protein left</div>
+                    <div className="text-xs text-muted-foreground mb-3">{t.proteinLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                         <path
@@ -411,7 +411,7 @@ const Index = () => {
                     <div className="text-lg font-bold text-foreground mb-1">
                       {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
                     </div>
-                    <div className="text-xs text-muted-foreground mb-3">Carbs left</div>
+                    <div className="text-xs text-muted-foreground mb-3">{t.carbsLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                         <path
@@ -442,7 +442,7 @@ const Index = () => {
                     <div className="text-lg font-bold text-foreground mb-1">
                       {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
                     </div>
-                    <div className="text-xs text-muted-foreground mb-3">Fat left</div>
+                    <div className="text-xs text-muted-foreground mb-3">{t.fatLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                         <path
