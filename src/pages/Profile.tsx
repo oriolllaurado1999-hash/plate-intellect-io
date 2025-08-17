@@ -8,18 +8,17 @@ import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Profile = () => {
   const { user, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
+  const { t, currentLanguage, changeLanguage } = useTranslation();
   const [liveActivity, setLiveActivity] = useState(false);
   const [addBurnedCalories, setAddBurnedCalories] = useState(true);
   const [rolloverCalories, setRolloverCalories] = useState(true);
   const [autoAdjustMacros, setAutoAdjustMacros] = useState(true);
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(() => {
-    return localStorage.getItem('appLanguage') || 'en';
-  });
 
   const languageNames = {
     en: 'English',
@@ -33,10 +32,7 @@ const Profile = () => {
   };
 
   const handleLanguageSelect = (languageCode: string) => {
-    setSelectedLanguage(languageCode);
-    localStorage.setItem('appLanguage', languageCode);
-    // Dispatch a custom event to notify other components about language change
-    window.dispatchEvent(new CustomEvent('languageChange', { detail: languageCode }));
+    changeLanguage(languageCode);
     console.log('Language selected:', languageCode);
   };
 
@@ -45,8 +41,8 @@ const Profile = () => {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">Profile</h2>
-          <p className="text-muted-foreground">Manage your account and preferences</p>
+          <h2 className="text-3xl font-bold mb-2">{t.profile}</h2>
+          <p className="text-muted-foreground">{t.accountInformation}</p>
         </div>
 
         {/* Profile Cards */}
@@ -56,7 +52,7 @@ const Profile = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5 text-primary" />
-                Account Information
+                {t.accountInformation}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -74,14 +70,14 @@ const Profile = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
-                Invite Friends
+                {t.inviteFriends}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 text-center">
-                <h3 className="font-semibold mb-2">The journey is easier together</h3>
-                <p className="text-sm text-muted-foreground mb-3">Earn $10 for each friend referred</p>
-                <Button className="w-full">Share Invite Link</Button>
+                <h3 className="font-semibold mb-2">{t.journeyEasierTogether}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{t.earnForEachFriend}</p>
+                <Button className="w-full">{t.shareInviteLink}</Button>
               </div>
             </CardContent>
           </Card>
@@ -91,7 +87,7 @@ const Profile = () => {
             <CardContent className="p-4">
               <Button variant="ghost" className="w-full justify-start p-4">
                 <User className="h-5 w-5 text-primary mr-3" />
-                <span>Personal Details</span>
+                <span>{t.personalDetails}</span>
               </Button>
             </CardContent>
           </Card>
@@ -101,7 +97,7 @@ const Profile = () => {
             <CardContent className="p-4">
               <Button variant="ghost" className="w-full justify-start p-4">
                 <Target className="h-5 w-5 text-primary mr-3" />
-                <span>Edit Nutrition Goals</span>
+                <span>{t.editNutritionGoals}</span>
               </Button>
             </CardContent>
           </Card>
@@ -111,7 +107,7 @@ const Profile = () => {
             <CardContent className="p-4">
               <Button variant="ghost" className="w-full justify-start p-4">
                 <Scale className="h-5 w-5 text-primary mr-3" />
-                <span>Goals & Current Weight</span>
+                <span>{t.goalsCurrentWeight}</span>
               </Button>
             </CardContent>
           </Card>
@@ -121,7 +117,7 @@ const Profile = () => {
             <CardContent className="p-4">
               <Button variant="ghost" className="w-full justify-start p-4">
                 <Clock className="h-5 w-5 text-primary mr-3" />
-                <span>Weight History</span>
+                <span>{t.weightHistory}</span>
               </Button>
             </CardContent>
           </Card>
@@ -136,10 +132,10 @@ const Profile = () => {
               >
                 <div className="flex items-center">
                   <Globe className="h-5 w-5 text-primary mr-3" />
-                  <span>Language</span>
+                  <span>{t.language}</span>
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {languageNames[selectedLanguage as keyof typeof languageNames]}
+                  {languageNames[currentLanguage as keyof typeof languageNames]}
                 </span>
               </Button>
             </CardContent>
@@ -150,7 +146,7 @@ const Profile = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Settings className="h-5 w-5 text-primary" />
-                Preferences
+                {t.preferences}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -158,8 +154,8 @@ const Profile = () => {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <div>
-                    <h4 className="font-medium">Appearance</h4>
-                    <p className="text-sm text-muted-foreground">Choose light, dark, or system appearance</p>
+                    <h4 className="font-medium">{t.appearance}</h4>
+                    <p className="text-sm text-muted-foreground">{t.chooseAppearance}</p>
                   </div>
                   <div className="text-sm text-muted-foreground capitalize">{theme}</div>
                 </div>
@@ -171,7 +167,7 @@ const Profile = () => {
                     className="flex flex-col items-center gap-2 h-auto py-3"
                   >
                     <Sun className="h-4 w-4" />
-                    <span className="text-xs">Light</span>
+                    <span className="text-xs">{t.light}</span>
                   </Button>
                   <Button
                     variant={theme === 'dark' ? 'default' : 'outline'}
@@ -180,7 +176,7 @@ const Profile = () => {
                     className="flex flex-col items-center gap-2 h-auto py-3"
                   >
                     <Moon className="h-4 w-4" />
-                    <span className="text-xs">Dark</span>
+                    <span className="text-xs">{t.dark}</span>
                   </Button>
                   <Button
                     variant={theme === 'system' ? 'default' : 'outline'}
@@ -189,7 +185,7 @@ const Profile = () => {
                     className="flex flex-col items-center gap-2 h-auto py-3"
                   >
                     <Monitor className="h-4 w-4" />
-                    <span className="text-xs">System</span>
+                    <span className="text-xs">{t.system}</span>
                   </Button>
                 </div>
               </div>
@@ -199,8 +195,8 @@ const Profile = () => {
               {/* Live Activity */}
               <div className="flex justify-between items-center">
                 <div>
-                  <h4 className="font-medium">Live Activity</h4>
-                  <p className="text-sm text-muted-foreground">Show your daily calories and macros on your lock screen and dynamic island</p>
+                  <h4 className="font-medium">{t.liveActivity}</h4>
+                  <p className="text-sm text-muted-foreground">{t.liveActivityDesc}</p>
                 </div>
                 <Switch checked={liveActivity} onCheckedChange={setLiveActivity} />
               </div>
@@ -210,8 +206,8 @@ const Profile = () => {
               {/* Add Burned Calories */}
               <div className="flex justify-between items-center">
                 <div>
-                  <h4 className="font-medium">Add Burned Calories</h4>
-                  <p className="text-sm text-muted-foreground">Add burned calories back to daily goal</p>
+                  <h4 className="font-medium">{t.addBurnedCalories}</h4>
+                  <p className="text-sm text-muted-foreground">{t.addBurnedCaloriesDesc}</p>
                 </div>
                 <Switch checked={addBurnedCalories} onCheckedChange={setAddBurnedCalories} />
               </div>
@@ -221,8 +217,8 @@ const Profile = () => {
               {/* Rollover Calories */}
               <div className="flex justify-between items-center">
                 <div>
-                  <h4 className="font-medium">Rollover Calories</h4>
-                  <p className="text-sm text-muted-foreground">Add up to 200 left over calories from yesterday into today's daily goal</p>
+                  <h4 className="font-medium">{t.rolloverCalories}</h4>
+                  <p className="text-sm text-muted-foreground">{t.rolloverCaloriesDesc}</p>
                 </div>
                 <Switch checked={rolloverCalories} onCheckedChange={setRolloverCalories} />
               </div>
@@ -232,8 +228,8 @@ const Profile = () => {
               {/* Auto Adjust Macros */}
               <div className="flex justify-between items-center">
                 <div>
-                  <h4 className="font-medium">Auto Adjust Macros</h4>
-                  <p className="text-sm text-muted-foreground">When editing calories or macronutrients, automatically adjust the other values proportionally</p>
+                  <h4 className="font-medium">{t.autoAdjustMacros}</h4>
+                  <p className="text-sm text-muted-foreground">{t.autoAdjustMacrosDesc}</p>
                 </div>
                 <Switch checked={autoAdjustMacros} onCheckedChange={setAutoAdjustMacros} />
               </div>
@@ -244,13 +240,13 @@ const Profile = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                <span>Widgets</span>
-                <Button variant="link" size="sm">How to add?</Button>
+                <span>{t.widgets}</span>
+                <Button variant="link" size="sm">{t.howToAdd}</Button>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-4">
-                <p className="text-muted-foreground text-sm">Widget configuration coming soon</p>
+                <p className="text-muted-foreground text-sm">{t.widgetConfigSoon}</p>
               </div>
             </CardContent>
           </Card>
@@ -261,30 +257,30 @@ const Profile = () => {
               <div className="space-y-0">
                 <Button variant="ghost" className="w-full justify-start p-4 rounded-none">
                   <FileText className="h-5 w-5 text-primary mr-3" />
-                  <span>Terms and Conditions</span>
+                  <span>{t.termsConditions}</span>
                 </Button>
                 <Separator />
                 <Button variant="ghost" className="w-full justify-start p-4 rounded-none">
                   <Shield className="h-5 w-5 text-primary mr-3" />
-                  <span>Privacy Policy</span>
+                  <span>{t.privacyPolicy}</span>
                 </Button>
                 <Separator />
                 <Button variant="ghost" className="w-full justify-start p-4 rounded-none">
                   <Mail className="h-5 w-5 text-primary mr-3" />
-                  <span>Support Email</span>
+                  <span>{t.supportEmail}</span>
                 </Button>
                 <Separator />
                 <Button variant="ghost" className="w-full justify-between p-4 rounded-none">
                   <div className="flex items-center">
                     <RefreshCw className="h-5 w-5 text-primary mr-3" />
-                    <span>Sync Data</span>
+                    <span>{t.syncData}</span>
                   </div>
-                  <span className="text-sm text-muted-foreground">Last Synced: 12:54 AM</span>
+                  <span className="text-sm text-muted-foreground">{t.lastSynced}: 12:54 AM</span>
                 </Button>
                 <Separator />
                 <Button variant="ghost" className="w-full justify-start p-4 rounded-none text-destructive hover:text-destructive">
                   <Trash2 className="h-5 w-5 mr-3" />
-                  <span>Delete Account</span>
+                  <span>{t.deleteAccount}</span>
                 </Button>
                 <Separator />
                 <Button 
@@ -293,7 +289,7 @@ const Profile = () => {
                   onClick={() => signOut()}
                 >
                   <LogOut className="h-5 w-5 mr-3" />
-                  <span>Logout</span>
+                  <span>{t.logout}</span>
                 </Button>
               </div>
             </CardContent>
@@ -304,7 +300,7 @@ const Profile = () => {
         <LanguageSelector
           isOpen={isLanguageSelectorOpen}
           onClose={() => setIsLanguageSelectorOpen(false)}
-          currentLanguage={selectedLanguage}
+          currentLanguage={currentLanguage}
           onLanguageSelect={handleLanguageSelect}
         />
       </div>

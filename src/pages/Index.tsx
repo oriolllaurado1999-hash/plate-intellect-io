@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from '@/hooks/useTranslation';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { useDashboardData } from '@/hooks/useDashboardData';
 import { useCoachMessages } from '@/hooks/useCoachMessages';
@@ -27,7 +28,7 @@ import VirtualTrainer from '@/components/VirtualTrainer';
 import { useCameraContext } from '@/contexts/CameraContext';
 
 const Index = () => {
-  const { user } = useAuth();
+  const { t, currentLanguage } = useTranslation();
   const { setIsCameraActive } = useCameraContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
@@ -170,7 +171,7 @@ const Index = () => {
     const generateCoachMessage = async () => {
       if (user?.id && !loading) {
         try {
-          const appLanguage = localStorage.getItem('appLanguage') || 'en';
+          const appLanguage = currentLanguage;
           await generateDailyMessage(appLanguage);
         } catch (error) {
           console.error('Error generating daily coach message:', error);
@@ -711,7 +712,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="mt-4 text-center">
-                <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
+                <p className="text-muted-foreground text-sm">{t.tapToAddFirstMeal}</p>
               </div>
             </button>
           )}

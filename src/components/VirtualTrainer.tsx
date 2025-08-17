@@ -8,6 +8,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useCoachMessages } from '@/hooks/useCoachMessages';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Message {
   id: string;
@@ -48,10 +49,7 @@ const VirtualTrainer = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'es' | 'en'>(() => {
-    const savedLanguage = localStorage.getItem('appLanguage') as 'es' | 'en';
-    return savedLanguage || 'en';
-  });
+  const { t, currentLanguage } = useTranslation();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const { unreadMessages, latestMessage, markAsRead, markAllAsRead } = useCoachMessages();
