@@ -40,6 +40,7 @@ const Index = () => {
   const [dayStreak] = useState(0); // This would come from user data in real app
   const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | 'fiber' | 'sugar' | 'sodium' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisProgress, setAnalysisProgress] = useState(0);
   const [showAddOptions, setShowAddOptions] = useState(false);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
@@ -154,12 +155,16 @@ const Index = () => {
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
-    setIsAnalyzing(false);
-    setIsCameraActive(false);
-    setAnalysisData(analysis);
-    setCapturedImage(imageUrl);
-    setShowScanner(false);
-    setShowReview(true);
+    setAnalysisProgress(100);
+    setTimeout(() => {
+      setIsAnalyzing(false);
+      setAnalysisProgress(0);
+      setIsCameraActive(false);
+      setAnalysisData(analysis);
+      setCapturedImage(imageUrl);
+      setShowScanner(false);
+      setShowReview(true);
+    }, 800);
   };
 
   const handleMealSaved = () => {
@@ -186,12 +191,25 @@ const Index = () => {
     setIsCameraActive(true);
     setShowScanner(true);
     setIsAnalyzing(true);
+    setAnalysisProgress(0);
+    
+    // Simulate progress animation
+    const progressInterval = setInterval(() => {
+      setAnalysisProgress(prev => {
+        if (prev >= 85) {
+          clearInterval(progressInterval);
+          return 85;
+        }
+        return prev + Math.random() * 12 + 3; // Increment by 3-15% each time
+      });
+    }, 600);
   };
 
   const handleCameraClose = () => {
     setIsCameraActive(false);
     setShowScanner(false);
     setIsAnalyzing(false);
+    setAnalysisProgress(0);
   };
 
   if (loading) {
@@ -640,47 +658,7 @@ const Index = () => {
         </div>
 
         {/* Recently Uploaded */}
-        <div className="mb-6">
-          <h3 className="text-xl font-bold text-foreground mb-4">Recently uploaded</h3>
-          
-          {/* Analysis in progress card - only shown when analyzing */}
-          {isAnalyzing && (
-            <div className="bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 mb-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
-                  <Bell className="w-4 h-4 text-info" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-muted-foreground text-sm">
-                    Analysis in progress. We'll notify you when done.
-                  </p>
-                </div>
-                <button className="text-muted-foreground hover:text-foreground">
-                  <span className="text-xl">×</span>
-                </button>
-              </div>
-            </div>
-          )}
-          
-          {/* Add Meal Card */}
-          <button 
-            onClick={handleAddButtonClick}
-            className="w-full bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 hover:shadow-xl transition-all duration-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                <UtensilsCrossed className="w-6 h-6 text-muted-foreground" />
-              </div>
-              <div className="flex-1 text-left">
-                <div className="w-24 h-3 bg-muted rounded mb-2"></div>
-                <div className="w-16 h-3 bg-muted rounded"></div>
-              </div>
-            </div>
-            <div className="mt-4 text-center">
-              <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
-            </div>
-          </button>
-        </div>
+        <RecentMeals isAnalyzing={isAnalyzing} analysisProgress={analysisProgress} />
 
         {/* Virtual Trainer */}
         <div className="mb-6">
