@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Camera } from 'lucide-react';
+import { Clock, Camera, Flame, Beef, Wheat, Leaf } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -171,19 +171,19 @@ export default function RecentMeals() {
                   </div>
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex items-center gap-1">
-                      <span className="text-xs">🔥</span>
+                      <Flame className="h-3 w-3" style={{ color: '#4AD4B2' }} />
                       <span className="text-xs font-medium">{Math.round(meal.total_calories)}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <span className="text-xs">🥩</span>
+                      <Beef className="h-3 w-3 text-protein" />
                       <span className="text-xs">{Math.round(meal.total_protein)}g</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <span className="text-xs">🌾</span>
+                      <Wheat className="h-3 w-3 text-carbs" />
                       <span className="text-xs">{Math.round(meal.total_carbs)}g</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <span className="text-xs">🥑</span>
+                      <Leaf className="h-3 w-3 text-fat" />
                       <span className="text-xs">{Math.round(meal.total_fat)}g</span>
                     </div>
                   </div>
