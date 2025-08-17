@@ -8,8 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings, Grape, Candy, Salad, Activity, Footprints, Heart, Droplets, GlassWater } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import CameraFlow from '@/components/CameraFlow';
-import FoodNutritionDetail from '@/components/FoodNutritionDetail';
+import CameraScanner from '@/components/CameraScanner';
+import NutritionReview from '@/components/NutritionReview';
 import CalorieCircle from '@/components/CalorieCircle';
 import MacroBreakdown from '@/components/MacroBreakdown';
 import WeeklyChart from '@/components/WeeklyChart';
@@ -32,8 +32,8 @@ const Index = () => {
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const { data: realDashboardData } = useDashboardData();
   const { generateDailyMessage } = useCoachMessages();
-  const [showCameraFlow, setShowCameraFlow] = useState(false);
-  const [showNutritionDetail, setShowNutritionDetail] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   const [showDayStreak, setShowDayStreak] = useState(false);
   const [analysisData, setAnalysisData] = useState(null);
   const [capturedImage, setCapturedImage] = useState('');
@@ -158,12 +158,12 @@ const Index = () => {
     setIsCameraActive(false);
     setAnalysisData(analysis);
     setCapturedImage(imageUrl);
-    setShowCameraFlow(false);
-    setShowNutritionDetail(true);
+    setShowScanner(false);
+    setShowReview(true);
   };
 
   const handleMealSaved = () => {
-    setShowNutritionDetail(false);
+    setShowReview(false);
     setAnalysisData(null);
     setCapturedImage('');
     setIsAnalyzing(false);
@@ -171,8 +171,8 @@ const Index = () => {
     setSelectedDate(new Date(selectedDate));
   };
 
-  const handleNutritionDetailCancel = () => {
-    setShowNutritionDetail(false);
+  const handleReviewCancel = () => {
+    setShowReview(false);
     setAnalysisData(null);
     setCapturedImage('');
     setIsAnalyzing(false);
@@ -184,13 +184,13 @@ const Index = () => {
 
   const handleScanFood = () => {
     setIsCameraActive(true);
-    setShowCameraFlow(true);
+    setShowScanner(true);
     setIsAnalyzing(true);
   };
 
   const handleCameraClose = () => {
     setIsCameraActive(false);
-    setShowCameraFlow(false);
+    setShowScanner(false);
     setIsAnalyzing(false);
   };
 
@@ -690,7 +690,7 @@ const Index = () => {
 
 
       {/* Floating Add Button - Hidden when camera is active */}
-      {!showCameraFlow && (
+      {!showScanner && (
         <button 
           onClick={handleAddButtonClick}
           className="fixed bottom-20 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors z-[60]"
@@ -708,19 +708,19 @@ const Index = () => {
       />
 
       {/* Modals */}
-      {showCameraFlow && (
-        <CameraFlow
+      {showScanner && (
+        <CameraScanner
           onAnalysisComplete={handleAnalysisComplete}
           onClose={handleCameraClose}
         />
       )}
 
-      {showNutritionDetail && analysisData && (
-        <FoodNutritionDetail
+      {showReview && analysisData && (
+        <NutritionReview
           analysis={analysisData}
           imageUrl={capturedImage}
           onSave={handleMealSaved}
-          onCancel={handleNutritionDetailCancel}
+          onCancel={handleReviewCancel}
         />
       )}
 
