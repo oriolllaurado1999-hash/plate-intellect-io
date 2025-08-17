@@ -224,12 +224,14 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
   const handleFeedback = (feedbackType: 'accurate' | 'needs_work') => {
     // Save feedback to database (optional)
     console.log('Feedback received:', feedbackType);
+    console.log('Changing state from initial to thanking');
     
     // Start fade out animation for initial content, then fade in thank you message
     setFeedbackState('thanking');
     
     // Hide thank you message after 3 seconds with fade out
     setTimeout(() => {
+      console.log('Hiding feedback card');
       setFeedbackState('hidden');
     }, 3000);
   };
@@ -504,13 +506,9 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
 
             {/* AI Feedback */}
             {feedbackState !== 'hidden' && (
-              <div className={`bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 transition-all duration-700 ease-in-out transform ${
-                feedbackState === 'thanking' 
-                  ? 'animate-fade-in opacity-100 scale-100' 
-                  : 'opacity-100 scale-100'
-              }`}>
+              <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 transition-all duration-500 ease-in-out">
                 {feedbackState === 'initial' ? (
-                  <div className="opacity-100 transition-opacity duration-300">
+                  <div className="animate-fade-in">
                     <h4 className="font-medium mb-2">{getFeedbackMessages().question}</h4>
                     <div className="flex gap-2">
                       <Button 
@@ -534,8 +532,8 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center animate-fade-in opacity-0 animate-delay-200">
-                    <h4 className="font-medium mb-2">{getFeedbackMessages().thankYou}</h4>
+                  <div className="text-center animate-fade-in">
+                    <h4 className="font-medium mb-2 text-green-600">{getFeedbackMessages().thankYou}</h4>
                     <p className="text-sm text-muted-foreground">
                       {getFeedbackMessages().explanation}
                     </p>
