@@ -125,6 +125,9 @@ export interface Translations {
   feedbackThankYou: string;
   feedbackExplanation: string;
   
+  // Days of the week (abbreviated)
+  daysShort: string[];
+  
   // Buttons
   scanFood: string;
   addManually: string;
@@ -267,6 +270,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "Needs work",
     feedbackThankYou: "Thank you for your feedback! 🙏",
     feedbackExplanation: "This information will be used as a reference for the AI to analyze future meals more accurately.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["S", "M", "T", "W", "T", "F", "S"], // Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
 
     // Buttons
     scanFood: "Scan Food",
@@ -409,6 +415,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "Necesita mejorar",
     feedbackThankYou: "¡Gracias por tu feedback! 🙏",
     feedbackExplanation: "Esta información se utilizará como referencia para que la IA analice más correctamente futuras comidas.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["D", "L", "M", "M", "J", "V", "S"], // Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado
 
     // Buttons
     scanFood: "Escanear Comida",
@@ -551,6 +560,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "需要改进",
     feedbackThankYou: "谢谢您的反馈！🙏",
     feedbackExplanation: "这些信息将用作参考，帮助AI更准确地分析未来的餐食。",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["日", "一", "二", "三", "四", "五", "六"], // 星期日, 星期一, 星期二, 星期三, 星期四, 星期五, 星期六
 
     // Buttons
     scanFood: "扫描食物",
@@ -693,6 +705,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "Precisa melhorar",
     feedbackThankYou: "Obrigado pelo seu feedback! 🙏",
     feedbackExplanation: "Esta informação será usada como referência para que a IA analise refeições futuras com mais precisão.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["D", "S", "T", "Q", "Q", "S", "S"], // Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado
 
     // Buttons
     scanFood: "Escanear Comida",
@@ -835,6 +850,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "À améliorer",
     feedbackThankYou: "Merci pour votre retour ! 🙏",
     feedbackExplanation: "Cette information sera utilisée comme référence pour que l'IA analyse plus précisément les futurs repas.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["D", "L", "M", "M", "J", "V", "S"], // Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi
 
     // Buttons
     scanFood: "Scanner la Nourriture",
@@ -977,6 +995,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "Verbesserungsbedürftig",
     feedbackThankYou: "Vielen Dank für Ihr Feedback! 🙏",
     feedbackExplanation: "Diese Information wird als Referenz verwendet, damit die KI zukünftige Mahlzeiten genauer analysiert.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["S", "M", "D", "M", "D", "F", "S"], // Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag
 
     // Buttons
     scanFood: "Essen Scannen",
@@ -1119,6 +1140,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "Deve migliorare",
     feedbackThankYou: "Grazie per il tuo feedback! 🙏",
     feedbackExplanation: "Queste informazioni saranno utilizzate come riferimento per far analizzare all'IA i pasti futuri con maggiore precisione.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["D", "L", "M", "M", "G", "V", "S"], // Domenica, Lunedì, Martedì, Mercoledì, Giovedì, Venerdì, Sabato
 
     // Buttons
     scanFood: "Scansiona Cibo",
@@ -1261,6 +1285,9 @@ export const translations: Record<string, Translations> = {
     needsWork: "Нужно улучшить",
     feedbackThankYou: "Спасибо за ваш отзыв! 🙏",
     feedbackExplanation: "Эта информация будет использоваться как справочная для того, чтобы ИИ более точно анализировал будущие приемы пищи.",
+    
+    // Days of the week (abbreviated)
+    daysShort: ["В", "П", "В", "С", "Ч", "П", "С"], // Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота
 
     // Buttons
     scanFood: "Сканировать Еду",

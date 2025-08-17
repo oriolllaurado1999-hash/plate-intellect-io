@@ -290,7 +290,7 @@ const Index = () => {
         {/* Week Navigation */}
         <div className="py-4">
           <div className="flex justify-between items-center">
-            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => {
+            {t.daysShort.map((day, index) => {
               const date = new Date();
               date.setDate(date.getDate() - (new Date().getDay() - index));
               const isToday = index === new Date().getDay();
