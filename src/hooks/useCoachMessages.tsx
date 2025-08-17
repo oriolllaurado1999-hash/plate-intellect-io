@@ -111,11 +111,39 @@ export const useCoachMessages = () => {
     fetchUnreadMessages();
   }, [user?.id]);
 
+  // Add a method to regenerate daily message for a specific time and language
+  const regenerateDailyMessage = async (language: string = 'es') => {
+    if (!user?.id) return null;
+
+    try {
+      // Force regeneration by creating a new message for current time
+      const response = await supabase.functions.invoke('daily-coach-message', {
+        body: {
+          userId: user.id,
+          language
+        }
+      });
+
+      if (response.error) throw response.error;
+
+      const { message, isNew } = response.data;
+      
+      // Always refresh unread messages
+      await fetchUnreadMessages();
+
+      return message;
+    } catch (error) {
+      console.error('Error regenerating daily message:', error);
+      return null;
+    }
+  };
+
   return {
     unreadMessages,
     latestMessage,
     loading,
     generateDailyMessage,
+    regenerateDailyMessage,
     markAsRead,
     markAllAsRead,
     fetchUnreadMessages

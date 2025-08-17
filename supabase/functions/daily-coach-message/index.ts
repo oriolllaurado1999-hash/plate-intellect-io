@@ -141,7 +141,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini-2025-08-07',
+        model: 'gpt-5-2025-08-07',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: language === 'es' ? 'Genera el mensaje del coach para este momento' : 'Generate the coach message for this moment' }
@@ -149,6 +149,12 @@ serve(async (req) => {
         max_completion_tokens: 500
       }),
     });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('OpenAI API error:', errorData);
+      throw new Error(`OpenAI API error: ${response.status} - ${errorData}`);
+    }
 
     const aiData = await response.json();
     const messageContent = aiData.choices[0].message.content;

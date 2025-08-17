@@ -25,7 +25,7 @@ const VirtualTrainer = () => {
   const { t, currentLanguage } = useTranslation();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const { unreadMessages, latestMessage, markAsRead, markAllAsRead } = useCoachMessages();
+  const { unreadMessages, latestMessage, markAsRead, markAllAsRead, regenerateDailyMessage } = useCoachMessages();
 
   // Get current language-specific texts
   const currentTexts = {

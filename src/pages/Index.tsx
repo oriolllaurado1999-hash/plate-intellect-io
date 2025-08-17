@@ -34,7 +34,7 @@ const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const { data: realDashboardData } = useDashboardData();
-  const { generateDailyMessage } = useCoachMessages();
+  const { generateDailyMessage, regenerateDailyMessage } = useCoachMessages();
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [showDayStreak, setShowDayStreak] = useState(false);
@@ -182,6 +182,21 @@ const Index = () => {
 
     generateCoachMessage();
   }, [user?.id, loading, generateDailyMessage]);
+
+  // Regenerate coach message when language changes
+  useEffect(() => {
+    const regenerateOnLanguageChange = async () => {
+      if (user?.id && !loading && currentLanguage) {
+        try {
+          await regenerateDailyMessage(currentLanguage);
+        } catch (error) {
+          console.error('Error regenerating coach message for language change:', error);
+        }
+      }
+    };
+
+    regenerateOnLanguageChange();
+  }, [currentLanguage, user?.id, loading, regenerateDailyMessage]);
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
