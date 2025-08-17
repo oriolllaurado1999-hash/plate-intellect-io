@@ -24,7 +24,7 @@ export default function RecentMeals() {
   const [loading, setLoading] = useState(true);
   const [selectedMeal, setSelectedMeal] = useState<any>(null);
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
 
   useEffect(() => {
     const fetchRecentMeals = async () => {
@@ -42,7 +42,33 @@ export default function RecentMeals() {
           .order('created_at', { ascending: false });
 
         if (error) throw error;
-        setRecentMeals(data || []);
+
+        // Translate meal names if not in English
+        if (data && currentLanguage !== 'en') {
+          const translatedMeals = await Promise.all(
+            data.map(async (meal) => {
+              try {
+                const { data: translationData } = await supabase.functions.invoke('translate-food', {
+                  body: { 
+                    foodName: meal.name,
+                    language: currentLanguage 
+                  }
+                });
+                
+                return {
+                  ...meal,
+                  name: translationData?.translatedName || meal.name
+                };
+              } catch (error) {
+                console.error('Translation error:', error);
+                return meal; // Return original if translation fails
+              }
+            })
+          );
+          setRecentMeals(translatedMeals);
+        } else {
+          setRecentMeals(data || []);
+        }
       } catch (error) {
         console.error('Error fetching recent meals:', error);
       } finally {
@@ -51,7 +77,7 @@ export default function RecentMeals() {
     };
 
     fetchRecentMeals();
-  }, [user]);
+  }, [user, currentLanguage]);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
