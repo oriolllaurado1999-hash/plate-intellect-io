@@ -345,7 +345,7 @@ const Index = () => {
                       <div className="text-4xl font-bold text-foreground mb-1">
                         {dashboardData.calorieGoal - dashboardData.todayCalories}
                       </div>
-                      <div className="text-muted-foreground">Calories left</div>
+                      <div className="text-muted-foreground">{t.caloriesLeft}</div>
                     </div>
                     <div className="w-20 h-20 relative">
                       <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
@@ -478,7 +478,7 @@ const Index = () => {
                       <div className="text-4xl font-bold text-foreground mb-1" style={{ color: healthScoreColor }}>
                         {healthScore}
                       </div>
-                      <div className="text-muted-foreground">Health Score</div>
+                      <div className="text-muted-foreground">{t.healthScore}</div>
                     </div>
                     <div className="w-20 h-20 relative">
                       <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
@@ -511,7 +511,7 @@ const Index = () => {
                     className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">38g</div>
-                    <div className="text-xs text-muted-foreground mb-3">Fiber left</div>
+                    <div className="text-xs text-muted-foreground mb-3">{t.fiberLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                         <path
@@ -540,7 +540,7 @@ const Index = () => {
                     className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">96g</div>
-                    <div className="text-xs text-muted-foreground mb-3">Sugar left</div>
+                    <div className="text-xs text-muted-foreground mb-3">{t.sugarLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                         <path
@@ -569,7 +569,7 @@ const Index = () => {
                     className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">2300mg</div>
-                    <div className="text-xs text-muted-foreground mb-3">Sodium left</div>
+                    <div className="text-xs text-muted-foreground mb-3">{t.sodiumLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
                       <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                         <path
@@ -603,7 +603,7 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-4xl font-bold text-foreground mb-1">0</div>
-                      <div className="text-muted-foreground">Steps today</div>
+                      <div className="text-muted-foreground">{t.stepsToday}</div>
                     </div>
                     <div className="w-20 h-20 relative">
                       <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
@@ -639,7 +639,7 @@ const Index = () => {
                     {/* Content - Right Side */}
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
-                        <div className="text-lg font-semibold text-foreground">Water</div>
+                        <div className="text-lg font-semibold text-foreground">{t.water}</div>
                         <button className="w-6 h-6 flex items-center justify-center">
                           <Settings className="w-4 h-4 text-muted-foreground" />
                         </button>

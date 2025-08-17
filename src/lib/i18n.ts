@@ -111,6 +111,13 @@ export interface Translations {
   foodItems: string;
   addFoodItem: string;
   
+  // Dashboard Cards
+  caloriesLeft: string;
+  stepsToday: string;
+  fiberLeft: string;
+  sugarLeft: string;
+  sodiumLeft: string;
+  
   // Buttons
   scanFood: string;
   addManually: string;
@@ -239,6 +246,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Meal Type",
     foodItems: "Food Items",
     addFoodItem: "Add Food Item",
+    
+    // Dashboard Cards
+    caloriesLeft: "Calories left",
+    stepsToday: "Steps today",
+    fiberLeft: "Fiber left",
+    sugarLeft: "Sugar left",
+    sodiumLeft: "Sodium left",
 
     // Buttons
     scanFood: "Scan Food",
@@ -367,6 +381,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Tipo de Comida",
     foodItems: "Elementos de Comida",
     addFoodItem: "Agregar Elemento",
+    
+    // Dashboard Cards
+    caloriesLeft: "Calorías restantes",
+    stepsToday: "Pasos hoy",
+    fiberLeft: "Fibra restante",
+    sugarLeft: "Azúcar restante",
+    sodiumLeft: "Sodio restante",
 
     // Buttons
     scanFood: "Escanear Comida",
@@ -495,6 +516,13 @@ export const translations: Record<string, Translations> = {
     mealType: "餐食类型",
     foodItems: "食物项目",
     addFoodItem: "添加食物项目",
+    
+    // Dashboard Cards
+    caloriesLeft: "剩余卡路里",
+    stepsToday: "今日步数",
+    fiberLeft: "剩余纤维",
+    sugarLeft: "剩余糖分",
+    sodiumLeft: "剩余钠",
 
     // Buttons
     scanFood: "扫描食物",
@@ -623,6 +651,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Tipo de Refeição",
     foodItems: "Itens de Comida",
     addFoodItem: "Adicionar Item",
+    
+    // Dashboard Cards
+    caloriesLeft: "Calorias restantes",
+    stepsToday: "Passos hoje",
+    fiberLeft: "Fibra restante",
+    sugarLeft: "Açúcar restante",
+    sodiumLeft: "Sódio restante",
 
     // Buttons
     scanFood: "Escanear Comida",
@@ -751,6 +786,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Type de Repas",
     foodItems: "Éléments de Nourriture",
     addFoodItem: "Ajouter un Élément",
+    
+    // Dashboard Cards
+    caloriesLeft: "Calories restantes",
+    stepsToday: "Pas aujourd'hui",
+    fiberLeft: "Fibre restante",
+    sugarLeft: "Sucre restant",
+    sodiumLeft: "Sodium restant",
 
     // Buttons
     scanFood: "Scanner la Nourriture",
@@ -879,6 +921,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Mahlzeitart",
     foodItems: "Lebensmittel",
     addFoodItem: "Lebensmittel Hinzufügen",
+    
+    // Dashboard Cards
+    caloriesLeft: "Kalorien übrig",
+    stepsToday: "Schritte heute",
+    fiberLeft: "Ballaststoffe übrig",
+    sugarLeft: "Zucker übrig",
+    sodiumLeft: "Natrium übrig",
 
     // Buttons
     scanFood: "Essen Scannen",
@@ -1007,6 +1056,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Tipo di Pasto",
     foodItems: "Elementi Cibo",
     addFoodItem: "Aggiungi Elemento",
+    
+    // Dashboard Cards
+    caloriesLeft: "Calorie rimaste",
+    stepsToday: "Passi oggi",
+    fiberLeft: "Fibre rimaste",
+    sugarLeft: "Zucchero rimasto",
+    sodiumLeft: "Sodio rimasto",
 
     // Buttons
     scanFood: "Scansiona Cibo",
@@ -1135,6 +1191,13 @@ export const translations: Record<string, Translations> = {
     mealType: "Тип Приема Пищи",
     foodItems: "Продукты",
     addFoodItem: "Добавить Продукт",
+    
+    // Dashboard Cards
+    caloriesLeft: "Калории осталось",
+    stepsToday: "Шаги сегодня",
+    fiberLeft: "Клетчатка осталось",
+    sugarLeft: "Сахар осталось",
+    sodiumLeft: "Натрий осталось",
 
     // Buttons
     scanFood: "Сканировать Еду",
