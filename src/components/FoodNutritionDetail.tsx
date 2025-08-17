@@ -5,6 +5,7 @@ import { Separator } from './ui/separator';
 import { Badge } from './ui/badge';
 import { X, Minus, Plus, ThumbsUp, ThumbsDown, Edit3, Trash2, PlusCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/hooks/useTranslation';
 import { supabase } from '@/integrations/supabase/client';
 
 interface FoodItem {
@@ -40,6 +41,7 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
   const [isEditing, setIsEditing] = useState(false);
   const [feedbackState, setFeedbackState] = useState<'initial' | 'thanking' | 'hidden'>('initial');
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const calculateTotals = () => {
     return foods.reduce(
@@ -223,13 +225,23 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
     // Save feedback to database (optional)
     console.log('Feedback received:', feedbackType);
     
-    // Start animation sequence
+    // Start fade out animation for initial content, then fade in thank you message
     setFeedbackState('thanking');
     
-    // Hide thank you message after 3 seconds
+    // Hide thank you message after 3 seconds with fade out
     setTimeout(() => {
       setFeedbackState('hidden');
     }, 3000);
+  };
+
+  const getFeedbackMessages = () => {
+    return {
+      question: t.feedbackQuestion || "How accurate was this analysis?",
+      accurate: t.accurate || "Accurate", 
+      needsWork: t.needsWork || "Needs work",
+      thankYou: t.feedbackThankYou || "¡Gracias por tu feedback! 🙏",
+      explanation: t.feedbackExplanation || "Esta información se utilizará como referencia para que la IA analice más correctamente futuras comidas."
+    };
   };
 
   return (
@@ -492,38 +504,40 @@ const FoodNutritionDetail = ({ analysis, imageUrl, onClose }: FoodNutritionDetai
 
             {/* AI Feedback */}
             {feedbackState !== 'hidden' && (
-              <div className={`bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 transition-all duration-500 ${
-                feedbackState === 'thanking' ? 'animate-fade-in' : ''
+              <div className={`bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 transition-all duration-700 ease-in-out transform ${
+                feedbackState === 'thanking' 
+                  ? 'animate-fade-in opacity-100 scale-100' 
+                  : 'opacity-100 scale-100'
               }`}>
                 {feedbackState === 'initial' ? (
-                  <>
-                    <h4 className="font-medium mb-2">How accurate was this analysis?</h4>
+                  <div className="opacity-100 transition-opacity duration-300">
+                    <h4 className="font-medium mb-2">{getFeedbackMessages().question}</h4>
                     <div className="flex gap-2">
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="flex-1"
+                        className="flex-1 transition-all duration-300 hover:scale-105 hover:shadow-md"
                         onClick={() => handleFeedback('accurate')}
                       >
                         <ThumbsUp className="h-4 w-4 mr-2" />
-                        Accurate
+                        {getFeedbackMessages().accurate}
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="flex-1"
+                        className="flex-1 transition-all duration-300 hover:scale-105 hover:shadow-md"
                         onClick={() => handleFeedback('needs_work')}
                       >
                         <ThumbsDown className="h-4 w-4 mr-2" />
-                        Needs work
+                        {getFeedbackMessages().needsWork}
                       </Button>
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  <div className="text-center animate-fade-in">
-                    <h4 className="font-medium mb-2">¡Gracias por tu feedback! 🙏</h4>
+                  <div className="text-center animate-fade-in opacity-0 animate-delay-200">
+                    <h4 className="font-medium mb-2">{getFeedbackMessages().thankYou}</h4>
                     <p className="text-sm text-muted-foreground">
-                      Esta información se utilizará como referencia para que la IA analice más correctamente futuras comidas.
+                      {getFeedbackMessages().explanation}
                     </p>
                   </div>
                 )}

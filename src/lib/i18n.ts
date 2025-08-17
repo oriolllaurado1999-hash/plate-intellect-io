@@ -118,6 +118,13 @@ export interface Translations {
   sugarLeft: string;
   sodiumLeft: string;
   
+  // Feedback messages
+  feedbackQuestion: string;
+  accurate: string;
+  needsWork: string;
+  feedbackThankYou: string;
+  feedbackExplanation: string;
+  
   // Buttons
   scanFood: string;
   addManually: string;
@@ -254,6 +261,13 @@ export const translations: Record<string, Translations> = {
     sugarLeft: "Sugar left",
     sodiumLeft: "Sodium left",
 
+    // Feedback messages
+    feedbackQuestion: "How accurate was this analysis?",
+    accurate: "Accurate",
+    needsWork: "Needs work",
+    feedbackThankYou: "Thank you for your feedback! 🙏",
+    feedbackExplanation: "This information will be used as a reference for the AI to analyze future meals more accurately.",
+
     // Buttons
     scanFood: "Scan Food",
     addManually: "Add Manually",
@@ -388,6 +402,13 @@ export const translations: Record<string, Translations> = {
     fiberLeft: "Fibra restante",
     sugarLeft: "Azúcar restante",
     sodiumLeft: "Sodio restante",
+
+    // Feedback messages
+    feedbackQuestion: "¿Qué tan preciso fue este análisis?",
+    accurate: "Preciso",
+    needsWork: "Necesita mejorar",
+    feedbackThankYou: "¡Gracias por tu feedback! 🙏",
+    feedbackExplanation: "Esta información se utilizará como referencia para que la IA analice más correctamente futuras comidas.",
 
     // Buttons
     scanFood: "Escanear Comida",
@@ -524,6 +545,13 @@ export const translations: Record<string, Translations> = {
     sugarLeft: "剩余糖分",
     sodiumLeft: "剩余钠",
 
+    // Feedback messages
+    feedbackQuestion: "这个分析有多准确？",
+    accurate: "准确",
+    needsWork: "需要改进",
+    feedbackThankYou: "谢谢您的反馈！🙏",
+    feedbackExplanation: "这些信息将用作参考，帮助AI更准确地分析未来的餐食。",
+
     // Buttons
     scanFood: "扫描食物",
     addManually: "手动添加",
@@ -658,6 +686,13 @@ export const translations: Record<string, Translations> = {
     fiberLeft: "Fibra restante",
     sugarLeft: "Açúcar restante",
     sodiumLeft: "Sódio restante",
+
+    // Feedback messages
+    feedbackQuestion: "Quão precisa foi esta análise?",
+    accurate: "Precisa",
+    needsWork: "Precisa melhorar",
+    feedbackThankYou: "Obrigado pelo seu feedback! 🙏",
+    feedbackExplanation: "Esta informação será usada como referência para que a IA analise refeições futuras com mais precisão.",
 
     // Buttons
     scanFood: "Escanear Comida",
@@ -794,6 +829,13 @@ export const translations: Record<string, Translations> = {
     sugarLeft: "Sucre restant",
     sodiumLeft: "Sodium restant",
 
+    // Feedback messages
+    feedbackQuestion: "À quel point cette analyse était-elle précise ?",
+    accurate: "Précise",
+    needsWork: "À améliorer",
+    feedbackThankYou: "Merci pour votre retour ! 🙏",
+    feedbackExplanation: "Cette information sera utilisée comme référence pour que l'IA analyse plus précisément les futurs repas.",
+
     // Buttons
     scanFood: "Scanner la Nourriture",
     addManually: "Ajouter Manuellement",
@@ -928,6 +970,13 @@ export const translations: Record<string, Translations> = {
     fiberLeft: "Ballaststoffe übrig",
     sugarLeft: "Zucker übrig",
     sodiumLeft: "Natrium übrig",
+
+    // Feedback messages
+    feedbackQuestion: "Wie genau war diese Analyse?",
+    accurate: "Genau",
+    needsWork: "Verbesserungsbedürftig",
+    feedbackThankYou: "Vielen Dank für Ihr Feedback! 🙏",
+    feedbackExplanation: "Diese Information wird als Referenz verwendet, damit die KI zukünftige Mahlzeiten genauer analysiert.",
 
     // Buttons
     scanFood: "Essen Scannen",
@@ -1064,6 +1113,13 @@ export const translations: Record<string, Translations> = {
     sugarLeft: "Zucchero rimasto",
     sodiumLeft: "Sodio rimasto",
 
+    // Feedback messages
+    feedbackQuestion: "Quanto è stata precisa questa analisi?",
+    accurate: "Precisa",
+    needsWork: "Deve migliorare",
+    feedbackThankYou: "Grazie per il tuo feedback! 🙏",
+    feedbackExplanation: "Queste informazioni saranno utilizzate come riferimento per far analizzare all'IA i pasti futuri con maggiore precisione.",
+
     // Buttons
     scanFood: "Scansiona Cibo",
     addManually: "Aggiungi Manualmente",
@@ -1198,6 +1254,13 @@ export const translations: Record<string, Translations> = {
     fiberLeft: "Клетчатка осталось",
     sugarLeft: "Сахар осталось",
     sodiumLeft: "Натрий осталось",
+
+    // Feedback messages
+    feedbackQuestion: "Насколько точным был этот анализ?",
+    accurate: "Точно",
+    needsWork: "Нужно улучшить",
+    feedbackThankYou: "Спасибо за ваш отзыв! 🙏",
+    feedbackExplanation: "Эта информация будет использоваться как справочная для того, чтобы ИИ более точно анализировал будущие приемы пищи.",
 
     // Buttons
     scanFood: "Сканировать Еду",
