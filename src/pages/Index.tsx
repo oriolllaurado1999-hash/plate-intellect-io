@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { useDashboardData } from '@/hooks/useDashboardData';
 import { useCoachMessages } from '@/hooks/useCoachMessages';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
@@ -44,6 +45,7 @@ const Index = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
+  const [hasMealsToday, setHasMealsToday] = useState(false);
 
   // Mock meal data - in real app this would come from the dashboard data
   const mockMeals = [
@@ -137,6 +139,31 @@ const Index = () => {
   const removeWater = () => {
     setWaterConsumed(prev => Math.max(prev - 250, 0)); // Quitar 250ml, mínimo 0ml
   };
+
+  // Check if user has meals today
+  useEffect(() => {
+    const checkMealsToday = async () => {
+      if (!user) return;
+      
+      try {
+        const today = new Date().toISOString().split('T')[0];
+        const { data, error } = await supabase
+          .from('meals')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('meal_date', today)
+          .limit(1);
+        
+        if (error) throw error;
+        setHasMealsToday(data && data.length > 0);
+      } catch (error) {
+        console.error('Error checking meals today:', error);
+        setHasMealsToday(false);
+      }
+    };
+
+    checkMealsToday();
+  }, [user, refreshKey]);
 
   // Generate daily coach message when user enters the app
   useEffect(() => {
@@ -641,10 +668,12 @@ const Index = () => {
           ></div>
         </div>
 
-        {/* Recently Uploaded */}
+        {/* Recently Uploaded and Add Meal Section */}
         <div className="mb-6">
-          <RecentMeals key={refreshKey} />
-          
+          {/* Show Recently Uploaded only if user has meals today */}
+          {hasMealsToday && (
+            <RecentMeals key={refreshKey} />
+          )}
           
           {/* Analysis in progress card - only shown when analyzing */}
           {isAnalyzing && (
@@ -665,24 +694,26 @@ const Index = () => {
             </div>
           )}
           
-          {/* Add Meal Card */}
-          <button 
-            onClick={handleAddButtonClick}
-            className="w-full bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 hover:shadow-xl transition-all duration-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
-                <UtensilsCrossed className="w-6 h-6 text-muted-foreground" />
+          {/* Add First Meal Card - only shown when user has no meals today */}
+          {!hasMealsToday && (
+            <button 
+              onClick={handleAddButtonClick}
+              className="w-full bg-card rounded-xl p-4 shadow-lg dark:shadow-xl border border-border/50 hover:shadow-xl transition-all duration-200"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center">
+                  <UtensilsCrossed className="w-6 h-6 text-muted-foreground" />
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="w-24 h-3 bg-muted rounded mb-2"></div>
+                  <div className="w-16 h-3 bg-muted rounded"></div>
+                </div>
               </div>
-              <div className="flex-1 text-left">
-                <div className="w-24 h-3 bg-muted rounded mb-2"></div>
-                <div className="w-16 h-3 bg-muted rounded"></div>
+              <div className="mt-4 text-center">
+                <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
               </div>
-            </div>
-            <div className="mt-4 text-center">
-              <p className="text-muted-foreground text-sm">Tap + to add your first meal of the day</p>
-            </div>
-          </button>
+            </button>
+          )}
         </div>
 
         {/* Virtual Trainer */}
