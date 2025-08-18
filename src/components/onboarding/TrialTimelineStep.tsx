@@ -85,7 +85,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
           Start your FREE trial
         </h1>
         <h2 className="text-3xl font-bold text-foreground text-center mb-8">
-          of 3 days to continue.
+          of 7 days to continue.
         </h2>
 
         {/* Timeline */}
@@ -95,9 +95,9 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
             return (
               <div key={index} className="timeline-item flex items-start space-x-4">
                 <div className="relative flex flex-col items-center">
-                  <div className={`w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center ${
-                    index === 2 ? 'bg-foreground' : 'bg-orange-500'
-                  }`}>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                    index === 2 ? 'bg-foreground' : ''
+                  }`} style={{ backgroundColor: index !== 2 ? '#4AD4B2' : undefined }}>
                     <IconComponent className="w-6 h-6 text-white" />
                   </div>
                   {index < timelineItems.length - 1 && (
@@ -156,7 +156,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
             onClick={() => setSelectedPlan('yearly')}
           >
             <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
-              3 DAYS FREE
+              7 DAYS FREE
             </div>
             <div className="text-center pt-2">
               <div className="font-bold text-lg text-foreground">Annual</div>
@@ -187,12 +187,12 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full mb-4"
         >
-          Start My 3-Day Free Trial
+          {selectedPlan === 'yearly' ? 'Start My 7-Day Free Trial' : 'Start Now'}
         </Button>
         <div className="text-center text-sm text-muted-foreground">
           {selectedPlan === 'monthly' 
             ? '3 days free, then $9.99 per month' 
-            : '3 days free, then $35.88 per year ($2.99/month)'
+            : '7 days free, then $35.88 per year ($2.99/month)'
           }
         </div>
       </div>
