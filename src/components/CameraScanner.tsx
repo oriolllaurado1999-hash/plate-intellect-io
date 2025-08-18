@@ -203,19 +203,19 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                   <Button
                     variant="outline"
                     className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
-                    onClick={capturePhoto}
+                    onClick={() => onModeChange?.('barcode')}
                   >
-                    <ScanLine className="h-5 w-5 mb-1" />
-                    <span className="text-xs font-medium">Scan Food</span>
+                    <CreditCard className="h-5 w-5 mb-1" />
+                    <span className="text-xs font-medium">Barcode</span>
                   </Button>
 
                   <Button
                     variant="outline"
                     className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => onModeChange?.('barcode')}
+                    onClick={capturePhoto}
                   >
-                    <CreditCard className="h-5 w-5 mb-1" />
-                    <span className="text-xs font-medium">Barcode</span>
+                    <ScanLine className="h-5 w-5 mb-1" />
+                    <span className="text-xs font-medium">Scan Food</span>
                   </Button>
 
                   <Button
