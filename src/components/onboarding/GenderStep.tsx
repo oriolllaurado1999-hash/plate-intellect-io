@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import FixedContinueButton from './FixedContinueButton';
 
 interface GenderStepProps {
-  selected: 'male' | 'female' | 'other' | null;
-  onSelect: (gender: 'male' | 'female' | 'other') => void;
+  selected: 'male' | 'female' | null;
+  onSelect: (gender: 'male' | 'female') => void;
   onNext: () => void;
 }
 
@@ -39,13 +39,6 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
             Female
           </Button>
 
-          <Button
-            variant={selected === 'other' ? 'default' : 'outline'}
-            className="w-full h-16 text-lg justify-center"
-            onClick={() => onSelect('other')}
-          >
-            Other
-          </Button>
         </div>
       </div>
 

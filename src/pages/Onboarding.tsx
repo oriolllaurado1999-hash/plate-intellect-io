@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
 interface OnboardingData {
-  gender: 'male' | 'female' | 'other' | null;
+  gender: 'male' | 'female' | null;
   workouts: '0-2' | '3-5' | '6+' | null;
   source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | null;
   hasTriedOtherApps: boolean | null;
