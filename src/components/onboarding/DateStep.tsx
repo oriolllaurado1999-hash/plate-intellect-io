@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface DateStepProps {
   selected: Date | null;
@@ -84,8 +85,8 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
   };
 
   return (
-    <div className="px-6 py-8 h-full flex flex-col">
-      <div className="flex-1">
+    <>
+      <div className="px-6 py-8 h-full">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4">
             When were you born?
@@ -95,7 +96,7 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
           </p>
         </div>
 
-        <div className="space-y-8 mb-16">
+        <div className="space-y-8">
           {/* Manual Date Input */}
           <div className="flex justify-center">
             <div className="space-y-4">
@@ -139,16 +140,11 @@ const DateStep = ({ selected, onSelect, onNext }: DateStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={!selected}
-          className="w-full h-14 text-lg font-medium rounded-full"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+        disabled={!selected}
+      />
+    </>
   );
 };
 

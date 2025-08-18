@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { BarChart3, Utensils, HandHeart, Calendar, Apple } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface ObstaclesStepProps {
   selected: string[];
@@ -36,15 +37,15 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
   };
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
-      <div className="flex-1 flex flex-col justify-center">
+    <>
+      <div className="px-6 py-8 h-full">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4">
             What's stopping you from reaching your goals?
           </h1>
         </div>
 
-        <div className="space-y-4 mb-16">
+        <div className="space-y-4">
           {obstacles.map((obstacle) => {
             const IconComponent = obstacle.icon;
             const isSelected = selected.includes(obstacle.id);
@@ -68,16 +69,11 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={selected.length === 0}
-          className="w-full h-14 text-lg font-medium rounded-full"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+        disabled={selected.length === 0}
+      />
+    </>
   );
 };
 

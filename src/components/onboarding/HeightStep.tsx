@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import FixedContinueButton from './FixedContinueButton';
 
 interface HeightStepProps {
   selected: { height: number; unit: 'cm' | 'ft' } | null;
@@ -92,14 +93,14 @@ const HeightStep = ({ selected, onSelect, onNext }: HeightStepProps) => {
   };
 
   return (
-    <div className="px-6 py-8 h-full flex flex-col">
-      <div className="flex-1">
+    <>
+      <div className="px-6 py-8 h-full">
         <h1 className="text-3xl font-bold mb-4">What's your height?</h1>
         <p className="text-muted-foreground mb-12">
           This will help us calculate your BMI and daily needs.
         </p>
 
-        <div className="space-y-6 mb-16">
+        <div className="space-y-6">
           {/* Unit Selection */}
           <div className="flex space-x-3">
             <Button
@@ -160,17 +161,11 @@ const HeightStep = ({ selected, onSelect, onNext }: HeightStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={!isValid()}
-          className="w-full h-12 text-base font-semibold"
-          size="lg"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+        disabled={!isValid()}
+      />
+    </>
   );
 };
 

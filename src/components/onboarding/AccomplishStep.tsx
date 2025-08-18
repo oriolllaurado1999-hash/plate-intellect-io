@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Apple, Sun, Target, Heart } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface AccomplishStepProps {
   selected: string[];
@@ -35,15 +36,15 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
   };
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
-      <div className="flex-1 flex flex-col justify-center">
+    <>
+      <div className="px-6 py-8 h-full">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4">
             What would you like to accomplish?
           </h1>
         </div>
 
-        <div className="space-y-4 mb-16">
+        <div className="space-y-4">
           {goals.map((goal) => {
             const IconComponent = goal.icon;
             const isSelected = selected.includes(goal.id);
@@ -67,16 +68,11 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={selected.length === 0}
-          className="w-full h-14 text-lg font-medium rounded-full"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+        disabled={selected.length === 0}
+      />
+    </>
   );
 };
 

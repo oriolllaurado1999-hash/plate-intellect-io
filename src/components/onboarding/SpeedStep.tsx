@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import FixedContinueButton from './FixedContinueButton';
 
 interface SpeedStepProps {
   selected: number | null;
@@ -51,15 +52,15 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
   };
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
-      <div className="flex-1 flex flex-col justify-center">
+    <>
+      <div className="px-6 py-8 h-full">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-8">
             How fast do you want to reach your goal?
           </h1>
         </div>
 
-        <div className="flex flex-col items-center mb-12">
+        <div className="flex flex-col items-center">
           <div className="text-center mb-8">
             <div className="text-sm text-muted-foreground mb-2">Loss weight speed per week</div>
             <div className="text-4xl font-bold text-foreground">
@@ -115,15 +116,10 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          className="w-full h-14 text-lg font-medium rounded-full"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+      />
+    </>
   );
 };
 

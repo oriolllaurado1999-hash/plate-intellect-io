@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Instagram, Users, Tv, Twitter, Facebook, Chrome } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface SourceStepProps {
   selected: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | null;
@@ -24,8 +25,8 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
   ];
 
   return (
-    <div className="px-6 py-8 h-full flex flex-col">
-      <div className="flex-1">
+    <>
+      <div className="px-6 py-8 h-full">
         <h1 className="text-3xl font-bold mb-8">Where did you hear about us?</h1>
 
         <div className="space-y-4">
@@ -51,17 +52,11 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={!selected}
-          className="w-full h-12 text-base font-semibold"
-          size="lg"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+        disabled={!selected}
+      />
+    </>
   );
 };
 
