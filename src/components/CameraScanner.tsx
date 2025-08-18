@@ -149,21 +149,21 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     
     try {
       toast({
-        title: "Procesando imagen",
-        description: "Buscando código de barras en la imagen...",
+        title: t.analyzing || "Processing image",
+        description: "Searching for barcode in image...",
         duration: 2000
       });
 
       // For now, show a simple manual input option
-      const barcodeInput = prompt("No se pudo detectar automáticamente. Por favor, introduce el código de barras manualmente:");
+      const barcodeInput = prompt("Could not detect automatically. Please enter the barcode manually:");
       
       if (barcodeInput) {
         await handleBarcodeFound(barcodeInput);
       } else {
         setBarcodeAnalyzing(false);
         toast({
-          title: "Cancelado",
-          description: "Escaneo cancelado por el usuario",
+          title: "Cancelled",
+          description: "Scan cancelled by user",
           duration: 2000
         });
       }
@@ -171,7 +171,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       setBarcodeAnalyzing(false);
       toast({
         title: "Error",
-        description: "No se pudo procesar la imagen",
+        description: "Could not process image",
         variant: "destructive"
       });
     }
@@ -211,8 +211,8 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     if (!barcodeDetector || barcodeDetector === 'fallback') {
       setTimeout(() => {
         toast({
-          title: "Modo manual (Safari)",
-          description: "Pulsa el botón de captura cuando el código esté centrado",
+          title: "Manual mode (Safari)",
+          description: "Tap capture button when barcode is centered",
           duration: 5000
         });
       }, 1000);
@@ -233,8 +233,8 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     if (barcodeDetector === 'fallback') {
       // Fallback method: Show instructions for manual capture
       toast({
-        title: "Modo manual activado",
-        description: "Pulsa el botón de captura cuando el código esté centrado",
+        title: "Manual mode activated",
+        description: "Tap capture button when barcode is centered",
         duration: 4000
       });
       return;
@@ -286,8 +286,8 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       setBarcodeAnalyzing(true);
 
       toast({
-        title: "Código detectado",
-        description: "Buscando información del producto...",
+        title: t.analyzing || "Analyzing",
+        description: "Searching for product information...",
         duration: 2000
       });
 
@@ -304,7 +304,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
         // Add product to database
         await addProductToMeal(data.product, barcode);
       } else {
-        throw new Error(data?.error || 'Producto no encontrado');
+        throw new Error(data?.error || 'Product not found');
       }
     } catch (error) {
       console.error('Error processing barcode:', error);
@@ -313,7 +313,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "No se pudo procesar el código de barras",
+        description: error instanceof Error ? error.message : "Could not process barcode",
         variant: "destructive"
       });
       
@@ -330,46 +330,8 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       // Get current user
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        throw new Error('Usuario no autenticado');
+        throw new Error('User not authenticated');
       }
-
-      // Create meal entry
-      const { data: mealData, error: mealError } = await supabase
-        .from('meals')
-        .insert({
-          user_id: user.id,
-          name: product.name || 'Producto escaneado',
-          meal_type: 'snack',
-          meal_date: new Date().toISOString().split('T')[0],
-          ai_analyzed: false,
-          total_calories: product.calories_per_100g || 0,
-          total_protein: product.protein_per_100g || 0,
-          total_carbs: product.carbs_per_100g || 0,
-          total_fat: product.fat_per_100g || 0,
-          total_fiber: product.fiber_per_100g || 0
-        })
-        .select()
-        .single();
-
-      if (mealError) throw mealError;
-
-      // Create meal item
-      const { error: itemError } = await supabase
-        .from('meal_items')
-        .insert({
-          meal_id: mealData.id,
-          food_name: product.name || 'Producto escaneado',
-          food_item_id: product.id,
-          quantity: 1,
-          calories: product.calories_per_100g || 0,
-          protein: product.protein_per_100g || 0,
-          carbs: product.carbs_per_100g || 0,
-          fat: product.fat_per_100g || 0,
-          fiber: product.fiber_per_100g || 0,
-          confidence: 1.0
-        });
-
-      if (itemError) throw itemError;
 
       // Capture image for display
       const video = videoRef.current;
@@ -386,6 +348,45 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
         }
       }
 
+      // Create meal entry with image
+      const { data: mealData, error: mealError } = await supabase
+        .from('meals')
+        .insert({
+          user_id: user.id,
+          name: product.name || 'Scanned product',
+          meal_type: 'snack',
+          meal_date: new Date().toISOString().split('T')[0],
+          ai_analyzed: false,
+          image_url: imageUrl, // Add the captured image
+          total_calories: product.calories_per_100g || 0,
+          total_protein: product.protein_per_100g || 0,
+          total_carbs: product.carbs_per_100g || 0,
+          total_fat: product.fat_per_100g || 0,
+          total_fiber: product.fiber_per_100g || 0
+        })
+        .select()
+        .single();
+
+      if (mealError) throw mealError;
+
+      // Create meal item
+      const { error: itemError } = await supabase
+        .from('meal_items')
+        .insert({
+          meal_id: mealData.id,
+          food_name: product.name || 'Scanned product',
+          food_item_id: product.id,
+          quantity: 1,
+          calories: product.calories_per_100g || 0,
+          protein: product.protein_per_100g || 0,
+          carbs: product.carbs_per_100g || 0,
+          fat: product.fat_per_100g || 0,
+          fiber: product.fiber_per_100g || 0,
+          confidence: 1.0
+        });
+
+      if (itemError) throw itemError;
+
       // Close camera and complete analysis
       stopCamera();
       onClose();
@@ -393,7 +394,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       // Create analysis result for callback
       const analysis: FoodAnalysis = {
         foods: [{
-          name: product.name || 'Producto escaneado',
+          name: product.name || 'Scanned product',
           quantity: 1,
           calories: product.calories_per_100g || 0,
           protein: product.protein_per_100g || 0,
@@ -403,15 +404,15 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
           confidence: 1.0
         }],
         overall_confidence: 1.0,
-        meal_name: product.name || 'Producto escaneado'
+        meal_name: product.name || 'Scanned product'
       };
 
       // Call the analysis complete callback
       onAnalysisComplete(analysis, imageUrl);
 
       toast({
-        title: "¡Producto añadido!",
-        description: `${product.name || 'Producto'} ha sido añadido a tu diario`,
+        title: "Product added!",
+        description: `${product.name || 'Product'} has been added to your diary`,
         duration: 3000
       });
 
