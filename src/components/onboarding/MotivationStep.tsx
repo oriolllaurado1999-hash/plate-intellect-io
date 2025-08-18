@@ -46,24 +46,26 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
   const motivationText = getMotivationText();
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
-      <div className="flex-1 flex flex-col justify-center text-center">
-        <div className="mb-12">
-          <h1 className="text-3xl font-bold text-foreground mb-8">
-            {motivationText.action} <span className="text-orange-500">{motivationText.amount}</span> {motivationText.message}
-          </h1>
-          
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            90% of users say that the change is obvious after using Kalore and it is not
-            easy to rebound.
-          </p>
+    <>
+      <div className="flex flex-col h-full px-6 py-8 pb-32">
+        <div className="flex-1 flex flex-col justify-center text-center">
+          <div className="mb-12">
+            <h1 className="text-3xl font-bold text-foreground mb-8">
+              {motivationText.action} <span className="text-orange-500">{motivationText.amount}</span> {motivationText.message}
+            </h1>
+            
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              90% of users say that the change is obvious after using Kalore and it is not
+              easy to rebound.
+            </p>
+          </div>
         </div>
       </div>
 
       <FixedContinueButton 
         onClick={onNext}
       />
-    </div>
+    </>
   );
 };
 
