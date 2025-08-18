@@ -207,8 +207,19 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       duration: 3000
     });
 
-    // Start real barcode scanning
-    startBarcodeScanning();
+    // Check if we need to use fallback mode
+    if (!barcodeDetector || barcodeDetector === 'fallback') {
+      setTimeout(() => {
+        toast({
+          title: "Modo manual (Safari)",
+          description: "Pulsa el botón de captura cuando el código esté centrado",
+          duration: 5000
+        });
+      }, 1000);
+    } else {
+      // Start real barcode scanning for supported browsers
+      startBarcodeScanning();
+    }
     
     onModeChange?.('barcode');
   };
