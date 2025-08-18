@@ -50,14 +50,14 @@ export const PersonalDetailsModal = ({ isOpen, onClose }: PersonalDetailsModalPr
         setGoalWeight(profile.goal_weight || 75);
         setCurrentWeight(profile.weight || 55);
         setHeight(profile.height || 185);
-        setDailyStepGoal(profile.daily_step_goal || 10000);
+        setDailyStepGoal((profile as any).daily_step_goal || 10000);
         
-        if (profile.date_of_birth) {
-          setDateOfBirth(new Date(profile.date_of_birth));
+        if ((profile as any).date_of_birth) {
+          setDateOfBirth(new Date((profile as any).date_of_birth));
         }
         
-        if (profile.gender) {
-          setGender(profile.gender);
+        if ((profile as any).gender) {
+          setGender((profile as any).gender);
         }
       }
     } catch (error) {

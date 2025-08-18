@@ -250,9 +250,12 @@ export type Database = {
           carbs_goal: number | null
           created_at: string
           daily_calorie_goal: number | null
+          daily_step_goal: number | null
+          date_of_birth: string | null
           display_name: string | null
           fat_goal: number | null
           fiber_goal: number | null
+          gender: string | null
           goal_type: string | null
           goal_weight: number | null
           height: number | null
@@ -269,9 +272,12 @@ export type Database = {
           carbs_goal?: number | null
           created_at?: string
           daily_calorie_goal?: number | null
+          daily_step_goal?: number | null
+          date_of_birth?: string | null
           display_name?: string | null
           fat_goal?: number | null
           fiber_goal?: number | null
+          gender?: string | null
           goal_type?: string | null
           goal_weight?: number | null
           height?: number | null
@@ -288,9 +294,12 @@ export type Database = {
           carbs_goal?: number | null
           created_at?: string
           daily_calorie_goal?: number | null
+          daily_step_goal?: number | null
+          date_of_birth?: string | null
           display_name?: string | null
           fat_goal?: number | null
           fiber_goal?: number | null
+          gender?: string | null
           goal_type?: string | null
           goal_weight?: number | null
           height?: number | null
