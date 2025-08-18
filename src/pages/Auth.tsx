@@ -63,7 +63,8 @@ const Auth = () => {
         {/* Get Started Button */}
         <Button
           onClick={handleGetStarted}
-          className="w-full h-14 bg-black text-white font-medium rounded-full text-lg hover:bg-gray-800 mb-4"
+          className="w-full h-14 text-white font-medium rounded-full text-lg mb-4 hover:opacity-90"
+          style={{ backgroundColor: '#4AD4B2' }}
         >
           {t.getStarted}
         </Button>
