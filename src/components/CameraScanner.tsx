@@ -33,6 +33,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [activeMode, setActiveMode] = useState<'scan-food' | 'barcode' | 'library'>('scan-food');
   const [isScanning, setIsScanning] = useState(false);
+  const [barcodeAnalyzing, setBarcodeAnalyzing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -131,15 +132,72 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     // Show analyzing notification after 2 seconds
     setTimeout(() => {
       if (isScanning) {
+        setBarcodeAnalyzing(true);
         toast({
           title: t.analyzing,
           description: t.keepBarcodeVisible,
           duration: 4000
         });
+        
+        // Simulate barcode detection after 3 more seconds
+        setTimeout(() => {
+          if (barcodeAnalyzing) {
+            handleBarcodeDetected();
+          }
+        }, 3000);
       }
     }, 2000);
     
     onModeChange?.('barcode');
+  };
+
+  const handleBarcodeDetected = async () => {
+    setBarcodeAnalyzing(false);
+    setIsScanning(false);
+    
+    // Capture the current frame for the analysis
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+
+      if (context) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0);
+        
+        const imageDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        
+        // Close camera and complete analysis
+        stopCamera();
+        onClose();
+        
+        // Create mock barcode analysis result
+        const mockAnalysis: FoodAnalysis = {
+          foods: [{
+            name: "Producto escaneado",
+            quantity: 1,
+            calories: 250,
+            protein: 8,
+            carbs: 35,
+            fat: 12,
+            fiber: 3,
+            confidence: 0.95
+          }],
+          overall_confidence: 0.95,
+          meal_name: "Producto de código de barras"
+        };
+        
+        // Call the analysis complete callback
+        onAnalysisComplete(mockAnalysis, imageDataUrl);
+        
+        toast({
+          title: t.barcodeDetected || "Código detectado",
+          description: "Análisis completado exitosamente",
+          duration: 3000
+        });
+      }
+    }
   };
 
   const analyzeImage = async () => {
@@ -227,11 +285,21 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
               <div className="absolute inset-0 flex items-center justify-center">
                 {activeMode === 'barcode' ? (
                   // Rectangular frame for barcode scanning
-                  <div className="relative w-80 h-48 border-4 border-white rounded-lg">
-                    <div className="absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 border-white"></div>
-                    <div className="absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 border-white"></div>
-                    <div className="absolute bottom-0 left-0 w-8 h-8 border-l-4 border-b-4 border-white"></div>
-                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 border-white"></div>
+                  <div className={`relative w-80 h-48 border-4 rounded-lg transition-colors duration-300 ${
+                    barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
+                  }`}>
+                    <div className={`absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 transition-colors duration-300 ${
+                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
+                    }`}></div>
+                    <div className={`absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 transition-colors duration-300 ${
+                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
+                    }`}></div>
+                    <div className={`absolute bottom-0 left-0 w-8 h-8 border-l-4 border-b-4 transition-colors duration-300 ${
+                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
+                    }`}></div>
+                    <div className={`absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 transition-colors duration-300 ${
+                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
+                    }`}></div>
                   </div>
                 ) : (
                   // Square frame for food scanning
