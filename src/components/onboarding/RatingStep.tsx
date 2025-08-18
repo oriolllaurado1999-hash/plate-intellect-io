@@ -144,7 +144,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
+      <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border">
         <Button
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full"
