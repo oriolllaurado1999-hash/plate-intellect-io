@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import FixedContinueButton from './FixedContinueButton';
 
 interface WorkoutStepProps {
   selected: '0-2' | '3-5' | '6+' | null;
@@ -75,16 +76,10 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={!selected}
-          className="w-full h-12 text-base font-semibold"
-          size="lg"
-        >
-          Continue
-        </Button>
-      </div>
+      <FixedContinueButton
+        onClick={handleContinue}
+        disabled={!selected}
+      />
     </div>
   );
 };
