@@ -1,0 +1,7 @@
+-- Add goal weight and macronutrient goals to profiles table
+ALTER TABLE public.profiles 
+ADD COLUMN IF NOT EXISTS goal_weight NUMERIC,
+ADD COLUMN IF NOT EXISTS protein_goal NUMERIC DEFAULT 0,
+ADD COLUMN IF NOT EXISTS carbs_goal NUMERIC DEFAULT 0,
+ADD COLUMN IF NOT EXISTS fat_goal NUMERIC DEFAULT 0,
+ADD COLUMN IF NOT EXISTS fiber_goal NUMERIC DEFAULT 0;
