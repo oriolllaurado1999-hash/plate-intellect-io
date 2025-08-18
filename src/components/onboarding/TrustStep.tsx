@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
 import { Shield } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface TrustStepProps {
   onNext: () => void;
@@ -38,62 +39,59 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
-      <div className="flex-1 flex flex-col justify-center items-center">
-        {/* Hands illustration */}
-        <div ref={handsRef} className="mb-12">
-          <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-            <div className="text-6xl handshake-animation">🤝</div>
-            {/* Floating dots animation */}
-            <div className="absolute inset-0 rounded-full">
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-2 h-2 bg-primary rounded-full animate-pulse"
-                  style={{
-                    top: `${20 + Math.sin(i * 0.785) * 30 + 30}%`,
-                    left: `${20 + Math.cos(i * 0.785) * 30 + 30}%`,
-                    animationDelay: `${i * 0.2}s`,
-                  }}
-                />
-              ))}
+    <>
+      <div className="px-6 py-8 h-full">
+        <div className="flex-1 flex flex-col justify-center items-center">
+          {/* Hands illustration */}
+          <div ref={handsRef} className="mb-12">
+            <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
+              <div className="text-6xl handshake-animation">🤝</div>
+              {/* Floating dots animation */}
+              <div className="absolute inset-0 rounded-full">
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-2 h-2 bg-primary rounded-full animate-pulse"
+                    style={{
+                      top: `${20 + Math.sin(i * 0.785) * 30 + 30}%`,
+                      left: `${20 + Math.cos(i * 0.785) * 30 + 30}%`,
+                      animationDelay: `${i * 0.2}s`,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div ref={textRef} className="text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            Thank you for trusting us
-          </h1>
-          <p className="text-muted-foreground text-lg mb-12">
-            Now let's personalize Kalore for you...
-          </p>
+          <div ref={textRef} className="text-center">
+            <h1 className="text-3xl font-bold text-foreground mb-4">
+              Thank you for trusting us
+            </h1>
+            <p className="text-muted-foreground text-lg mb-12">
+              Now let's personalize Kalore for you...
+            </p>
 
-          <div className="flex flex-col items-center space-y-4">
-            <div className="p-4 bg-muted/30 rounded-full">
-              <Shield className="h-8 w-8 text-primary" />
-            </div>
-            <div className="text-center">
-              <h3 className="font-semibold text-foreground mb-2">
-                Your privacy and security matter to us.
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                We promise to always keep your personal information private and secure.
-              </p>
+            <div className="flex flex-col items-center space-y-4">
+              <div className="p-4 bg-muted/30 rounded-full">
+                <Shield className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-semibold text-foreground mb-2">
+                  Your privacy and security matter to us.
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  We promise to always keep your personal information private and secure.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={onNext}
-          className="w-full h-14 text-lg font-medium rounded-full"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={onNext}
+      />
+    </>
   );
 };
 
