@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, ThumbsUp } from 'lucide-react';
 
 interface AllDoneStepProps {
   onNext: () => void;
@@ -45,7 +45,7 @@ const AllDoneStep = ({ onNext }: AllDoneStepProps) => {
         {/* Success illustration */}
         <div ref={iconRef} className="mb-12">
           <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-            {/* Emojis removed */}
+            <ThumbsUp className="w-20 h-20" style={{ color: '#4AD4B2' }} />
             
             {/* Floating dots animation */}
             <div className="absolute inset-0 rounded-full">
