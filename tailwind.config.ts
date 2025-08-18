@@ -79,7 +79,11 @@ export default {
 				},
 				protein: 'hsl(var(--protein))',
 				carbs: 'hsl(var(--carbs))',
-				fat: 'hsl(var(--fat))'
+				fat: 'hsl(var(--fat))',
+				continue: {
+					DEFAULT: 'hsl(var(--continue))',
+					foreground: 'hsl(var(--continue-foreground))'
+				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -40,6 +40,10 @@ All colors MUST be HSL.
     --info: 217 91% 60%;
     --info-foreground: 210 40% 98%;
     
+    /* Continue button - Kalore brand color */
+    --continue: 162 70% 60%;
+    --continue-foreground: 0 0% 100%;
+    
     /* Nutrition colors */
     --protein: 0 84% 60%;
     --carbs: 38 92% 50%;

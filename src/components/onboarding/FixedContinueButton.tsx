@@ -12,7 +12,7 @@ const FixedContinueButton = ({ onClick, disabled = false, text = "Continue" }: F
       <Button
         onClick={onClick}
         disabled={disabled}
-        className="w-full h-12 text-base font-semibold"
+        className="w-full h-12 text-base font-semibold bg-continue text-continue-foreground hover:bg-continue/90 rounded-2xl"
         size="lg"
       >
         {text}
