@@ -223,7 +223,8 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
                     tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                   />
                   <YAxis 
-                    domain={['dataMin - 1', 'dataMax + 1']}
+                    domain={[80, 84]}
+                    ticks={[80, 81, 82, 83, 84]}
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
