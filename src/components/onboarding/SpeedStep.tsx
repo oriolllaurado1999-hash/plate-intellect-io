@@ -47,7 +47,7 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
     } else if (speed <= 1.2) {
       return "Accelerated pace. Fast results but requires more discipline and energy.";
     } else {
-      return "You may feel very tired and develop loose skin.";
+      return "Elite level. Beginners don't belong here.";
     }
   };
 
