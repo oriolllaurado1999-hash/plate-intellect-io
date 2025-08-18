@@ -227,7 +227,6 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-                    label={{ value: 'kg', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: 'hsl(var(--muted-foreground))' } }}
                   />
                   <Line 
                     type="monotone" 
