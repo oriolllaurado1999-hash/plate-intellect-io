@@ -77,41 +77,6 @@ export default function RecentMeals() {
     };
 
     fetchRecentMeals();
-
-    // Set up real-time subscription for meals table
-    const channel = supabase
-      .channel('recent-meals')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'meals',
-          filter: `user_id=eq.${user?.id}`,
-        },
-        () => {
-          console.log('New meal detected, refreshing...');
-          fetchRecentMeals();
-        }
-      )
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'meals',
-          filter: `user_id=eq.${user?.id}`,
-        },
-        () => {
-          console.log('Meal updated, refreshing...');
-          fetchRecentMeals();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, [user, currentLanguage]);
 
   const formatTime = (dateString: string) => {
