@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
-import { Star } from 'lucide-react';
+import { Star, ThumbsUp } from 'lucide-react';
 
 interface RatingStepProps {
   onNext: () => void;
@@ -69,9 +69,11 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
             </div>
             <div className="text-muted-foreground">+100k App Ratings</div>
             
-            {/* Decorative laurels */}
+            {/* Decorative thumbs up */}
             <div className="flex items-center justify-center mt-4">
-              <div className="text-2xl bg-white rounded-full p-3 shadow-lg">🏆</div>
+              <div className="bg-green-500 rounded-full p-3 shadow-lg">
+                <ThumbsUp className="h-6 w-6 text-white" />
+              </div>
             </div>
           </div>
 
