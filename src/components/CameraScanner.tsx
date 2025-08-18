@@ -102,9 +102,16 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setCapturedImage(result);
+        stopCamera(); // Stop camera when image is loaded from gallery
       };
       reader.readAsDataURL(file);
     }
+    // Clear the input value to allow selecting the same file again if needed
+    event.target.value = '';
+  };
+
+  const openGallery = () => {
+    fileInputRef.current?.click();
   };
 
   const analyzeImage = async () => {
@@ -242,7 +249,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                     }`}
                     onClick={() => {
                       setActiveMode('library');
-                      onModeChange?.('library');
+                      openGallery();
                     }}
                   >
                     <ImageIcon className="h-5 w-5 mb-1" />
@@ -293,6 +300,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
             ref={fileInputRef}
             type="file"
             accept="image/*"
+            capture="environment"
             onChange={handleFileUpload}
             className="hidden"
           />
