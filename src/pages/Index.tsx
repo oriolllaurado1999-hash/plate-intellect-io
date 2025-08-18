@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Camera, User, Calendar, Target, Flame, Beef, Wheat, Leaf, Bell, UtensilsCrossed, Home, BarChart3, Settings, Grape, Candy, Salad, Activity, Footprints, Heart, Droplets, GlassWater } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import CameraFlow from '@/components/CameraFlow';
+import CameraScanner from '@/components/CameraScanner';
 import FoodNutritionDetail from '@/components/FoodNutritionDetail';
 import CalorieCircle from '@/components/CalorieCircle';
 import MacroBreakdown from '@/components/MacroBreakdown';
@@ -761,7 +761,7 @@ const Index = () => {
 
       {/* Modals */}
       {showScanner && (
-        <CameraFlow
+        <CameraScanner
           onAnalysisComplete={handleAnalysisComplete}
           onClose={handleCameraClose}
         />
