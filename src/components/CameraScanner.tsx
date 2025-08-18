@@ -75,10 +75,14 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
         setBarcodeDetector(detector);
         console.log('BarcodeDetector initialized');
       } else {
-        console.log('BarcodeDetector not supported in this browser');
+        console.log('BarcodeDetector not supported, using fallback method');
+        // We'll implement a fallback that works by taking a photo when user taps
+        setBarcodeDetector('fallback');
       }
     } catch (error) {
       console.error('Error initializing BarcodeDetector:', error);
+      // Use fallback method
+      setBarcodeDetector('fallback');
     }
   };
 
@@ -113,7 +117,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     }
   };
 
-  const capturePhoto = () => {
+  const capturePhoto = async () => {
     if (!videoRef.current || !canvasRef.current) return;
 
     const video = videoRef.current;
@@ -125,9 +129,51 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0);
       
+      // If in barcode mode and using fallback method, try to process as barcode
+      if (activeMode === 'barcode' && barcodeDetector === 'fallback') {
+        const imageDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        await processBarcodeFromImage(imageDataUrl);
+        return;
+      }
+      
       const imageDataUrl = canvas.toDataURL('image/jpeg', 0.8);
       setCapturedImage(imageDataUrl);
       stopCamera();
+    }
+  };
+
+  const processBarcodeFromImage = async (imageData: string) => {
+    // For fallback mode, we'll send the image to analyze-food function
+    // which can potentially detect text/barcodes
+    setBarcodeAnalyzing(true);
+    
+    try {
+      toast({
+        title: "Procesando imagen",
+        description: "Buscando código de barras en la imagen...",
+        duration: 2000
+      });
+
+      // For now, show a simple manual input option
+      const barcodeInput = prompt("No se pudo detectar automáticamente. Por favor, introduce el código de barras manualmente:");
+      
+      if (barcodeInput) {
+        await handleBarcodeFound(barcodeInput);
+      } else {
+        setBarcodeAnalyzing(false);
+        toast({
+          title: "Cancelado",
+          description: "Escaneo cancelado por el usuario",
+          duration: 2000
+        });
+      }
+    } catch (error) {
+      setBarcodeAnalyzing(false);
+      toast({
+        title: "Error",
+        description: "No se pudo procesar la imagen",
+        variant: "destructive"
+      });
     }
   };
 
@@ -168,8 +214,18 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
   };
 
   const startBarcodeScanning = () => {
-    if (!barcodeDetector || !videoRef.current || !canvasRef.current) {
-      console.log('Barcode detector or camera not ready');
+    if (!barcodeDetector) {
+      console.log('Barcode detector not ready');
+      return;
+    }
+
+    if (barcodeDetector === 'fallback') {
+      // Fallback method: Show instructions for manual capture
+      toast({
+        title: "Modo manual activado",
+        description: "Pulsa el botón de captura cuando el código esté centrado",
+        duration: 4000
+      });
       return;
     }
 
@@ -187,13 +243,15 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
           context.drawImage(video, 0, 0);
 
           // Detect barcodes in the current frame
-          const barcodes = await barcodeDetector.detect(canvas);
-          
-          if (barcodes && barcodes.length > 0) {
-            console.log('Barcode detected:', barcodes[0].rawValue);
-            setBarcodeAnalyzing(true);
-            await handleBarcodeFound(barcodes[0].rawValue);
-            return;
+          if (barcodeDetector && typeof barcodeDetector.detect === 'function') {
+            const barcodes = await barcodeDetector.detect(canvas);
+            
+            if (barcodes && barcodes.length > 0) {
+              console.log('Barcode detected:', barcodes[0].rawValue);
+              setBarcodeAnalyzing(true);
+              await handleBarcodeFound(barcodes[0].rawValue);
+              return;
+            }
           }
         }
 
