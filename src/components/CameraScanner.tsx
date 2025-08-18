@@ -6,6 +6,18 @@ import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/hooks/useTranslation';
 import { supabase } from '@/integrations/supabase/client';
 
+// Declare BarcodeDetector type for TypeScript
+declare global {
+  interface Window {
+    BarcodeDetector?: any;
+  }
+}
+
+interface DetectedBarcode {
+  rawValue: string;
+  format: string;
+}
+
 interface FoodAnalysis {
   foods: Array<{
     name: string;
@@ -34,21 +46,41 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
   const [activeMode, setActiveMode] = useState<'scan-food' | 'barcode' | 'library'>('scan-food');
   const [isScanning, setIsScanning] = useState(false);
   const [barcodeAnalyzing, setBarcodeAnalyzing] = useState(false);
+  const [barcodeDetector, setBarcodeDetector] = useState<any>(null);
+  const [animationFrameId, setAnimationFrameId] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const { t } = useTranslation();
 
-  // Start camera automatically when component mounts
+  // Initialize barcode detector and start camera
   useEffect(() => {
+    initializeBarcodeDetector();
     startCamera();
     
     // Cleanup function to stop camera when component unmounts
     return () => {
       stopCamera();
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, []);
+
+  const initializeBarcodeDetector = async () => {
+    try {
+      if ('BarcodeDetector' in window) {
+        const detector = new (window as any).BarcodeDetector();
+        setBarcodeDetector(detector);
+        console.log('BarcodeDetector initialized');
+      } else {
+        console.log('BarcodeDetector not supported in this browser');
+      }
+    } catch (error) {
+      console.error('Error initializing BarcodeDetector:', error);
+    }
+  };
 
   const startCamera = async () => {
     try {
@@ -129,76 +161,197 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
       duration: 3000
     });
 
-    // Show analyzing notification after 2 seconds
-    setTimeout(() => {
-      if (isScanning) {
-        setBarcodeAnalyzing(true);
-        toast({
-          title: t.analyzing,
-          description: t.keepBarcodeVisible,
-          duration: 4000
-        });
-        
-        // Simulate barcode detection after 3 more seconds
-        setTimeout(() => {
-          if (barcodeAnalyzing) {
-            handleBarcodeDetected();
-          }
-        }, 3000);
-      }
-    }, 2000);
+    // Start real barcode scanning
+    startBarcodeScanning();
     
     onModeChange?.('barcode');
   };
 
-  const handleBarcodeDetected = async () => {
-    setBarcodeAnalyzing(false);
-    setIsScanning(false);
-    
-    // Capture the current frame for the analysis
-    if (videoRef.current && canvasRef.current) {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
+  const startBarcodeScanning = () => {
+    if (!barcodeDetector || !videoRef.current || !canvasRef.current) {
+      console.log('Barcode detector or camera not ready');
+      return;
+    }
 
-      if (context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0);
-        
-        const imageDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-        
-        // Close camera and complete analysis
-        stopCamera();
-        onClose();
-        
-        // Create mock barcode analysis result
-        const mockAnalysis: FoodAnalysis = {
-          foods: [{
-            name: "Producto escaneado",
-            quantity: 1,
-            calories: 250,
-            protein: 8,
-            carbs: 35,
-            fat: 12,
-            fiber: 3,
-            confidence: 0.95
-          }],
-          overall_confidence: 0.95,
-          meal_name: "Producto de código de barras"
-        };
-        
-        // Call the analysis complete callback
-        onAnalysisComplete(mockAnalysis, imageDataUrl);
-        
-        toast({
-          title: t.barcodeDetected || "Código detectado",
-          description: "Análisis completado exitosamente",
-          duration: 3000
-        });
+    const scanForBarcode = async () => {
+      if (!isScanning || activeMode !== 'barcode') return;
+
+      try {
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+
+        if (video && canvas && context) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0);
+
+          // Detect barcodes in the current frame
+          const barcodes = await barcodeDetector.detect(canvas);
+          
+          if (barcodes && barcodes.length > 0) {
+            console.log('Barcode detected:', barcodes[0].rawValue);
+            setBarcodeAnalyzing(true);
+            await handleBarcodeFound(barcodes[0].rawValue);
+            return;
+          }
+        }
+
+        // Continue scanning if no barcode found
+        const frameId = requestAnimationFrame(scanForBarcode);
+        setAnimationFrameId(frameId);
+      } catch (error) {
+        console.error('Error scanning for barcode:', error);
+        // Continue scanning despite errors
+        const frameId = requestAnimationFrame(scanForBarcode);
+        setAnimationFrameId(frameId);
       }
+    };
+
+    scanForBarcode();
+  };
+
+  const handleBarcodeFound = async (barcode: string) => {
+    try {
+      setIsScanning(false);
+      setBarcodeAnalyzing(true);
+
+      toast({
+        title: "Código detectado",
+        description: "Buscando información del producto...",
+        duration: 2000
+      });
+
+      // Look up product using the barcode-lookup edge function
+      const { data, error } = await supabase.functions.invoke('barcode-lookup', {
+        body: { barcode }
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.success) {
+        // Add product to database
+        await addProductToMeal(data.product, barcode);
+      } else {
+        throw new Error(data?.error || 'Producto no encontrado');
+      }
+    } catch (error) {
+      console.error('Error processing barcode:', error);
+      setBarcodeAnalyzing(false);
+      setIsScanning(false);
+      
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "No se pudo procesar el código de barras",
+        variant: "destructive"
+      });
+      
+      // Restart scanning
+      setTimeout(() => {
+        setIsScanning(true);
+        startBarcodeScanning();
+      }, 2000);
     }
   };
+
+  const addProductToMeal = async (product: any, barcode: string) => {
+    try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Usuario no autenticado');
+      }
+
+      // Create meal entry
+      const { data: mealData, error: mealError } = await supabase
+        .from('meals')
+        .insert({
+          user_id: user.id,
+          name: product.name || 'Producto escaneado',
+          meal_type: 'snack',
+          meal_date: new Date().toISOString().split('T')[0],
+          ai_analyzed: false,
+          total_calories: product.calories_per_100g || 0,
+          total_protein: product.protein_per_100g || 0,
+          total_carbs: product.carbs_per_100g || 0,
+          total_fat: product.fat_per_100g || 0,
+          total_fiber: product.fiber_per_100g || 0
+        })
+        .select()
+        .single();
+
+      if (mealError) throw mealError;
+
+      // Create meal item
+      const { error: itemError } = await supabase
+        .from('meal_items')
+        .insert({
+          meal_id: mealData.id,
+          food_name: product.name || 'Producto escaneado',
+          food_item_id: product.id,
+          quantity: 1,
+          calories: product.calories_per_100g || 0,
+          protein: product.protein_per_100g || 0,
+          carbs: product.carbs_per_100g || 0,
+          fat: product.fat_per_100g || 0,
+          fiber: product.fiber_per_100g || 0,
+          confidence: 1.0
+        });
+
+      if (itemError) throw itemError;
+
+      // Capture image for display
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      let imageUrl = '';
+
+      if (video && canvas) {
+        const context = canvas.getContext('2d');
+        if (context) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0);
+          imageUrl = canvas.toDataURL('image/jpeg', 0.8);
+        }
+      }
+
+      // Close camera and complete analysis
+      stopCamera();
+      onClose();
+
+      // Create analysis result for callback
+      const analysis: FoodAnalysis = {
+        foods: [{
+          name: product.name || 'Producto escaneado',
+          quantity: 1,
+          calories: product.calories_per_100g || 0,
+          protein: product.protein_per_100g || 0,
+          carbs: product.carbs_per_100g || 0,
+          fat: product.fat_per_100g || 0,
+          fiber: product.fiber_per_100g || 0,
+          confidence: 1.0
+        }],
+        overall_confidence: 1.0,
+        meal_name: product.name || 'Producto escaneado'
+      };
+
+      // Call the analysis complete callback
+      onAnalysisComplete(analysis, imageUrl);
+
+      toast({
+        title: "¡Producto añadido!",
+        description: `${product.name || 'Producto'} ha sido añadido a tu diario`,
+        duration: 3000
+      });
+
+    } catch (error) {
+      console.error('Error adding product to meal:', error);
+      throw error;
+    }
+  };
+
 
   const analyzeImage = async () => {
     if (!capturedImage) return;
