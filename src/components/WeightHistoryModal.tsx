@@ -215,12 +215,13 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             {/* Chart */}
             <div className="h-48 w-full -ml-6">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={currentData}>
+                <LineChart data={currentData} margin={{ left: 0, right: 10, top: 5, bottom: 5 }}>
                   <XAxis 
                     dataKey="date" 
                     axisLine={false}
                     tickLine={false}
                     tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                    interval={0}
                   />
                   <YAxis 
                     domain={[80, 84]}
