@@ -84,6 +84,7 @@ export interface Translations {
   lastSynced: string;
   deleteAccount: string;
   logout: string;
+  comingSoon: string;
 
   // Common
   save: string;
@@ -237,6 +238,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Last Synced",
     deleteAccount: "Delete Account",
     logout: "Logout",
+    comingSoon: "Coming Soon",
 
     // Common
     save: "Save",
@@ -389,6 +391,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Última Sincronización",
     deleteAccount: "Eliminar Cuenta",
     logout: "Cerrar Sesión",
+    comingSoon: "Próximamente",
 
     // Common
     save: "Guardar",
@@ -541,6 +544,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "最后同步",
     deleteAccount: "删除账户",
     logout: "登出",
+    comingSoon: "即将推出",
 
     // Common
     save: "保存",
@@ -693,6 +697,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Última Sincronização",
     deleteAccount: "Excluir Conta",
     logout: "Sair",
+    comingSoon: "Em Breve",
 
     // Common
     save: "Salvar",
@@ -845,6 +850,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Dernière Synchronisation",
     deleteAccount: "Supprimer le Compte",
     logout: "Se Déconnecter",
+    comingSoon: "Bientôt Disponible",
 
     // Common
     save: "Sauvegarder",
@@ -997,6 +1003,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Zuletzt Synchronisiert",
     deleteAccount: "Konto Löschen",
     logout: "Abmelden",
+    comingSoon: "Bald Verfügbar",
 
     // Common
     save: "Speichern",
@@ -1149,6 +1156,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Ultima Sincronizzazione",
     deleteAccount: "Elimina Account",
     logout: "Esci",
+    comingSoon: "Prossimamente",
 
     // Common
     save: "Salva",
@@ -1301,6 +1309,7 @@ export const translations: Record<string, Translations> = {
     lastSynced: "Последняя Синхронизация",
     deleteAccount: "Удалить Аккаунт",
     logout: "Выйти",
+    comingSoon: "Скоро Будет",
 
     // Common
     save: "Сохранить",

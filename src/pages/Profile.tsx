@@ -6,8 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useState } from 'react';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { PersonalDetailsModal } from '@/components/PersonalDetailsModal';
+import { NutritionGoalsModal } from '@/components/NutritionGoalsModal';
+import { GoalsWeightModal } from '@/components/GoalsWeightModal';
+import { WeightHistoryModal } from '@/components/WeightHistoryModal';
 import { useTranslation } from '@/hooks/useTranslation';
 
 const Profile = () => {
@@ -19,6 +24,10 @@ const Profile = () => {
   const [rolloverCalories, setRolloverCalories] = useState(true);
   const [autoAdjustMacros, setAutoAdjustMacros] = useState(true);
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
+  const [isPersonalDetailsOpen, setIsPersonalDetailsOpen] = useState(false);
+  const [isNutritionGoalsOpen, setIsNutritionGoalsOpen] = useState(false);
+  const [isGoalsWeightOpen, setIsGoalsWeightOpen] = useState(false);
+  const [isWeightHistoryOpen, setIsWeightHistoryOpen] = useState(false);
 
   const languageNames = {
     en: 'English',
@@ -41,6 +50,14 @@ const Profile = () => {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <Avatar className="w-20 h-20">
+              <AvatarImage src={user?.user_metadata?.avatar_url} alt="Profile" />
+              <AvatarFallback>
+                <User className="w-8 h-8" />
+              </AvatarFallback>
+            </Avatar>
+          </div>
           <h2 className="text-3xl font-bold mb-2">{t.profile}</h2>
           <p className="text-muted-foreground">{t.accountInformation}</p>
         </div>
@@ -77,7 +94,10 @@ const Profile = () => {
               <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 text-center">
                 <h3 className="font-semibold mb-2">{t.journeyEasierTogether}</h3>
                 <p className="text-sm text-muted-foreground mb-3">{t.earnForEachFriend}</p>
-                <Button className="w-full">{t.shareInviteLink}</Button>
+                <div className="bg-green-500 text-white rounded-lg py-2 px-4 mb-3 font-medium">
+                  {t.comingSoon}
+                </div>
+                <Button className="w-full" disabled>{t.shareInviteLink}</Button>
               </div>
             </CardContent>
           </Card>
@@ -85,7 +105,11 @@ const Profile = () => {
           {/* Personal Details */}
           <Card>
             <CardContent className="p-4">
-              <Button variant="ghost" className="w-full justify-start p-4">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start p-4"
+                onClick={() => setIsPersonalDetailsOpen(true)}
+              >
                 <User className="h-5 w-5 text-primary mr-3" />
                 <span>{t.personalDetails}</span>
               </Button>
@@ -95,7 +119,11 @@ const Profile = () => {
           {/* Edit Nutrition Goals */}
           <Card>
             <CardContent className="p-4">
-              <Button variant="ghost" className="w-full justify-start p-4">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start p-4"
+                onClick={() => setIsNutritionGoalsOpen(true)}
+              >
                 <Target className="h-5 w-5 text-primary mr-3" />
                 <span>{t.editNutritionGoals}</span>
               </Button>
@@ -105,7 +133,11 @@ const Profile = () => {
           {/* Goals & Current Weight */}
           <Card>
             <CardContent className="p-4">
-              <Button variant="ghost" className="w-full justify-start p-4">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start p-4"
+                onClick={() => setIsGoalsWeightOpen(true)}
+              >
                 <Scale className="h-5 w-5 text-primary mr-3" />
                 <span>{t.goalsCurrentWeight}</span>
               </Button>
@@ -115,7 +147,11 @@ const Profile = () => {
           {/* Weight History */}
           <Card>
             <CardContent className="p-4">
-              <Button variant="ghost" className="w-full justify-start p-4">
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start p-4"
+                onClick={() => setIsWeightHistoryOpen(true)}
+              >
                 <Clock className="h-5 w-5 text-primary mr-3" />
                 <span>{t.weightHistory}</span>
               </Button>
@@ -236,20 +272,6 @@ const Profile = () => {
             </CardContent>
           </Card>
 
-          {/* Widgets Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>{t.widgets}</span>
-                <Button variant="link" size="sm">{t.howToAdd}</Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-4">
-                <p className="text-muted-foreground text-sm">{t.widgetConfigSoon}</p>
-              </div>
-            </CardContent>
-          </Card>
 
           {/* Support & Legal */}
           <Card>
@@ -296,12 +318,32 @@ const Profile = () => {
           </Card>
         </div>
 
-        {/* Language Selector Modal */}
+        {/* Modals */}
         <LanguageSelector
           isOpen={isLanguageSelectorOpen}
           onClose={() => setIsLanguageSelectorOpen(false)}
           currentLanguage={currentLanguage}
           onLanguageSelect={handleLanguageSelect}
+        />
+        
+        <PersonalDetailsModal
+          isOpen={isPersonalDetailsOpen}
+          onClose={() => setIsPersonalDetailsOpen(false)}
+        />
+        
+        <NutritionGoalsModal
+          isOpen={isNutritionGoalsOpen}
+          onClose={() => setIsNutritionGoalsOpen(false)}
+        />
+        
+        <GoalsWeightModal
+          isOpen={isGoalsWeightOpen}
+          onClose={() => setIsGoalsWeightOpen(false)}
+        />
+        
+        <WeightHistoryModal
+          isOpen={isWeightHistoryOpen}
+          onClose={() => setIsWeightHistoryOpen(false)}
         />
       </div>
     </div>
