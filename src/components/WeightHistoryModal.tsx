@@ -161,22 +161,6 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
           </DialogHeader>
           
           <div className="space-y-6 p-4">
-            {/* Metric Selector */}
-            <div className="p-4 rounded-lg border border-border bg-card">
-              <Select value={selectedMetric} onValueChange={setSelectedMetric}>
-                <SelectTrigger>
-                  <div className="flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4" />
-                    <SelectValue />
-                  </div>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="WEIGHT">WEIGHT</SelectItem>
-                  <SelectItem value="BMI">BMI</SelectItem>
-                  <SelectItem value="BODY_FAT">BODY FAT</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
 
             {/* Stats Section */}
             <div className="text-left space-y-2">
