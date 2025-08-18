@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
-import { Flame } from 'lucide-react';
+import { Flame, Activity } from 'lucide-react';
 
 interface CaloriesBurnedStepProps {
   onSelect: (addBack: boolean) => void;
@@ -82,26 +82,25 @@ const CaloriesBurnedStep = ({ onSelect }: CaloriesBurnedStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16 flex space-x-3">
-        <Button
-          onClick={() => onSelect(false)}
-          variant="outline"
-          className="flex-1 h-14 text-lg font-medium rounded-full"
-        >
-          No
-        </Button>
-        <Button
-          onClick={() => onSelect(true)}
-          className="flex-1 h-14 text-lg font-medium rounded-full"
-        >
-          Yes
-        </Button>
+      <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border">
+        <div className="flex space-x-3">
+          <Button
+            onClick={() => onSelect(false)}
+            variant="outline"
+            className="flex-1 h-14 text-lg font-medium rounded-full"
+          >
+            No
+          </Button>
+          <Button
+            onClick={() => onSelect(true)}
+            className="flex-1 h-14 text-lg font-medium rounded-full"
+          >
+            Yes
+          </Button>
+        </div>
       </div>
     </div>
   );
 };
-
-// Missing Activity import
-import { Activity } from 'lucide-react';
 
 export default CaloriesBurnedStep;
