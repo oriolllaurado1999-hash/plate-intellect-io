@@ -30,6 +30,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
+  const [activeMode, setActiveMode] = useState<'scan-food' | 'barcode' | 'library'>('scan-food');
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -202,8 +203,15 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                 <div className="flex justify-center space-x-4 px-6 mb-6">
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => onModeChange?.('barcode')}
+                    className={`flex flex-col items-center justify-center h-16 w-20 border-0 rounded-xl shadow-lg transition-all ${
+                      activeMode === 'barcode' 
+                        ? 'bg-white text-black ring-2 ring-blue-500' 
+                        : 'bg-white/70 text-black/70'
+                    }`}
+                    onClick={() => {
+                      setActiveMode('barcode');
+                      onModeChange?.('barcode');
+                    }}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Barcode</span>
@@ -211,8 +219,15 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
-                    onClick={capturePhoto}
+                    className={`flex flex-col items-center justify-center h-16 w-20 border-0 rounded-xl shadow-lg transition-all ${
+                      activeMode === 'scan-food' 
+                        ? 'bg-white text-black ring-2 ring-blue-500' 
+                        : 'bg-white/70 text-black/70'
+                    }`}
+                    onClick={() => {
+                      setActiveMode('scan-food');
+                      capturePhoto();
+                    }}
                   >
                     <ScanLine className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Scan Food</span>
@@ -220,8 +235,15 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => onModeChange?.('library')}
+                    className={`flex flex-col items-center justify-center h-16 w-20 border-0 rounded-xl shadow-lg transition-all ${
+                      activeMode === 'library' 
+                        ? 'bg-white text-black ring-2 ring-blue-500' 
+                        : 'bg-white/70 text-black/70'
+                    }`}
+                    onClick={() => {
+                      setActiveMode('library');
+                      onModeChange?.('library');
+                    }}
                   >
                     <ImageIcon className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Library</span>
