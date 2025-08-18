@@ -14,6 +14,20 @@ const AllDoneStep = ({ onNext }: AllDoneStepProps) => {
     const icon = iconRef.current;
     const text = textRef.current;
 
+    // Add glow animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes glow {
+        0% {
+          box-shadow: 0 0 40px 15px rgba(74, 212, 178, 0.3);
+        }
+        100% {
+          box-shadow: 0 0 80px 25px rgba(74, 212, 178, 0.6);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
     if (icon) {
       // Animate check icon
       icon.style.opacity = '0';
@@ -37,6 +51,10 @@ const AllDoneStep = ({ onNext }: AllDoneStepProps) => {
         text.style.transform = 'translateY(0)';
       }, 800);
     }
+
+    return () => {
+      document.head.removeChild(style);
+    };
   }, []);
 
   return (
@@ -44,6 +62,14 @@ const AllDoneStep = ({ onNext }: AllDoneStepProps) => {
       <div className="flex-1 flex flex-col justify-center items-center">
         {/* Success illustration */}
         <div ref={iconRef} className="mb-12">
+          {/* Glow effect */}
+          <div className="absolute w-48 h-48 rounded-full animate-pulse" 
+               style={{ 
+                 boxShadow: '0 0 60px 20px rgba(74, 212, 178, 0.4)',
+                 animation: 'glow 2s ease-in-out infinite alternate'
+               }}>
+          </div>
+          
           <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
             <ThumbsUp className="w-12 h-12" style={{ color: '#4AD4B2' }} />
             
