@@ -7,12 +7,14 @@ import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Cell
 import { BarChart3, HelpCircle, Beef, Wheat, Leaf } from 'lucide-react';
 import DayStreakModal from '@/components/DayStreakModal';
 import BMIDetailModal from '@/components/BMIDetailModal';
+import { WeightHistoryModal } from '@/components/WeightHistoryModal';
 
 const Progress = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('1 month');
   const [selectedWeek, setSelectedWeek] = useState('This week');
   const [showDayStreak, setShowDayStreak] = useState(false);
   const [showBMIDetail, setShowBMIDetail] = useState(false);
+  const [showWeightHistory, setShowWeightHistory] = useState(false);
   const dayStreak = 2; // This would come from user data in real app
 
   const periodOptions = ['1 month', '3 months', '6 months', '1 year'];
@@ -167,7 +169,10 @@ const Progress = () => {
 
       {/* Weight and Streak Cards */}
       <div className="grid grid-cols-2 gap-4">
-        <Card className="shadow-lg dark:shadow-xl">
+        <Card 
+          className="shadow-lg dark:shadow-xl cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-shadow"
+          onClick={() => setShowWeightHistory(true)}
+        >
           <CardHeader className="pb-3">
             <CardTitle className="text-sm text-muted-foreground">My Weight</CardTitle>
           </CardHeader>
@@ -472,6 +477,12 @@ const Progress = () => {
         bmi={currentBMI}
         bmiStatus={bmiInfo}
         bmiPosition={bmiPosition}
+      />
+      
+      {/* Weight History Modal */}
+      <WeightHistoryModal 
+        isOpen={showWeightHistory}
+        onClose={() => setShowWeightHistory(false)}
       />
     </div>
   );
