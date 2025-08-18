@@ -213,7 +213,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             </p>
 
             {/* Chart */}
-            <div className="h-48 w-full">
+            <div className="h-48 w-full -ml-2">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={currentData}>
                   <XAxis 
