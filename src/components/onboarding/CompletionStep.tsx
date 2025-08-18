@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef } from 'react';
-import { CheckCircle, Flame, Edit3 } from 'lucide-react';
+import { CheckCircle, Flame, Edit3, Beef, Wheat, Leaf, Heart } from 'lucide-react';
 
 interface CompletionStepProps {
   onGetStarted: () => void;
@@ -45,9 +45,9 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
 
   const metrics = [
     { icon: Flame, label: 'Calories', value: '1960', color: 'text-gray-600' },
-    { icon: '🥖', label: 'Carbs', value: '221g', color: 'text-orange-500' },
-    { icon: '🥩', label: 'Protein', value: '146g', color: 'text-red-500' },
-    { icon: '🥑', label: 'Fats', value: '54g', color: 'text-blue-500' }
+    { icon: Wheat, label: 'Carbs', value: '221g', color: 'text-orange-500' },
+    { icon: Beef, label: 'Protein', value: '146g', color: 'text-red-500' },
+    { icon: Leaf, label: 'Fats', value: '54g', color: 'text-blue-500' }
   ];
 
   return (
@@ -134,7 +134,7 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
           <div className="metric-card bg-muted/30 rounded-2xl p-4 flex items-center justify-between shadow-lg">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                <span className="text-red-500">💖</span>
+                <Heart className="h-5 w-5 text-red-500" />
               </div>
               <span className="font-medium text-foreground">Health Score</span>
             </div>
