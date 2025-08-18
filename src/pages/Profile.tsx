@@ -209,12 +209,12 @@ const Profile = () => {
               <Separator />
 
               {/* Live Activity */}
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center opacity-50">
                 <div>
                   <h4 className="font-medium">{t.liveActivity}</h4>
                   <p className="text-sm text-muted-foreground">{t.liveActivityDesc}</p>
                 </div>
-                <Switch checked={liveActivity} onCheckedChange={setLiveActivity} />
+                <Switch checked={false} disabled />
               </div>
 
               <Separator />
