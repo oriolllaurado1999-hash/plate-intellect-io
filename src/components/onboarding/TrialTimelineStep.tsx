@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Check, Bell, Crown, Unlock } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface TrialTimelineStepProps {
   onNext: () => void;
 }
 
 const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
+  const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly'>('yearly');
   const timelineRef = useRef<HTMLDivElement>(null);
   const plansRef = useRef<HTMLDivElement>(null);
@@ -15,20 +17,20 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   const timelineItems = [
     {
       icon: Unlock,
-      title: "Hoy",
-      description: "Desbloquea todas las funciones de la app como escaneo IA de calorías y más.",
+      title: "Today",
+      description: "Unlock all app features like AI calorie scanning and more.",
       color: "text-orange-500"
     },
     {
       icon: Bell,
-      title: "En 2 Días - Recordatorio",
-      description: "Te enviaremos un recordatorio de que tu prueba está terminando pronto.",
+      title: "In 2 Days - Reminder",
+      description: "We'll send you a reminder that your trial is ending soon.",
       color: "text-orange-500"
     },
     {
       icon: Crown,
-      title: "En 3 Días - Comienza la Facturación",
-      description: "Se te cobrará el 4 Ago 2025 a menos que canceles antes.",
+      title: "In 3 Days - Billing Starts",
+      description: "You'll be charged on Aug 4, 2025 unless you cancel before.",
       color: "text-foreground"
     }
   ];
@@ -80,10 +82,10 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
     <div className="flex flex-col h-full px-6 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground text-center mb-2">
-          Inicia tu prueba GRATUITA
+          Start your FREE trial
         </h1>
         <h2 className="text-3xl font-bold text-foreground text-center mb-8">
-          de 3 días para continuar.
+          of 3 days to continue.
         </h2>
 
         {/* Timeline */}
@@ -131,8 +133,8 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
             onClick={() => setSelectedPlan('monthly')}
           >
             <div className="text-center">
-              <div className="font-bold text-lg text-foreground">Mensual</div>
-              <div className="text-2xl font-bold text-foreground">9,99 € <span className="text-base font-normal">/mes</span></div>
+              <div className="font-bold text-lg text-foreground">Monthly</div>
+              <div className="text-2xl font-bold text-foreground">$9.99 <span className="text-base font-normal">/month</span></div>
               <div className="mt-2">
                 {selectedPlan === 'monthly' ? (
                   <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center mx-auto">
@@ -154,11 +156,11 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
             onClick={() => setSelectedPlan('yearly')}
           >
             <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
-              3 DÍAS GRATIS
+              3 DAYS FREE
             </div>
             <div className="text-center pt-2">
-              <div className="font-bold text-lg text-foreground">Anual</div>
-              <div className="text-2xl font-bold text-foreground">2,99 € <span className="text-base font-normal">/mes</span></div>
+              <div className="font-bold text-lg text-foreground">Annual</div>
+              <div className="text-2xl font-bold text-foreground">$2.99 <span className="text-base font-normal">/month</span></div>
               <div className="mt-2">
                 {selectedPlan === 'yearly' ? (
                   <div className="w-6 h-6 bg-foreground rounded-full flex items-center justify-center mx-auto">
@@ -175,7 +177,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center space-x-2 mb-2" style={{ color: '#4AD4B2' }}>
             <span>✓</span>
-            <span className="font-medium">Sin Pago Inmediato</span>
+            <span className="font-medium">No Immediate Payment</span>
           </div>
         </div>
       </div>
@@ -185,12 +187,12 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full mb-4"
         >
-          Iniciar Mi Prueba Gratuita de 3 Días
+          Start My 3-Day Free Trial
         </Button>
         <div className="text-center text-sm text-muted-foreground">
           {selectedPlan === 'monthly' 
-            ? '3 días gratis, luego 9,99 € al mes' 
-            : '3 días gratis, luego 35,88 € al año (2,99 €/mes)'
+            ? '3 days free, then $9.99 per month' 
+            : '3 days free, then $35.88 per year ($2.99/month)'
           }
         </div>
       </div>
