@@ -199,10 +199,10 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
               {/* Bottom Controls */}
               <div className="absolute bottom-0 left-0 right-0 pb-4">
                 {/* Function buttons */}
-                <div className="flex justify-center space-x-3 px-6 mb-6">
+                <div className="flex justify-center space-x-4 px-6 mb-6">
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-3 bg-white text-black border-0 rounded-xl shadow-lg ring-2 ring-blue-500"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white text-black border-0 rounded-xl shadow-lg ring-2 ring-blue-500"
                     onClick={capturePhoto}
                   >
                     <ScanLine className="h-5 w-5 mb-1" />
@@ -211,7 +211,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/70 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
                     onClick={() => onModeChange?.('barcode')}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />
@@ -220,16 +220,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/70 text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => onModeChange?.('food-label')}
-                  >
-                    <Upload className="h-5 w-5 mb-1" />
-                    <span className="text-xs font-medium">Food label</span>
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-3 bg-white/70 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
                     onClick={() => onModeChange?.('library')}
                   >
                     <ImageIcon className="h-5 w-5 mb-1" />

@@ -25,34 +25,7 @@ const CameraOptions = ({ onClose, onScanFood, onBarcodeScanner }: CameraOptionsP
         </div>
 
         {/* Options Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="outline"
-            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent"
-            onClick={() => {/* TODO: Implement log exercise */}}
-          >
-            <Dumbbell className="h-6 w-6" />
-            <span className="text-sm font-medium">Log exercise</span>
-          </Button>
-
-          <Button
-            variant="outline"
-            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent"
-            onClick={() => {/* TODO: Implement saved foods */}}
-          >
-            <Bookmark className="h-6 w-6" />
-            <span className="text-sm font-medium">Saved foods</span>
-          </Button>
-
-          <Button
-            variant="outline"
-            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent"
-            onClick={() => {/* TODO: Implement food database */}}
-          >
-            <Search className="h-6 w-6" />
-            <span className="text-sm font-medium">Food Database</span>
-          </Button>
-
+        <div className="grid grid-cols-3 gap-4">
           <Button
             variant="outline"
             className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent"
@@ -64,14 +37,23 @@ const CameraOptions = ({ onClose, onScanFood, onBarcodeScanner }: CameraOptionsP
 
           <Button
             variant="outline"
-            className="flex flex-col items-center justify-center h-24 space-y-2 bg-primary text-primary-foreground hover:bg-primary/90 col-span-2 ring-2 ring-primary/50"
+            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent"
             onClick={() => {
               console.log('Barcode Scanner button clicked');
               onBarcodeScanner();
             }}
           >
             <CreditCard className="h-6 w-6" />
-            <span className="text-sm font-medium">Barcode Scanner</span>
+            <span className="text-sm font-medium">Barcode</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent"
+            onClick={() => {/* TODO: Implement library */}}
+          >
+            <Search className="h-6 w-6" />
+            <span className="text-sm font-medium">Library</span>
           </Button>
         </div>
       </div>
