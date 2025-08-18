@@ -39,7 +39,7 @@ const SpeedStep = ({ selected, onSelect, onNext }: SpeedStepProps) => {
   // Get informative message based on current speed
   const getInformativeMessage = () => {
     if (speed <= 0.3) {
-      return "Very calm pace. Ideal for maintaining energy and being consistent long-term.";
+      return "Really? Come on... I know you don't want to go that slow.";
     } else if (speed <= 0.6) {
       return "Moderate and sustainable pace. Perfect balance between results and well-being.";
     } else if (speed <= 1.0) {
