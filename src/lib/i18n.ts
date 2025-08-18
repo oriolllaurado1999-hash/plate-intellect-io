@@ -164,6 +164,33 @@ export interface Translations {
   enterYourWeight: string;
   weightMeasurementNote: string;
   allRecordings: string;
+  
+  // Auth page
+  calorieTracking: string;
+  madeEasy: string;
+  getStarted: string;
+  alreadyHaveAccount: string;
+  signIn: string;
+  createAccount: string;
+  welcomeBack: string;
+  continueWithGoogle: string;
+  or: string;
+  email: string;
+  password: string;
+  emailPlaceholder: string;
+  passwordPlaceholder: string;
+  dontHaveAccount: string;
+  signUp: string;
+  fillAllFields: string;
+  accountCreatedSuccess: string;
+  termsPrivacy: string;
+  
+  // Onboarding
+  continue: string;
+  chooseYourGender: string;
+  genderDescription: string;
+  male: string;
+  female: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -337,7 +364,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Weight (kg)",
     enterYourWeight: "Enter your weight",
     weightMeasurementNote: "Note: You can only add one measurement every 7 days.",
-    allRecordings: "All Recordings"
+    allRecordings: "All Recordings",
+    
+    // Auth page
+    calorieTracking: "Calorie tracking",
+    madeEasy: "made easy",
+    getStarted: "Get Started",
+    alreadyHaveAccount: "Already have an account?",
+    signIn: "Sign In",
+    createAccount: "Create Account",
+    welcomeBack: "Welcome Back",
+    continueWithGoogle: "Continue with Google",
+    or: "or",
+    email: "Email",
+    password: "Password",
+    emailPlaceholder: "your@email.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "Don't have an account?",
+    signUp: "Sign up",
+    fillAllFields: "Please fill in all fields",
+    accountCreatedSuccess: "Account created successfully! You can now sign in.",
+    termsPrivacy: "By continuing, you agree to our Terms of Service and Privacy Policy",
+    
+    // Onboarding
+    continue: "Continue",
+    chooseYourGender: "Choose your Gender",
+    genderDescription: "This will be used to calibrate your custom plan.",
+    male: "Male",
+    female: "Female"
   },
 
   es: {
@@ -510,7 +564,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Peso (kg)",
     enterYourWeight: "Ingresa tu peso",
     weightMeasurementNote: "Nota: Solo puedes agregar una medición cada 7 días.",
-    allRecordings: "Todos los Registros"
+    allRecordings: "Todos los Registros",
+    
+    // Auth page
+    calorieTracking: "Seguimiento de calorías",
+    madeEasy: "hecho fácil",
+    getStarted: "Comenzar",
+    alreadyHaveAccount: "¿Ya tienes una cuenta?",
+    signIn: "Iniciar Sesión",
+    createAccount: "Crear Cuenta",
+    welcomeBack: "Bienvenido de Nuevo",
+    continueWithGoogle: "Continuar con Google",
+    or: "o",
+    email: "Correo",
+    password: "Contraseña",
+    emailPlaceholder: "tu@correo.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "¿No tienes una cuenta?",
+    signUp: "Registrarse",
+    fillAllFields: "Por favor completa todos los campos",
+    accountCreatedSuccess: "¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.",
+    termsPrivacy: "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad",
+    
+    // Onboarding
+    continue: "Continuar",
+    chooseYourGender: "Elige tu Género",
+    genderDescription: "Esto será usado para calibrar tu plan personalizado.",
+    male: "Masculino",
+    female: "Femenino"
   },
 
   zh: {
@@ -683,7 +764,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "体重（公斤）",
     enterYourWeight: "输入您的体重",
     weightMeasurementNote: "注意：您每7天只能添加一次测量。",
-    allRecordings: "所有记录"
+    allRecordings: "所有记录",
+    
+    // Auth page
+    calorieTracking: "卡路里追踪",
+    madeEasy: "变得简单",
+    getStarted: "开始",
+    alreadyHaveAccount: "已有账户？",
+    signIn: "登录",
+    createAccount: "创建账户",
+    welcomeBack: "欢迎回来",
+    continueWithGoogle: "使用Google继续",
+    or: "或",
+    email: "邮箱",
+    password: "密码",
+    emailPlaceholder: "你的@邮箱.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "没有账户？",
+    signUp: "注册",
+    fillAllFields: "请填写所有字段",
+    accountCreatedSuccess: "账户创建成功！现在您可以登录了。",
+    termsPrivacy: "继续即表示您同意我们的服务条款和隐私政策",
+    
+    // Onboarding
+    continue: "继续",
+    chooseYourGender: "选择您的性别",
+    genderDescription: "这将用于校准您的个人计划。",
+    male: "男性",
+    female: "女性"
   },
 
   pt: {
@@ -856,7 +964,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Peso (kg)",
     enterYourWeight: "Digite seu peso",
     weightMeasurementNote: "Nota: Você só pode adicionar uma medição a cada 7 dias.",
-    allRecordings: "Todas as Gravações"
+    allRecordings: "Todas as Gravações",
+    
+    // Auth page
+    calorieTracking: "Rastreamento de calorias",
+    madeEasy: "feito fácil",
+    getStarted: "Começar",
+    alreadyHaveAccount: "Já tem uma conta?",
+    signIn: "Entrar",
+    createAccount: "Criar Conta",
+    welcomeBack: "Bem-vindo de volta",
+    continueWithGoogle: "Continuar com Google",
+    or: "ou",
+    email: "Email",
+    password: "Senha",
+    emailPlaceholder: "seu@email.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "Não tem uma conta?",
+    signUp: "Inscrever-se",
+    fillAllFields: "Por favor preencha todos os campos",
+    accountCreatedSuccess: "Conta criada com sucesso! Agora você pode entrar.",
+    termsPrivacy: "Ao continuar, você concorda com nossos Termos de Serviço e Política de Privacidade",
+    
+    // Onboarding
+    continue: "Continuar",
+    chooseYourGender: "Escolha seu Gênero",
+    genderDescription: "Isso será usado para calibrar seu plano personalizado.",
+    male: "Masculino",
+    female: "Feminino"
   },
 
   fr: {
@@ -1029,7 +1164,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Poids (kg)",
     enterYourWeight: "Entrez votre poids",
     weightMeasurementNote: "Note : Vous ne pouvez ajouter qu'une mesure tous les 7 jours.",
-    allRecordings: "Tous les Enregistrements"
+    allRecordings: "Tous les Enregistrements",
+    
+    // Auth page
+    calorieTracking: "Suivi des calories",
+    madeEasy: "rendu facile",
+    getStarted: "Commencer",
+    alreadyHaveAccount: "Vous avez déjà un compte ?",
+    signIn: "Se connecter",
+    createAccount: "Créer un compte",
+    welcomeBack: "Bon retour",
+    continueWithGoogle: "Continuer avec Google",
+    or: "ou",
+    email: "Email",
+    password: "Mot de passe",
+    emailPlaceholder: "votre@email.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "Vous n'avez pas de compte ?",
+    signUp: "S'inscrire",
+    fillAllFields: "Veuillez remplir tous les champs",
+    accountCreatedSuccess: "Compte créé avec succès ! Vous pouvez maintenant vous connecter.",
+    termsPrivacy: "En continuant, vous acceptez nos Conditions de Service et notre Politique de Confidentialité",
+    
+    // Onboarding
+    continue: "Continuer",
+    chooseYourGender: "Choisissez votre Genre",
+    genderDescription: "Ceci sera utilisé pour calibrer votre plan personnalisé.",
+    male: "Homme",
+    female: "Femme"
   },
 
   de: {
@@ -1202,7 +1364,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Gewicht (kg)",
     enterYourWeight: "Geben Sie Ihr Gewicht ein",
     weightMeasurementNote: "Hinweis: Sie können nur alle 7 Tage eine Messung hinzufügen.",
-    allRecordings: "Alle Aufzeichnungen"
+    allRecordings: "Alle Aufzeichnungen",
+    
+    // Auth page
+    calorieTracking: "Kalorienverfolgung",
+    madeEasy: "einfach gemacht",
+    getStarted: "Loslegen",
+    alreadyHaveAccount: "Haben Sie bereits ein Konto?",
+    signIn: "Anmelden",
+    createAccount: "Konto erstellen",
+    welcomeBack: "Willkommen zurück",
+    continueWithGoogle: "Mit Google fortfahren",
+    or: "oder",
+    email: "E-Mail",
+    password: "Passwort",
+    emailPlaceholder: "ihre@email.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "Haben Sie kein Konto?",
+    signUp: "Registrieren",
+    fillAllFields: "Bitte füllen Sie alle Felder aus",
+    accountCreatedSuccess: "Konto erfolgreich erstellt! Sie können sich jetzt anmelden.",
+    termsPrivacy: "Durch Fortfahren stimmen Sie unseren Nutzungsbedingungen und Datenschutzrichtlinien zu",
+    
+    // Onboarding
+    continue: "Weiter",
+    chooseYourGender: "Wählen Sie Ihr Geschlecht",
+    genderDescription: "Dies wird verwendet, um Ihren individuellen Plan zu kalibrieren.",
+    male: "Männlich",
+    female: "Weiblich"
   },
 
   it: {
@@ -1375,7 +1564,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Peso (kg)",
     enterYourWeight: "Inserisci il tuo peso",
     weightMeasurementNote: "Nota: Puoi aggiungere solo una misurazione ogni 7 giorni.",
-    allRecordings: "Tutte le Registrazioni"
+    allRecordings: "Tutte le Registrazioni",
+    
+    // Auth page
+    calorieTracking: "Tracciamento calorie",
+    madeEasy: "reso facile",
+    getStarted: "Inizia",
+    alreadyHaveAccount: "Hai già un account?",
+    signIn: "Accedi",
+    createAccount: "Crea Account",
+    welcomeBack: "Bentornato",
+    continueWithGoogle: "Continua con Google",
+    or: "o",
+    email: "Email",
+    password: "Password",
+    emailPlaceholder: "tua@email.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "Non hai un account?",
+    signUp: "Registrati",
+    fillAllFields: "Si prega di compilare tutti i campi",
+    accountCreatedSuccess: "Account creato con successo! Ora puoi accedere.",
+    termsPrivacy: "Continuando, accetti i nostri Termini di Servizio e l'Informativa sulla Privacy",
+    
+    // Onboarding
+    continue: "Continua",
+    chooseYourGender: "Scegli il tuo Genere",
+    genderDescription: "Questo sarà utilizzato per calibrare il tuo piano personalizzato.",
+    male: "Maschio",
+    female: "Femmina"
   },
 
   ru: {
@@ -1548,7 +1764,34 @@ export const translations: Record<string, Translations> = {
     weightKg: "Вес (кг)",
     enterYourWeight: "Введите ваш вес",
     weightMeasurementNote: "Примечание: Вы можете добавлять только одно измерение каждые 7 дней.",
-    allRecordings: "Все Записи"
+    allRecordings: "Все Записи",
+    
+    // Auth page
+    calorieTracking: "Отслеживание калорий",
+    madeEasy: "стало просто",
+    getStarted: "Начать",
+    alreadyHaveAccount: "Уже есть аккаунт?",
+    signIn: "Войти",
+    createAccount: "Создать аккаунт",
+    welcomeBack: "Добро пожаловать обратно",
+    continueWithGoogle: "Продолжить с Google",
+    or: "или",
+    email: "Email",
+    password: "Пароль",
+    emailPlaceholder: "ваш@email.com",
+    passwordPlaceholder: "••••••••",
+    dontHaveAccount: "Нет аккаунта?",
+    signUp: "Зарегистрироваться",
+    fillAllFields: "Пожалуйста, заполните все поля",
+    accountCreatedSuccess: "Аккаунт успешно создан! Теперь вы можете войти.",
+    termsPrivacy: "Продолжая, вы соглашаетесь с нашими Условиями обслуживания и Политикой конфиденциальности",
+    
+    // Onboarding
+    continue: "Продолжить",
+    chooseYourGender: "Выберите ваш пол",
+    genderDescription: "Это будет использовано для калибровки вашего персонального плана.",
+    male: "Мужской",
+    female: "Женский"
   }
 };
 

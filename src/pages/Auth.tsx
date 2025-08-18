@@ -9,10 +9,13 @@ import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Camera, Utensils } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/hooks/useTranslation';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showAuthForm, setShowAuthForm] = useState(false);
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,6 +24,7 @@ const Auth = () => {
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t, currentLanguage, changeLanguage } = useTranslation();
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -31,7 +35,7 @@ const Auth = () => {
     if (error) {
       setError(error.message);
       toast({
-        title: "Error",
+        title: t.error,
         description: error.message,
         variant: "destructive"
       });
@@ -48,7 +52,7 @@ const Auth = () => {
     setError('');
 
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError(t.fillAllFields);
       setLoading(false);
       return;
     }
@@ -60,7 +64,7 @@ const Auth = () => {
     if (error) {
       setError(error.message);
       toast({
-        title: "Error",
+        title: t.error,
         description: error.message,
         variant: "destructive"
       });
@@ -68,7 +72,7 @@ const Auth = () => {
       if (isSignUp) {
         toast({
           title: "Success",
-          description: "Account created successfully! You can now sign in.",
+          description: t.accountCreatedSuccess,
         });
         setIsSignUp(false);
       } else {
@@ -79,13 +83,33 @@ const Auth = () => {
     setLoading(false);
   };
 
+  // Get current language display info
+  const getCurrentLanguageInfo = () => {
+    const languages = [
+      { code: 'en', name: 'English', flag: '🇺🇸' },
+      { code: 'es', name: 'Español', flag: '🇪🇸' },
+      { code: 'zh', name: '中国人', flag: '🇨🇳' },
+      { code: 'pt', name: 'Português', flag: '🇧🇷' },
+      { code: 'fr', name: 'Français', flag: '🇫🇷' },
+      { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+      { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+      { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    ];
+    return languages.find(lang => lang.code === currentLanguage) || languages[0];
+  };
+
+  const currentLangInfo = getCurrentLanguageInfo();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 light relative">
       {/* Language Selector */}
       <div className="absolute top-4 right-4">
-        <button className="flex items-center gap-1.5 px-2 py-1.5 bg-white rounded-full shadow-sm border border-gray-200 hover:bg-gray-50">
-          <span className="text-sm">🇺🇸</span>
-          <span className="text-xs font-medium text-gray-700">EN</span>
+        <button 
+          onClick={() => setShowLanguageSelector(true)}
+          className="flex items-center gap-1.5 px-2 py-1.5 bg-white rounded-full shadow-sm border border-gray-200 hover:bg-gray-50"
+        >
+          <span className="text-sm">{currentLangInfo.flag}</span>
+          <span className="text-xs font-medium text-gray-700">{currentLangInfo.code.toUpperCase()}</span>
         </button>
       </div>
       
@@ -98,7 +122,7 @@ const Auth = () => {
         {/* Title */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Calorie tracking<br />made easy
+            {t.calorieTracking}<br />{t.madeEasy}
           </h1>
         </div>
 
@@ -110,7 +134,7 @@ const Auth = () => {
           }}
           className="w-full h-14 bg-black text-white font-medium rounded-full text-lg hover:bg-gray-800 mb-4"
         >
-          Get Started
+          {t.getStarted}
         </Button>
 
         {/* Sign In Link */}
@@ -122,7 +146,7 @@ const Auth = () => {
             }}
             className="text-gray-600 hover:text-gray-800"
           >
-            Already have an account? <span className="font-medium">Sign In</span>
+            {t.alreadyHaveAccount} <span className="font-medium">{t.signIn}</span>
           </button>
         </div>
 
@@ -133,7 +157,7 @@ const Auth = () => {
               <CardHeader className="space-y-1 pb-4">
                 <div className="flex justify-between items-center">
                   <CardTitle className="text-2xl text-gray-800 font-bold">
-                    {isSignUp ? 'Create Account' : 'Welcome Back'}
+                    {isSignUp ? t.createAccount : t.welcomeBack}
                   </CardTitle>
                   <button
                     onClick={() => {
@@ -180,7 +204,7 @@ const Auth = () => {
                       />
                     </svg>
                   )}
-                  Continue with Google
+                  {t.continueWithGoogle}
                 </Button>
 
                 <div className="relative">
@@ -188,18 +212,18 @@ const Auth = () => {
                     <Separator />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-gray-500">or</span>
+                    <span className="bg-white px-2 text-gray-500">{t.or}</span>
                   </div>
                 </div>
 
                 {/* Email Form */}
                 <form onSubmit={handleEmailAuth} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
+                    <Label htmlFor="email" className="text-gray-700 font-medium">{t.email}</Label>
                     <Input
                       id="email"
                       type="email"
-                      placeholder="your@email.com"
+                      placeholder={t.emailPlaceholder}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       disabled={loading}
@@ -208,11 +232,11 @@ const Auth = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
+                    <Label htmlFor="password" className="text-gray-700 font-medium">{t.password}</Label>
                     <Input
                       id="password"
                       type="password"
-                      placeholder="••••••••"
+                      placeholder={t.passwordPlaceholder}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       disabled={loading}
@@ -234,7 +258,7 @@ const Auth = () => {
                     {loading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     ) : null}
-                    {isSignUp ? 'Create Account' : 'Sign In'}
+                    {isSignUp ? t.createAccount : t.signIn}
                   </Button>
                 </form>
 
@@ -246,8 +270,8 @@ const Auth = () => {
                     disabled={loading}
                   >
                     {isSignUp 
-                      ? 'Already have an account? Sign in' 
-                      : "Don't have an account? Sign up"
+                      ? t.alreadyHaveAccount + ' ' + t.signIn.toLowerCase()
+                      : t.dontHaveAccount + ' ' + t.signUp
                     }
                   </button>
                 </div>
@@ -257,9 +281,16 @@ const Auth = () => {
         )}
 
         <p className="text-center text-xs text-gray-500 mt-6">
-          By continuing, you agree to our Terms of Service and Privacy Policy
+          {t.termsPrivacy}
         </p>
       </div>
+
+      <LanguageSelector
+        isOpen={showLanguageSelector}
+        onClose={() => setShowLanguageSelector(false)}
+        currentLanguage={currentLanguage}
+        onLanguageSelect={changeLanguage}
+      />
     </div>
   );
 };
