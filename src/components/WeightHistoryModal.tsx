@@ -148,6 +148,20 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
     console.log('Saving weight:', weight);
   };
 
+  const handlePreviousPeriod = () => {
+    const periods: ('W' | 'M' | '6M')[] = ['W', 'M', '6M'];
+    const currentIndex = periods.indexOf(selectedPeriod);
+    const previousIndex = currentIndex > 0 ? currentIndex - 1 : periods.length - 1;
+    setSelectedPeriod(periods[previousIndex]);
+  };
+
+  const handleNextPeriod = () => {
+    const periods: ('W' | 'M' | '6M')[] = ['W', 'M', '6M'];
+    const currentIndex = periods.indexOf(selectedPeriod);
+    const nextIndex = currentIndex < periods.length - 1 ? currentIndex + 1 : 0;
+    setSelectedPeriod(periods[nextIndex]);
+  };
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -178,8 +192,8 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             </div>
 
             {/* Period Selector */}
-            <div className="flex items-center justify-between">
-              <Button variant="ghost" size="icon">
+            <div className="flex items-center justify-between bg-muted/30 rounded-lg p-2">
+              <Button variant="ghost" size="icon" onClick={handlePreviousPeriod}>
                 <ArrowLeft className="h-4 w-4" />
               </Button>
               
@@ -196,7 +210,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
                 ))}
               </div>
 
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" onClick={handleNextPeriod}>
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
@@ -213,32 +227,34 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             </p>
 
             {/* Chart */}
-            <div className="h-48 w-full -ml-6">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={currentData} margin={{ left: 0, right: 10, top: 5, bottom: 5 }}>
-                  <XAxis 
-                    dataKey="date" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-                    interval={0}
-                  />
-                  <YAxis 
-                    domain={[80, 84]}
-                    ticks={[80, 81, 82, 83, 84]}
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="weight" 
-                    stroke="hsl(var(--primary))" 
-                    strokeWidth={2}
-                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 4 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+            <div className="p-4 rounded-lg border border-border bg-card">
+              <div className="h-48 w-full -ml-6">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={currentData} margin={{ left: 0, right: 10, top: 5, bottom: 5 }}>
+                    <XAxis 
+                      dataKey="date" 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                      interval={0}
+                    />
+                    <YAxis 
+                      domain={[80, 84]}
+                      ticks={[80, 81, 82, 83, 84]}
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="weight" 
+                      stroke="hsl(var(--primary))" 
+                      strokeWidth={2}
+                      dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 4 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
             <p className="text-xs text-muted-foreground">
@@ -262,14 +278,6 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
               >
                 <BarChart3 className="h-4 w-4" />
                 SEE ALL RECORDINGS
-              </Button>
-            </div>
-
-            {/* Learn More Footer */}
-            <div className="flex items-center justify-between pt-4">
-              <span className="text-xs text-muted-foreground">LEARN MORE</span>
-              <Button variant="ghost" size="sm" className="text-muted-foreground">
-                VIEW ALL →
               </Button>
             </div>
           </div>
