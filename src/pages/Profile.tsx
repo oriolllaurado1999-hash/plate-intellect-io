@@ -82,26 +82,6 @@ const Profile = () => {
             </CardContent>
           </Card>
 
-          {/* Invite Friends */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                {t.inviteFriends}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 text-center">
-                <h3 className="font-semibold mb-2">{t.journeyEasierTogether}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{t.earnForEachFriend}</p>
-                <div className="bg-green-500 text-white rounded-lg py-2 px-4 mb-3 font-medium">
-                  {t.comingSoon}
-                </div>
-                <Button className="w-full" disabled>{t.shareInviteLink}</Button>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Personal Details */}
           <Card>
             <CardContent className="p-4">
