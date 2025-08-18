@@ -126,7 +126,6 @@ const WelcomeDashboardStep = ({ onComplete }: WelcomeDashboardStepProps) => {
           </h2>
           
           <div className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-6 py-3">
-            <Sparkles className="w-5 h-5 text-primary" />
             <span className="text-primary font-medium">Preparando tu experiencia...</span>
           </div>
         </div>
