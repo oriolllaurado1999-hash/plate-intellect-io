@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, Upload, X, Loader2, ScanLine, Zap, CreditCard, Image as ImageIcon } from 'lucide-react';
+import BarcodeScanner from './BarcodeScanner';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/hooks/useTranslation';
 import { supabase } from '@/integrations/supabase/client';
@@ -32,8 +33,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [activeMode, setActiveMode] = useState<'scan-food' | 'barcode' | 'library'>('scan-food');
-  const [isScanning, setIsScanning] = useState(false);
-  const [barcodeAnalyzing, setBarcodeAnalyzing] = useState(false);
+  const [showBarcodeScanner, setShowBarcodeScanner] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -120,84 +120,20 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
   const handleBarcodeMode = () => {
     setActiveMode('barcode');
-    setIsScanning(true);
-    
-    // Show initial instruction
-    toast({
-      title: t.barcodeScanner,
-      description: t.positionBarcodeInFrame,
-      duration: 3000
-    });
-
-    // Show analyzing notification after 2 seconds
-    setTimeout(() => {
-      if (isScanning) {
-        setBarcodeAnalyzing(true);
-        toast({
-          title: t.analyzing,
-          description: t.keepBarcodeVisible,
-          duration: 4000
-        });
-        
-        // Simulate barcode detection after 3 more seconds
-        setTimeout(() => {
-          if (barcodeAnalyzing) {
-            handleBarcodeDetected();
-          }
-        }, 3000);
-      }
-    }, 2000);
-    
+    setShowBarcodeScanner(true);
+    stopCamera(); // Stop the main camera
     onModeChange?.('barcode');
   };
 
-  const handleBarcodeDetected = async () => {
-    setBarcodeAnalyzing(false);
-    setIsScanning(false);
-    
-    // Capture the current frame for the analysis
-    if (videoRef.current && canvasRef.current) {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
+  const handleBarcodeClose = () => {
+    setShowBarcodeScanner(false);
+    setActiveMode('scan-food');
+    startCamera(); // Restart main camera
+  };
 
-      if (context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0);
-        
-        const imageDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-        
-        // Close camera and complete analysis
-        stopCamera();
-        onClose();
-        
-        // Create mock barcode analysis result
-        const mockAnalysis: FoodAnalysis = {
-          foods: [{
-            name: "Producto escaneado",
-            quantity: 1,
-            calories: 250,
-            protein: 8,
-            carbs: 35,
-            fat: 12,
-            fiber: 3,
-            confidence: 0.95
-          }],
-          overall_confidence: 0.95,
-          meal_name: "Producto de código de barras"
-        };
-        
-        // Call the analysis complete callback
-        onAnalysisComplete(mockAnalysis, imageDataUrl);
-        
-        toast({
-          title: t.barcodeDetected || "Código detectado",
-          description: "Análisis completado exitosamente",
-          duration: 3000
-        });
-      }
-    }
+  const handleProductAdded = () => {
+    setShowBarcodeScanner(false);
+    onClose(); // Close the entire camera component
   };
 
   const analyzeImage = async () => {
@@ -248,6 +184,16 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     startCamera();
   };
 
+  // Show the barcode scanner if active
+  if (showBarcodeScanner) {
+    return (
+      <BarcodeScanner
+        onClose={handleBarcodeClose}
+        onProductAdded={handleProductAdded}
+      />
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-black z-50">
       {!capturedImage ? (
@@ -275,7 +221,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                     <X className="h-5 w-5" />
                   </button>
                   <span className="text-white font-medium text-lg">
-                    {activeMode === 'barcode' ? t.barcodeScanner : t.scanFood}
+                    {t.scanFood}
                   </span>
                   <div className="w-10 h-10"></div> {/* Spacer */}
                 </div>
@@ -283,33 +229,13 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
               {/* Scanning Frame */}
               <div className="absolute inset-0 flex items-center justify-center">
-                {activeMode === 'barcode' ? (
-                  // Rectangular frame for barcode scanning
-                  <div className={`relative w-80 h-48 border-4 rounded-lg transition-colors duration-300 ${
-                    barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                  }`}>
-                    <div className={`absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                    <div className={`absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                    <div className={`absolute bottom-0 left-0 w-8 h-8 border-l-4 border-b-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                    <div className={`absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                  </div>
-                ) : (
-                  // Square frame for food scanning
-                  <div className="relative w-64 h-64">
-                    <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-white"></div>
-                    <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-white"></div>
-                    <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-white"></div>
-                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-white"></div>
-                  </div>
-                )}
+                {/* Square frame for food scanning */}
+                <div className="relative w-64 h-64">
+                  <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-white"></div>
+                  <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-white"></div>
+                  <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-white"></div>
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-white"></div>
+                </div>
               </div>
 
               {/* Bottom Controls */}
@@ -323,10 +249,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                         ? 'bg-white text-black ring-2 ring-blue-500' 
                         : 'bg-white/70 text-black/70'
                     }`}
-                    onClick={() => {
-                      setActiveMode('barcode');
-                      handleBarcodeMode();
-                    }}
+                    onClick={handleBarcodeMode}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Barcode</span>
