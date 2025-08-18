@@ -47,7 +47,7 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
 
   return (
     <>
-      <div className="flex flex-col h-full px-6 py-8 pb-32">
+      <div className="px-6 py-8 h-full">
         <div className="flex-1 flex flex-col justify-center text-center">
           <div className="mb-12">
             <h1 className="text-3xl font-bold text-foreground mb-8">
