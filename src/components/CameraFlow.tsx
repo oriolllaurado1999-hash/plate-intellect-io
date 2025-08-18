@@ -34,6 +34,7 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
   };
 
   const handleBarcodeScanner = () => {
+    console.log('Navigating to barcode scanner');
     setCurrentStep('barcode');
   };
 

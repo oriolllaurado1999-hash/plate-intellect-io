@@ -25,6 +25,7 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
 
   // Configure transformers.js
   useEffect(() => {
+    console.log('BarcodeScanner component mounted');
     env.allowLocalModels = false;
     env.useBrowserCache = true;
   }, []);
@@ -48,6 +49,7 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
   };
 
   const startCamera = async () => {
+    console.log('Starting camera for barcode scanning...');
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: { 
