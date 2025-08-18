@@ -282,7 +282,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
               </div>
 
               {/* Scanning Frame */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center" style={{ marginTop: '-60px' }}>
                 {activeMode === 'barcode' ? (
                   // Rectangular frame for barcode scanning
                   <div className={`relative w-80 h-48 border-4 rounded-lg transition-colors duration-300 ${
