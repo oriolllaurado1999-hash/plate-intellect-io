@@ -202,7 +202,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                 <div className="flex justify-center space-x-4 px-6 mb-6">
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white text-black border-0 rounded-xl shadow-lg ring-2 ring-blue-500"
+                    className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
                     onClick={capturePhoto}
                   >
                     <ScanLine className="h-5 w-5 mb-1" />
@@ -211,7 +211,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
                     onClick={() => onModeChange?.('barcode')}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />
@@ -220,7 +220,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
                   <Button
                     variant="outline"
-                    className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
+                    className="flex flex-col items-center justify-center h-16 w-20 bg-white text-black border-0 rounded-xl shadow-lg"
                     onClick={() => onModeChange?.('library')}
                   >
                     <ImageIcon className="h-5 w-5 mb-1" />
