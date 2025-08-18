@@ -297,8 +297,8 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                         boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)'
                       }}
                     >
-                      {/* Simple white rectangle border */}
-                      <div className={`absolute inset-0 border-2 transition-colors duration-300 ${
+                      {/* Simple white rectangle border with rounded corners */}
+                      <div className={`absolute inset-0 border-2 rounded-lg transition-colors duration-300 ${
                         barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
                       }`}></div>
                     </div>
