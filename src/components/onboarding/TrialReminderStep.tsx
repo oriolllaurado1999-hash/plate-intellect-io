@@ -46,13 +46,21 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
       }, 600);
     }
 
-    // Add keyframes for swing animation
+    // Add keyframes for animations
     const style = document.createElement('style');
     style.textContent = `
       @keyframes gentle-swing {
         0%, 100% { transform: scale(1) rotate(0deg); }
         25% { transform: scale(1) rotate(3deg); }
         75% { transform: scale(1) rotate(-3deg); }
+      }
+      @keyframes glow-red {
+        0% {
+          box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+        100% {
+          box-shadow: 0 0 25px rgba(239, 68, 68, 0.8);
+        }
       }
     `;
     document.head.appendChild(style);
@@ -84,22 +92,13 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
               <Bell className="w-16 h-16 text-muted-foreground" />
               
               {/* Notification badge */}
-              <div className="absolute -top-2 -right-2 w-8 h-8 bg-destructive rounded-full flex items-center justify-center">
+              <div className="absolute -top-2 -right-2 w-8 h-8 bg-destructive rounded-full flex items-center justify-center animate-pulse shadow-lg" 
+                   style={{
+                     animation: 'glow-red 2s ease-in-out infinite alternate',
+                     boxShadow: '0 0 20px rgba(239, 68, 68, 0.6)'
+                   }}>
                 <span className="text-destructive-foreground font-bold text-sm">1</span>
               </div>
-              
-              {/* Notification lines */}
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-1 h-8 bg-primary/30 rounded-full animate-pulse"
-                  style={{
-                    top: `${-20 - i * 10}px`,
-                    right: `${10 + i * 5}px`,
-                    animationDelay: `${i * 0.2}s`,
-                  }}
-                />
-              ))}
             </div>
           </div>
         </div>
