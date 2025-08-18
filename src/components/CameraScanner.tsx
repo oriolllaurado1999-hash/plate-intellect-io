@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Camera, Upload, X, Loader2, ScanLine, Zap, CreditCard, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/hooks/useTranslation';
 import { supabase } from '@/integrations/supabase/client';
 
 interface FoodAnalysis {
@@ -31,10 +32,12 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [activeMode, setActiveMode] = useState<'scan-food' | 'barcode' | 'library'>('scan-food');
+  const [isScanning, setIsScanning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   // Start camera automatically when component mounts
   useEffect(() => {
@@ -114,6 +117,31 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
     fileInputRef.current?.click();
   };
 
+  const handleBarcodeMode = () => {
+    setActiveMode('barcode');
+    setIsScanning(true);
+    
+    // Show initial instruction
+    toast({
+      title: t.barcodeScanner,
+      description: t.positionBarcodeInFrame,
+      duration: 3000
+    });
+
+    // Show analyzing notification after 2 seconds
+    setTimeout(() => {
+      if (isScanning) {
+        toast({
+          title: t.analyzing,
+          description: t.keepBarcodeVisible,
+          duration: 4000
+        });
+      }
+    }, 2000);
+    
+    onModeChange?.('barcode');
+  };
+
   const analyzeImage = async () => {
     if (!capturedImage) return;
 
@@ -188,20 +216,32 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                   >
                     <X className="h-5 w-5" />
                   </button>
-                  <span className="text-white font-medium text-lg">Scan Food</span>
+                  <span className="text-white font-medium text-lg">
+                    {activeMode === 'barcode' ? t.barcodeScanner : t.scanFood}
+                  </span>
                   <div className="w-10 h-10"></div> {/* Spacer */}
                 </div>
               </div>
 
               {/* Scanning Frame */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-64 h-64">
-                  {/* Corner frames */}
-                  <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-white"></div>
-                  <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-white"></div>
-                  <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-white"></div>
-                  <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-white"></div>
-                </div>
+                {activeMode === 'barcode' ? (
+                  // Rectangular frame for barcode scanning
+                  <div className="relative w-80 h-48 border-4 border-white rounded-lg">
+                    <div className="absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 border-white"></div>
+                    <div className="absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 border-white"></div>
+                    <div className="absolute bottom-0 left-0 w-8 h-8 border-l-4 border-b-4 border-white"></div>
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 border-white"></div>
+                  </div>
+                ) : (
+                  // Square frame for food scanning
+                  <div className="relative w-64 h-64">
+                    <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-white"></div>
+                    <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-white"></div>
+                    <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-white"></div>
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-white"></div>
+                  </div>
+                )}
               </div>
 
               {/* Bottom Controls */}
@@ -217,7 +257,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
                     }`}
                     onClick={() => {
                       setActiveMode('barcode');
-                      onModeChange?.('barcode');
+                      handleBarcodeMode();
                     }}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />

@@ -136,6 +136,13 @@ export interface Translations {
   // Notifications
   mealSaved: string;
   errorSavingMeal: string;
+  
+  // Barcode Scanner
+  barcodeScanner: string;
+  analyzing: string;
+  keepBarcodeVisible: string;
+  barcodeDetected: string;
+  positionBarcodeInFrame: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -281,7 +288,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "Meal saved successfully!",
-    errorSavingMeal: "Error saving meal"
+    errorSavingMeal: "Error saving meal",
+    
+    // Barcode Scanner
+    barcodeScanner: "Barcode Scanner",
+    analyzing: "Analyzing...",
+    keepBarcodeVisible: "Keep the barcode visible for analysis",
+    barcodeDetected: "Barcode detected!",
+    positionBarcodeInFrame: "Position the barcode within the frame"
   },
 
   es: {
@@ -426,7 +440,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "¡Comida guardada exitosamente!",
-    errorSavingMeal: "Error al guardar la comida"
+    errorSavingMeal: "Error al guardar la comida",
+    
+    // Barcode Scanner
+    barcodeScanner: "Escáner de Código de Barras",
+    analyzing: "Analizando...",
+    keepBarcodeVisible: "Mantén el código de barras visible para analizarlo",
+    barcodeDetected: "¡Código de barras detectado!",
+    positionBarcodeInFrame: "Posiciona el código de barras dentro del marco"
   },
 
   zh: {
@@ -571,7 +592,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "餐食保存成功！",
-    errorSavingMeal: "保存餐食时出错"
+    errorSavingMeal: "保存餐食时出错",
+    
+    // Barcode Scanner
+    barcodeScanner: "条码扫描器",
+    analyzing: "分析中...",
+    keepBarcodeVisible: "保持条码可见以便分析",
+    barcodeDetected: "检测到条码！",
+    positionBarcodeInFrame: "将条码放在框架内"
   },
 
   pt: {
@@ -716,7 +744,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "Refeição salva com sucesso!",
-    errorSavingMeal: "Erro ao salvar refeição"
+    errorSavingMeal: "Erro ao salvar refeição",
+    
+    // Barcode Scanner
+    barcodeScanner: "Scanner de Código de Barras",
+    analyzing: "Analisando...",
+    keepBarcodeVisible: "Mantenha o código de barras visível para análise",
+    barcodeDetected: "Código de barras detectado!",
+    positionBarcodeInFrame: "Posicione o código de barras dentro do quadro"
   },
 
   fr: {
@@ -861,7 +896,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "Repas sauvegardé avec succès !",
-    errorSavingMeal: "Erreur lors de la sauvegarde du repas"
+    errorSavingMeal: "Erreur lors de la sauvegarde du repas",
+    
+    // Barcode Scanner
+    barcodeScanner: "Scanner de Code-Barres",
+    analyzing: "Analyse en cours...",
+    keepBarcodeVisible: "Gardez le code-barres visible pour l'analyse",
+    barcodeDetected: "Code-barres détecté !",
+    positionBarcodeInFrame: "Positionnez le code-barres dans le cadre"
   },
 
   de: {
@@ -1006,7 +1048,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "Mahlzeit erfolgreich gespeichert!",
-    errorSavingMeal: "Fehler beim Speichern der Mahlzeit"
+    errorSavingMeal: "Fehler beim Speichern der Mahlzeit",
+    
+    // Barcode Scanner
+    barcodeScanner: "Barcode-Scanner",
+    analyzing: "Analysiere...",
+    keepBarcodeVisible: "Halten Sie den Barcode für die Analyse sichtbar",
+    barcodeDetected: "Barcode erkannt!",
+    positionBarcodeInFrame: "Positionieren Sie den Barcode im Rahmen"
   },
 
   it: {
@@ -1151,7 +1200,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "Pasto salvato con successo!",
-    errorSavingMeal: "Errore nel salvare il pasto"
+    errorSavingMeal: "Errore nel salvare il pasto",
+    
+    // Barcode Scanner
+    barcodeScanner: "Scanner Codice a Barre",
+    analyzing: "Analizzando...",
+    keepBarcodeVisible: "Mantieni il codice a barre visibile per l'analisi",
+    barcodeDetected: "Codice a barre rilevato!",
+    positionBarcodeInFrame: "Posiziona il codice a barre nel riquadro"
   },
 
   ru: {
@@ -1296,7 +1352,14 @@ export const translations: Record<string, Translations> = {
 
     // Notifications
     mealSaved: "Прием пищи успешно сохранен!",
-    errorSavingMeal: "Ошибка сохранения приема пищи"
+    errorSavingMeal: "Ошибка сохранения приема пищи",
+    
+    // Barcode Scanner
+    barcodeScanner: "Сканер Штрих-кода",
+    analyzing: "Анализирую...",
+    keepBarcodeVisible: "Держите штрих-код видимым для анализа",
+    barcodeDetected: "Штрих-код обнаружен!",
+    positionBarcodeInFrame: "Поместите штрих-код в рамку"
   }
 };
 
