@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import FixedContinueButton from './FixedContinueButton';
 
 interface MotivationStepProps {
   onNext: () => void;
@@ -59,14 +60,9 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={onNext}
-          className="w-full h-14 text-lg font-medium rounded-full"
-        >
-          Continue
-        </Button>
-      </div>
+      <FixedContinueButton 
+        onClick={onNext}
+      />
     </div>
   );
 };
