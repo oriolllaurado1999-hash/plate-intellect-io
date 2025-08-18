@@ -46,8 +46,12 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
   };
 
   const handleBarcodeDetected = (barcode: string) => {
-    // TODO: Handle barcode detection
     console.log('Barcode detected:', barcode);
+  };
+
+  const handleProductAdded = () => {
+    // Refresh the dashboard data when a product is added
+    window.location.reload();
   };
 
   switch (currentStep) {
@@ -67,7 +71,7 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
       return <CameraScanner onAnalysisComplete={onAnalysisComplete} onClose={onClose} />;
     
     case 'barcode':
-      return <BarcodeScanner onClose={onClose} onBarcodeDetected={handleBarcodeDetected} />;
+      return <BarcodeScanner onClose={onClose} onBarcodeDetected={handleBarcodeDetected} onProductAdded={handleProductAdded} />;
     
     default:
       return null;

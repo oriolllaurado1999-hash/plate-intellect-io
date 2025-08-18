@@ -1,18 +1,51 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Camera, X, Zap, ScanLine, CreditCard, Upload, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { pipeline, env } from '@huggingface/transformers';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 interface BarcodeScannerProps {
   onClose: () => void;
   onBarcodeDetected?: (barcode: string) => void;
+  onProductAdded?: () => void;
 }
 
-const BarcodeScanner = ({ onClose, onBarcodeDetected }: BarcodeScannerProps) => {
+const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeScannerProps) => {
   const [stream, setStream] = useState<MediaStream | null>(null);
+  const [isScanning, setIsScanning] = useState(false);
+  const [detector, setDetector] = useState<any>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameRef = useRef<number>();
   const { toast } = useToast();
+  const { user } = useAuth();
+
+  // Configure transformers.js
+  useEffect(() => {
+    env.allowLocalModels = false;
+    env.useBrowserCache = true;
+  }, []);
+
+  const initializeBarcodeDetector = async () => {
+    try {
+      console.log('Initializing barcode detector...');
+      // Use a barcode detection model
+      const barcodeDetector = await pipeline(
+        'object-detection',
+        'google/owlvit-base-patch32',
+        { device: 'webgpu' }
+      );
+      setDetector(barcodeDetector);
+      console.log('Barcode detector initialized');
+    } catch (error) {
+      console.error('Error initializing barcode detector:', error);
+      // Fallback to basic implementation
+      setDetector(true);
+    }
+  };
 
   const startCamera = async () => {
     try {
@@ -27,21 +60,201 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected }: BarcodeScannerProps) => 
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
         setStream(mediaStream);
+        
+        // Start scanning when video is loaded
+        videoRef.current.onloadedmetadata = () => {
+          if (!detector) {
+            initializeBarcodeDetector();
+          }
+          startScanning();
+        };
       }
     } catch (error) {
       console.error('Error accessing camera:', error);
       toast({
-        title: "Camera Error",
-        description: "Unable to access camera. Please try uploading an image instead.",
+        title: "Error de Cámara",
+        description: "No se puede acceder a la cámara. Intenta subir una imagen en su lugar.",
         variant: "destructive"
       });
     }
   };
 
+  const startScanning = () => {
+    if (!isScanning) {
+      setIsScanning(true);
+      scanForBarcode();
+    }
+  };
+
+  const scanForBarcode = async () => {
+    if (!videoRef.current || !canvasRef.current) return;
+
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) return;
+
+    // Set canvas size to match video
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    // Draw current video frame to canvas
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Try to detect barcode using HTML5 BarcodeDetector API (if available)
+    if ('BarcodeDetector' in window) {
+      try {
+        const barcodeDetector = new (window as any).BarcodeDetector({
+          formats: ['code_128', 'code_39', 'ean_13', 'ean_8', 'upc_a', 'upc_e']
+        });
+        
+        const barcodes = await barcodeDetector.detect(canvas);
+        
+        if (barcodes.length > 0) {
+          const barcode = barcodes[0].rawValue;
+          console.log('Barcode detected:', barcode);
+          handleBarcodeFound(barcode);
+          return;
+        }
+      } catch (error) {
+        console.error('BarcodeDetector error:', error);
+      }
+    }
+
+    // Continue scanning if still active
+    if (isScanning) {
+      animationFrameRef.current = requestAnimationFrame(scanForBarcode);
+    }
+  };
+
+  const handleBarcodeFound = async (barcode: string) => {
+    setIsScanning(false);
+    
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    toast({
+      title: "Código detectado",
+      description: `Buscando producto: ${barcode}...`,
+    });
+
+    try {
+      // Call our barcode lookup function
+      const { data, error } = await supabase.functions.invoke('barcode-lookup', {
+        body: { barcode }
+      });
+
+      if (error) throw error;
+
+      if (data.success && data.product) {
+        // Create a meal entry for this product
+        await addProductToMeal(data.product);
+      } else {
+        toast({
+          title: "Producto no encontrado",
+          description: "No se pudo encontrar información nutricional para este código de barras.",
+          variant: "destructive"
+        });
+        // Restart scanning
+        setTimeout(() => startScanning(), 2000);
+      }
+    } catch (error) {
+      console.error('Error looking up barcode:', error);
+      toast({
+        title: "Error",
+        description: "Error al buscar el producto. Inténtalo de nuevo.",
+        variant: "destructive"
+      });
+      // Restart scanning
+      setTimeout(() => startScanning(), 2000);
+    }
+  };
+
+  const addProductToMeal = async (product: any) => {
+    if (!user) return;
+
+    try {
+      // Create a meal entry
+      const { data: meal, error: mealError } = await supabase
+        .from('meals')
+        .insert({
+          user_id: user.id,
+          name: product.name,
+          meal_type: 'snack',
+          meal_date: new Date().toISOString().split('T')[0],
+          total_calories: product.calories_per_100g,
+          total_protein: product.protein_per_100g,
+          total_carbs: product.carbs_per_100g,
+          total_fat: product.fat_per_100g,
+          total_fiber: product.fiber_per_100g,
+          ai_analyzed: false
+        })
+        .select()
+        .single();
+
+      if (mealError) throw mealError;
+
+      // Create meal item entry
+      const { error: itemError } = await supabase
+        .from('meal_items')
+        .insert({
+          meal_id: meal.id,
+          food_name: product.name,
+          food_item_id: product.id,
+          quantity: 100, // Default to 100g
+          calories: product.calories_per_100g,
+          protein: product.protein_per_100g,
+          carbs: product.carbs_per_100g,
+          fat: product.fat_per_100g,
+          fiber: product.fiber_per_100g,
+          confidence: 1.0
+        });
+
+      if (itemError) throw itemError;
+
+      toast({
+        title: "¡Producto añadido!",
+        description: `${product.name} se ha añadido a tu diario.`,
+      });
+
+      // Call callback if provided
+      onProductAdded?.();
+      
+      // Close scanner
+      onClose();
+
+    } catch (error) {
+      console.error('Error adding product to meal:', error);
+      toast({
+        title: "Error",
+        description: "Error al añadir el producto. Inténtalo de nuevo.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  // Start camera when component mounts
+  useEffect(() => {
+    startCamera();
+    
+    return () => {
+      stopCamera();
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, []);
+
   const stopCamera = () => {
+    setIsScanning(false);
     if (stream) {
       stream.getTracks().forEach(track => track.stop());
       setStream(null);
+    }
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
     }
   };
 
@@ -184,6 +397,12 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected }: BarcodeScannerProps) => 
           </div>
         </div>
       </div>
+
+      {/* Hidden canvas for barcode detection */}
+      <canvas
+        ref={canvasRef}
+        className="hidden"
+      />
 
       <input
         ref={fileInputRef}
