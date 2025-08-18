@@ -23,9 +23,10 @@ interface FoodAnalysis {
 interface CameraScannerProps {
   onAnalysisComplete: (analysis: FoodAnalysis, imageUrl: string) => void;
   onClose: () => void;
+  onModeChange?: (mode: 'barcode' | 'food-label' | 'library') => void;
 }
 
-const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
+const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScannerProps) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -211,7 +212,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
                   <Button
                     variant="outline"
                     className="flex flex-col items-center justify-center h-16 px-3 bg-white/70 text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => {/* Handle barcode */}}
+                    onClick={() => onModeChange?.('barcode')}
                   >
                     <CreditCard className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Barcode</span>
@@ -220,7 +221,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
                   <Button
                     variant="outline"
                     className="flex flex-col items-center justify-center h-16 px-3 bg-white/70 text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => {/* Handle food label */}}
+                    onClick={() => onModeChange?.('food-label')}
                   >
                     <Upload className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Food label</span>
@@ -229,7 +230,7 @@ const CameraScanner = ({ onAnalysisComplete, onClose }: CameraScannerProps) => {
                   <Button
                     variant="outline"
                     className="flex flex-col items-center justify-center h-16 px-3 bg-white/70 text-black border-0 rounded-xl shadow-lg"
-                    onClick={() => fileInputRef.current?.click()}
+                    onClick={() => onModeChange?.('library')}
                   >
                     <ImageIcon className="h-5 w-5 mb-1" />
                     <span className="text-xs font-medium">Library</span>

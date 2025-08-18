@@ -55,6 +55,13 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
     window.location.reload();
   };
 
+  const handleModeChange = (mode: 'barcode' | 'food-label' | 'library') => {
+    if (mode === 'barcode') {
+      setCurrentStep('barcode');
+    }
+    // TODO: Implement other modes when needed
+  };
+
   switch (currentStep) {
     case 'options':
       return (
@@ -69,7 +76,7 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
       return <ScanGuide onClose={handleGuideClose} onComplete={handleGuideComplete} />;
     
     case 'scanner':
-      return <CameraScanner onAnalysisComplete={onAnalysisComplete} onClose={onClose} />;
+      return <CameraScanner onAnalysisComplete={onAnalysisComplete} onClose={onClose} onModeChange={handleModeChange} />;
     
     case 'barcode':
       return <BarcodeScanner onClose={onClose} onBarcodeDetected={handleBarcodeDetected} onProductAdded={handleProductAdded} />;
