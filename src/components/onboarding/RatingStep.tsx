@@ -67,7 +67,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
                 />
               ))}
             </div>
-            <div className="text-muted-foreground">100K+ App Ratings</div>
+            <div className="text-muted-foreground">+100k App Ratings</div>
             
             {/* Decorative laurels */}
             <div className="flex items-center justify-center mt-4">
@@ -98,7 +98,7 @@ const RatingStep = ({ onNext }: RatingStepProps) => {
                 className="w-12 h-12 rounded-full object-cover"
               />
             </div>
-            <div className="text-sm text-muted-foreground">10k+ Kalore Users</div>
+            <div className="text-sm text-muted-foreground">+10k Kalore Users</div>
           </div>
         </div>
 
