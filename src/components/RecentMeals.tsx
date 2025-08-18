@@ -76,35 +76,7 @@ export default function RecentMeals() {
       }
     };
 
-    if (!user) {
-      setLoading(false);
-      return;
-    }
-
     fetchRecentMeals();
-
-    // Set up real-time subscription for new meals
-    const channel = supabase
-      .channel('recent-meals-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'meals',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          console.log('RecentMeals: Database change detected', payload);
-          // Refresh meals when any change occurs
-          fetchRecentMeals();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, [user, currentLanguage]);
 
   const formatTime = (dateString: string) => {

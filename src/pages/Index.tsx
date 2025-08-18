@@ -164,35 +164,7 @@ const Index = () => {
       }
     };
 
-    if (!user) {
-      setHasMealsToday(false);
-      return;
-    }
-
     checkMealsToday();
-
-    // Set up real-time subscription for new meals to update hasMealsToday
-    const channel = supabase
-      .channel('meals-today-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'meals',
-          filter: `user_id=eq.${user.id}`
-        },
-        (payload) => {
-          console.log('Index: Database change detected for meals today', payload);
-          // Refresh meals check when any change occurs
-          checkMealsToday();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, [user, refreshKey]);
 
   // Generate daily coach message when user enters the app
