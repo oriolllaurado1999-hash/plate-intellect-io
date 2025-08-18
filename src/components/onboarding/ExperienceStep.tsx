@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ThumbsDown, ThumbsUp } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface ExperienceStepProps {
   selected: boolean | null;
@@ -15,11 +16,11 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
   };
 
   return (
-    <div className="px-6 py-8 h-full flex flex-col">
-      <div className="flex-1">
+    <>
+      <div className="px-6 py-8 h-full">
         <h1 className="text-3xl font-bold mb-16">Have you tried other calorie tracking apps?</h1>
 
-        <div className="space-y-6 mb-16">
+        <div className="space-y-6">
           <Button
             variant={selected === false ? 'default' : 'outline'}
             className="w-full h-20 text-left flex items-center justify-start px-6 space-x-4"
@@ -40,17 +41,11 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={handleContinue}
-          disabled={selected === null}
-          className="w-full h-12 text-base font-semibold"
-          size="lg"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
+      <FixedContinueButton 
+        onClick={handleContinue}
+        disabled={selected === null}
+      />
+    </>
   );
 };
 

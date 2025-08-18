@@ -286,22 +286,20 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 pt-12">
-        {currentStep > 1 ? (
+      <div className="flex items-center p-4 pt-12">
+        {currentStep > 1 && (
           <Button
             variant="ghost"
             size="icon"
             onClick={handleBack}
-            className="rounded-full"
+            className="rounded-full mr-4"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
-        ) : (
-          <div className="w-10"></div>
         )}
 
         {/* Progress bar */}
-        <div className="flex-1 mx-4">
+        <div className="flex-1">
           <div className="w-full bg-muted rounded-full h-2">
             <div
               className="bg-foreground h-2 rounded-full transition-all duration-300 ease-out"
@@ -311,14 +309,14 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
         </div>
 
         {/* Language selector */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 ml-4">
           <span className="text-2xl">🇺🇸</span>
           <span className="text-sm font-medium">EN</span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1">
+      <div className="flex-1 pb-32">
         {renderStep()}
       </div>
     </div>
