@@ -34,7 +34,7 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
   };
 
   const handleBarcodeScanner = () => {
-    console.log('Navigating to barcode scanner');
+    console.log('CameraFlow: handleBarcodeScanner called, setting step to barcode');
     setCurrentStep('barcode');
   };
 
@@ -79,6 +79,7 @@ const CameraFlow = ({ onAnalysisComplete, onClose }: CameraFlowProps) => {
       return <CameraScanner onAnalysisComplete={onAnalysisComplete} onClose={onClose} onModeChange={handleModeChange} />;
     
     case 'barcode':
+      console.log('CameraFlow: Rendering BarcodeScanner component');
       return <BarcodeScanner onClose={onClose} onBarcodeDetected={handleBarcodeDetected} onProductAdded={handleProductAdded} />;
     
     default:
