@@ -284,23 +284,25 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
               {/* Scanning Frame */}
               <div className="absolute inset-0 flex items-center justify-center" style={{ marginTop: '-60px' }}>
                 {activeMode === 'barcode' ? (
-                  // Rectangular frame for barcode scanning
-                  <div className={`relative w-80 h-48 border-4 rounded-lg transition-colors duration-300 ${
-                    barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                  }`}>
-                    <div className={`absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                    <div className={`absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                    <div className={`absolute bottom-0 left-0 w-8 h-8 border-l-4 border-b-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                    <div className={`absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 transition-colors duration-300 ${
-                      barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
-                    }`}></div>
-                  </div>
+                  // Overlay effect for barcode scanning
+                  <>
+                    {/* Dark overlay outside rectangle */}
+                    <div className="absolute inset-0 bg-black/50"></div>
+                    {/* Clear rectangle area */}
+                    <div 
+                      className="relative bg-transparent"
+                      style={{
+                        width: '320px',
+                        height: '192px',
+                        boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)'
+                      }}
+                    >
+                      {/* Simple white rectangle border */}
+                      <div className={`absolute inset-0 border-2 transition-colors duration-300 ${
+                        barcodeAnalyzing ? 'border-[#4AD4B2]' : 'border-white'
+                      }`}></div>
+                    </div>
+                  </>
                 ) : (
                   // Square frame for food scanning
                   <div className="relative w-64 h-64">
