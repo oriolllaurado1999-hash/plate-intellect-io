@@ -387,6 +387,9 @@ const CameraScanner = ({ onAnalysisComplete, onClose, onModeChange }: CameraScan
 
       if (itemError) throw itemError;
 
+      console.log('Product saved to database successfully:', mealData);
+      console.log('Image URL saved:', imageUrl);
+
       // Close camera and complete analysis
       stopCamera();
       onClose();
