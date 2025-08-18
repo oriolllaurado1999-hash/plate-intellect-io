@@ -108,27 +108,11 @@ const WelcomeDashboardStep = ({ onComplete }: WelcomeDashboardStepProps) => {
   return (
     <div className="flex flex-col h-full px-6 py-8 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="flex-1 flex flex-col justify-center items-center">
-        {/* Heart illustration with sparkles */}
+        {/* Illustration area */}
         <div className="relative mb-12">
           <div ref={heartRef} className="relative">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 flex items-center justify-center">
-              <Heart className="w-16 h-16 text-pink-500 fill-pink-500" />
-            </div>
-          </div>
-
-          {/* Floating sparkles */}
-          <div ref={sparklesRef} className="absolute inset-0">
-            <div className="sparkle absolute -top-4 -left-4">
-              <Sparkles className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-            </div>
-            <div className="sparkle absolute -top-6 right-0">
-              <Sparkles className="w-5 h-5 text-blue-400 fill-blue-400" />
-            </div>
-            <div className="sparkle absolute -bottom-2 -left-6">
-              <Sparkles className="w-7 h-7 text-purple-400 fill-purple-400" />
-            </div>
-            <div className="sparkle absolute -bottom-4 right-2">
-              <Sparkles className="w-4 h-4 text-pink-400 fill-pink-400" />
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/10 via-primary/5 to-background flex items-center justify-center">
+              {/* Icon removed */}
             </div>
           </div>
         </div>
