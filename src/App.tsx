@@ -65,10 +65,10 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
             <Routes>
-              <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
+              <Route path="/auth" element={<Auth />} />
               <Route path="/onboarding-preview" element={<OnboardingPreview />} />
-              <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-              <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
                 <Route path="goals" element={<Goals />} />
                 <Route path="progress" element={<Progress />} />
