@@ -314,34 +314,35 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
 
           {/* Scanning Frame with darkened overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/40"></div>
+            {/* Dark overlay covering entire screen */}
+            <div className="absolute inset-0 bg-black/60"></div>
             
-            {/* Scanner area */}
+            {/* Barcode scanning rectangle */}
             <div className="relative z-10">
-              {/* Clear scanning area */}
               <div className="w-80 h-48 relative">
-                {/* Clear area (no overlay) */}
-                <div className="absolute inset-0 bg-transparent border-4 border-white rounded-2xl"></div>
+                {/* White border rectangle for barcode scanning */}
+                <div className="absolute inset-0 border-4 border-white rounded-2xl bg-transparent"></div>
                 
-                {/* Scanner animation line (optional) */}
-                <div className="absolute inset-x-0 top-1/2 transform -translate-y-1/2">
-                  <div className="h-0.5 bg-white/80 animate-pulse"></div>
+                {/* Corner indicators */}
+                <div className="absolute top-2 left-2 w-8 h-8 border-l-4 border-t-4 border-white rounded-tl-lg"></div>
+                <div className="absolute top-2 right-2 w-8 h-8 border-r-4 border-t-4 border-white rounded-tr-lg"></div>
+                <div className="absolute bottom-2 left-2 w-8 h-8 border-l-4 border-b-4 border-white rounded-bl-lg"></div>
+                <div className="absolute bottom-2 right-2 w-8 h-8 border-r-4 border-b-4 border-white rounded-br-lg"></div>
+                
+                {/* Scanning line animation */}
+                {isScanning && (
+                  <div className="absolute inset-x-4 top-1/2 transform -translate-y-1/2">
+                    <div className="h-0.5 bg-red-500 animate-pulse shadow-lg shadow-red-500/50"></div>
+                  </div>
+                )}
+                
+                {/* Instruction text */}
+                <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+                  <p className="text-white text-center text-sm">
+                    Position the barcode within the frame
+                  </p>
                 </div>
               </div>
-            </div>
-            
-            {/* Mask to darken everything except the scanner area */}
-            <div className="absolute inset-0 pointer-events-none">
-              <svg width="100%" height="100%" className="absolute inset-0">
-                <defs>
-                  <mask id="scanner-mask">
-                    <rect width="100%" height="100%" fill="white" />
-                    <rect x="50%" y="50%" width="320" height="192" transform="translate(-160, -96)" rx="16" fill="black" />
-                  </mask>
-                </defs>
-                <rect width="100%" height="100%" fill="black" fillOpacity="0.5" mask="url(#scanner-mask)" />
-              </svg>
             </div>
           </div>
 
@@ -351,7 +352,7 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
             <div className="flex justify-center space-x-4 px-8 mb-6">
               <Button
                 variant="outline"
-                className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
                 onClick={() => {/* Handle scan food */}}
               >
                 <ScanLine className="h-5 w-5 mb-1" />
@@ -360,7 +361,7 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
 
               <Button
                 variant="outline"
-                className="flex flex-col items-center justify-center h-16 px-4 bg-primary text-primary-foreground border-0 rounded-xl shadow-lg"
+                className="flex flex-col items-center justify-center h-16 px-4 bg-white text-black border-0 rounded-xl shadow-lg ring-2 ring-blue-500"
                 onClick={() => {/* Handle barcode - current mode */}}
               >
                 <CreditCard className="h-5 w-5 mb-1" />
@@ -369,7 +370,7 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
 
               <Button
                 variant="outline"
-                className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
                 onClick={() => {/* Handle food label */}}
               >
                 <Upload className="h-5 w-5 mb-1" />
@@ -378,7 +379,7 @@ const BarcodeScanner = ({ onClose, onBarcodeDetected, onProductAdded }: BarcodeS
 
               <Button
                 variant="outline"
-                className="flex flex-col items-center justify-center h-16 px-4 bg-white/90 text-black border-0 rounded-xl shadow-lg"
+                className="flex flex-col items-center justify-center h-16 px-4 bg-white/70 text-black border-0 rounded-xl shadow-lg"
                 onClick={() => fileInputRef.current?.click()}
               >
                 <ImageIcon className="h-5 w-5 mb-1" />

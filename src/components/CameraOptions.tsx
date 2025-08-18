@@ -64,7 +64,7 @@ const CameraOptions = ({ onClose, onScanFood, onBarcodeScanner }: CameraOptionsP
 
           <Button
             variant="outline"
-            className="flex flex-col items-center justify-center h-24 space-y-2 bg-card hover:bg-accent col-span-2"
+            className="flex flex-col items-center justify-center h-24 space-y-2 bg-primary text-primary-foreground hover:bg-primary/90 col-span-2 ring-2 ring-primary/50"
             onClick={() => {
               console.log('Barcode Scanner button clicked');
               onBarcodeScanner();
