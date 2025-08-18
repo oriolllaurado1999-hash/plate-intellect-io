@@ -64,32 +64,32 @@ const AddWeightModal = ({ isOpen, onClose, onSave }: AddWeightModalProps) => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-sm mx-auto bg-background border-border">
         <DialogHeader>
-          <DialogTitle className="text-center">Add Weight Measurement</DialogTitle>
+          <DialogTitle className="text-center">{t.addWeightMeasurement}</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 p-4">
           <div className="space-y-2">
-            <Label htmlFor="weight">Weight (kg)</Label>
+            <Label htmlFor="weight">{t.weightKg}</Label>
             <Input
               id="weight"
               type="number"
               step="0.1"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              placeholder="Enter your weight"
+              placeholder={t.enterYourWeight}
             />
           </div>
           
           <p className="text-sm text-muted-foreground">
-            Note: You can only add one measurement every 7 days.
+            {t.weightMeasurementNote}
           </p>
           
           <div className="flex gap-2">
             <Button variant="outline" onClick={onClose} className="flex-1">
-              Cancel
+              {t.cancel}
             </Button>
             <Button onClick={handleSave} className="flex-1">
-              Save
+              {t.save}
             </Button>
           </div>
         </div>
@@ -116,7 +116,7 @@ const AllRecordingsModal = ({ isOpen, onClose }: AllRecordingsModalProps) => {
           <Button variant="ghost" size="icon" onClick={onClose}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
-          <DialogTitle className="text-center">All Recordings</DialogTitle>
+          <DialogTitle className="text-center">{t.allRecordings}</DialogTitle>
           <div className="w-10" />
         </DialogHeader>
         
@@ -170,7 +170,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             <Button variant="ghost" size="icon" onClick={onClose}>
               <ArrowLeft className="h-5 w-5" />
             </Button>
-            <DialogTitle className="text-center">TREND VIEW</DialogTitle>
+            <DialogTitle className="text-center">{t.trendView}</DialogTitle>
             <div className="w-10" />
           </DialogHeader>
           
@@ -178,7 +178,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
 
             {/* Stats Section */}
             <div className="text-left space-y-2">
-              <p className="text-muted-foreground text-sm">AVERAGE</p>
+              <p className="text-muted-foreground text-sm">{t.average}</p>
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-light">{monthlyAverage}</span>
                 <span className="text-xl text-muted-foreground">kg</span>
@@ -186,7 +186,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1 bg-muted rounded px-2 py-1">
                   <span className="text-xs text-green-600">▲ 1%</span>
-                  <span className="text-xs text-muted-foreground">vs. prior month</span>
+                  <span className="text-xs text-muted-foreground">{t.vsPriorMonth}</span>
                 </div>
               </div>
             </div>
@@ -216,14 +216,16 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             </div>
 
             <div className="text-center text-sm text-muted-foreground">
-              {selectedPeriod === 'W' ? 'THIS WEEK' : 
-               selectedPeriod === 'M' ? 'JUL 20 - AUG 18, 25' : 
-               'MAR - AUG 2025'}
+              {selectedPeriod === 'W' ? t.weightThisWeek : 
+               selectedPeriod === 'M' ? t.weightThisMonth : 
+               t.weightThisPeriod}
             </div>
 
             {/* Description */}
             <p className="text-sm text-foreground">
-              Your average weight this {selectedPeriod === 'W' ? 'week' : selectedPeriod === 'M' ? 'month' : 'period'} ({monthlyAverage} kg) was above your previous 30-day average of 81.0 kg.
+              {t.weightAverageDescription
+                .replace('{period}', selectedPeriod === 'W' ? t.weightWeek : selectedPeriod === 'M' ? t.weightMonth : t.weightPeriod)
+                .replace('{weight}', monthlyAverage.toString())}
             </p>
 
             {/* Chart */}
@@ -258,7 +260,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
             </div>
 
             <p className="text-xs text-muted-foreground">
-              Last updated: Aug 15 2025, 12:33PM
+              {t.lastUpdated}
             </p>
 
             {/* Action Buttons */}
@@ -268,7 +270,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
                 className="w-full flex items-center gap-2"
               >
                 <Plus className="h-4 w-4" />
-                ADD MANUAL MEASUREMENT
+                {t.addManualMeasurement}
               </Button>
               
               <Button 
@@ -277,7 +279,7 @@ export const WeightHistoryModal = ({ isOpen, onClose }: WeightHistoryModalProps)
                 className="w-full flex items-center gap-2"
               >
                 <BarChart3 className="h-4 w-4" />
-                SEE ALL RECORDINGS
+                {t.seeAllRecordings}
               </Button>
             </div>
           </div>

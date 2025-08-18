@@ -144,6 +144,26 @@ export interface Translations {
   keepBarcodeVisible: string;
   barcodeDetected: string;
   positionBarcodeInFrame: string;
+
+  // Weight History Modal
+  trendView: string;
+  average: string;
+  vsPriorMonth: string;
+  weightThisWeek: string;
+  weightThisMonth: string;
+  weightThisPeriod: string;
+  weightWeek: string;
+  weightMonth: string;
+  weightPeriod: string;
+  weightAverageDescription: string;
+  lastUpdated: string;
+  addManualMeasurement: string;
+  seeAllRecordings: string;
+  addWeightMeasurement: string;
+  weightKg: string;
+  enterYourWeight: string;
+  weightMeasurementNote: string;
+  allRecordings: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -297,7 +317,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Analyzing...",
     keepBarcodeVisible: "Keep the barcode visible for analysis",
     barcodeDetected: "Barcode detected!",
-    positionBarcodeInFrame: "Position the barcode within the frame"
+    positionBarcodeInFrame: "Position the barcode within the frame",
+
+    // Weight History Modal
+    trendView: "TREND VIEW",
+    average: "AVERAGE",
+    vsPriorMonth: "vs. prior month",
+    weightThisWeek: "THIS WEEK",
+    weightThisMonth: "JUL 20 - AUG 18, 25",
+    weightThisPeriod: "MAR - AUG 2025",
+    weightWeek: "week",
+    weightMonth: "month",
+    weightPeriod: "period",
+    weightAverageDescription: "Your average weight this {period} ({weight} kg) was above your previous 30-day average of 81.0 kg.",
+    lastUpdated: "Last updated: Aug 15 2025, 12:33PM",
+    addManualMeasurement: "ADD MANUAL MEASUREMENT",
+    seeAllRecordings: "SEE ALL RECORDINGS",
+    addWeightMeasurement: "Add Weight Measurement",
+    weightKg: "Weight (kg)",
+    enterYourWeight: "Enter your weight",
+    weightMeasurementNote: "Note: You can only add one measurement every 7 days.",
+    allRecordings: "All Recordings"
   },
 
   es: {
@@ -450,7 +490,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Analizando...",
     keepBarcodeVisible: "Mantén el código de barras visible para analizarlo",
     barcodeDetected: "¡Código de barras detectado!",
-    positionBarcodeInFrame: "Posiciona el código de barras dentro del marco"
+    positionBarcodeInFrame: "Posiciona el código de barras dentro del marco",
+
+    // Weight History Modal
+    trendView: "VISTA DE TENDENCIA",
+    average: "PROMEDIO",
+    vsPriorMonth: "vs. mes anterior",
+    weightThisWeek: "ESTA SEMANA",
+    weightThisMonth: "20 JUL - 18 AGO, 25",
+    weightThisPeriod: "MAR - AGO 2025",
+    weightWeek: "semana",
+    weightMonth: "mes",
+    weightPeriod: "período",
+    weightAverageDescription: "Tu peso promedio esta {period} ({weight} kg) estuvo por encima de tu promedio de 30 días anterior de 81.0 kg.",
+    lastUpdated: "Última actualización: 15 Ago 2025, 12:33PM",
+    addManualMeasurement: "AGREGAR MEDICIÓN MANUAL",
+    seeAllRecordings: "VER TODOS LOS REGISTROS",
+    addWeightMeasurement: "Agregar Medición de Peso",
+    weightKg: "Peso (kg)",
+    enterYourWeight: "Ingresa tu peso",
+    weightMeasurementNote: "Nota: Solo puedes agregar una medición cada 7 días.",
+    allRecordings: "Todos los Registros"
   },
 
   zh: {
@@ -603,7 +663,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "分析中...",
     keepBarcodeVisible: "保持条码可见以便分析",
     barcodeDetected: "检测到条码！",
-    positionBarcodeInFrame: "将条码放在框架内"
+    positionBarcodeInFrame: "将条码放在框架内",
+
+    // Weight History Modal
+    trendView: "趋势视图",
+    average: "平均",
+    vsPriorMonth: "vs. 上个月",
+    weightThisWeek: "本周",
+    weightThisMonth: "7月20日 - 8月18日, 25",
+    weightThisPeriod: "3月 - 8月 2025",
+    weightWeek: "周",
+    weightMonth: "月",
+    weightPeriod: "期间",
+    weightAverageDescription: "您这个{period}的平均体重（{weight} 公斤）高于您之前30天的平均值81.0公斤。",
+    lastUpdated: "最后更新：2025年8月15日，下午12:33",
+    addManualMeasurement: "添加手动测量",
+    seeAllRecordings: "查看所有记录",
+    addWeightMeasurement: "添加体重测量",
+    weightKg: "体重（公斤）",
+    enterYourWeight: "输入您的体重",
+    weightMeasurementNote: "注意：您每7天只能添加一次测量。",
+    allRecordings: "所有记录"
   },
 
   pt: {
@@ -756,7 +836,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Analisando...",
     keepBarcodeVisible: "Mantenha o código de barras visível para análise",
     barcodeDetected: "Código de barras detectado!",
-    positionBarcodeInFrame: "Posicione o código de barras dentro do quadro"
+    positionBarcodeInFrame: "Posicione o código de barras dentro do quadro",
+
+    // Weight History Modal
+    trendView: "VISTA DE TENDÊNCIAS",
+    average: "MÉDIA",
+    vsPriorMonth: "vs. mês anterior",
+    weightThisWeek: "ESTA SEMANA",
+    weightThisMonth: "20 JUL - 18 AGO, 25",
+    weightThisPeriod: "MAR - AGO 2025",
+    weightWeek: "semana",
+    weightMonth: "mês",
+    weightPeriod: "período",
+    weightAverageDescription: "Seu peso médio nesta {period} ({weight} kg) estava acima da sua média de 30 dias anterior de 81,0 kg.",
+    lastUpdated: "Última atualização: 15 Ago 2025, 12:33",
+    addManualMeasurement: "ADICIONAR MEDIÇÃO MANUAL",
+    seeAllRecordings: "VER TODAS AS GRAVAÇÕES",
+    addWeightMeasurement: "Adicionar Medição de Peso",
+    weightKg: "Peso (kg)",
+    enterYourWeight: "Digite seu peso",
+    weightMeasurementNote: "Nota: Você só pode adicionar uma medição a cada 7 dias.",
+    allRecordings: "Todas as Gravações"
   },
 
   fr: {
@@ -909,7 +1009,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Analyse en cours...",
     keepBarcodeVisible: "Gardez le code-barres visible pour l'analyse",
     barcodeDetected: "Code-barres détecté !",
-    positionBarcodeInFrame: "Positionnez le code-barres dans le cadre"
+    positionBarcodeInFrame: "Positionnez le code-barres dans le cadre",
+
+    // Weight History Modal
+    trendView: "VUE DES TENDANCES",
+    average: "MOYENNE",
+    vsPriorMonth: "vs. mois précédent",
+    weightThisWeek: "CETTE SEMAINE",
+    weightThisMonth: "20 JUIL - 18 AOÛT, 25",
+    weightThisPeriod: "MAR - AOÛT 2025",
+    weightWeek: "semaine",
+    weightMonth: "mois",
+    weightPeriod: "période",
+    weightAverageDescription: "Votre poids moyen cette {period} ({weight} kg) était supérieur à votre moyenne de 30 jours précédente de 81,0 kg.",
+    lastUpdated: "Dernière mise à jour : 15 août 2025, 12h33",
+    addManualMeasurement: "AJOUTER UNE MESURE MANUELLE",
+    seeAllRecordings: "VOIR TOUS LES ENREGISTREMENTS",
+    addWeightMeasurement: "Ajouter une Mesure de Poids",
+    weightKg: "Poids (kg)",
+    enterYourWeight: "Entrez votre poids",
+    weightMeasurementNote: "Note : Vous ne pouvez ajouter qu'une mesure tous les 7 jours.",
+    allRecordings: "Tous les Enregistrements"
   },
 
   de: {
@@ -1062,7 +1182,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Analysiere...",
     keepBarcodeVisible: "Halten Sie den Barcode für die Analyse sichtbar",
     barcodeDetected: "Barcode erkannt!",
-    positionBarcodeInFrame: "Positionieren Sie den Barcode im Rahmen"
+    positionBarcodeInFrame: "Positionieren Sie den Barcode im Rahmen",
+
+    // Weight History Modal
+    trendView: "TRENDANSICHT",
+    average: "DURCHSCHNITT",
+    vsPriorMonth: "vs. vorheriger Monat",
+    weightThisWeek: "DIESE WOCHE",
+    weightThisMonth: "20. JULI - 18. AUG, 25",
+    weightThisPeriod: "MÄR - AUG 2025",
+    weightWeek: "Woche",
+    weightMonth: "Monat",
+    weightPeriod: "Zeitraum",
+    weightAverageDescription: "Ihr durchschnittliches Gewicht diese {period} ({weight} kg) lag über Ihrem vorherigen 30-Tage-Durchschnitt von 81,0 kg.",
+    lastUpdated: "Zuletzt aktualisiert: 15. Aug 2025, 12:33 Uhr",
+    addManualMeasurement: "MANUELLE MESSUNG HINZUFÜGEN",
+    seeAllRecordings: "ALLE AUFZEICHNUNGEN ANZEIGEN",
+    addWeightMeasurement: "Gewichtsmessung hinzufügen",
+    weightKg: "Gewicht (kg)",
+    enterYourWeight: "Geben Sie Ihr Gewicht ein",
+    weightMeasurementNote: "Hinweis: Sie können nur alle 7 Tage eine Messung hinzufügen.",
+    allRecordings: "Alle Aufzeichnungen"
   },
 
   it: {
@@ -1215,7 +1355,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Analizzando...",
     keepBarcodeVisible: "Mantieni il codice a barre visibile per l'analisi",
     barcodeDetected: "Codice a barre rilevato!",
-    positionBarcodeInFrame: "Posiziona il codice a barre nel riquadro"
+    positionBarcodeInFrame: "Posiziona il codice a barre nel riquadro",
+
+    // Weight History Modal
+    trendView: "VISTA TENDENZE",
+    average: "MEDIA",
+    vsPriorMonth: "vs. mese precedente",
+    weightThisWeek: "QUESTA SETTIMANA",
+    weightThisMonth: "20 LUG - 18 AGO, 25",
+    weightThisPeriod: "MAR - AGO 2025",
+    weightWeek: "settimana",
+    weightMonth: "mese",
+    weightPeriod: "periodo",
+    weightAverageDescription: "Il tuo peso medio questo {period} ({weight} kg) era superiore alla tua media di 30 giorni precedente di 81,0 kg.",
+    lastUpdated: "Ultimo aggiornamento: 15 Ago 2025, 12:33",
+    addManualMeasurement: "AGGIUNGI MISURAZIONE MANUALE",
+    seeAllRecordings: "VEDI TUTTE LE REGISTRAZIONI",
+    addWeightMeasurement: "Aggiungi Misurazione Peso",
+    weightKg: "Peso (kg)",
+    enterYourWeight: "Inserisci il tuo peso",
+    weightMeasurementNote: "Nota: Puoi aggiungere solo una misurazione ogni 7 giorni.",
+    allRecordings: "Tutte le Registrazioni"
   },
 
   ru: {
@@ -1368,7 +1528,27 @@ export const translations: Record<string, Translations> = {
     analyzing: "Анализирую...",
     keepBarcodeVisible: "Держите штрих-код видимым для анализа",
     barcodeDetected: "Штрих-код обнаружен!",
-    positionBarcodeInFrame: "Поместите штрих-код в рамку"
+    positionBarcodeInFrame: "Поместите штрих-код в рамку",
+
+    // Weight History Modal
+    trendView: "ВИД ТРЕНДА",
+    average: "СРЕДНЕЕ",
+    vsPriorMonth: "против предыдущего месяца",
+    weightThisWeek: "НА ЭТОЙ НЕДЕЛЕ",
+    weightThisMonth: "20 ИЮЛЯ - 18 АВГ, 25",
+    weightThisPeriod: "МАР - АВГ 2025",
+    weightWeek: "неделя",
+    weightMonth: "месяц",
+    weightPeriod: "период",
+    weightAverageDescription: "Ваш средний вес в этом {period} ({weight} кг) был выше вашего предыдущего 30-дневного среднего значения 81,0 кг.",
+    lastUpdated: "Последнее обновление: 15 авг 2025, 12:33",
+    addManualMeasurement: "ДОБАВИТЬ РУЧНОЕ ИЗМЕРЕНИЕ",
+    seeAllRecordings: "ПОСМОТРЕТЬ ВСЕ ЗАПИСИ",
+    addWeightMeasurement: "Добавить Измерение Веса",
+    weightKg: "Вес (кг)",
+    enterYourWeight: "Введите ваш вес",
+    weightMeasurementNote: "Примечание: Вы можете добавлять только одно измерение каждые 7 дней.",
+    allRecordings: "Все Записи"
   }
 };
 
