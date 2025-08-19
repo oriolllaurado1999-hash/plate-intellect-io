@@ -53,51 +53,53 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
           </div>
 
           <div ref={chartRef} className="mb-8">
-            <h2 className="text-xl font-semibold text-foreground mb-6">
+            <h2 className="text-xl font-semibold text-foreground mb-6 text-center">
               Your weight transition
             </h2>
             
-            <div className="relative h-48 mb-6">
-              <svg 
-                className="w-full h-full" 
-                viewBox="0 0 300 150" 
-                preserveAspectRatio="xMidYMid meet"
-              >
-                {/* Background gradient */}
-                <defs>
-                  <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
-                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                
-                {/* Area under the curve */}
-                <path
-                  d="M 50 120 Q 150 90 250 60 L 250 130 L 50 130 Z"
-                  fill="url(#areaGradient)"
-                />
-                
-                {/* Main curve */}
-                <path
-                  ref={pathRef}
-                  d="M 50 120 Q 150 90 250 60"
-                  stroke="hsl(var(--primary))"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-                
-                {/* Data points */}
-                <circle className="chart-point" cx="50" cy="120" r="6" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="2" />
-                <circle className="chart-point" cx="150" cy="90" r="6" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="2" />
-                <circle className="chart-point" cx="250" cy="60" r="8" fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth="2" />
-              </svg>
-            </div>
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 mx-4">
+              <div className="relative h-48 mb-6">
+                <svg 
+                  className="w-full h-full" 
+                  viewBox="0 0 300 150" 
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  {/* Background gradient */}
+                  <defs>
+                    <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Area under the curve */}
+                  <path
+                    d="M 50 120 Q 150 90 250 60 L 250 130 L 50 130 Z"
+                    fill="url(#areaGradient)"
+                  />
+                  
+                  {/* Main curve */}
+                  <path
+                    ref={pathRef}
+                    d="M 50 120 Q 150 90 250 60"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  
+                  {/* Data points */}
+                  <circle className="chart-point" cx="50" cy="120" r="6" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="2" />
+                  <circle className="chart-point" cx="150" cy="90" r="6" fill="hsl(var(--background))" stroke="hsl(var(--primary))" strokeWidth="2" />
+                  <circle className="chart-point" cx="250" cy="60" r="8" fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth="2" />
+                </svg>
+              </div>
 
-            <div className="flex justify-between text-sm text-muted-foreground px-4">
-              <span>3 Days</span>
-              <span>7 Days</span>
-              <span>30 Days</span>
+              <div className="flex justify-between text-sm text-muted-foreground px-4">
+                <span>3 Days</span>
+                <span>7 Days</span>
+                <span>30 Days</span>
+              </div>
             </div>
           </div>
 
