@@ -283,7 +283,15 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
       case 23:
         return <GeneratingStep onComplete={handleNext} />;
       case 24:
-        return <CompletionStep onGetStarted={handleNext} />;
+        return (
+          <CompletionStep 
+            onGetStarted={handleNext}
+            currentWeight={data.currentWeight}
+            desiredWeight={data.desiredWeight}
+            lossSpeed={data.lossSpeed}
+            goal={data.goal}
+          />
+        );
       case 25:
         return <TrialOfferStep onNext={handleNext} />;
       case 26:

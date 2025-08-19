@@ -1,14 +1,19 @@
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CheckCircle, Flame, Edit3, Beef, Wheat, Leaf, Heart } from 'lucide-react';
 
 interface CompletionStepProps {
   onGetStarted: () => void;
+  currentWeight?: { weight: number; unit: 'kg' | 'lbs' } | null;
+  desiredWeight?: number | null;
+  lossSpeed?: number | null;
+  goal?: 'lose' | 'maintain' | 'gain' | null;
 }
 
-const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
+const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed, goal }: CompletionStepProps) => {
   const checkRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const [currentPhase, setCurrentPhase] = useState<'1month' | '3months' | '6months'>('1month');
 
   useEffect(() => {
     const check = checkRef.current;
@@ -41,7 +46,98 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
         }, 800 + (index * 150));
       });
     }
+
+    // Phase transitions
+    const phase1Timer = setTimeout(() => {
+      setCurrentPhase('3months');
+    }, 2500);
+
+    const phase2Timer = setTimeout(() => {
+      setCurrentPhase('6months');
+    }, 5000);
+
+    return () => {
+      clearTimeout(phase1Timer);
+      clearTimeout(phase2Timer);
+    };
   }, []);
+
+  // Calculate weight loss projections
+  const calculateWeightLoss = () => {
+    if (!currentWeight || !desiredWeight || !lossSpeed || !goal) {
+      return {
+        oneMonth: { amount: 6, unit: 'kg' },
+        threeMonths: { amount: 12, unit: 'kg' },
+        sixMonths: { amount: 18, unit: 'kg' }
+      };
+    }
+
+    const unit = currentWeight.unit;
+    const totalWeightToLose = Math.abs(currentWeight.weight - desiredWeight);
+    
+    // lossSpeed is a value from 1-5, where 1 is slowest and 5 is fastest
+    // Convert to kg per week (average values)
+    const weeklyLossRates = {
+      1: 0.25, // Very slow
+      2: 0.5,  // Slow  
+      3: 0.75, // Moderate
+      4: 1.0,  // Fast
+      5: 1.25  // Very fast
+    };
+
+    let weeklyLoss = weeklyLossRates[lossSpeed as keyof typeof weeklyLossRates] || 0.75;
+    
+    // Convert to lbs if needed
+    if (unit === 'lbs') {
+      weeklyLoss = weeklyLoss * 2.20462;
+    }
+
+    // Calculate projections
+    const oneMonthLoss = Math.min(weeklyLoss * 4, totalWeightToLose);
+    const threeMonthsLoss = Math.min(weeklyLoss * 12, totalWeightToLose);
+    const sixMonthsLoss = Math.min(weeklyLoss * 24, totalWeightToLose);
+
+    return {
+      oneMonth: { amount: Math.round(oneMonthLoss * 10) / 10, unit },
+      threeMonths: { amount: Math.round(threeMonthsLoss * 10) / 10, unit },
+      sixMonths: { amount: Math.round(sixMonthsLoss * 10) / 10, unit }
+    };
+  };
+
+  const projections = calculateWeightLoss();
+  
+  const getCurrentProjection = () => {
+    switch (currentPhase) {
+      case '1month':
+        return projections.oneMonth;
+      case '3months':
+        return projections.threeMonths;
+      case '6months':
+        return projections.sixMonths;
+      default:
+        return projections.oneMonth;
+    }
+  };
+
+  const getTimeframe = () => {
+    const now = new Date();
+    switch (currentPhase) {
+      case '1month':
+        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        return `by ${endOfMonth.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`;
+      case '3months':
+        const threeMonthsLater = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate());
+        return `in 3 months (${threeMonthsLater.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })})`;
+      case '6months':
+        const sixMonthsLater = new Date(now.getFullYear(), now.getMonth() + 6, now.getDate());
+        return `in 6 months (${sixMonthsLater.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })})`;
+      default:
+        return 'by month end';
+    }
+  };
+
+  const currentProjection = getCurrentProjection();
+  const timeframe = getTimeframe();
 
   const metrics = [
     { icon: Flame, label: 'Calories', value: '1960', color: 'text-gray-600' },
@@ -70,8 +166,11 @@ const CompletionStep = ({ onGetStarted }: CompletionStepProps) => {
             <div className="text-lg font-semibold text-foreground mb-1">
               You should lose:
             </div>
-            <div className="text-xl font-bold text-primary">
-              6 kg by August 30
+            <div 
+              key={currentPhase}
+              className="text-xl font-bold text-primary animate-fade-in transition-opacity duration-500"
+            >
+              {currentProjection.amount} {currentProjection.unit} {timeframe}
             </div>
           </div>
         </div>
