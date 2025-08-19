@@ -162,7 +162,7 @@ const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed,
             your custom plan is ready!
           </h2>
           
-          <div className="bg-muted/30 rounded-xl p-4 mb-6">
+          <div className="bg-muted/30 rounded-xl p-4 mb-6 shadow-lg">
             <div className="text-lg font-semibold text-foreground mb-1">
               You should lose:
             </div>
