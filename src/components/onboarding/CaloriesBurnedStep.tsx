@@ -59,11 +59,15 @@ const CaloriesBurnedStep = ({ onSelect }: CaloriesBurnedStepProps) => {
           {/* Activity card */}
           <div ref={cardRef} className="relative">
             <div className="w-80 h-48 bg-muted/30 rounded-2xl overflow-hidden relative">
-              {/* Background pattern */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
+              {/* Background image */}
+              <img 
+                src="/lovable-uploads/48cb0c7d-b08a-4939-bdf4-827ea64c7345.png" 
+                alt="Running exercise" 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               
-              {/* Running figure illustration */}
-              <div className="absolute right-4 top-4 bottom-4 w-24 bg-gradient-to-b from-gray-400 to-gray-600 rounded-lg opacity-60" />
+              {/* Overlay for better contrast */}
+              <div className="absolute inset-0 bg-black/20" />
               
               {/* Activity info overlay */}
               <div className="absolute bottom-6 left-6 right-6">
