@@ -49,8 +49,8 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#4AD4B2]/20 via-white to-[#4AD4B2]/10 p-6 pb-32 pt-0">
-      <div className="max-w-md mx-auto pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-[#4AD4B2]/20 via-white to-[#4AD4B2]/10 p-6 pb-32">
+      <div className="max-w-md mx-auto pt-8">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
