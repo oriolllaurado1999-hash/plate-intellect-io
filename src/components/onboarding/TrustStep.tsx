@@ -40,7 +40,7 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
 
   return (
     <>
-      <div className="px-6 py-8 h-full">
+      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <div className="flex-1 flex flex-col justify-center items-center">
           {/* Hands illustration */}
           <div ref={handsRef} className="mb-12">

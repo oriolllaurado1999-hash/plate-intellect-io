@@ -16,7 +16,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
 
   return (
     <>
-      <div className="px-6 py-8 h-full">
+      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <h1 className="text-3xl font-bold mb-4">Choose your Gender</h1>
         <p className="text-muted-foreground mb-12">
           This will be used to calibrate your custom plan.

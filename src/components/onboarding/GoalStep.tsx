@@ -26,7 +26,7 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
 
   return (
     <>
-      <div className="px-6 py-8 h-full">
+      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-foreground mb-4">
             What is your goal?

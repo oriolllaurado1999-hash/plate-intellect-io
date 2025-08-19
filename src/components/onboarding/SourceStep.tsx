@@ -26,7 +26,7 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
 
   return (
     <>
-      <div className="px-6 py-8 h-full">
+      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <h1 className="text-3xl font-bold mb-8">Where did you hear about us?</h1>
 
         <div className="space-y-4">

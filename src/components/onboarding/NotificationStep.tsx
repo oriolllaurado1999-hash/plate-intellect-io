@@ -48,7 +48,7 @@ const NotificationStep = ({ onAllow, onDeny }: NotificationStepProps) => {
   }, [showModal]);
 
   return (
-    <div className="flex flex-col h-full px-6 py-8 relative">
+    <div className="flex flex-col h-full px-6 py-8 relative bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="flex-1 flex flex-col justify-center items-center">
         <div ref={bellRef} className="mb-8">
           <div className="relative">

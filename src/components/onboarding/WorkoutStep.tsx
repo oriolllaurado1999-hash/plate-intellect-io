@@ -15,7 +15,7 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
   };
 
   return (
-    <div className="px-6 py-8 h-full flex flex-col">
+    <div className="px-6 py-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-4">How many workouts do you do per week?</h1>
         <p className="text-muted-foreground mb-12">

@@ -48,7 +48,7 @@ const CurrentWeightStep = ({ selected, onSelect, onNext }: CurrentWeightStepProp
 
   return (
     <>
-      <div className="px-6 py-8 h-full">
+      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <h1 className="text-3xl font-bold mb-4">What's your current weight?</h1>
         <p className="text-muted-foreground mb-12">
           This will help us calculate your personalized plan.

@@ -36,7 +36,7 @@ const ReferralStep = ({ onSubmit, onSkip }: ReferralStepProps) => {
   };
 
   return (
-    <div className="flex flex-col h-full px-6 py-8">
+    <div className="flex flex-col h-full px-6 py-8 bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="flex-1 flex flex-col justify-center">
         <div ref={formRef}>
           <div className="text-center mb-8">
