@@ -29,7 +29,7 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
       action = "Losing";
       message = "is a realistic target. It's not hard at all!";
     } else if (goal === 'gain') {
-      action = "Winning";
+      action = "Gaining";
       message = "is a realistic target. You can do it!";
     } else {
       action = "Maintaining";
