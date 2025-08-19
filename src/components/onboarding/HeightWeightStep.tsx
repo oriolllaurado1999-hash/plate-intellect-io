@@ -82,45 +82,65 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
           </span>
         </div>
 
-        {/* Height and Weight Inputs */}
-        <div className="grid grid-cols-2 gap-6">
-          {/* Height Column */}
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Height</h3>
-            <div className="space-y-2 max-h-64 overflow-y-auto">
-              {heightOptions.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => setHeight(option)}
-                  className={`w-full p-3 rounded-xl text-left transition-colors ${
-                    height === option
-                      ? 'bg-gray-200 text-gray-900 font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  {option} {isMetric ? 'cm' : 'ft'}
-                </button>
-              ))}
+        {/* Height and Weight Container with Border */}
+        <div className="bg-white rounded-2xl border-2 border-gray-100 shadow-lg p-6 mx-4">
+          <div className="grid grid-cols-2 gap-8">
+            {/* Height Column */}
+            <div className="flex flex-col items-center">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Height</h3>
+              <div className="relative w-full max-w-32">
+                {/* Fade overlay top */}
+                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-xl" />
+                
+                {/* Scrollable options */}
+                <div className="h-60 overflow-y-auto scrollbar-hide space-y-1 px-2">
+                  {heightOptions.map((option, index) => (
+                    <button
+                      key={option}
+                      onClick={() => setHeight(option)}
+                      className={`w-full p-3 rounded-xl text-center transition-all duration-200 ${
+                        height === option
+                          ? 'bg-[#4AD4B2] text-white font-semibold border-2 border-[#3BC4A2] shadow-md scale-105'
+                          : 'text-gray-600 hover:bg-gray-50 hover:scale-102'
+                      }`}
+                    >
+                      {option} {isMetric ? 'cm' : 'ft'}
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Fade overlay bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none rounded-b-xl" />
+              </div>
             </div>
-          </div>
 
-          {/* Weight Column */}
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Weight</h3>
-            <div className="space-y-2 max-h-64 overflow-y-auto">
-              {weightOptions.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => setWeight(option)}
-                  className={`w-full p-3 rounded-xl text-left transition-colors ${
-                    weight === option
-                      ? 'bg-gray-200 text-gray-900 font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  {option} {isMetric ? 'kg' : 'lbs'}
-                </button>
-              ))}
+            {/* Weight Column */}
+            <div className="flex flex-col items-center">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Weight</h3>
+              <div className="relative w-full max-w-32">
+                {/* Fade overlay top */}
+                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-xl" />
+                
+                {/* Scrollable options */}
+                <div className="h-60 overflow-y-auto scrollbar-hide space-y-1 px-2">
+                  {weightOptions.map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => setWeight(option)}
+                      className={`w-full p-3 rounded-xl text-center transition-all duration-200 ${
+                        weight === option
+                          ? 'bg-[#4AD4B2] text-white font-semibold border-2 border-[#3BC4A2] shadow-md scale-105'
+                          : 'text-gray-600 hover:bg-gray-50 hover:scale-102'
+                      }`}
+                    >
+                      {option} {isMetric ? 'kg' : 'lbs'}
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Fade overlay bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none rounded-b-xl" />
+              </div>
             </div>
           </div>
         </div>
