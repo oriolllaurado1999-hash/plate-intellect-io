@@ -55,7 +55,7 @@ const DesiredWeightStep = ({ selected, onSelect, onNext, weightUnit }: DesiredWe
 
         <div className="flex flex-col items-center">
           <div className="text-center mb-8">
-            <div className="text-sm text-muted-foreground mb-2">Lose weight</div>
+            <div className="text-sm text-muted-foreground mb-2">Weight Goal</div>
             <div className="text-4xl font-bold text-foreground">
               {weight.toFixed(1)} {weightUnit}
             </div>
