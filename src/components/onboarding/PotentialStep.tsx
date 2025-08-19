@@ -52,7 +52,7 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
             </h1>
           </div>
 
-          <div ref={chartRef} className="mb-8">
+          <div ref={chartRef} className="mb-4">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 mx-4">
               <h2 className="text-xl font-semibold text-foreground mb-6 text-center">
                 Your weight transition
