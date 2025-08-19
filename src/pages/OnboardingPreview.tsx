@@ -214,6 +214,7 @@ const OnboardingPreview = () => {
             selected={data.desiredWeight}
             onSelect={(weight) => updateData('desiredWeight', weight)}
             onNext={handleNext}
+            weightUnit={data.currentWeight?.unit || 'kg'}
           />
         );
       case 9:

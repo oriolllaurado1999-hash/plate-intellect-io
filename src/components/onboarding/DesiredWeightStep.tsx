@@ -7,13 +7,17 @@ interface DesiredWeightStepProps {
   selected: number | null;
   onSelect: (weight: number) => void;
   onNext: () => void;
+  weightUnit: 'kg' | 'lbs';
 }
 
-const DesiredWeightStep = ({ selected, onSelect, onNext }: DesiredWeightStepProps) => {
-  const [weight, setWeight] = useState(selected || 70);
+const DesiredWeightStep = ({ selected, onSelect, onNext, weightUnit }: DesiredWeightStepProps) => {
+  // Set default weight based on unit
+  const defaultWeight = weightUnit === 'kg' ? 70 : 154; // 154 lbs ≈ 70 kg
+  const [weight, setWeight] = useState(selected || defaultWeight);
   
-  const minWeight = 40;
-  const maxWeight = 150;
+  // Set min/max based on unit
+  const minWeight = weightUnit === 'kg' ? 40 : 88;   // 88 lbs ≈ 40 kg
+  const maxWeight = weightUnit === 'kg' ? 150 : 330;  // 330 lbs ≈ 150 kg
 
   const handleWeightChange = (value: number[]) => {
     const newWeight = value[0];
@@ -53,7 +57,7 @@ const DesiredWeightStep = ({ selected, onSelect, onNext }: DesiredWeightStepProp
           <div className="text-center mb-8">
             <div className="text-sm text-muted-foreground mb-2">Lose weight</div>
             <div className="text-4xl font-bold text-foreground">
-              {weight.toFixed(1)} kg
+              {weight.toFixed(1)} {weightUnit}
             </div>
           </div>
 
@@ -73,8 +77,8 @@ const DesiredWeightStep = ({ selected, onSelect, onNext }: DesiredWeightStepProp
               className="w-full"
             />
             <div className="flex justify-between text-xs text-muted-foreground mt-2">
-              <span>{minWeight} kg</span>
-              <span>{maxWeight} kg</span>
+              <span>{minWeight} {weightUnit}</span>
+              <span>{maxWeight} {weightUnit}</span>
             </div>
           </div>
         </div>
