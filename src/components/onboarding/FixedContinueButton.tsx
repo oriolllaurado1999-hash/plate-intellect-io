@@ -8,7 +8,7 @@ interface FixedContinueButtonProps {
 
 const FixedContinueButton = ({ onClick, disabled = false, text = "Continue" }: FixedContinueButtonProps) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border">
+    <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border z-20">
       <Button
         onClick={onClick}
         disabled={disabled}

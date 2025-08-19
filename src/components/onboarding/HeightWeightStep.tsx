@@ -49,7 +49,7 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 pb-32">
+    <div className="min-h-screen bg-white p-6 pb-40">
       <div className="max-w-md mx-auto pt-8">
         {/* Header */}
         <div className="mb-12">
