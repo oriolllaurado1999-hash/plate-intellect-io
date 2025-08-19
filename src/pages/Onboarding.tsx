@@ -10,6 +10,8 @@ interface OnboardingData {
   hasTriedOtherApps: boolean | null;
   birthDate: Date | null;
   goal: 'lose' | 'maintain' | 'gain' | null;
+  currentWeight: { weight: number; unit: 'kg' | 'lbs' } | null;
+  height: { height: number; unit: 'cm' | 'ft' } | null;
   desiredWeight: number | null;
   lossSpeed: number | null;
   obstacle: string[];

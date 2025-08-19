@@ -29,6 +29,7 @@ import TrialReminderStep from './onboarding/TrialReminderStep';
 
 import TrialTimelineStep from './onboarding/TrialTimelineStep';
 import WelcomeDashboardStep from './onboarding/WelcomeDashboardStep';
+import HeightWeightStep from './onboarding/HeightWeightStep';
 
 interface OnboardingData {
   gender: 'male' | 'female' | null;
@@ -78,7 +79,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     referralCode: null,
   });
 
-  const totalSteps = 28;
+  const totalSteps = 27;
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
@@ -154,13 +155,25 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
         );
       case 7:
         return (
+          <HeightWeightStep
+            selectedHeight={data.height}
+            selectedWeight={data.currentWeight}
+            onSelect={(heightWeight) => {
+              updateData('height', heightWeight.height);
+              updateData('currentWeight', heightWeight.weight);
+            }}
+            onNext={handleNext}
+          />
+        );
+      case 8:
+        return (
           <DesiredWeightStep
             selected={data.desiredWeight}
             onSelect={(weight) => updateData('desiredWeight', weight)}
             onNext={handleNext}
           />
         );
-      case 8:
+      case 9:
         return (
           <MotivationStep 
             onNext={handleNext}
@@ -169,7 +182,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             goal={data.goal}
           />
         );
-      case 9:
+      case 10:
         return (
           <SpeedStep
             selected={data.lossSpeed}
@@ -177,7 +190,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             onNext={handleNext}
           />
         );
-      case 10:
+      case 11:
         return (
           <ObstaclesStep
             selected={data.obstacle}
@@ -185,7 +198,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             onNext={handleNext}
           />
         );
-      case 11:
+      case 12:
         return (
           <DietStep
             selected={data.diet}
@@ -193,7 +206,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             onNext={handleNext}
           />
         );
-      case 12:
+      case 13:
         return (
           <AccomplishStep
             selected={data.accomplish}
@@ -201,11 +214,11 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             onNext={handleNext}
           />
         );
-      case 13:
-        return <PotentialStep onNext={handleNext} />;
       case 14:
-        return <TrustStep onNext={handleNext} />;
+        return <PotentialStep onNext={handleNext} />;
       case 15:
+        return <TrustStep onNext={handleNext} />;
+      case 16:
         return (
           <HealthConnectStep
             onConnect={() => {
@@ -218,7 +231,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             }}
           />
         );
-      case 16:
+      case 17:
         return (
           <CaloriesBurnedStep
             onSelect={(addBack) => {
@@ -227,7 +240,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             }}
           />
         );
-      case 17:
+      case 18:
         return (
           <RolloverStep
             onSelect={(rollover) => {
@@ -236,9 +249,9 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             }}
           />
         );
-      case 18:
-        return <RatingStep onNext={handleNext} />;
       case 19:
+        return <RatingStep onNext={handleNext} />;
+      case 20:
         return (
           <NotificationStep
             onAllow={() => {
@@ -251,7 +264,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             }}
           />
         );
-      case 20:
+      case 21:
         return (
           <ReferralStep
             onSubmit={(code) => {
@@ -264,18 +277,16 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             }}
           />
         );
-      case 21:
-        return <AllDoneStep onNext={handleNext} />;
       case 22:
-        return <GeneratingStep onComplete={handleNext} />;
+        return <AllDoneStep onNext={handleNext} />;
       case 23:
-        return <CompletionStep onGetStarted={handleNext} />;
+        return <GeneratingStep onComplete={handleNext} />;
       case 24:
-        return <TrialOfferStep onNext={handleNext} />;
+        return <CompletionStep onGetStarted={handleNext} />;
       case 25:
-        return <TrialReminderStep onNext={handleNext} />;
+        return <TrialOfferStep onNext={handleNext} />;
       case 26:
-        return <TrialTimelineStep onNext={handleNext} />;
+        return <TrialReminderStep onNext={handleNext} />;
       case 27:
         return <WelcomeDashboardStep onComplete={() => onComplete(data)} />;
       default:
