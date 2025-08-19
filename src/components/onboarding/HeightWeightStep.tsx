@@ -10,18 +10,18 @@ interface HeightWeightStepProps {
 
 const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: HeightWeightStepProps) => {
   const [isMetric, setIsMetric] = useState(true);
-  const [height, setHeight] = useState(selectedHeight?.height || (isMetric ? 170 : 5.7));
+  const [height, setHeight] = useState(selectedHeight?.height || (isMetric ? 170 : 5.6));
   const [weight, setWeight] = useState(selectedWeight?.weight || (isMetric ? 70 : 154));
 
   // Generate height options
   const heightOptions = isMetric 
-    ? Array.from({ length: 51 }, (_, i) => 150 + i) // 150-200 cm
-    : Array.from({ length: 25 }, (_, i) => 4.5 + (i * 0.1)).map(h => parseFloat(h.toFixed(1))); // 4.5-7.0 ft
+    ? Array.from({ length: 131 }, (_, i) => 100 + i) // 100-230 cm
+    : Array.from({ length: 51 }, (_, i) => 3.3 + (i * 0.1)).map(h => parseFloat(h.toFixed(1))); // 3.3-8.2 ft
 
   // Generate weight options
   const weightOptions = isMetric
-    ? Array.from({ length: 101 }, (_, i) => 40 + i) // 40-140 kg
-    : Array.from({ length: 201 }, (_, i) => 88 + i); // 88-288 lbs
+    ? Array.from({ length: 191 }, (_, i) => 10 + i) // 10-200 kg
+    : Array.from({ length: 419 }, (_, i) => 22 + i); // 22-440 lbs
 
   const handleContinue = () => {
     const heightUnit = isMetric ? 'cm' : 'ft';
