@@ -53,11 +53,11 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
           </div>
 
           <div ref={chartRef} className="mb-8">
-            <h2 className="text-xl font-semibold text-foreground mb-6 text-center">
-              Your weight transition
-            </h2>
-            
             <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 mx-4">
+              <h2 className="text-xl font-semibold text-foreground mb-6 text-center">
+                Your weight transition
+              </h2>
+              
               <div className="relative h-48 mb-6">
                 <svg 
                   className="w-full h-full" 
