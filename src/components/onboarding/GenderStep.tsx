@@ -25,11 +25,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
         <div className="space-y-4">
           <Button
             variant={selected === 'male' ? 'default' : 'outline'}
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
-              selected === 'male' 
-                ? 'bg-green-500 hover:bg-green-600 text-white border-green-500' 
-                : ''
-            }`}
+            className="w-full h-12 text-lg justify-center rounded-2xl"
             onClick={() => onSelect('male')}
           >
             Male
@@ -37,11 +33,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
 
           <Button
             variant={selected === 'female' ? 'default' : 'outline'}
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
-              selected === 'female' 
-                ? 'bg-green-500 hover:bg-green-600 text-white border-green-500' 
-                : ''
-            }`}
+            className="w-full h-12 text-lg justify-center rounded-2xl"
             onClick={() => onSelect('female')}
           >
             Female
