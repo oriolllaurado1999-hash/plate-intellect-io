@@ -25,21 +25,21 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         <div className="space-y-4 mb-16">
           <Button
             variant={selected === '0-2' ? 'default' : 'outline'}
-            className="w-full h-12 text-lg justify-center rounded-2xl"
+            className="w-full h-20 text-left flex flex-col items-start justify-center px-6"
             onClick={() => onSelect('0-2')}
           >
             <div className="flex items-center space-x-3">
               <div className="w-3 h-3 bg-current rounded-full"></div>
               <div>
-                <div className="font-semibold">0-2</div>
-                <div className="text-sm opacity-70">Workouts now and then</div>
+                <div className="text-lg font-semibold">0-2</div>
+                <div className="text-sm text-muted-foreground">Workouts now and then</div>
               </div>
             </div>
           </Button>
 
           <Button
             variant={selected === '3-5' ? 'default' : 'outline'}
-            className="w-full h-12 text-lg justify-center rounded-2xl"
+            className="w-full h-20 text-left flex flex-col items-start justify-center px-6"
             onClick={() => onSelect('3-5')}
           >
             <div className="flex items-center space-x-3">
@@ -49,15 +49,15 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
                 <div className="w-2 h-2 bg-current rounded-full"></div>
               </div>
               <div>
-                <div className="font-semibold">3-5</div>
-                <div className="text-sm opacity-70">A few workouts per week</div>
+                <div className="text-lg font-semibold">3-5</div>
+                <div className="text-sm text-muted-foreground">A few workouts per week</div>
               </div>
             </div>
           </Button>
 
           <Button
             variant={selected === '6+' ? 'default' : 'outline'}
-            className="w-full h-12 text-lg justify-center rounded-2xl"
+            className="w-full h-20 text-left flex flex-col items-start justify-center px-6"
             onClick={() => onSelect('6+')}
           >
             <div className="flex items-center space-x-3">
@@ -68,8 +68,8 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
                 <div className="w-2 h-2 bg-current rounded-full"></div>
               </div>
               <div>
-                <div className="font-semibold">6+</div>
-                <div className="text-sm opacity-70">Dedicated athlete</div>
+                <div className="text-lg font-semibold">6+</div>
+                <div className="text-sm text-muted-foreground">Dedicated athlete</div>
               </div>
             </div>
           </Button>
