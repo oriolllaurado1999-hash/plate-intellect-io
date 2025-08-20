@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Instagram, Users, Tv, Twitter, Facebook, Chrome } from 'lucide-react';
+import { Instagram, Users, Play, Twitter, Facebook, Chrome } from 'lucide-react';
 import FixedContinueButton from './FixedContinueButton';
 
 interface SourceStepProps {
@@ -18,10 +18,10 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
   const sources = [
     { id: 'instagram' as const, label: 'Instagram', icon: Instagram, highlight: false },
     { id: 'friend' as const, label: 'Friend or family', icon: Users, highlight: false },
-    { id: 'x' as const, label: 'X', icon: Twitter, highlight: false },
+    { id: 'x' as const, label: 'Twitter', icon: Twitter, highlight: false },
     { id: 'facebook' as const, label: 'Facebook', icon: Facebook, highlight: false },
     { id: 'google' as const, label: 'Google', icon: Chrome, highlight: false },
-    { id: 'tiktok' as const, label: 'TikTok', icon: Tv, highlight: false },
+    { id: 'tiktok' as const, label: 'TikTok', icon: Play, highlight: false },
   ];
 
   return (
