@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import GenderStep from './onboarding/GenderStep';
@@ -80,6 +80,31 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
   });
 
   const totalSteps = 27;
+
+  // Force light mode during onboarding
+  useEffect(() => {
+    // Save the current theme
+    const currentTheme = localStorage.getItem('theme') || 'system';
+    const htmlElement = document.documentElement;
+    const wasSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Force light mode
+    localStorage.setItem('theme', 'light');
+    htmlElement.classList.remove('dark');
+    htmlElement.style.colorScheme = 'light';
+    
+    // Cleanup: restore original theme on unmount
+    return () => {
+      localStorage.setItem('theme', currentTheme);
+      if (currentTheme === 'dark' || (currentTheme === 'system' && wasSystemDark)) {
+        htmlElement.classList.add('dark');
+        htmlElement.style.colorScheme = 'dark';
+      } else {
+        htmlElement.classList.remove('dark');
+        htmlElement.style.colorScheme = 'light';
+      }
+    };
+  }, []);
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
