@@ -155,7 +155,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
             }`}
             onClick={() => setSelectedPlan('yearly')}
           >
-            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
+            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
               7 DAYS FREE
             </div>
             <div className="text-center pt-2">
