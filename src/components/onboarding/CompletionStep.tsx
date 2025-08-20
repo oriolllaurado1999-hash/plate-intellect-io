@@ -66,36 +66,27 @@ const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed,
   const calculateWeightLoss = () => {
     if (!currentWeight || !desiredWeight || !lossSpeed || !goal) {
       return {
-        oneMonth: { amount: 6, unit: 'kg' },
-        threeMonths: { amount: 12, unit: 'kg' },
-        sixMonths: { amount: 18, unit: 'kg' }
+        oneMonth: { amount: 1.5, unit: 'kg' },
+        threeMonths: { amount: 4.5, unit: 'kg' },
+        sixMonths: { amount: 9, unit: 'kg' }
       };
     }
 
     const unit = currentWeight.unit;
     const totalWeightToLose = Math.abs(currentWeight.weight - desiredWeight);
     
-    // lossSpeed is a value from 1-5, where 1 is slowest and 5 is fastest
-    // Convert to kg per week (average values)
-    const weeklyLossRates = {
-      1: 0.25, // Very slow
-      2: 0.5,  // Slow  
-      3: 0.75, // Moderate
-      4: 1.0,  // Fast
-      5: 1.25  // Very fast
-    };
-
-    let weeklyLoss = weeklyLossRates[lossSpeed as keyof typeof weeklyLossRates] || 0.75;
+    // lossSpeed is already in kg per week from SpeedStep (0.1 - 1.5 kg/week)
+    let weeklyLoss = lossSpeed;
     
-    // Convert to lbs if needed
+    // Convert to lbs per week if needed
     if (unit === 'lbs') {
       weeklyLoss = weeklyLoss * 2.20462;
     }
 
-    // Calculate projections
-    const oneMonthLoss = Math.min(weeklyLoss * 4, totalWeightToLose);
-    const threeMonthsLoss = Math.min(weeklyLoss * 12, totalWeightToLose);
-    const sixMonthsLoss = Math.min(weeklyLoss * 24, totalWeightToLose);
+    // Calculate projections for different timeframes
+    const oneMonthLoss = Math.min(weeklyLoss * 4, totalWeightToLose); // 4 weeks in a month
+    const threeMonthsLoss = Math.min(weeklyLoss * 12, totalWeightToLose); // 12 weeks in 3 months
+    const sixMonthsLoss = Math.min(weeklyLoss * 24, totalWeightToLose); // 24 weeks in 6 months
 
     return {
       oneMonth: { amount: Math.round(oneMonthLoss * 10) / 10, unit },
