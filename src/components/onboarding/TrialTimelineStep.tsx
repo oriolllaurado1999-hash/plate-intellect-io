@@ -14,7 +14,16 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const plansRef = useRef<HTMLDivElement>(null);
 
-  const timelineItems = [
+  // Helper function to format date
+  const formatBillingDate = (daysToAdd: number) => {
+    const date = new Date();
+    date.setDate(date.getDate() + daysToAdd);
+    const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  // Dynamic timeline based on selected plan
+  const timelineItems = selectedPlan === 'monthly' ? [
     {
       icon: Unlock,
       title: "Today",
@@ -30,7 +39,26 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
     {
       icon: Crown,
       title: "In 3 Days - Billing Starts",
-      description: "You'll be charged on Aug 4, 2025 unless you cancel before.",
+      description: `You'll be charged on ${formatBillingDate(3)} unless you cancel before.`,
+      color: "text-foreground"
+    }
+  ] : [
+    {
+      icon: Unlock,
+      title: "Today",
+      description: "Unlock all app features like AI calorie scanning and more.",
+      color: "text-orange-500"
+    },
+    {
+      icon: Bell,
+      title: "In 4 Days - Reminder",
+      description: "We'll send you a reminder that your trial is ending soon.",
+      color: "text-orange-500"
+    },
+    {
+      icon: Crown,
+      title: "In 7 Days - Billing Starts",
+      description: `You'll be charged on ${formatBillingDate(7)} unless you cancel before.`,
       color: "text-foreground"
     }
   ];
