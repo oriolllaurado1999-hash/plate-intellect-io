@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import GenderStep from './onboarding/GenderStep';
@@ -80,42 +80,6 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
   });
 
   const totalSteps = 27;
-
-  // Force light theme for onboarding
-  useEffect(() => {
-    const originalTheme = document.documentElement.getAttribute('data-theme');
-    const originalClass = document.documentElement.className;
-    
-    // Force light theme
-    document.documentElement.setAttribute('data-theme', 'light');
-    document.documentElement.className = 'light';
-    
-    // Set CSS variables for light theme
-    document.documentElement.style.setProperty('--background', '0 0% 100%');
-    document.documentElement.style.setProperty('--foreground', '222.2 84% 4.9%');
-    document.documentElement.style.setProperty('--muted', '210 40% 96%');
-    document.documentElement.style.setProperty('--muted-foreground', '215.4 16.3% 46.9%');
-    document.documentElement.style.setProperty('--border', '214.3 31.8% 91.4%');
-    document.documentElement.style.setProperty('--secondary', '210 40% 96%');
-    
-    // Cleanup function to restore original theme
-    return () => {
-      if (originalTheme) {
-        document.documentElement.setAttribute('data-theme', originalTheme);
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
-      document.documentElement.className = originalClass;
-      
-      // Remove forced CSS variables
-      document.documentElement.style.removeProperty('--background');
-      document.documentElement.style.removeProperty('--foreground');
-      document.documentElement.style.removeProperty('--muted');
-      document.documentElement.style.removeProperty('--muted-foreground');
-      document.documentElement.style.removeProperty('--border');
-      document.documentElement.style.removeProperty('--secondary');
-    };
-  }, []);
 
   const updateData = (field: keyof OnboardingData, value: any) => {
     setData(prev => ({ ...prev, [field]: value }));
