@@ -13,7 +13,6 @@ interface CompletionStepProps {
 const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed, goal }: CompletionStepProps) => {
   const checkRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const [currentPhase, setCurrentPhase] = useState<'1month' | '3months' | '6months'>('1month');
 
   useEffect(() => {
     const check = checkRef.current;
@@ -46,89 +45,50 @@ const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed,
         }, 800 + (index * 150));
       });
     }
-
-    // Phase transitions
-    const phase1Timer = setTimeout(() => {
-      setCurrentPhase('3months');
-    }, 2500);
-
-    const phase2Timer = setTimeout(() => {
-      setCurrentPhase('6months');
-    }, 5000);
-
-    return () => {
-      clearTimeout(phase1Timer);
-      clearTimeout(phase2Timer);
-    };
   }, []);
 
-  // Calculate weight loss projections
-  const calculateWeightLoss = () => {
+  // Calculate target date when user will reach their goal weight
+  const calculateTargetDate = () => {
     if (!currentWeight || !desiredWeight || !lossSpeed || !goal) {
       return {
-        oneMonth: { amount: 1.5, unit: 'kg' },
-        threeMonths: { amount: 4.5, unit: 'kg' },
-        sixMonths: { amount: 9, unit: 'kg' }
+        date: new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000), // Default 6 months from now
+        weeksNeeded: 24
       };
     }
 
-    const unit = currentWeight.unit;
     const totalWeightToLose = Math.abs(currentWeight.weight - desiredWeight);
     
     // lossSpeed is already in kg per week from SpeedStep (0.1 - 1.5 kg/week)
     let weeklyLoss = lossSpeed;
     
-    // Convert to lbs per week if needed
-    if (unit === 'lbs') {
+    // Convert to lbs per week if needed for calculation consistency
+    if (currentWeight.unit === 'lbs') {
       weeklyLoss = weeklyLoss * 2.20462;
     }
 
-    // Calculate projections for different timeframes
-    const oneMonthLoss = Math.min(weeklyLoss * 4, totalWeightToLose); // 4 weeks in a month
-    const threeMonthsLoss = Math.min(weeklyLoss * 12, totalWeightToLose); // 12 weeks in 3 months
-    const sixMonthsLoss = Math.min(weeklyLoss * 24, totalWeightToLose); // 24 weeks in 6 months
+    // Calculate weeks needed to reach goal
+    const weeksNeeded = Math.ceil(totalWeightToLose / weeklyLoss);
+    
+    // Calculate target date
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + (weeksNeeded * 7));
 
     return {
-      oneMonth: { amount: Math.round(oneMonthLoss * 10) / 10, unit },
-      threeMonths: { amount: Math.round(threeMonthsLoss * 10) / 10, unit },
-      sixMonths: { amount: Math.round(sixMonthsLoss * 10) / 10, unit }
+      date: targetDate,
+      weeksNeeded
     };
   };
 
-  const projections = calculateWeightLoss();
+  const targetInfo = calculateTargetDate();
   
-  const getCurrentProjection = () => {
-    switch (currentPhase) {
-      case '1month':
-        return projections.oneMonth;
-      case '3months':
-        return projections.threeMonths;
-      case '6months':
-        return projections.sixMonths;
-      default:
-        return projections.oneMonth;
-    }
+  const formatTargetDate = () => {
+    const options: Intl.DateTimeFormatOptions = { 
+      month: 'long', 
+      day: 'numeric',
+      year: 'numeric'
+    };
+    return targetInfo.date.toLocaleDateString('en-US', options);
   };
-
-  const getTimeframe = () => {
-    const now = new Date();
-    switch (currentPhase) {
-      case '1month':
-        const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-        return `by ${endOfMonth.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`;
-      case '3months':
-        const threeMonthsLater = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate());
-        return `in 3 months (${threeMonthsLater.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })})`;
-      case '6months':
-        const sixMonthsLater = new Date(now.getFullYear(), now.getMonth() + 6, now.getDate());
-        return `in 6 months (${sixMonthsLater.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })})`;
-      default:
-        return 'by month end';
-    }
-  };
-
-  const currentProjection = getCurrentProjection();
-  const timeframe = getTimeframe();
 
   const metrics = [
     { icon: Flame, label: 'Calories', value: '1960', color: 'text-gray-600' },
@@ -155,13 +115,10 @@ const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed,
           
           <div className="bg-muted/30 rounded-xl p-4 mb-6 shadow-lg">
             <div className="text-lg font-semibold text-foreground mb-1">
-              You should lose:
+              You'll reach your goal weight on:
             </div>
-            <div 
-              key={currentPhase}
-              className="text-xl font-bold text-primary animate-fade-in transition-opacity duration-500"
-            >
-              {currentProjection.amount} {currentProjection.unit} {timeframe}
+            <div className="text-xl font-bold text-primary animate-fade-in transition-opacity duration-500">
+              {formatTargetDate()}
             </div>
           </div>
         </div>
