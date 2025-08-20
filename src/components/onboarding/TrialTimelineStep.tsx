@@ -35,12 +35,6 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
     }
   ];
 
-  const monthlyFeatures = [
-    "Unlimited AI calorie scanning",
-    "Personalized meal plans", 
-    "Advanced progress tracking"
-  ];
-
   useEffect(() => {
     // Animate timeline items
     if (timelineRef.current) {
@@ -87,66 +81,44 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   return (
     <div className="flex flex-col h-full px-6 py-8 bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="mb-8">
-        {selectedPlan === 'monthly' ? (
-          <>
-            <h1 className="text-3xl font-bold text-foreground text-center mb-8">
-              Unlock Kalore to reach your goals faster.
-            </h1>
-            
-            {/* Monthly Features */}
-            <div className="space-y-4 mb-8">
-              {monthlyFeatures.map((feature, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#4AD4B2' }}>
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-foreground font-medium">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            <h1 className="text-3xl font-bold text-foreground text-center mb-2">
-              Start your FREE trial
-            </h1>
-            <h2 className="text-3xl font-bold text-foreground text-center mb-8">
-              of 7 days to continue.
-            </h2>
+        <h1 className="text-3xl font-bold text-foreground text-center mb-2">
+          Start your FREE trial
+        </h1>
+        <h2 className="text-3xl font-bold text-foreground text-center mb-8">
+          of 7 days to continue.
+        </h2>
 
-            {/* Timeline */}
-            <div ref={timelineRef} className="space-y-6 mb-8">
-              {timelineItems.map((item, index) => {
-                const IconComponent = item.icon;
-                return (
-                  <div key={index} className="timeline-item flex items-start space-x-4">
-                    <div className="relative flex flex-col items-center">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                        index === 2 ? 'bg-foreground' : ''
-                      }`} style={{ backgroundColor: index !== 2 ? '#4AD4B2' : undefined }}>
-                        <IconComponent className="w-6 h-6 text-white" />
-                      </div>
-                      {index < timelineItems.length - 1 && (
-                        <div 
-                          className={`timeline-line w-1 bg-orange-500 mt-2 ${
-                            index === 1 ? 'bg-muted' : 'bg-orange-500'
-                          }`}
-                          style={{ height: '0px' }}
-                        />
-                      )}
-                    </div>
-                    <div className="flex-1 pt-2">
-                      <div className="font-bold text-foreground text-lg">{item.title}</div>
-                      <div className="text-sm text-muted-foreground leading-relaxed">
-                        {item.description}
-                      </div>
-                    </div>
+        {/* Timeline */}
+        <div ref={timelineRef} className="space-y-6 mb-8">
+          {timelineItems.map((item, index) => {
+            const IconComponent = item.icon;
+            return (
+              <div key={index} className="timeline-item flex items-start space-x-4">
+                <div className="relative flex flex-col items-center">
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                    index === 2 ? 'bg-foreground' : ''
+                  }`} style={{ backgroundColor: index !== 2 ? '#4AD4B2' : undefined }}>
+                    <IconComponent className="w-6 h-6 text-white" />
                   </div>
-                );
-              })}
-            </div>
-          </>
-        )}
+                  {index < timelineItems.length - 1 && (
+                    <div 
+                      className={`timeline-line w-1 bg-orange-500 mt-2 ${
+                        index === 1 ? 'bg-muted' : 'bg-orange-500'
+                      }`}
+                      style={{ height: '0px' }}
+                    />
+                  )}
+                </div>
+                <div className="flex-1 pt-2">
+                  <div className="font-bold text-foreground text-lg">{item.title}</div>
+                  <div className="text-sm text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Pricing Plans */}
