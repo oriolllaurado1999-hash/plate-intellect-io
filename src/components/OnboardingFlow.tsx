@@ -79,7 +79,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     referralCode: null,
   });
 
-  const totalSteps = 27;
+  const totalSteps = 28;
 
   // Force light mode during onboarding
   useEffect(() => {
@@ -322,6 +322,8 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
       case 26:
         return <TrialReminderStep onNext={handleNext} />;
       case 27:
+        return <TrialTimelineStep onNext={handleNext} />;
+      case 28:
         return <WelcomeDashboardStep onComplete={() => onComplete(data)} />;
       default:
         return null;
