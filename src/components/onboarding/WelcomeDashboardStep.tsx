@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Heart, Sparkles } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface WelcomeDashboardStepProps {
   onComplete: () => void;
 }
 
 const WelcomeDashboardStep = ({ onComplete }: WelcomeDashboardStepProps) => {
+  const { t } = useTranslation();
   const heartRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const sparklesRef = useRef<HTMLDivElement>(null);
@@ -119,14 +121,14 @@ const WelcomeDashboardStep = ({ onComplete }: WelcomeDashboardStepProps) => {
 
         <div ref={textRef} className="text-center">
           <h1 className="text-4xl font-bold text-foreground mb-6">
-            Gracias por tu tiempo
+            {t.thankYouForYourTime}
           </h1>
           <h2 className="text-2xl font-semibold text-muted-foreground mb-8">
-            Bienvenido a tu dashboard personalizado
+            {t.welcomeToPersonalizedDashboard}
           </h2>
           
           <div className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-6 py-3">
-            <span className="text-primary font-medium">Preparando tu experiencia...</span>
+            <span className="text-primary font-medium">{t.preparingYourExperience}</span>
           </div>
         </div>
       </div>
@@ -137,7 +139,7 @@ const WelcomeDashboardStep = ({ onComplete }: WelcomeDashboardStepProps) => {
           variant="ghost"
           className="w-full h-12 text-muted-foreground"
         >
-          Continuar al Dashboard
+          {t.continueToDashboard}
         </Button>
       </div>
     </div>

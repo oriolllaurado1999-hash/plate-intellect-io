@@ -191,6 +191,12 @@ export interface Translations {
   genderDescription: string;
   male: string;
   female: string;
+  
+  // Welcome Dashboard
+  thankYouForYourTime: string;
+  welcomeToPersonalizedDashboard: string;
+  preparingYourExperience: string;
+  continueToDashboard: string;
 }
 
 export const translations: Record<string, Translations> = {
@@ -391,7 +397,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Choose your Gender",
     genderDescription: "This will be used to calibrate your custom plan.",
     male: "Male",
-    female: "Female"
+    female: "Female",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Thank you for your time",
+    welcomeToPersonalizedDashboard: "Welcome to your personalized dashboard",
+    preparingYourExperience: "Preparing your experience...",
+    continueToDashboard: "Continue to Dashboard"
   },
 
   es: {
@@ -591,7 +603,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Elige tu Género",
     genderDescription: "Esto será usado para calibrar tu plan personalizado.",
     male: "Masculino",
-    female: "Femenino"
+    female: "Femenino",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Gracias por tu tiempo",
+    welcomeToPersonalizedDashboard: "Bienvenido a tu dashboard personalizado",
+    preparingYourExperience: "Preparando tu experiencia...",
+    continueToDashboard: "Continuar al Dashboard"
   },
 
   zh: {
@@ -791,7 +809,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "选择您的性别",
     genderDescription: "这将用于校准您的个人计划。",
     male: "男性",
-    female: "女性"
+    female: "女性",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "感谢您的时间",
+    welcomeToPersonalizedDashboard: "欢迎来到您的个性化仪表板",
+    preparingYourExperience: "正在准备您的体验...",
+    continueToDashboard: "继续到仪表板"
   },
 
   pt: {
@@ -991,7 +1015,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Escolha seu Gênero",
     genderDescription: "Isso será usado para calibrar seu plano personalizado.",
     male: "Masculino",
-    female: "Feminino"
+    female: "Feminino",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Obrigado pelo seu tempo",
+    welcomeToPersonalizedDashboard: "Bem-vindo ao seu painel personalizado",
+    preparingYourExperience: "Preparando sua experiência...",
+    continueToDashboard: "Continuar para o Painel"
   },
 
   fr: {
@@ -1191,7 +1221,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Choisissez votre Genre",
     genderDescription: "Ceci sera utilisé pour calibrer votre plan personnalisé.",
     male: "Homme",
-    female: "Femme"
+    female: "Femme",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Merci pour votre temps",
+    welcomeToPersonalizedDashboard: "Bienvenue sur votre tableau de bord personnalisé",
+    preparingYourExperience: "Préparation de votre expérience...",
+    continueToDashboard: "Continuer vers le Tableau de Bord"
   },
 
   de: {
@@ -1391,7 +1427,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Wählen Sie Ihr Geschlecht",
     genderDescription: "Dies wird verwendet, um Ihren individuellen Plan zu kalibrieren.",
     male: "Männlich",
-    female: "Weiblich"
+    female: "Weiblich",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Vielen Dank für Ihre Zeit",
+    welcomeToPersonalizedDashboard: "Willkommen zu Ihrem personalisierten Dashboard",
+    preparingYourExperience: "Ihre Erfahrung wird vorbereitet...",
+    continueToDashboard: "Weiter zum Dashboard"
   },
 
   it: {
@@ -1591,7 +1633,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Scegli il tuo Genere",
     genderDescription: "Questo sarà utilizzato per calibrare il tuo piano personalizzato.",
     male: "Maschio",
-    female: "Femmina"
+    female: "Femmina",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Grazie per il tuo tempo",
+    welcomeToPersonalizedDashboard: "Benvenuto nella tua dashboard personalizzata",
+    preparingYourExperience: "Preparando la tua esperienza...",
+    continueToDashboard: "Continua alla Dashboard"
   },
 
   ru: {
@@ -1791,7 +1839,13 @@ export const translations: Record<string, Translations> = {
     chooseYourGender: "Выберите ваш пол",
     genderDescription: "Это будет использовано для калибровки вашего персонального плана.",
     male: "Мужской",
-    female: "Женский"
+    female: "Женский",
+    
+    // Welcome Dashboard
+    thankYouForYourTime: "Спасибо за ваше время",
+    welcomeToPersonalizedDashboard: "Добро пожаловать в ваш персональный дашборд",
+    preparingYourExperience: "Подготавливаем ваш опыт...",
+    continueToDashboard: "Перейти к Дашборду"
   }
 };
 
