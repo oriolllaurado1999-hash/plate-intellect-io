@@ -90,7 +90,7 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
               <h3 className="text-xl font-semibold text-gray-900 mb-6">Height</h3>
               <div className="relative w-full max-w-32">
                 {/* Fade overlay top */}
-                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-xl" />
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-10 pointer-events-none rounded-t-xl" />
                 
                 {/* Scrollable options */}
                 <div className="h-60 overflow-y-auto space-y-1 px-2" style={{
@@ -129,7 +129,7 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
                 </div>
                 
                 {/* Fade overlay bottom */}
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none rounded-b-xl" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent z-10 pointer-events-none rounded-b-xl" />
               </div>
             </div>
 
@@ -138,7 +138,7 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
               <h3 className="text-xl font-semibold text-gray-900 mb-6">Weight</h3>
               <div className="relative w-full max-w-32">
                 {/* Fade overlay top */}
-                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-xl" />
+                <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-white via-white/80 to-transparent z-10 pointer-events-none rounded-t-xl" />
                 
                 {/* Scrollable options */}
                 <div className="h-60 overflow-y-auto space-y-1 px-2" style={{
@@ -161,7 +161,7 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
                 </div>
                 
                 {/* Fade overlay bottom */}
-                <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none rounded-b-xl" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent z-10 pointer-events-none rounded-b-xl" />
               </div>
             </div>
           </div>
