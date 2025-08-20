@@ -93,7 +93,26 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
                 <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-xl" />
                 
                 {/* Scrollable options */}
-                <div className="h-60 overflow-y-auto scrollbar-hide space-y-1 px-2">
+                <div className="h-60 overflow-y-auto space-y-1 px-2" style={{
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: '#d1d5db #f3f4f6'
+                }}>
+                  <style>{`
+                    .h-60::-webkit-scrollbar {
+                      width: 8px;
+                    }
+                    .h-60::-webkit-scrollbar-track {
+                      background: #f3f4f6;
+                      border-radius: 4px;
+                    }
+                    .h-60::-webkit-scrollbar-thumb {
+                      background: #d1d5db;
+                      border-radius: 4px;
+                    }
+                    .h-60::-webkit-scrollbar-thumb:hover {
+                      background: #9ca3af;
+                    }
+                  `}</style>
                   {heightOptions.map((option, index) => (
                     <button
                       key={option}
@@ -122,7 +141,10 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
                 <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none rounded-t-xl" />
                 
                 {/* Scrollable options */}
-                <div className="h-60 overflow-y-auto scrollbar-hide space-y-1 px-2">
+                <div className="h-60 overflow-y-auto space-y-1 px-2" style={{
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: '#d1d5db #f3f4f6'
+                }}>
                   {weightOptions.map((option) => (
                     <button
                       key={option}
