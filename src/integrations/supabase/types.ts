@@ -311,6 +311,48 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          created_at: string
+          expiry_date: string | null
+          id: string
+          is_active: boolean
+          original_transaction_id: string | null
+          platform: string
+          product_id: string
+          receipt_data: string | null
+          transaction_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean
+          original_transaction_id?: string | null
+          platform: string
+          product_id: string
+          receipt_data?: string | null
+          transaction_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean
+          original_transaction_id?: string | null
+          platform?: string
+          product_id?: string
+          receipt_data?: string | null
+          transaction_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,8 +1,16 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { InAppPurchases, IAPProduct, PurchaseResult } from '@capacitor-community/in-app-purchases';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { useToast } from './use-toast';
+
+// Mock types for In-App Purchase products
+interface MockIAPProduct {
+  productId: string;
+  title: string;
+  description: string;
+  price: string;
+  currency: string;
+}
 
 interface Subscription {
   id: string;
@@ -15,7 +23,7 @@ interface Subscription {
 interface InAppPurchasesContextType {
   subscription: Subscription | null;
   loading: boolean;
-  products: IAPProduct[];
+  products: MockIAPProduct[];
   purchaseProduct: (productId: string) => Promise<void>;
   restorePurchases: () => Promise<void>;
   refreshSubscription: () => Promise<void>;
@@ -32,7 +40,7 @@ const PRODUCT_IDS = {
 export function InAppPurchasesProvider({ children }: { children: React.ReactNode }) {
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState<IAPProduct[]>([]);
+  const [products, setProducts] = useState<MockIAPProduct[]>([]);
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -50,16 +58,7 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
     try {
       console.log('Initializing In-App Purchases...');
       
-      // Initialize the plugin
-      await InAppPurchases.initialize();
-      
-      // Set up purchase update listener
-      InAppPurchases.addListener('purchaseUpdated', (data) => {
-        console.log('Purchase updated:', data);
-        handlePurchaseUpdate(data.purchases);
-      });
-
-      // Load products
+      // Load mock products for web/development
       await loadProducts();
       
       setLoading(false);
@@ -71,11 +70,26 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
 
   const loadProducts = async () => {
     try {
-      const productIds = Object.values(PRODUCT_IDS);
-      const result = await InAppPurchases.getProducts({ productIds });
+      // Mock products for development/web version
+      const mockProducts: MockIAPProduct[] = [
+        {
+          productId: PRODUCT_IDS.MONTHLY,
+          title: 'Kalore Monthly',
+          description: 'Monthly subscription to Kalore Premium',
+          price: '$9.99',
+          currency: 'USD'
+        },
+        {
+          productId: PRODUCT_IDS.ANNUAL,
+          title: 'Kalore Annual',
+          description: 'Annual subscription to Kalore Premium',
+          price: '$59.88',
+          currency: 'USD'
+        }
+      ];
       
-      console.log('Loaded products:', result.products);
-      setProducts(result.products);
+      console.log('Loaded mock products:', mockProducts);
+      setProducts(mockProducts);
     } catch (error) {
       console.error('Failed to load products:', error);
     }
@@ -95,10 +109,16 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
       console.log('Purchasing product:', productId);
       setLoading(true);
 
-      const result = await InAppPurchases.purchaseProduct({ productId });
-      console.log('Purchase result:', result);
+      // For web/development: simulate purchase with mock data
+      const mockPurchase = {
+        productId,
+        transactionId: `mock_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        originalTransactionId: `original_${Date.now()}`,
+        platform: 'web'
+      };
+
+      await processPurchase(mockPurchase);
       
-      // The purchase will be handled by the purchaseUpdated listener
     } catch (error) {
       console.error('Purchase failed:', error);
       toast({
@@ -110,16 +130,7 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
     }
   };
 
-  const handlePurchaseUpdate = async (purchases: PurchaseResult[]) => {
-    for (const purchase of purchases) {
-      if (purchase.state === 'purchased') {
-        await processPurchase(purchase);
-      }
-    }
-    setLoading(false);
-  };
-
-  const processPurchase = async (purchase: PurchaseResult) => {
+  const processPurchase = async (purchase: any) => {
     if (!user) return;
 
     try {
@@ -132,12 +143,18 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
           productId: purchase.productId,
           transactionId: purchase.transactionId,
           receiptData: purchase.originalTransactionId,
-          platform: purchase.platform
+          platform: purchase.platform || 'web'
         }
       });
 
       if (error) {
         console.error('Receipt validation failed:', error);
+        toast({
+          title: "Validation Error",
+          description: "Failed to validate purchase. Please try again.",
+          variant: "destructive",
+        });
+        setLoading(false);
         return;
       }
 
@@ -151,10 +168,7 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
         description: "Your subscription has been activated.",
       });
 
-      // Acknowledge/finish the purchase
-      await InAppPurchases.acknowledgePurchase({
-        transactionId: purchase.transactionId
-      });
+      setLoading(false);
 
     } catch (error) {
       console.error('Failed to process purchase:', error);
@@ -163,6 +177,7 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
         description: "Purchase completed but failed to activate. Please contact support.",
         variant: "destructive",
       });
+      setLoading(false);
     }
   };
 
@@ -173,21 +188,13 @@ export function InAppPurchasesProvider({ children }: { children: React.ReactNode
       setLoading(true);
       console.log('Restoring purchases...');
       
-      const result = await InAppPurchases.restorePurchases();
-      console.log('Restore result:', result);
+      // For web/development: just refresh current subscription
+      await refreshSubscription();
       
-      if (result.purchases.length === 0) {
-        toast({
-          title: "No Purchases Found",
-          description: "No previous purchases found for this account.",
-        });
-      } else {
-        await handlePurchaseUpdate(result.purchases);
-        toast({
-          title: "Purchases Restored",
-          description: "Your previous purchases have been restored.",
-        });
-      }
+      toast({
+        title: "Purchases Restored",
+        description: "Your subscription status has been refreshed.",
+      });
     } catch (error) {
       console.error('Failed to restore purchases:', error);
       toast({

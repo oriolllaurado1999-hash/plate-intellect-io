@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
+import { InAppPurchasesProvider } from "@/hooks/useInAppPurchases";
 import { ThemeProvider } from "next-themes";
 import { CameraProvider } from "@/contexts/CameraContext";
 import Index from "./pages/Index";
@@ -13,6 +14,7 @@ import Activity from "./pages/Activity";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
 import OnboardingPreview from "./pages/OnboardingPreview";
+import Subscription from "./pages/Subscription";
 import BusinessPlanPage from "./pages/BusinessPlan";
 import Layout from "./components/Layout";
 import Auth from "./pages/Auth";
@@ -60,16 +62,18 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AuthProvider>
-        <CameraProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+        <InAppPurchasesProvider>
+          <CameraProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
             <Routes>
               <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
               <Route path="/onboarding-preview" element={<OnboardingPreview />} />
               <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/business-plan" element={<BusinessPlanPage />} />
+              <Route path="/subscription" element={<Subscription />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
                 <Route path="goals" element={<Goals />} />
@@ -83,9 +87,10 @@ const App = () => (
             </BrowserRouter>
           </TooltipProvider>
         </CameraProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
+      </InAppPurchasesProvider>
+    </AuthProvider>
+  </ThemeProvider>
+</QueryClientProvider>
 );
 
 export default App;

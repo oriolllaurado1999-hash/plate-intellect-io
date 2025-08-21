@@ -25,6 +25,7 @@ import AddOptionsMenu from '@/components/AddOptionsMenu';
 import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
 import VirtualTrainer from '@/components/VirtualTrainer';
+import SubscriptionButton from '@/components/SubscriptionButton';
 import { useCameraContext } from '@/contexts/CameraContext';
 
 const Index = () => {
@@ -269,6 +270,7 @@ const Index = () => {
           <span className="text-xl font-bold text-foreground">Kalore</span>
         </div>
         <div className="flex items-center gap-3">
+          <SubscriptionButton />
           <button 
             onClick={() => setShowDayStreak(true)}
             className="flex items-center gap-1 bg-card px-3 py-1 rounded-full hover:bg-card/90 transition-colors shadow-md dark:shadow-lg"
