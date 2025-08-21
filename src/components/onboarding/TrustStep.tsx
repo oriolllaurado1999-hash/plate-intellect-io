@@ -71,17 +71,19 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
               Now let's personalize Kalore for you...
             </p>
 
-            <div className="flex flex-col items-center space-y-4">
-              <div className="p-4 bg-muted/30 rounded-full">
-                <Shield className="h-8 w-8 text-primary" />
-              </div>
-              <div className="text-center">
-                <h3 className="font-semibold text-foreground mb-2">
-                  Your privacy and security matter to us.
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  We promise to always keep your personal information private and secure.
-                </p>
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 mx-4">
+              <div className="flex flex-col items-center space-y-4">
+                <div className="p-4 bg-muted/30 rounded-full">
+                  <Shield className="h-8 w-8 text-primary" />
+                </div>
+                <div className="text-center">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Your privacy and security matter to us.
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    We promise to always keep your personal information private and secure.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
