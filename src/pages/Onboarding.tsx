@@ -6,7 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 interface OnboardingData {
   gender: 'male' | 'female' | null;
   workouts: '0-2' | '3-5' | '6+' | null;
-  source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | null;
+  source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | 'others' | null;
   hasTriedOtherApps: boolean | null;
   birthDate: Date | null;
   goal: 'lose' | 'maintain' | 'gain' | null;

@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { Instagram, Users, Tv, Twitter, Facebook, Chrome } from 'lucide-react';
+import { Instagram, Users, Twitter, Facebook, Chrome, Play, MoreHorizontal } from 'lucide-react';
 import FixedContinueButton from './FixedContinueButton';
 
 interface SourceStepProps {
-  selected: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | null;
-  onSelect: (source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok') => void;
+  selected: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | 'others' | null;
+  onSelect: (source: 'instagram' | 'friend' | 'tv' | 'x' | 'facebook' | 'google' | 'tiktok' | 'others') => void;
   onNext: () => void;
 }
 
@@ -21,7 +21,8 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
     { id: 'x' as const, label: 'X', icon: Twitter, highlight: false },
     { id: 'facebook' as const, label: 'Facebook', icon: Facebook, highlight: false },
     { id: 'google' as const, label: 'Google', icon: Chrome, highlight: false },
-    { id: 'tiktok' as const, label: 'TikTok', icon: Tv, highlight: false },
+    { id: 'tiktok' as const, label: 'TikTok', icon: Play, highlight: false },
+    { id: 'others' as const, label: 'Others', icon: MoreHorizontal, highlight: false },
   ];
 
   return (
@@ -43,13 +44,13 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
                 <Button
                   key={source.id}
                   variant="ghost"
-                  className={`w-full h-16 text-left flex items-center justify-start px-6 space-x-4 rounded-2xl ${
+                  className={`w-full h-12 text-left flex items-center justify-start px-6 space-x-4 rounded-2xl ${
                     isSelected ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
                   }`}
                   onClick={() => onSelect(source.id as any)}
                 >
-                  <Icon className="h-6 w-6" />
-                  <span className="text-lg">{source.label}</span>
+                  <Icon className="h-5 w-5" />
+                  <span className="text-base">{source.label}</span>
                 </Button>
               );
             })}
