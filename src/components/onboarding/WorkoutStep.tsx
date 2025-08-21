@@ -26,8 +26,10 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
       <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4 flex-shrink-0">
           <Button
-            variant={selected === '0-2' ? 'default' : 'outline'}
-            className="w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl"
+            variant="ghost"
+            className={`w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl ${
+              selected === '0-2' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+            }`}
             onClick={() => onSelect('0-2')}
           >
             <div className="flex items-center space-x-3">
@@ -40,8 +42,10 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
           </Button>
 
           <Button
-            variant={selected === '3-5' ? 'default' : 'outline'}
-            className="w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl"
+            variant="ghost"
+            className={`w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl ${
+              selected === '3-5' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+            }`}
             onClick={() => onSelect('3-5')}
           >
             <div className="flex items-center space-x-3">
@@ -58,8 +62,10 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
           </Button>
 
           <Button
-            variant={selected === '6+' ? 'default' : 'outline'}
-            className="w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl"
+            variant="ghost"
+            className={`w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl ${
+              selected === '6+' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+            }`}
             onClick={() => onSelect('6+')}
           >
             <div className="flex items-center space-x-3">
