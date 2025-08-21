@@ -46,8 +46,8 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
     <>
       <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <div className="flex-1 flex flex-col justify-center">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl font-bold text-foreground mb-12">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-foreground mb-8">
               With your potential, no goal is out of reach
             </h1>
           </div>
