@@ -31,21 +31,21 @@ const DietStep = ({ selected, onSelect, onNext }: DietStepProps) => {
           </h1>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {diets.map((diet) => {
             const IconComponent = diet.icon;
             return (
               <button
                 key={diet.id}
                 onClick={() => onSelect(diet.id)}
-                className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
+                className={`w-full p-3 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
                   selected === diet.id
                     ? 'bg-continue text-continue-foreground'
                     : 'bg-continue/5 hover:bg-continue/10'
                 }`}
               >
-                <IconComponent className={`h-6 w-6 ${selected === diet.id ? 'text-continue-foreground' : ''}`} />
-                <span className={`text-lg font-medium ${selected === diet.id ? 'text-continue-foreground' : 'text-foreground'}`}>
+                <IconComponent className={`h-5 w-5 ${selected === diet.id ? 'text-continue-foreground' : ''}`} />
+                <span className={`text-base font-medium ${selected === diet.id ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {diet.label}
                 </span>
               </button>
