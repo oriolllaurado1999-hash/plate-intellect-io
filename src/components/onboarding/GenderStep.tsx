@@ -16,29 +16,32 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
 
   return (
     <>
-      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
-        <h1 className="text-3xl font-bold mb-4">Choose your Gender</h1>
-        <p className="text-muted-foreground mb-12">
-          This will be used to calibrate your custom plan.
-        </p>
+      <div className="px-6 py-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
+        <div className="mb-12">
+          <h1 className="text-3xl font-bold mb-4">Choose your Gender</h1>
+          <p className="text-muted-foreground">
+            This will be used to calibrate your custom plan.
+          </p>
+        </div>
 
-        <div className="space-y-4">
-          <Button
-            variant={selected === 'male' ? 'default' : 'outline'}
-            className="w-full h-12 text-lg justify-center rounded-2xl"
-            onClick={() => onSelect('male')}
-          >
-            Male
-          </Button>
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="space-y-4">
+            <Button
+              variant={selected === 'male' ? 'default' : 'outline'}
+              className="w-full h-12 text-lg justify-center rounded-2xl"
+              onClick={() => onSelect('male')}
+            >
+              Male
+            </Button>
 
-          <Button
-            variant={selected === 'female' ? 'default' : 'outline'}
-            className="w-full h-12 text-lg justify-center rounded-2xl"
-            onClick={() => onSelect('female')}
-          >
-            Female
-          </Button>
-
+            <Button
+              variant={selected === 'female' ? 'default' : 'outline'}
+              className="w-full h-12 text-lg justify-center rounded-2xl"
+              onClick={() => onSelect('female')}
+            >
+              Female
+            </Button>
+          </div>
         </div>
       </div>
 
