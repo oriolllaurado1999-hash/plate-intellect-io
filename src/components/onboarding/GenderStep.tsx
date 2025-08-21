@@ -16,8 +16,8 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
 
   return (
     <>
-      <div className="px-6 pt-4 pb-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
-        <div className="mb-8">
+      <div className="px-6 pt-8 pb-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
+        <div className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4">Choose your Gender</h1>
           <p className="text-muted-foreground">
             This will be used to calibrate your custom plan.
@@ -25,7 +25,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
         </div>
 
         <div className="flex-1 flex flex-col justify-center">
-          <div className="space-y-4">
+          <div className="space-y-4 max-w-sm mx-auto w-full">
             <Button
               variant={selected === 'male' ? 'default' : 'outline'}
               className="w-full h-12 text-lg justify-center rounded-2xl"
