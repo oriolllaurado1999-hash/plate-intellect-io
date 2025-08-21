@@ -53,10 +53,10 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
               <button
                 key={obstacle.id}
                 onClick={() => handleObstacleSelect(obstacle.id)}
-                className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 flex items-center space-x-4 ${
+                className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
                   isSelected
-                    ? 'border-continue bg-continue text-continue-foreground'
-                    : 'border-continue/20 bg-continue/5 hover:border-continue/50 hover:bg-continue/10'
+                    ? 'bg-continue text-continue-foreground'
+                    : 'bg-continue/5 hover:bg-continue/10'
                 }`}
               >
                 <IconComponent className={`h-6 w-6 ${isSelected ? 'text-continue-foreground' : ''}`} />
