@@ -45,7 +45,7 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
           {/* Hands illustration */}
           <div ref={handsRef} className="mb-12">
             <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-              <Handshake className="w-20 h-20 text-primary handshake-animation" />
+              <Handshake className="w-12 h-12 text-primary" />
               {/* Floating dots animation */}
               <div className="absolute inset-0 rounded-full">
                 {[...Array(8)].map((_, i) => (
