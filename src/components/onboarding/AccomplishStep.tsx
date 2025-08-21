@@ -52,14 +52,14 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
               <button
                 key={goal.id}
                 onClick={() => handleGoalSelect(goal.id)}
-                className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 flex items-center space-x-4 ${
+                className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
                   isSelected
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border bg-background hover:border-primary/50 hover:bg-primary/5'
+                    ? 'bg-continue text-continue-foreground'
+                    : 'bg-continue/5 hover:bg-continue/10'
                 }`}
               >
-                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-primary-foreground' : ''}`} />
-                <span className={`text-lg font-medium ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>
+                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-continue-foreground' : ''}`} />
+                <span className={`text-lg font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {goal.label}
                 </span>
               </button>
