@@ -50,7 +50,7 @@ const HeightWeightStep = ({ selectedHeight, selectedWeight, onSelect, onNext }: 
 
   return (
     <div className="min-h-screen bg-white p-6 pb-32">
-      <div className="max-w-md mx-auto pt-2">
+      <div className="max-w-md mx-auto pt-0">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
