@@ -65,7 +65,7 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
 
           <div ref={textRef} className="text-center">
             <h1 className="text-3xl font-bold text-foreground mb-4">
-              Thank you for trusting us
+              Thanks for your trust
             </h1>
             <p className="text-muted-foreground text-lg mb-12">
               Now let's personalize Kalore for you...
