@@ -44,7 +44,7 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
           </h1>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {goals.map((goal) => {
             const IconComponent = goal.icon;
             const isSelected = selected.includes(goal.id);
@@ -52,14 +52,14 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
               <button
                 key={goal.id}
                 onClick={() => handleGoalSelect(goal.id)}
-                className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
+                className={`w-full p-3 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
                   isSelected
                     ? 'bg-continue text-continue-foreground'
                     : 'bg-continue/5 hover:bg-continue/10'
                 }`}
               >
-                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-continue-foreground' : ''}`} />
-                <span className={`text-lg font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
+                <IconComponent className={`h-5 w-5 ${isSelected ? 'text-continue-foreground' : ''}`} />
+                <span className={`text-base font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {goal.label}
                 </span>
               </button>
