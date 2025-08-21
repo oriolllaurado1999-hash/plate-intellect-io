@@ -34,7 +34,7 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
           </p>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center pt-8">
+        <div className="flex-1 flex flex-col justify-center pt-4">
           <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
             {sources.map((source) => {
               const Icon = source.icon;
