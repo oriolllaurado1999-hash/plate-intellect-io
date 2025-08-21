@@ -38,14 +38,14 @@ const DietStep = ({ selected, onSelect, onNext }: DietStepProps) => {
               <button
                 key={diet.id}
                 onClick={() => onSelect(diet.id)}
-                className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 flex items-center space-x-4 ${
+                className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
                   selected === diet.id
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border bg-background hover:border-primary/50'
+                    ? 'bg-continue text-continue-foreground'
+                    : 'bg-continue/5 hover:bg-continue/10'
                 }`}
               >
-                <IconComponent className="h-6 w-6" />
-                <span className="text-lg font-medium">
+                <IconComponent className={`h-6 w-6 ${selected === diet.id ? 'text-continue-foreground' : ''}`} />
+                <span className={`text-lg font-medium ${selected === diet.id ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {diet.label}
                 </span>
               </button>
