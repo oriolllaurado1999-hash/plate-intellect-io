@@ -1,18 +1,35 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 import { CheckCircle, Flame, Edit3, Beef, Wheat, Leaf, Heart } from 'lucide-react';
+import { useNutritionCalculator } from '@/hooks/useNutritionCalculator';
 
 interface CompletionStepProps {
   onGetStarted: () => void;
-  currentWeight?: { weight: number; unit: 'kg' | 'lbs' } | null;
-  desiredWeight?: number | null;
-  lossSpeed?: number | null;
-  goal?: 'lose' | 'maintain' | 'gain' | null;
+  gender: 'male' | 'female' | null;
+  birthDate: Date | null;
+  currentWeight: { weight: number; unit: 'kg' | 'lbs' } | null;
+  height: { height: number; unit: 'cm' | 'ft' } | null;
+  desiredWeight: number | null;
+  lossSpeed: number | null;
+  goal: 'lose' | 'maintain' | 'gain' | null;
+  workouts: '0-2' | '3-5' | '6+' | null;
 }
 
-const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed, goal }: CompletionStepProps) => {
+const CompletionStep = ({ onGetStarted, gender, birthDate, currentWeight, height, desiredWeight, lossSpeed, goal, workouts }: CompletionStepProps) => {
   const checkRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
+  // Calculate nutrition goals using the custom hook
+  const nutritionGoals = useNutritionCalculator({
+    gender,
+    birthDate,
+    currentWeight,
+    height,
+    desiredWeight,
+    lossSpeed,
+    goal,
+    workouts
+  });
 
   useEffect(() => {
     const check = checkRef.current;
@@ -91,10 +108,10 @@ const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed,
   };
 
   const metrics = [
-    { icon: Flame, label: 'Calories', value: '1960', color: 'text-gray-600' },
-    { icon: Wheat, label: 'Carbs', value: '221g', color: 'text-orange-500' },
-    { icon: Beef, label: 'Protein', value: '146g', color: 'text-red-500' },
-    { icon: Leaf, label: 'Fats', value: '54g', color: 'text-blue-500' }
+    { icon: Flame, label: 'Calories', value: nutritionGoals.calories.toLocaleString(), color: 'text-gray-600' },
+    { icon: Wheat, label: 'Carbs', value: `${nutritionGoals.carbs}g`, color: 'text-orange-500' },
+    { icon: Beef, label: 'Protein', value: `${nutritionGoals.protein}g`, color: 'text-red-500' },
+    { icon: Leaf, label: 'Fats', value: `${nutritionGoals.fat}g`, color: 'text-blue-500' }
   ];
 
   return (
@@ -185,7 +202,7 @@ const CompletionStep = ({ onGetStarted, currentWeight, desiredWeight, lossSpeed,
               </div>
               <span className="font-medium text-foreground">Health Score</span>
             </div>
-            <span className="text-xl font-bold text-foreground">7/10</span>
+            <span className="text-xl font-bold text-foreground">{nutritionGoals.healthScore}/10</span>
           </div>
         </div>
       </div>

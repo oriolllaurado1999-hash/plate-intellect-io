@@ -328,7 +328,19 @@ const OnboardingPreview = () => {
       case 24:
         return <GeneratingStep onComplete={handleNext} />;
       case 25:
-        return <CompletionStep onGetStarted={handleNext} />;
+        return (
+          <CompletionStep 
+            onGetStarted={handleNext}
+            gender="male"
+            birthDate={new Date('1995-01-01')}
+            currentWeight={{ weight: 75, unit: 'kg' }}
+            height={{ height: 175, unit: 'cm' }}
+            desiredWeight={70}
+            lossSpeed={0.5}
+            goal="lose"
+            workouts="3-5"
+          />
+        );
       case 26:
         return <TrialOfferStep onNext={handleNext} />;
       case 27:

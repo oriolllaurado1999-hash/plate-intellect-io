@@ -317,10 +317,14 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
         return (
           <CompletionStep 
             onGetStarted={handleNext}
+            gender={data.gender}
+            birthDate={data.birthDate}
             currentWeight={data.currentWeight}
+            height={data.height}
             desiredWeight={data.desiredWeight}
             lossSpeed={data.lossSpeed}
             goal={data.goal}
+            workouts={data.workouts}
           />
         );
       case 25:
