@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import GenderStep from './onboarding/GenderStep';
@@ -59,6 +60,7 @@ interface OnboardingFlowProps {
 
 const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const navigate = useNavigate();
   const [data, setData] = useState<OnboardingData>({
     gender: null,
     workouts: null,
@@ -120,7 +122,10 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
   };
 
   const handleBack = () => {
-    if (currentStep > 1) {
+    if (currentStep === 1) {
+      // En la primera diapositiva, regresar a /auth
+      navigate('/auth');
+    } else if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
@@ -342,7 +347,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <div className="flex items-center p-4 pt-6">
-        {currentStep > 1 && (
+        {currentStep >= 1 && (
           <Button
             variant="ghost"
             size="icon"
