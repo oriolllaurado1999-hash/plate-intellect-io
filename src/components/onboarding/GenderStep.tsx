@@ -26,7 +26,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
       <div className="flex-1 flex flex-col justify-center pt-8">
         <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
           <Button
-            variant={selected === 'male' ? 'default' : 'outline'}
+            variant={selected === 'male' ? 'default' : 'ghost'}
             className="w-full h-12 text-lg justify-center rounded-2xl bg-continue/5"
             onClick={() => onSelect('male')}
           >
@@ -34,7 +34,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
           </Button>
 
           <Button
-            variant={selected === 'female' ? 'default' : 'outline'}
+            variant={selected === 'female' ? 'default' : 'ghost'}
             className="w-full h-12 text-lg justify-center rounded-2xl bg-continue/5"
             onClick={() => onSelect('female')}
           >
