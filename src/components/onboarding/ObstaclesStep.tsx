@@ -55,12 +55,12 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
                 onClick={() => handleObstacleSelect(obstacle.id)}
                 className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 flex items-center space-x-4 ${
                   isSelected
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border bg-background hover:border-primary/50 hover:bg-primary/5'
+                    ? 'border-continue bg-continue text-continue-foreground'
+                    : 'border-continue/20 bg-continue/5 hover:border-continue/50 hover:bg-continue/10'
                 }`}
               >
-                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-primary-foreground' : ''}`} />
-                <span className={`text-lg font-medium ${isSelected ? 'text-primary-foreground' : 'text-foreground'}`}>
+                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-continue-foreground' : ''}`} />
+                <span className={`text-lg font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {obstacle.label}
                 </span>
               </button>
