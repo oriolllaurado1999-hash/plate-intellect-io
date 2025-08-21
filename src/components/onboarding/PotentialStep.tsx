@@ -48,7 +48,7 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
         <div className="flex-1 flex flex-col justify-center">
           <div className="text-center mb-12">
             <h1 className="text-3xl font-bold text-foreground mb-12">
-              You have great potential to crush your goal
+              With your potential, no goal is out of reach
             </h1>
           </div>
 
