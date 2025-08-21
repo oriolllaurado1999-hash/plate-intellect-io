@@ -11,6 +11,16 @@ const config: CapacitorConfig = {
   plugins: {
     Camera: {
       permissions: ['camera', 'photos']
+    },
+    HealthKit: {
+      permissions: [
+        'read:steps',
+        'read:active_energy_burned',
+        'read:body_mass',
+        'read:height',
+        'read:heart_rate',
+        'read:exercise_time'
+      ]
     }
   }
 };

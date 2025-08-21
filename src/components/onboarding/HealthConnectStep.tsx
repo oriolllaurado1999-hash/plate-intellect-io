@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { Heart } from 'lucide-react';
+import { useHealthKit } from '@/hooks/useHealthKit';
 
 interface HealthConnectStepProps {
   onConnect: () => void;
@@ -7,63 +10,96 @@ interface HealthConnectStepProps {
 }
 
 const HealthConnectStep = ({ onConnect, onSkip }: HealthConnectStepProps) => {
-  const appIconRef = useRef<HTMLDivElement>(null);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const { toast } = useToast();
+  const { isAvailable, requestPermissions } = useHealthKit();
 
-  useEffect(() => {
-    const appIcon = appIconRef.current;
-
-    if (appIcon) {
-      // Animate app icon
-      appIcon.style.opacity = '0';
-      appIcon.style.transform = 'scale(0.5)';
+  const handleConnectHealth = async () => {
+    setIsConnecting(true);
+    
+    try {
+      if (isAvailable) {
+        // Request HealthKit permissions on iOS
+        const granted = await requestPermissions();
+        
+        if (granted) {
+          toast({
+            title: "Connected to Apple Health",
+            description: "Your health data will now be synced with Kalore.",
+          });
+        }
+      } else {
+        // Web platform or Android - show info message
+        toast({
+          title: "Apple Health Available on Mobile",
+          description: "Apple Health integration is available when using the iOS app.",
+        });
+      }
       
-      setTimeout(() => {
-        appIcon.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        appIcon.style.opacity = '1';
-        appIcon.style.transform = 'scale(1)';
-      }, 300);
+      // Continue to next step regardless of connection result
+      onConnect();
+    } catch (error) {
+      console.error('Health connection error:', error);
+      toast({
+        title: "Connection Failed",
+        description: "Unable to connect to Apple Health. You can set this up later in settings.",
+        variant: "destructive",
+      });
+      // Even if failed, continue to next step
+      onConnect();
+    } finally {
+      setIsConnecting(false);
     }
-  }, []);
+  };
+
+  const handleNotNow = () => {
+    toast({
+      title: "Skipped",
+      description: "You can connect to Apple Health later in your profile settings.",
+    });
+    onSkip();
+  };
 
   return (
-    <div className="flex flex-col h-full px-6 py-8 bg-gradient-to-br from-background via-background to-secondary/20">
-      <div className="flex-1 flex flex-col justify-center">
-        <div className="text-center mb-12">
-          {/* Apple Health Logo */}
-          <div ref={appIconRef} className="flex justify-center mb-8">
-            <img 
-              src="/lovable-uploads/5034b135-3dfb-4ae8-bcbb-9cfbc5d7868e.png" 
-              alt="Apple Health Logo" 
-              className="w-24 h-24 drop-shadow-lg"
-            />
-          </div>
-        </div>
-
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            Connect to Apple Health
-          </h1>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Sync your daily activity between Kalore and the Health app to have the most thorough data.
-          </p>
+    <div className="max-w-md mx-auto px-4 pt-16">
+      {/* Heart Icon */}
+      <div className="flex justify-center mb-8">
+        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center">
+          <Heart className="h-10 w-10 text-red-500 fill-red-500" />
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border">
-        <div className="space-y-3">
-          <Button
-            onClick={onConnect}
-            className="w-full h-14 text-lg font-medium rounded-full"
-          >
-            Continue
-          </Button>
-          <Button
-            onClick={onSkip}
-            variant="ghost"
-            className="w-full h-12 text-base text-muted-foreground"
+      {/* Title */}
+      <h1 className="text-2xl font-bold text-center text-gray-900 mb-4">
+        Connect to Apple Health
+      </h1>
+
+      {/* Description */}
+      <p className="text-center text-gray-600 mb-12 leading-relaxed">
+        Sync your daily activity between Kalore and the Health app to have the most thorough data.
+      </p>
+
+      {/* Buttons */}
+      <div className="space-y-4">
+        {/* Continue Button */}
+        <Button
+          onClick={handleConnectHealth}
+          disabled={isConnecting}
+          className="w-full h-14 text-white font-semibold rounded-full text-lg"
+          style={{ backgroundColor: '#4AD4B2' }}
+        >
+          {isConnecting ? 'Connecting...' : 'Continue'}
+        </Button>
+
+        {/* Not Now Button */}
+        <div className="text-center">
+          <button
+            onClick={handleNotNow}
+            disabled={isConnecting}
+            className="text-gray-600 hover:text-gray-800 font-medium"
           >
             Not now
-          </Button>
+          </button>
         </div>
       </div>
     </div>
