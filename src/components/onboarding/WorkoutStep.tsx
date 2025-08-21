@@ -49,10 +49,12 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
             onClick={() => onSelect('3-5')}
           >
             <div className="flex items-center space-x-3">
-              <div className="flex space-x-1">
+              <div className="flex flex-col items-center space-y-1">
                 <div className="w-2 h-2 bg-current rounded-full"></div>
-                <div className="w-2 h-2 bg-current rounded-full"></div>
-                <div className="w-2 h-2 bg-current rounded-full"></div>
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-current rounded-full"></div>
+                  <div className="w-2 h-2 bg-current rounded-full"></div>
+                </div>
               </div>
               <div>
                 <div className="text-lg font-semibold">3-5</div>
