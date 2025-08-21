@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 import { Bell, BellRing } from 'lucide-react';
+import { useNotifications } from '@/hooks/useNotifications';
 
 interface NotificationStepProps {
   onAllow: () => void;
@@ -9,8 +10,35 @@ interface NotificationStepProps {
 
 const NotificationStep = ({ onAllow, onDeny }: NotificationStepProps) => {
   const [showModal, setShowModal] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const bellRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const { requestPermissions, scheduleDailyReminders } = useNotifications();
+
+  const handleAllow = async () => {
+    setIsProcessing(true);
+    
+    try {
+      const granted = await requestPermissions();
+      
+      if (granted) {
+        // Schedule daily reminders if permission was granted
+        await scheduleDailyReminders();
+      }
+      
+      // Continue to next step regardless of permission result
+      onAllow();
+    } catch (error) {
+      console.error('Error handling notification permission:', error);
+      onAllow(); // Continue even if there's an error
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleDeny = () => {
+    onDeny();
+  };
 
   useEffect(() => {
     const bell = bellRef.current;
@@ -79,16 +107,18 @@ const NotificationStep = ({ onAllow, onDeny }: NotificationStepProps) => {
               
               <div className="flex">
                 <button
-                  onClick={onDeny}
-                  className="flex-1 bg-muted/50 hover:bg-muted/70 transition-colors py-4 text-muted-foreground font-medium"
+                  onClick={handleDeny}
+                  disabled={isProcessing}
+                  className="flex-1 bg-muted/50 hover:bg-muted/70 transition-colors py-4 text-muted-foreground font-medium disabled:opacity-50"
                 >
                   Don't Allow
                 </button>
                 <button
-                  onClick={onAllow}
-                  className="flex-1 bg-foreground hover:bg-foreground/90 transition-colors py-4 text-background font-medium"
+                  onClick={handleAllow}
+                  disabled={isProcessing}
+                  className="flex-1 bg-foreground hover:bg-foreground/90 transition-colors py-4 text-background font-medium disabled:opacity-50"
                 >
-                  Allow
+                  {isProcessing ? 'Processing...' : 'Allow'}
                 </button>
               </div>
             </div>
