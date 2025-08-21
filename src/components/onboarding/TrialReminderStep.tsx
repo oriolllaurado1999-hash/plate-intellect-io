@@ -75,14 +75,11 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
       <div className="flex-1 flex flex-col justify-center items-center">
         <div ref={textRef} className="text-center mb-16">
           <h1 className="text-3xl font-bold text-foreground mb-2">
-            We'll send you a
+            We'll alert you before your
           </h1>
-          <h2 className="text-3xl font-bold text-foreground mb-2">
-            reminder before your
+          <h2 className="text-3xl font-bold text-foreground">
+            free trial concludes
           </h2>
-          <h3 className="text-3xl font-bold text-foreground">
-            free trial ends
-          </h3>
         </div>
 
         {/* Bell illustration */}
