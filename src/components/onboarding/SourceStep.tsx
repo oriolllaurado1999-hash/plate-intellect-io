@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { Instagram, Users, Twitter, Facebook, Chrome, Play, MoreHorizontal } from 'lucide-react';
+import { Instagram, Users, Twitter, Facebook, Chrome, MoreHorizontal } from 'lucide-react';
+import TikTokIcon from '../icons/TikTokIcon';
 import FixedContinueButton from './FixedContinueButton';
 
 interface SourceStepProps {
@@ -21,7 +22,7 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
     { id: 'x' as const, label: 'X', icon: Twitter, highlight: false },
     { id: 'facebook' as const, label: 'Facebook', icon: Facebook, highlight: false },
     { id: 'google' as const, label: 'Google', icon: Chrome, highlight: false },
-    { id: 'tiktok' as const, label: 'TikTok', icon: Play, highlight: false },
+    { id: 'tiktok' as const, label: 'TikTok', icon: null, highlight: false },
     { id: 'others' as const, label: 'Others', icon: MoreHorizontal, highlight: false },
   ];
 
@@ -49,7 +50,11 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
                   }`}
                   onClick={() => onSelect(source.id as any)}
                 >
-                  <Icon className="h-5 w-5" />
+                  {source.id === 'tiktok' ? (
+                    <TikTokIcon size={20} />
+                  ) : (
+                    <Icon className="h-5 w-5" />
+                  )}
                   <span className="text-base">{source.label}</span>
                 </Button>
               );
