@@ -25,64 +25,55 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
 
       <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4 flex-shrink-0">
-          <Button
-            variant="ghost"
-            className={`w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl ${
-              selected === '0-2' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+          <button
+            className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
+              selected === '0-2' ? 'bg-continue text-continue-foreground' : 'bg-continue/5 hover:bg-continue/10'
             }`}
             onClick={() => onSelect('0-2')}
           >
-            <div className="flex items-center space-x-3">
-              <div className="w-3 h-3 bg-current rounded-full"></div>
-              <div>
-                <div className="text-lg font-semibold">0-2</div>
-                <div className="text-sm text-muted-foreground">Workouts now and then</div>
-              </div>
+            <div className={`w-3 h-3 bg-current rounded-full ${selected === '0-2' ? 'text-continue-foreground' : ''}`}></div>
+            <div>
+              <div className={`text-lg font-semibold ${selected === '0-2' ? 'text-continue-foreground' : 'text-foreground'}`}>0-2</div>
+              <div className="text-sm text-muted-foreground">Workouts now and then</div>
             </div>
-          </Button>
+          </button>
 
-          <Button
-            variant="ghost"
-            className={`w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl ${
-              selected === '3-5' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+          <button
+            className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
+              selected === '3-5' ? 'bg-continue text-continue-foreground' : 'bg-continue/5 hover:bg-continue/10'
             }`}
             onClick={() => onSelect('3-5')}
           >
-            <div className="flex items-center space-x-3">
-              <div className="flex flex-col items-center space-y-1">
-                <div className="w-2 h-2 bg-current rounded-full"></div>
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-current rounded-full"></div>
-                  <div className="w-2 h-2 bg-current rounded-full"></div>
-                </div>
-              </div>
-              <div>
-                <div className="text-lg font-semibold">3-5</div>
-                <div className="text-sm text-muted-foreground">A few workouts per week</div>
+            <div className="flex flex-col items-center space-y-1">
+              <div className={`w-2 h-2 bg-current rounded-full ${selected === '3-5' ? 'text-continue-foreground' : ''}`}></div>
+              <div className="flex space-x-1">
+                <div className={`w-2 h-2 bg-current rounded-full ${selected === '3-5' ? 'text-continue-foreground' : ''}`}></div>
+                <div className={`w-2 h-2 bg-current rounded-full ${selected === '3-5' ? 'text-continue-foreground' : ''}`}></div>
               </div>
             </div>
-          </Button>
+            <div>
+              <div className={`text-lg font-semibold ${selected === '3-5' ? 'text-continue-foreground' : 'text-foreground'}`}>3-5</div>
+              <div className="text-sm text-muted-foreground">A few workouts per week</div>
+            </div>
+          </button>
 
-          <Button
-            variant="ghost"
-            className={`w-full h-16 text-left flex flex-col items-start justify-center px-6 rounded-2xl ${
-              selected === '6+' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+          <button
+            className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
+              selected === '6+' ? 'bg-continue text-continue-foreground' : 'bg-continue/5 hover:bg-continue/10'
             }`}
             onClick={() => onSelect('6+')}
           >
-            <div className="flex items-center space-x-3">
-              <div className="grid grid-cols-2 gap-1">
-                <div className="w-2 h-2 bg-current rounded-full"></div>
-                <div className="w-2 h-2 bg-current rounded-full"></div>
-                <div className="w-2 h-2 bg-current rounded-full"></div>
-                <div className="w-2 h-2 bg-current rounded-full"></div>
-              </div>
-              <div>
-                <div className="text-lg font-semibold">6+</div>
-                <div className="text-sm text-muted-foreground">Dedicated athlete</div>
-              </div>
+            <div className="grid grid-cols-2 gap-1">
+              <div className={`w-2 h-2 bg-current rounded-full ${selected === '6+' ? 'text-continue-foreground' : ''}`}></div>
+              <div className={`w-2 h-2 bg-current rounded-full ${selected === '6+' ? 'text-continue-foreground' : ''}`}></div>
+              <div className={`w-2 h-2 bg-current rounded-full ${selected === '6+' ? 'text-continue-foreground' : ''}`}></div>
+              <div className={`w-2 h-2 bg-current rounded-full ${selected === '6+' ? 'text-continue-foreground' : ''}`}></div>
             </div>
-          </Button>
+            <div>
+              <div className={`text-lg font-semibold ${selected === '6+' ? 'text-continue-foreground' : 'text-foreground'}`}>6+</div>
+              <div className="text-sm text-muted-foreground">Dedicated athlete</div>
+            </div>
+          </button>
         </div>
       </div>
 
