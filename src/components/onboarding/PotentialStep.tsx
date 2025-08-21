@@ -46,13 +46,13 @@ const PotentialStep = ({ onNext }: PotentialStepProps) => {
     <>
       <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
         <div className="flex-1 flex flex-col justify-center">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-foreground mb-8">
+          <div className="text-center mb-4">
+            <h1 className="text-3xl font-bold text-foreground mb-6">
               With your potential, no goal is out of reach
             </h1>
           </div>
 
-          <div ref={chartRef} className="mb-4">
+          <div ref={chartRef} className="mb-3">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 mx-4">
               <h2 className="text-xl font-semibold text-foreground mb-6 text-center">
                 Your weight transition
