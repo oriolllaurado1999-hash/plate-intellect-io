@@ -25,43 +25,36 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
   };
 
   return (
-    <>
-      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            What is your goal?
-          </h1>
-          <p className="text-muted-foreground text-lg">
+      <div className="px-6 pt-4 pb-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
+        <div className="mb-12">
+          <h1 className="text-3xl font-bold mb-4">What is your goal?</h1>
+          <p className="text-muted-foreground">
             This helps us generate a plan for your calorie intake.
           </p>
         </div>
 
-        <div className="space-y-4">
-          {goals.map((goal) => (
-            <button
-              key={goal.id}
-              onClick={() => handleGoalSelect(goal.id)}
-              className={`w-full p-6 text-left rounded-2xl border-2 transition-all duration-200 ${
-                selected === goal.id
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-border bg-background hover:border-primary/50 hover:bg-primary/5'
-              }`}
-            >
-              <span className={`text-lg font-medium ${
-                selected === goal.id ? 'text-primary-foreground' : 'text-foreground'
-              }`}>
+        <div className="flex-1 flex flex-col justify-center pt-4">
+          <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
+            {goals.map((goal) => (
+              <Button
+                key={goal.id}
+                variant="ghost"
+                className={`w-full h-12 text-lg justify-center rounded-2xl ${
+                  selected === goal.id ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+                }`}
+                onClick={() => handleGoalSelect(goal.id)}
+              >
                 {goal.label}
-              </span>
-            </button>
-          ))}
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <FixedContinueButton 
-        onClick={handleContinue}
-        disabled={!selected}
-      />
-    </>
+        <FixedContinueButton 
+          onClick={handleContinue}
+          disabled={!selected}
+        />
+      </div>
   );
 };
 
