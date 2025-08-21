@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
 import { Bell } from 'lucide-react';
+import FixedContinueButton from './FixedContinueButton';
 
 interface TrialReminderStepProps {
   onNext: () => void;
@@ -78,7 +78,7 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
             We'll alert you before your
           </h1>
           <h2 className="text-3xl font-bold text-foreground">
-            free trial concludes
+            free trial ends
           </h2>
         </div>
 
@@ -108,17 +108,7 @@ const TrialReminderStep = ({ onNext }: TrialReminderStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={onNext}
-          className="w-full h-14 text-lg font-medium rounded-full mb-4"
-        >
-          Continue FREE
-        </Button>
-        <div className="text-center text-sm text-muted-foreground">
-          Only $35.88 per year ($2.99/month)
-        </div>
-      </div>
+      <FixedContinueButton onClick={onNext} text="CONTINUE" />
     </div>
   );
 };
