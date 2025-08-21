@@ -319,18 +319,18 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
           />
         );
       case 25:
-        return <TrialOfferStep onNext={handleNext} />;
-      case 26:
-        return <TrialReminderStep onNext={handleNext} />;
-      case 27:
-        return <TrialTimelineStep onNext={handleNext} />;
-      case 28:
         return (
           <AuthStep 
             onAuthSuccess={handleNext}
             onSkip={handleNext}
           />
         );
+      case 26:
+        return <TrialOfferStep onNext={handleNext} />;
+      case 27:
+        return <TrialReminderStep onNext={handleNext} />;
+      case 28:
+        return <TrialTimelineStep onNext={handleNext} />;
       case 29:
         return <WelcomeDashboardStep onComplete={() => onComplete(data)} />;
       default:
