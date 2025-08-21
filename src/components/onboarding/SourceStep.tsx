@@ -25,38 +25,42 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
   ];
 
   return (
-    <>
-      <div className="px-6 py-8 h-full bg-gradient-to-br from-background via-background to-secondary/20">
-        <h1 className="text-3xl font-bold mb-8">Where did you hear about us?</h1>
-
-        <div className="space-y-4">
-          {sources.map((source) => {
-            const Icon = source.icon;
-            const isSelected = selected === source.id;
-            const isHighlighted = source.highlight && !selected;
-            
-            return (
-              <Button
-                key={source.id}
-                variant={isSelected ? 'default' : 'outline'}
-                className={`w-full h-16 text-left flex items-center justify-start px-6 space-x-4 ${
-                  isHighlighted ? 'bg-foreground text-background' : ''
-                }`}
-                onClick={() => onSelect(source.id as any)}
-              >
-                <Icon className="h-6 w-6" />
-                <span className="text-lg">{source.label}</span>
-              </Button>
-            );
-          })}
+      <div className="px-6 pt-4 pb-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
+        <div className="mb-12">
+          <h1 className="text-3xl font-bold mb-4">Where did you hear about us?</h1>
+          <p className="text-muted-foreground">
+            This will help us improve our outreach.
+          </p>
         </div>
-      </div>
 
-      <FixedContinueButton 
-        onClick={handleContinue}
-        disabled={!selected}
-      />
-    </>
+        <div className="flex-1 flex flex-col justify-center pt-8">
+          <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
+            {sources.map((source) => {
+              const Icon = source.icon;
+              const isSelected = selected === source.id;
+              
+              return (
+                <Button
+                  key={source.id}
+                  variant="ghost"
+                  className={`w-full h-16 text-left flex items-center justify-start px-6 space-x-4 rounded-2xl ${
+                    isSelected ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
+                  }`}
+                  onClick={() => onSelect(source.id as any)}
+                >
+                  <Icon className="h-6 w-6" />
+                  <span className="text-lg">{source.label}</span>
+                </Button>
+              );
+            })}
+          </div>
+        </div>
+
+        <FixedContinueButton 
+          onClick={handleContinue}
+          disabled={!selected}
+        />
+      </div>
   );
 };
 
