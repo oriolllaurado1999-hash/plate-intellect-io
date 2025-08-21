@@ -13,6 +13,7 @@ import Activity from "./pages/Activity";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
 import OnboardingPreview from "./pages/OnboardingPreview";
+import BusinessPlanPage from "./pages/BusinessPlan";
 import Layout from "./components/Layout";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -68,6 +69,7 @@ const App = () => (
               <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
               <Route path="/onboarding-preview" element={<OnboardingPreview />} />
               <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/business-plan" element={<BusinessPlanPage />} />
               <Route path="/" element={<Layout />}>
                 <Route index element={<Index />} />
                 <Route path="goals" element={<Goals />} />
