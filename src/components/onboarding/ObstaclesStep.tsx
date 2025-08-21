@@ -45,7 +45,7 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
           </h1>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {obstacles.map((obstacle) => {
             const IconComponent = obstacle.icon;
             const isSelected = selected.includes(obstacle.id);
@@ -53,14 +53,14 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
               <button
                 key={obstacle.id}
                 onClick={() => handleObstacleSelect(obstacle.id)}
-                className={`w-full p-4 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
+                className={`w-full p-3 text-left rounded-2xl transition-all duration-200 flex items-center space-x-3 ${
                   isSelected
                     ? 'bg-continue text-continue-foreground'
                     : 'bg-continue/5 hover:bg-continue/10'
                 }`}
               >
-                <IconComponent className={`h-6 w-6 ${isSelected ? 'text-continue-foreground' : ''}`} />
-                <span className={`text-lg font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
+                <IconComponent className={`h-5 w-5 ${isSelected ? 'text-continue-foreground' : ''}`} />
+                <span className={`text-base font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {obstacle.label}
                 </span>
               </button>
