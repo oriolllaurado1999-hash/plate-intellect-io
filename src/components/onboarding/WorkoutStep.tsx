@@ -16,14 +16,14 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
 
   return (
     <div className="px-6 py-8 h-full flex flex-col bg-gradient-to-br from-background via-background to-secondary/20">
-      <div className="flex-1 flex flex-col justify-center">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">How many workouts do you do per week?</h1>
-          <p className="text-muted-foreground">
-            This will be used to calibrate your custom plan.
-          </p>
-        </div>
+      <div className="mb-12">
+        <h1 className="text-3xl font-bold mb-4">How many workouts do you do per week?</h1>
+        <p className="text-muted-foreground">
+          This will be used to calibrate your custom plan.
+        </p>
+      </div>
 
+      <div className="flex-1 flex flex-col justify-center">
         <div className="space-y-4 flex-shrink-0">
           <Button
             variant={selected === '0-2' ? 'default' : 'outline'}
