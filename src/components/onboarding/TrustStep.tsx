@@ -78,7 +78,7 @@ const TrustStep = ({ onNext }: TrustStepProps) => {
                 </div>
                 <div className="text-center">
                   <h3 className="font-semibold text-foreground mb-2">
-                    Your privacy and security matter to us.
+                    Privacy first. Always.
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     We promise to always keep your personal information private and secure.
