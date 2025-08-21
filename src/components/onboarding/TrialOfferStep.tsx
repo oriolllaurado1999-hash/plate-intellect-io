@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import FixedContinueButton from './FixedContinueButton';
 
 interface TrialOfferStepProps {
   onNext: () => void;
@@ -131,17 +131,7 @@ const TrialOfferStep = ({ onNext }: TrialOfferStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4 pb-16">
-        <Button
-          onClick={onNext}
-          className="w-full h-14 text-lg font-medium rounded-full mb-4"
-        >
-          Try for $0.00
-        </Button>
-        <div className="text-center text-sm text-muted-foreground">
-          Only $35.88 per year ($2.99/month)
-        </div>
-      </div>
+      <FixedContinueButton onClick={onNext} text="Try for $0.00" />
     </div>
   );
 };
