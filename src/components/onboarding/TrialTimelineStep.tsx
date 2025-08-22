@@ -210,14 +210,14 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
         </div>
       </div>
 
-      <div className="mt-auto pt-4">
+      <div className="mt-auto">
         <Button
           onClick={onNext}
           className="w-full h-14 text-lg font-medium rounded-full mb-4"
         >
           {selectedPlan === 'yearly' ? 'Start My 7-Day Free Trial' : 'Start Now'}
         </Button>
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-muted-foreground pb-2">
           {selectedPlan === 'monthly' 
             ? '3 days free, then $9.99 per month' 
             : '7 days free, then $35.88 per year ($2.99/month)'
