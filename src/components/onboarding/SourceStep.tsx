@@ -50,7 +50,7 @@ const SourceStep = ({ selected, onSelect, onNext }: SourceStepProps) => {
                   onClick={() => onSelect(source.id as any)}
                 >
                   <Icon className="h-5 w-5" />
-                  <span className="text-base">{source.label}</span>
+                  <span className="text-lg font-light">{source.label}</span>
                 </Button>
               );
             })}
