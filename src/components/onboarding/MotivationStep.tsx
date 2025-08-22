@@ -60,14 +60,12 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
             
             {/* Photo frame */}
             <div className="mt-8 max-w-xs mx-auto">
-              <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-200">
-                <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
-                  <img 
-                    src="/lovable-uploads/ef9e7c93-9cf5-4253-86ff-dcf58c17cca4.png" 
-                    alt="Before and after transformation results" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                <img 
+                  src="/lovable-uploads/ef9e7c93-9cf5-4253-86ff-dcf58c17cca4.png" 
+                  alt="Before and after transformation results" 
+                  className="w-full h-auto"
+                />
               </div>
             </div>
           </div>
