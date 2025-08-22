@@ -60,7 +60,7 @@ const ObstaclesStep = ({ selected, onSelect, onNext }: ObstaclesStepProps) => {
                 }`}
               >
                 <IconComponent className={`h-5 w-5 ${isSelected ? 'text-continue-foreground' : ''}`} />
-                <span className={`text-base font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
+                <span className={`text-base font-light ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {obstacle.label}
                 </span>
               </button>
