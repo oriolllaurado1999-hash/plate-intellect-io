@@ -27,32 +27,54 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
+            className={`w-full h-12 text-lg justify-start rounded-2xl relative ${
               selected === '0-2' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('0-2')}
           >
-            0-2 workouts per week
+            <div className="absolute left-4 flex items-center justify-center w-8">
+              <div className="w-2 h-2 bg-current rounded-full opacity-60"></div>
+            </div>
+            <span className="font-light flex-1 text-center">0-2 workouts per week</span>
           </Button>
 
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
+            className={`w-full h-12 text-lg justify-start rounded-2xl relative ${
               selected === '3-5' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('3-5')}
           >
-            3-5 workouts per week
+            <div className="absolute left-4 flex items-center justify-center w-8">
+              <div className="flex flex-col items-center space-y-0.5">
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                <div className="flex space-x-0.5">
+                  <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                  <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                </div>
+              </div>
+            </div>
+            <span className="font-light flex-1 text-center">3-5 workouts per week</span>
           </Button>
 
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
+            className={`w-full h-12 text-lg justify-start rounded-2xl relative ${
               selected === '6+' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('6+')}
           >
-            6+ workouts per week
+            <div className="absolute left-4 flex items-center justify-center w-8">
+              <div className="grid grid-cols-3 gap-0.5">
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
+              </div>
+            </div>
+            <span className="font-light flex-1 text-center">6+ workouts per week</span>
           </Button>
         </div>
       </div>
