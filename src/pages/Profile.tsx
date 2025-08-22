@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { User, Settings, HelpCircle, Monitor, Moon, Sun, Users, Target, Scale, Clock, Globe, FileText, Shield, Mail, RefreshCw, Trash2, LogOut, Activity, Calculator } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from 'next-themes';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
@@ -18,6 +19,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 const Profile = () => {
   const { user, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
   const { t, currentLanguage, changeLanguage } = useTranslation();
   const [liveActivity, setLiveActivity] = useState(false);
   const [addBurnedCalories, setAddBurnedCalories] = useState(true);
@@ -43,6 +45,19 @@ const Profile = () => {
   const handleLanguageSelect = (languageCode: string) => {
     changeLanguage(languageCode);
     console.log('Language selected:', languageCode);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await signOut();
+      if (!error) {
+        navigate('/auth');
+      } else {
+        console.error('Logout error:', error);
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
@@ -288,7 +303,7 @@ const Profile = () => {
                 <Button 
                   variant="ghost" 
                   className="w-full justify-start p-4 rounded-none text-destructive hover:text-destructive"
-                  onClick={() => signOut()}
+                  onClick={handleLogout}
                 >
                   <LogOut className="h-5 w-5 mr-3" />
                   <span>{t.logout}</span>
