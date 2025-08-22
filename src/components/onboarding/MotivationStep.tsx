@@ -55,8 +55,7 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
             </h1>
             
             <p className="text-muted-foreground text-lg leading-relaxed">
-              90% of users say that the change is obvious after using Kalore and it is not
-              easy to rebound.
+              90% of users notice a clear difference after using Kalore, with minimal rebound.
             </p>
           </div>
         </div>
