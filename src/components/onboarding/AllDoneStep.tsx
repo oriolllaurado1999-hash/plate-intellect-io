@@ -97,7 +97,7 @@ const AllDoneStep = ({ onNext }: AllDoneStepProps) => {
           </div>
           
           <h1 className="text-3xl font-bold text-foreground mb-4">
-            Time to generate your custom plan!
+            Let's get your plan ready for you!
           </h1>
         </div>
       </div>
