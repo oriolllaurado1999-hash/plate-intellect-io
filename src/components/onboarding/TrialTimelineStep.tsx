@@ -107,8 +107,18 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full px-6 pt-8 bg-gradient-to-br from-background via-background to-secondary/20">
-      <div className="mb-8">
+    <div className="flex flex-col h-full px-6 pt-8 bg-gradient-to-br from-background via-background to-secondary/20 relative overflow-hidden">
+      {/* Kalore background image at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none">
+        <img 
+          src="/lovable-uploads/bb006b59-c890-42be-8393-2e974a1e623e.png" 
+          alt="Kalore background" 
+          className="w-full h-full object-cover object-bottom"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/60 to-white"></div>
+      </div>
+      
+      <div className="mb-8 relative z-10">
         <h1 className="text-3xl font-bold text-foreground text-center mb-2">
           Start your FREE trial
         </h1>
