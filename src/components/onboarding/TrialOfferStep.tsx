@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import FixedContinueButton from './FixedContinueButton';
+import iphoneMockup from '@/assets/kalore-iphone-mockup.png';
 
 interface TrialOfferStepProps {
   onNext: () => void;
@@ -54,11 +55,11 @@ const TrialOfferStep = ({ onNext }: TrialOfferStepProps) => {
 
         {/* Dashboard Preview */}
         <div ref={dashboardRef} className="mb-8 flex justify-center">
-          <div className="w-80 max-w-sm mx-auto">
+          <div className="w-64 max-w-xs mx-auto">
             <img 
-              src="/lovable-uploads/31a42e55-22aa-4b0f-b3a9-3c3098915f14.png" 
-              alt="Kalore app dashboard preview showing calorie tracking and nutrition goals" 
-              className="w-full h-auto rounded-2xl shadow-lg border border-muted/20"
+              src={iphoneMockup} 
+              alt="Kalore app displayed on iPhone showing calorie tracking dashboard" 
+              className="w-full h-auto drop-shadow-2xl"
             />
           </div>
         </div>
