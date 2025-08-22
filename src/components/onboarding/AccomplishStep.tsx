@@ -59,7 +59,7 @@ const AccomplishStep = ({ selected, onSelect, onNext }: AccomplishStepProps) => 
                 }`}
               >
                 <IconComponent className={`h-5 w-5 ${isSelected ? 'text-continue-foreground' : ''}`} />
-                <span className={`text-base font-medium ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
+                <span className={`text-base font-light ${isSelected ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {goal.label}
                 </span>
               </button>
