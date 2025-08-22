@@ -44,29 +44,42 @@ const BusinessPlan = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-900 border-b border-gray-200 pb-2">💰 Estructura de Costes por Usuario</h2>
         
         <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">APIs de OpenAI (Coste Principal)</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">APIs de OpenAI (Coste Principal) - IMPLEMENTACIONES ACTUALES</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-gray-50 p-4 rounded-lg border">
               <div className="font-medium text-gray-800">Análisis de Fotos</div>
-              <div className="text-sm text-gray-600">GPT-4o-mini + Vision</div>
-              <div className="text-lg font-bold text-blue-600">$0.05/análisis</div>
+              <div className="text-sm text-gray-600">GPT-4o + Vision API</div>
+              <div className="text-lg font-bold text-blue-600">$0.08/análisis</div>
+              <div className="text-xs text-gray-500">4-5 fotos/día</div>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg border">
-              <div className="font-medium text-gray-800">Coach Diario</div>
-              <div className="text-sm text-gray-600">GPT-5-mini</div>
-              <div className="text-lg font-bold text-blue-600">$0.02/mensaje</div>
+              <div className="font-medium text-gray-800">Coach Virtual</div>
+              <div className="text-sm text-gray-600">GPT-5-mini + Sistema</div>
+              <div className="text-lg font-bold text-blue-600">$0.03/mensaje</div>
+              <div className="text-xs text-gray-500">1-2 mensajes/día</div>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg border">
               <div className="font-medium text-gray-800">Transcripción Voz</div>
               <div className="text-sm text-gray-600">Whisper API</div>
               <div className="text-lg font-bold text-blue-600">$0.006/minuto</div>
+              <div className="text-xs text-gray-500">2-3 min/día</div>
+            </div>
+            <div className="bg-gray-50 p-4 rounded-lg border">
+              <div className="font-medium text-gray-800">Lookup Nutrición</div>
+              <div className="text-sm text-gray-600">GPT-4o-mini</div>
+              <div className="text-lg font-bold text-blue-600">$0.01/búsqueda</div>
+              <div className="text-xs text-gray-500">3-5 búsquedas/día</div>
             </div>
           </div>
           
-          <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-            <div className="font-semibold text-gray-800 mb-2">Coste Total Estimado por Usuario/Mes:</div>
-            <div className="text-2xl font-bold text-yellow-700">$1.20 - $1.80</div>
-            <div className="text-sm text-gray-600 mt-1">Base: $1.50/mes (se puede optimizar hasta $0.80)</div>
+          <div className="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
+            <div className="font-semibold text-gray-800 mb-2">🚨 Coste REAL por Usuario Activo/Mes:</div>
+            <div className="text-2xl font-bold text-red-700">$6.50 - $9.80</div>
+            <div className="text-sm text-gray-600 mt-1">Promedio actual: $8.15/mes (optimización urgente necesaria a $3.50)</div>
+            <div className="text-xs text-gray-500 mt-2">
+              Base: 120 análisis fotos ($9.60) + 45 coach ($1.35) + 75 min voz ($0.45) + 120 lookups ($1.20) = $12.60/mes
+              <br />Con usuarios menos activos promedio: $8.15/mes
+            </div>
           </div>
         </div>
       </section>
@@ -77,7 +90,7 @@ const BusinessPlan = () => {
 
         {/* Fase 1: 100 Usuarios */}
         <div className="mb-8 p-6 border border-gray-200 rounded-lg">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 bg-blue-50 p-3 rounded">📈 FASE 1: 100 Usuarios (Meses 0-3)</h3>
+          <h3 className="text-xl font-bold mb-4 text-gray-800 bg-blue-50 p-3 rounded">📈 FASE 1: 100 Usuarios (Meses 0-3) ⚠️ NÚMEROS REALES</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div className="text-center">
@@ -85,12 +98,12 @@ const BusinessPlan = () => {
               <div className="text-sm text-gray-600">Ingresos/mes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">$200</div>
+              <div className="text-2xl font-bold text-red-600">$640</div>
               <div className="text-sm text-gray-600">Costes/mes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">$149</div>
-              <div className="text-sm text-gray-600">Beneficio/mes</div>
+              <div className="text-2xl font-bold text-red-600">-$291</div>
+              <div className="text-sm text-gray-600">PÉRDIDA/mes</div>
             </div>
           </div>
 
@@ -104,30 +117,30 @@ const BusinessPlan = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2 text-gray-800">💸 Desglose Costes</h4>
+              <h4 className="font-semibold mb-2 text-gray-800">💸 Desglose Costes REALES</h4>
               <ul className="text-sm space-y-1 text-gray-700">
                 <li>• Supabase Pro: $25/mes</li>
-                <li>• OpenAI API: $150/mes</li>
-                <li>• Otros servicios: $25/mes</li>
-                <li>• <strong>Total: $200/mes</strong></li>
+                <li>• <strong>OpenAI API: $570/mes</strong> (70 usuarios activos)</li>
+                <li>• Otros servicios: $45/mes</li>
+                <li>• <strong>Total: $640/mes</strong></li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-4 p-3 bg-gray-50 rounded">
-            <div className="font-medium text-gray-800">📋 Necesidades en esta fase:</div>
-            <ul className="text-sm mt-2 space-y-1 text-gray-700">
-              <li>• 1 desarrollador (founder)</li>
-              <li>• Configuración App Store/Play Store</li>
-              <li>• Marketing orgánico (redes sociales)</li>
-              <li>• Beta testing con usuarios</li>
+          <div className="mt-4 p-3 bg-red-50 rounded border border-red-200">
+            <div className="font-medium text-red-800">🚨 CRÍTICO: Esta fase es insostenible</div>
+            <ul className="text-sm mt-2 space-y-1 text-red-700">
+              <li>• Pérdida de $291/mes = $3,492/año</li>
+              <li>• Necesario reducir costes IA urgentemente</li>
+              <li>• Implementar límites freemium más estrictos</li>
+              <li>• Optimizar desde el día 1</li>
             </ul>
           </div>
         </div>
 
         {/* Fase 2: 1,000 Usuarios */}
         <div className="mb-8 p-6 border border-gray-200 rounded-lg">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 bg-green-50 p-3 rounded">📈 FASE 2: 1,000 Usuarios (Meses 4-12)</h3>
+          <h3 className="text-xl font-bold mb-4 text-gray-800 bg-green-50 p-3 rounded">📈 FASE 2: 1,000 Usuarios (Meses 4-12) ⚠️ NÚMEROS REALES</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div className="text-center">
@@ -135,12 +148,12 @@ const BusinessPlan = () => {
               <div className="text-sm text-gray-600">Ingresos/mes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">$1,649</div>
+              <div className="text-2xl font-bold text-red-600">$6,254</div>
               <div className="text-sm text-gray-600">Costes/mes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">$1,841</div>
-              <div className="text-sm text-gray-600">Beneficio/mes</div>
+              <div className="text-2xl font-bold text-red-600">-$2,764</div>
+              <div className="text-sm text-gray-600">PÉRDIDA/mes</div>
             </div>
           </div>
 
@@ -154,30 +167,31 @@ const BusinessPlan = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2 text-gray-800">💸 Desglose Costes</h4>
+              <h4 className="font-semibold mb-2 text-gray-800">💸 Desglose Costes REALES</h4>
               <ul className="text-sm space-y-1 text-gray-700">
                 <li>• Supabase Team: $99/mes</li>
-                <li>• OpenAI API: $1,500/mes</li>
-                <li>• Otros servicios: $50/mes</li>
-                <li>• <strong>Total: $1,649/mes</strong></li>
+                <li>• <strong>OpenAI API: $5,705/mes</strong> (700 activos)</li>
+                <li>• Personal: $300/mes</li>
+                <li>• Otros servicios: $150/mes</li>
+                <li>• <strong>Total: $6,254/mes</strong></li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-4 p-3 bg-gray-50 rounded">
-            <div className="font-medium text-gray-800">📋 Necesidades en esta fase:</div>
-            <ul className="text-sm mt-2 space-y-1 text-gray-700">
-              <li>• Contratar 1 desarrollador adicional</li>
-              <li>• Marketing digital ($500-1000/mes)</li>
-              <li>• Atención al cliente</li>
-              <li>• Optimizaciones de rendimiento</li>
+          <div className="mt-4 p-3 bg-red-50 rounded border border-red-200">
+            <div className="font-medium text-red-800">🚨 CRÍTICO: Optimización IA URGENTE</div>
+            <ul className="text-sm mt-2 space-y-1 text-red-700">
+              <li>• Pérdida de $2,764/mes = $33,168/año</li>
+              <li>• Necesario reducir costes IA 60% mínimo</li>
+              <li>• Con optimización: -$291/mes (break-even casi)</li>
+              <li>• Implementar estrategia freemium más restrictiva</li>
             </ul>
           </div>
         </div>
 
         {/* Fase 3: 10,000 Usuarios */}
         <div className="mb-8 p-6 border border-gray-200 rounded-lg">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 bg-orange-50 p-3 rounded">📈 FASE 3: 10,000 Usuarios (Año 2)</h3>
+          <h3 className="text-xl font-bold mb-4 text-gray-800 bg-orange-50 p-3 rounded">📈 FASE 3: 10,000 Usuarios (Año 2) - CON OPTIMIZACIÓN</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div className="text-center">
@@ -185,11 +199,11 @@ const BusinessPlan = () => {
               <div className="text-sm text-gray-600">Ingresos/mes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">$17,799</div>
+              <div className="text-2xl font-bold text-red-600">$26,699</div>
               <div className="text-sm text-gray-600">Costes/mes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">$17,101</div>
+              <div className="text-2xl font-bold text-blue-600">$8,201</div>
               <div className="text-sm text-gray-600">Beneficio/mes</div>
             </div>
           </div>
@@ -204,24 +218,25 @@ const BusinessPlan = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2 text-gray-800">💸 Desglose Costes</h4>
+              <h4 className="font-semibold mb-2 text-gray-800">💸 Costes CON OPTIMIZACIÓN IA</h4>
               <ul className="text-sm space-y-1 text-gray-700">
                 <li>• Supabase Enterprise: $599/mes</li>
-                <li>• OpenAI API: $15,000/mes</li>
-                <li>• Personal (3-5 personas): $2,000/mes</li>
-                <li>• Infrastructure: $200/mes</li>
-                <li>• <strong>Total: $17,799/mes</strong></li>
+                <li>• <strong>OpenAI Optimizado: $22,000/mes</strong> (7K activos)</li>
+                <li>• Personal (5 personas): $3,500/mes</li>
+                <li>• Infrastructure: $300/mes</li>
+                <li>• Marketing: $300/mes</li>
+                <li>• <strong>Total: $26,699/mes</strong></li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-4 p-3 bg-gray-50 rounded">
-            <div className="font-medium text-gray-800">📋 Necesidades en esta fase:</div>
+          <div className="mt-4 p-3 bg-yellow-50 rounded border border-yellow-200">
+            <div className="font-medium text-gray-800">⚡ Optimizaciones implementadas:</div>
             <ul className="text-sm mt-2 space-y-1 text-gray-700">
-              <li>• Equipo de 5 personas (2 dev, 1 marketing, 1 support, 1 producto)</li>
-              <li>• Marketing pagado ($5,000-10,000/mes)</li>
-              <li>• Optimización IA para reducir costes</li>
-              <li>• Expansion internacional</li>
+              <li>• Cache inteligente: -30% llamadas API</li>
+              <li>• Modelos más baratos: -40% costes</li>
+              <li>• Límites freemium: Solo 5 análisis/mes gratis</li>
+              <li>• Coste final: $3.15/usuario activo (vs $8.15 inicial)</li>
             </ul>
           </div>
         </div>
@@ -340,27 +355,27 @@ const BusinessPlan = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-900 border-b border-gray-200 pb-2">⏰ Timeline de Crecimiento</h2>
         
         <div className="space-y-6">
-          <div className="flex items-center space-x-4 p-4 bg-blue-50 rounded-lg border">
-            <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">0-3M</div>
+          <div className="flex items-center space-x-4 p-4 bg-red-50 rounded-lg border border-red-200">
+            <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">0-3M</div>
             <div className="flex-1">
-              <div className="font-bold text-gray-800">Fase 1: MVP y Primeros Usuarios</div>
-              <div className="text-sm text-gray-600">100 usuarios • $149/mes beneficio • Bootstrap</div>
+              <div className="font-bold text-red-800">⚠️ Fase 1: PÉRDIDAS CRÍTICAS</div>
+              <div className="text-sm text-red-600">100 usuarios • -$291/mes pérdida • Optimización URGENTE</div>
             </div>
           </div>
           
-          <div className="flex items-center space-x-4 p-4 bg-green-50 rounded-lg border">
-            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">4-12M</div>
+          <div className="flex items-center space-x-4 p-4 bg-red-50 rounded-lg border border-red-200">
+            <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">4-12M</div>
             <div className="flex-1">
-              <div className="font-bold text-gray-800">Fase 2: Product-Market Fit</div>
-              <div className="text-sm text-gray-600">1,000 usuarios • $1,841/mes beneficio • Primer empleado</div>
+              <div className="font-bold text-red-800">⚠️ Fase 2: PÉRDIDAS MAYORES</div>
+              <div className="text-sm text-red-600">1,000 usuarios • -$2,764/mes pérdida • Sin optimización = quiebra</div>
             </div>
           </div>
           
-          <div className="flex items-center space-x-4 p-4 bg-orange-50 rounded-lg border">
+          <div className="flex items-center space-x-4 p-4 bg-orange-50 rounded-lg border border-orange-200">
             <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">1-2A</div>
             <div className="flex-1">
-              <div className="font-bold text-gray-800">Fase 3: Scaling</div>
-              <div className="text-sm text-gray-600">10,000 usuarios • $17,101/mes beneficio • Equipo 5 personas</div>
+              <div className="font-bold text-orange-800">⚡ Fase 3: CON OPTIMIZACIÓN IA</div>
+              <div className="text-sm text-orange-600">10,000 usuarios • $8,201/mes beneficio • 60% reducción costes IA</div>
             </div>
           </div>
           
@@ -497,6 +512,94 @@ const BusinessPlan = () => {
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Optimizaciones Técnicas */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900 border-b border-gray-200 pb-2">🚨 ESTRATEGIAS CRÍTICAS DE VIABILIDAD</h2>
+        
+        <div className="mb-6 p-6 bg-red-50 border-2 border-red-200 rounded-lg">
+          <h3 className="text-xl font-bold mb-4 text-red-800">PROBLEMA CRÍTICO: Costes IA Insostenibles</h3>
+          <div className="text-red-700 mb-4">
+            Con los costes actuales de $8.15/usuario activo/mes, el negocio generará pérdidas masivas en las primeras fases:
+          </div>
+          <ul className="text-sm space-y-1 text-red-700 mb-4">
+            <li>• <strong>Fase 1:</strong> -$291/mes = $3,492/año pérdida</li>
+            <li>• <strong>Fase 2:</strong> -$2,764/mes = $33,168/año pérdida</li>
+            <li>• <strong>Total pérdidas primeros 12 meses:</strong> ~$37,000</li>
+          </ul>
+          <div className="font-bold text-red-800">⚡ ACCIÓN REQUERIDA: Implementación inmediata de optimizaciones</div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <Card className="p-6 border border-orange-200 bg-orange-50">
+            <h3 className="font-bold text-lg mb-4 text-orange-800">🎯 ESTRATEGIA 1: Freemium Restrictivo</h3>
+            <ul className="space-y-2 text-sm text-orange-700">
+              <li>• <strong>Límite gratuito:</strong> 3 análisis fotos/mes (no 30+)</li>
+              <li>• <strong>Coach IA:</strong> 1 mensaje/semana gratis</li>
+              <li>• <strong>Transcripción:</strong> Solo premium</li>
+              <li>• <strong>Resultado:</strong> 90% usuarios pagan o no usan IA</li>
+              <li>• <strong>Reducción coste:</strong> 70% menos uso gratuito</li>
+            </ul>
+          </Card>
+          
+          <Card className="p-6 border border-blue-200 bg-blue-50">
+            <h3 className="font-bold text-lg mb-4 text-blue-800">⚡ ESTRATEGIA 2: Optimización IA Inmediata</h3>
+            <ul className="space-y-2 text-sm text-blue-700">
+              <li>• <strong>Cache inteligente:</strong> -40% llamadas repetidas</li>
+              <li>• <strong>GPT-4o-mini:</strong> Para análisis simples (-60% coste)</li>
+              <li>• <strong>Batching:</strong> Procesar múltiples fotos juntas</li>
+              <li>• <strong>Pre-filtrado:</strong> Detectar no-comida localmente</li>
+              <li>• <strong>Resultado:</strong> Coste $3.15/usuario (vs $8.15)</li>
+            </ul>
+          </Card>
+
+          <Card className="p-6 border border-green-200 bg-green-50">
+            <h3 className="font-bold text-lg mb-4 text-green-800">💰 ESTRATEGIA 3: Precio Dinámico</h3>
+            <ul className="space-y-2 text-sm text-green-700">
+              <li>• <strong>Plan Basic:</strong> $6.99/mes (análisis limitados)</li>
+              <li>• <strong>Plan Pro:</strong> $12.99/mes (ilimitado actual)</li>
+              <li>• <strong>Plan Annual:</strong> $79.99/año (mejor valor)</li>
+              <li>• <strong>Conversión esperada:</strong> 40% Basic, 60% Pro</li>
+              <li>• <strong>ARPU promedio:</strong> $9.80/mes</li>
+            </ul>
+          </Card>
+
+          <Card className="p-6 border border-purple-200 bg-purple-50">
+            <h3 className="font-bold text-lg mb-4 text-purple-800">🔄 ESTRATEGIA 4: Modelos Alternativos</h3>
+            <ul className="space-y-2 text-sm text-purple-700">
+              <li>• <strong>Claude 3.5 Haiku:</strong> 40% más barato que GPT</li>
+              <li>• <strong>Gemini Flash:</strong> Visión más económica</li>
+              <li>• <strong>Llama 3.2 Vision:</strong> Modelo local para básicos</li>
+              <li>• <strong>Fine-tuning:</strong> GPT-4o-mini personalizado</li>
+              <li>• <strong>Resultado:</strong> Diversificación y reducción costes</li>
+            </ul>
+          </Card>
+        </div>
+
+        <div className="p-6 bg-green-50 border-2 border-green-200 rounded-lg">
+          <h3 className="text-xl font-bold mb-4 text-green-800">✅ RESULTADO CON OPTIMIZACIONES</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">$7.50</div>
+              <div className="text-sm text-green-700">ARPU optimizado/mes</div>
+              <div className="text-xs text-gray-600">(vs $4.99 actual)</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">$2.80</div>
+              <div className="text-sm text-green-700">Coste IA/usuario</div>
+              <div className="text-xs text-gray-600">(vs $8.15 actual)</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">$4.70</div>
+              <div className="text-sm text-green-700">Margen/usuario</div>
+              <div className="text-xs text-gray-600">(62% margen bruto)</div>
+            </div>
+          </div>
+          <div className="mt-4 text-center">
+            <div className="font-bold text-green-800">🎯 Rentabilidad desde el mes 1 con estas optimizaciones</div>
           </div>
         </div>
       </section>
