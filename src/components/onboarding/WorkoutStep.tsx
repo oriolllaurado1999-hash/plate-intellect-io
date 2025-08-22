@@ -27,7 +27,7 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
+            className={`w-full h-12 text-lg font-light justify-center rounded-2xl ${
               selected === '0-2' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('0-2')}
@@ -37,7 +37,7 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
 
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
+            className={`w-full h-12 text-lg font-light justify-center rounded-2xl ${
               selected === '3-5' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('3-5')}
@@ -47,7 +47,7 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
 
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg justify-center rounded-2xl ${
+            className={`w-full h-12 text-lg font-light justify-center rounded-2xl ${
               selected === '6+' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('6+')}
