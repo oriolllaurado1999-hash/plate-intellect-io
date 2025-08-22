@@ -27,41 +27,32 @@ const WorkoutStep = ({ selected, onSelect, onNext }: WorkoutStepProps) => {
         <div className="space-y-4 flex-shrink-0 max-w-sm mx-auto w-full">
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg font-light justify-start rounded-2xl px-6 ${
+            className={`w-full h-12 text-lg justify-center rounded-2xl ${
               selected === '0-2' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('0-2')}
           >
-            <div className="flex items-center gap-3">
-              <span className="text-continue opacity-60">•</span>
-              <span>0-2 workouts per week</span>
-            </div>
+            0-2 workouts per week
           </Button>
 
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg font-light justify-start rounded-2xl px-6 ${
+            className={`w-full h-12 text-lg justify-center rounded-2xl ${
               selected === '3-5' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('3-5')}
           >
-            <div className="flex items-center gap-3">
-              <span className="text-continue opacity-60">••</span>
-              <span>3-5 workouts per week</span>
-            </div>
+            3-5 workouts per week
           </Button>
 
           <Button
             variant="ghost"
-            className={`w-full h-12 text-lg font-light justify-start rounded-2xl px-6 ${
+            className={`w-full h-12 text-lg justify-center rounded-2xl ${
               selected === '6+' ? 'bg-continue text-continue-foreground' : 'bg-continue/5'
             }`}
             onClick={() => onSelect('6+')}
           >
-            <div className="flex items-center gap-3">
-              <span className="text-continue opacity-60">•••</span>
-              <span>6+ workouts per week</span>
-            </div>
+            6+ workouts per week
           </Button>
         </div>
       </div>
