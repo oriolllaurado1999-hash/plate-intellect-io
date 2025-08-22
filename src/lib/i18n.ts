@@ -132,7 +132,6 @@ export interface Translations {
   // Buttons
   scanFood: string;
   addManually: string;
-  voiceInput: string;
   
   // Notifications
   mealSaved: string;
@@ -339,7 +338,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Scan Food",
     addManually: "Add Manually",
-    voiceInput: "Voice Input",
 
     // Notifications
     mealSaved: "Meal saved successfully!",
@@ -545,7 +543,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Escanear Comida",
     addManually: "Agregar Manualmente",
-    voiceInput: "Entrada de Voz",
 
     // Notifications
     mealSaved: "¡Comida guardada exitosamente!",
@@ -751,7 +748,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "扫描食物",
     addManually: "手动添加",
-    voiceInput: "语音输入",
 
     // Notifications
     mealSaved: "餐食保存成功！",
@@ -957,7 +953,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Escanear Comida",
     addManually: "Adicionar Manualmente",
-    voiceInput: "Entrada de Voz",
 
     // Notifications
     mealSaved: "Refeição salva com sucesso!",
@@ -1163,7 +1158,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Scanner la Nourriture",
     addManually: "Ajouter Manuellement",
-    voiceInput: "Entrée Vocale",
 
     // Notifications
     mealSaved: "Repas sauvegardé avec succès !",
@@ -1369,7 +1363,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Essen Scannen",
     addManually: "Manuell Hinzufügen",
-    voiceInput: "Spracheingabe",
 
     // Notifications
     mealSaved: "Mahlzeit erfolgreich gespeichert!",
@@ -1575,7 +1568,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Scansiona Cibo",
     addManually: "Aggiungi Manualmente",
-    voiceInput: "Input Vocale",
 
     // Notifications
     mealSaved: "Pasto salvato con successo!",
@@ -1781,7 +1773,6 @@ export const translations: Record<string, Translations> = {
     // Buttons
     scanFood: "Сканировать Еду",
     addManually: "Добавить Вручную",
-    voiceInput: "Голосовой Ввод",
 
     // Notifications
     mealSaved: "Прием пищи успешно сохранен!",

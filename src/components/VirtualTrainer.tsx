@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MessageCircle, Send, Bot, User, ChevronDown, ChevronUp, Sparkles, Bell } from 'lucide-react';
-import VoiceRecorder from '@/components/VoiceRecorder';
+
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useCoachMessages } from '@/hooks/useCoachMessages';
@@ -124,7 +124,7 @@ const VirtualTrainer = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
-    if (!message) setInputMessage(''); // Only clear if it's from input, not voice
+    setInputMessage('');
     setIsLoading(true);
 
     try {
@@ -352,12 +352,6 @@ const VirtualTrainer = () => {
             placeholder={currentTexts.placeholder}
             disabled={isLoading}
             className="flex-1"
-          />
-          <VoiceRecorder 
-            onSendMessage={sendMessage} 
-            isLoading={isLoading} 
-            variant="inline"
-            buttonStyle={{ backgroundColor: '#4AD4B2' }}
           />
           <Button
             onClick={handleSendTextMessage}
