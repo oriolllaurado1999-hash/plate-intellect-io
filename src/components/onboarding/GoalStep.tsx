@@ -44,7 +44,7 @@ const GoalStep = ({ selected, onSelect, onNext }: GoalStepProps) => {
                 }`}
                 onClick={() => handleGoalSelect(goal.id)}
               >
-                {goal.label}
+                <span className="font-light">{goal.label}</span>
               </Button>
             ))}
           </div>

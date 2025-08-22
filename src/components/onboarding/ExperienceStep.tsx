@@ -34,7 +34,7 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
               onClick={() => onSelect(false)}
             >
               <ThumbsDown className="h-6 w-6" />
-              <span className="text-lg">No</span>
+              <span className="text-lg font-light">No</span>
             </Button>
 
             <Button
@@ -45,7 +45,7 @@ const ExperienceStep = ({ selected, onSelect, onNext }: ExperienceStepProps) => 
               onClick={() => onSelect(true)}
             >
               <ThumbsUp className="h-6 w-6" />
-              <span className="text-lg">Yes</span>
+              <span className="text-lg font-light">Yes</span>
             </Button>
           </div>
         </div>

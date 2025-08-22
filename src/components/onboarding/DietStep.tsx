@@ -45,7 +45,7 @@ const DietStep = ({ selected, onSelect, onNext }: DietStepProps) => {
                 }`}
               >
                 <IconComponent className={`h-5 w-5 ${selected === diet.id ? 'text-continue-foreground' : ''}`} />
-                <span className={`text-base font-medium ${selected === diet.id ? 'text-continue-foreground' : 'text-foreground'}`}>
+                <span className={`text-lg font-light ${selected === diet.id ? 'text-continue-foreground' : 'text-foreground'}`}>
                   {diet.label}
                 </span>
               </button>
