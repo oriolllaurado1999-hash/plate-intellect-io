@@ -123,12 +123,9 @@ const CompletionStep = ({ onGetStarted, gender, birthDate, currentWeight, height
             <CheckCircle className="h-8 w-8 text-white" />
           </div>
           
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            Congratulations
+          <h1 className="text-3xl font-bold text-foreground mb-6">
+            Success! Your plan is prepared.
           </h1>
-          <h2 className="text-3xl font-bold text-foreground mb-6">
-            your custom plan is ready!
-          </h2>
           
           <div className="bg-muted/30 rounded-xl p-4 mb-6 shadow-lg">
             <div className="text-lg font-semibold text-foreground mb-1">
