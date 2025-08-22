@@ -58,12 +58,20 @@ const MotivationStep = ({ onNext, currentWeight, desiredWeight, goal }: Motivati
               90% of users notice a clear difference after using Kalore, with minimal rebound.
             </p>
             
-            {/* Photo frame */}
-            <div className="mt-8 max-w-xs mx-auto">
+            {/* Photo frames */}
+            <div className="mt-8 max-w-xs mx-auto space-y-4">
               <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
                 <img 
                   src="/lovable-uploads/ef9e7c93-9cf5-4253-86ff-dcf58c17cca4.png" 
                   alt="Before and after transformation results" 
+                  className="w-full h-auto"
+                />
+              </div>
+              
+              <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                <img 
+                  src="/lovable-uploads/a0c10d48-5891-4880-abfb-13143cc73854.png" 
+                  alt="Transformation progress with dates" 
                   className="w-full h-auto"
                 />
               </div>
