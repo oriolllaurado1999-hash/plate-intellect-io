@@ -19,7 +19,7 @@ const GenderStep = ({ selected, onSelect, onNext }: GenderStepProps) => {
       <div className="mb-12">
         <h1 className="text-3xl font-bold mb-4">Choose your Gender</h1>
         <p className="text-muted-foreground">
-          This will be used to calibrate your custom plan.
+          This helps set up your personalized plan.
         </p>
       </div>
 
