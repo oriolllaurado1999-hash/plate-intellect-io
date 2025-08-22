@@ -109,11 +109,11 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   return (
     <div className="flex flex-col h-full px-6 py-8 bg-gradient-to-br from-background via-background to-secondary/20 relative overflow-hidden">
       {/* Bottom gradient image */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 z-0">
+      <div className="absolute -bottom-1 left-0 right-0 h-32 z-0">
         <img 
           src="/lovable-uploads/b1302c8a-5778-470c-aaba-6787dfc0b7bd.png" 
           alt="Kalore branding" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-bottom"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-background/60 to-background"></div>
       </div>
