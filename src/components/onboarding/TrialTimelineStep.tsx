@@ -109,13 +109,13 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   return (
     <div className="flex flex-col h-full px-6 pt-8 bg-gradient-to-br from-background via-background to-secondary/20 relative overflow-hidden">
       {/* Kalore background image at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-0">
         <img 
           src="/lovable-uploads/bb006b59-c890-42be-8393-2e974a1e623e.png" 
           alt="Kalore background" 
-          className="w-full h-full object-cover object-bottom"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/60 to-white"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-background/80 to-background"></div>
       </div>
       
       <div className="mb-8 relative z-10">
@@ -227,7 +227,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
         >
           {selectedPlan === 'yearly' ? 'Start My 7-Day Free Trial' : 'Start Now'}
         </Button>
-        <div className="text-center text-sm text-muted-foreground -mb-4">
+        <div className="text-center text-sm text-muted-foreground mb-0">
           {selectedPlan === 'monthly' 
             ? '3 days free, then $9.99 per month' 
             : '7 days free, then $35.88 per year ($2.99/month)'
