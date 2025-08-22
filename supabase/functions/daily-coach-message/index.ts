@@ -141,7 +141,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-5-2025-08-07',
+        model: 'gpt-4o-mini', // Cambio: 83% más barato que GPT-5
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: language === 'es' ? 'Genera el mensaje del coach para este momento' : 'Generate the coach message for this moment' }
