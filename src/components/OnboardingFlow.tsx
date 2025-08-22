@@ -26,7 +26,6 @@ import AllDoneStep from './onboarding/AllDoneStep';
 import GeneratingStep from './onboarding/GeneratingStep';
 import CompletionStep from './onboarding/CompletionStep';
 import TrialOfferStep from './onboarding/TrialOfferStep';
-import TrialReminderStep from './onboarding/TrialReminderStep';
 
 import TrialTimelineStep from './onboarding/TrialTimelineStep';
 import WelcomeDashboardStep from './onboarding/WelcomeDashboardStep';
@@ -82,7 +81,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     referralCode: null,
   });
 
-  const totalSteps = 29;
+  const totalSteps = 28;
 
   // Force light mode during onboarding
   useEffect(() => {
@@ -337,10 +336,8 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
       case 26:
         return <TrialOfferStep onNext={handleNext} />;
       case 27:
-        return <TrialReminderStep onNext={handleNext} />;
-      case 28:
         return <TrialTimelineStep onNext={handleNext} />;
-      case 29:
+      case 28:
         return <WelcomeDashboardStep onComplete={() => onComplete(data)} />;
       default:
         return null;
