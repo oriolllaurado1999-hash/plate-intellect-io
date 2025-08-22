@@ -107,7 +107,7 @@ const TrialTimelineStep = ({ onNext }: TrialTimelineStepProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full px-6 py-8 bg-gradient-to-br from-background via-background to-secondary/20">
+    <div className="flex flex-col h-full px-6 pt-8 pb-2 bg-gradient-to-br from-background via-background to-secondary/20">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground text-center mb-2">
           Start your FREE trial
