@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -462,11 +462,9 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fixed inset-0 bg-background z-[90] flex flex-col max-w-none w-full h-full"
-        style={{ zIndex: 90 }}
-      >
-        <DialogHeader className="p-6 pb-4 flex-row items-center space-y-0">
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col [&>button]:hidden">
+        <SheetHeader className="p-6 pb-4 flex-row items-center space-y-0">
           {currentStep > 1 && (
             <Button
               variant="ghost"
@@ -477,14 +475,16 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
               <ArrowLeft className="w-5 h-5" />
             </Button>
           )}
-          <DialogTitle className="text-center flex-1">Add Food</DialogTitle>
-        </DialogHeader>
+          <h2 className="text-lg font-semibold text-center flex-1">Add Food</h2>
+        </SheetHeader>
 
-        <div className="px-6 pb-6 flex-1 overflow-y-auto">
-          {renderStepContent()}
+        <div className="flex-1 overflow-y-auto">
+          <div className="px-6 pb-6">
+            {renderStepContent()}
+          </div>
         </div>
 
-        <div className="p-6 pt-2">
+        <div className="p-6 pt-2 flex-shrink-0">
           <Button
             onClick={currentStep === 5 ? handleSave : nextStep}
             className="w-full h-12 text-base font-semibold rounded-full"
@@ -493,7 +493,7 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
             {currentStep === 5 ? 'Save food' : 'Next'}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
