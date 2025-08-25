@@ -168,8 +168,8 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
   const renderStep1 = () => (
     <div className="space-y-6">
       <div className="space-y-2">
+        <Label className="text-muted-foreground">Brand name*</Label>
         <Input
-          placeholder="Brand name"
           value={foodData.brandName}
           onChange={(e) => updateField('brandName', e.target.value)}
           className="h-12 text-base"
