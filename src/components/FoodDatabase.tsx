@@ -279,7 +279,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                 />
                 
                 {/* Add food button for My foods section */}
-                <div className="mt-6">
+                <div className="mt-3">
                   <Button 
                     onClick={() => setIsCustomFoodModalOpen(true)}
                     className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" 
