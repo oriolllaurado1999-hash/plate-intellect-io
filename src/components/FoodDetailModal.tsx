@@ -55,7 +55,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col">
+      <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col [&>button[aria-label='Close']]:hidden">
         <SheetHeader className="p-4 pb-0 flex-shrink-0">
           <div className="flex items-center justify-between">
             <button
@@ -154,7 +154,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                     {/* Macro Cards */}
                     <div className="grid grid-cols-3 gap-3">
                       {/* Protein */}
-                      <Card className="shadow-lg border border-border/50">
+                      <Card className="shadow-xl border border-border/50">
                         <CardContent className="p-4 text-center">
                           <div className="w-12 h-12 mx-auto mb-3 bg-protein/10 rounded-full flex items-center justify-center">
                             <Beef className="w-6 h-6" style={{ color: 'hsl(var(--protein))' }} />
@@ -167,7 +167,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                       </Card>
 
                       {/* Carbs */}
-                      <Card className="shadow-lg border border-border/50">
+                      <Card className="shadow-xl border border-border/50">
                         <CardContent className="p-4 text-center">
                           <div className="w-12 h-12 mx-auto mb-3 bg-carbs/10 rounded-full flex items-center justify-center">
                             <Wheat className="w-6 h-6" style={{ color: 'hsl(var(--carbs))' }} />
@@ -180,7 +180,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                       </Card>
 
                       {/* Fats */}
-                      <Card className="shadow-lg border border-border/50">
+                      <Card className="shadow-xl border border-border/50">
                         <CardContent className="p-4 text-center">
                           <div className="w-12 h-12 mx-auto mb-3 bg-fat/10 rounded-full flex items-center justify-center">
                             <Leaf className="w-6 h-6" style={{ color: 'hsl(var(--fat))' }} />
@@ -216,7 +216,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                     {/* Micronutrient Cards */}
                     <div className="grid grid-cols-3 gap-3">
                       {/* Fiber */}
-                      <Card className="shadow-lg border border-border/50">
+                      <Card className="shadow-xl border border-border/50">
                         <CardContent className="p-4 text-center">
                           <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#8B5FBF20' }}>
                             <Grape className="w-6 h-6" style={{ color: '#8B5FBF' }} />
@@ -229,7 +229,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                       </Card>
 
                       {/* Sugar */}
-                      <Card className="shadow-lg border border-border/50">
+                      <Card className="shadow-xl border border-border/50">
                         <CardContent className="p-4 text-center">
                           <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FF6B9D20' }}>
                             <Candy className="w-6 h-6" style={{ color: '#FF6B9D' }} />
@@ -242,7 +242,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                       </Card>
 
                       {/* Sodium */}
-                      <Card className="shadow-lg border border-border/50">
+                      <Card className="shadow-xl border border-border/50">
                         <CardContent className="p-4 text-center">
                           <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FFB36620' }}>
                             <Salad className="w-6 h-6" style={{ color: '#FFB366' }} />
