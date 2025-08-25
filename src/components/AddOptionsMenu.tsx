@@ -68,31 +68,63 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           <X className="w-5 h-5 text-muted-foreground" />
         </button>
 
-        {/* Food Basket Image */}
-        <div className="flex flex-col items-center justify-center">
-          <img 
-            src="/lovable-uploads/edd1d405-5720-4d1a-9e1d-85a84e38b7c2.png" 
-            alt="Food basket with fruits and vegetables" 
-            className="w-32 h-32 mb-4"
-          />
-          
-          {/* Options Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {options.map((option, index) => (
-              <button
-                key={index}
-                onClick={option.onClick}
-                className="w-20 h-20 rounded-lg bg-primary/10 hover:bg-primary/20 flex flex-col items-center justify-center gap-1 transition-colors"
-              >
-                {React.createElement(option.icon, { className: "w-6 h-6 text-primary" })}
-                <span className="text-xs font-medium text-foreground text-center leading-tight">
-                  {option.label.split(' ').map((word, i) => (
-                    <div key={i}>{word}</div>
-                  ))}
-                </span>
-              </button>
-            ))}
-          </div>
+        {/* Circular Options Layout */}
+        <div className="relative w-64 h-64">
+          {/* Top option */}
+          <button
+            onClick={options[0].onClick}
+            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
+          >
+            {React.createElement(options[0].icon, { className: "w-8 h-8 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[0].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
+
+          {/* Right option */}
+          <button
+            onClick={options[1].onClick}
+            className="absolute right-0 top-1/2 transform translate-x-4 -translate-y-1/2 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
+          >
+            {React.createElement(options[1].icon, { className: "w-8 h-8 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[1].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
+
+          {/* Bottom option */}
+          <button
+            onClick={options[2].onClick}
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
+          >
+            {React.createElement(options[2].icon, { className: "w-8 h-8 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[2].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
+
+          {/* Left option */}
+          <button
+            onClick={options[3].onClick}
+            className="absolute left-0 top-1/2 transform -translate-x-4 -translate-y-1/2 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
+          >
+            {React.createElement(options[3].icon, { className: "w-8 h-8 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[3].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
         </div>
       </div>
     </div>
