@@ -158,11 +158,11 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   }) => (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
       {title === "My Foods" ? (
-        <div className="w-16 h-16 mb-4 flex items-center justify-center">
+        <div className="w-24 h-24 mb-4 flex items-center justify-center">
           <img 
             src={foodBasketImage} 
             alt="Food basket" 
-            className="w-16 h-16 object-contain"
+            className="w-24 h-24 object-contain"
           />
         </div>
       ) : (
