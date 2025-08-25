@@ -48,6 +48,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
     }
   };
 
+  if (!isOpen || !food) return null;
+
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl p-0">
