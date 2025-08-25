@@ -221,13 +221,6 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                   </>
                 )}
               </div>
-
-              {/* Bottom buttons */}
-              <div className="fixed bottom-4 left-4 right-4">
-                <Button variant="outline" className="w-full h-12 rounded-xl">
-                  📝 Manual Add
-                </Button>
-              </div>
             </TabsContent>
 
             <TabsContent value="my-foods" className="flex-1 m-0">
@@ -278,6 +271,13 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
             </TabsContent>
           </div>
         </Tabs>
+      </div>
+
+      {/* Fixed bottom button */}
+      <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border z-20">
+        <Button className="w-full h-12 text-base font-semibold rounded-2xl" variant="outline">
+          📝 Manual Add
+        </Button>
       </div>
     </div>
   );
