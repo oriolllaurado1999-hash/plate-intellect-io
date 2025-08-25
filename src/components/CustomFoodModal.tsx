@@ -463,7 +463,9 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md mx-4 rounded-3xl p-0 gap-0 max-h-[90vh] overflow-hidden">
+      <DialogContent className="fixed inset-0 bg-background rounded-none p-0 gap-0 overflow-hidden z-[90] w-full h-full max-w-none"
+        style={{ zIndex: 90 }}
+      >
         <DialogHeader className="p-6 pb-4 flex-row items-center space-y-0">
           {currentStep > 1 && (
             <Button
