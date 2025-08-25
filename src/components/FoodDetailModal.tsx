@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, ChevronDown, ChevronRight, Bookmark, Edit, Flame, Beef, Wheat, Leaf, Grape, Candy, Salad, Heart } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronRight, Bookmark, Edit, Flame, Beef, Wheat, Leaf, Grape, Candy, Salad, Heart, Check, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Input } from '@/components/ui/input';
 
 interface FoodItem {
   id: string;
@@ -38,6 +39,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
   const [servings, setServings] = useState(1);
   const [showNutritionFacts, setShowNutritionFacts] = useState(false);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
+  const [customAmount, setCustomAmount] = useState('');
+  const [showCustomInput, setShowCustomInput] = useState(false);
 
   // Generate serving options based on food type and database info
   const getServingOptions = (food: FoodItem | null) => {
@@ -107,22 +110,53 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
 
   const servingOptions = getServingOptions(food);
   
+  // Check if food is measured in grams or ml (can use custom input)
+  const canUseCustomInput = servingOptions.some(option => 
+    option.unit === 'g' || option.unit === 'ml'
+  );
+  
   // Set initial selected size when food changes
   useEffect(() => {
     if (food && servingOptions.length > 0) {
       const defaultOption = servingOptions.find(option => option.amount === parseFloat(food.servingSize)) || servingOptions[1] || servingOptions[0];
       setSelectedSize(defaultOption.label);
+      setShowCustomInput(false);
+      setCustomAmount('');
     }
   }, [food?.id]);
 
   // Calculate nutrition multiplier based on selected serving size
   const getServingMultiplier = () => {
     if (!food) return 1;
+    
+    // If using custom input, calculate based on custom amount
+    if (showCustomInput && customAmount) {
+      const customValue = parseFloat(customAmount);
+      if (!isNaN(customValue) && customValue > 0) {
+        const baseAmount = parseFloat(food.servingSize) || 100;
+        return customValue / baseAmount;
+      }
+    }
+    
     const selectedOption = servingOptions.find(option => option.label === selectedSize);
     if (!selectedOption) return 1;
     
     const baseAmount = parseFloat(food.servingSize) || 100;
     return selectedOption.amount / baseAmount;
+  };
+
+  const handleCustomAmountSubmit = () => {
+    const customValue = parseFloat(customAmount);
+    if (!isNaN(customValue) && customValue > 0) {
+      const unit = servingOptions[0]?.unit || 'g';
+      setSelectedSize(`${customValue}${unit}`);
+      setShowCustomInput(false);
+    }
+  };
+
+  const handleCustomAmountCancel = () => {
+    setShowCustomInput(false);
+    setCustomAmount('');
   };
 
   const servingMultiplier = getServingMultiplier();
@@ -174,22 +208,76 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
           {/* Measurement */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Measurement</h3>
-            <div className="flex gap-2 flex-wrap">
-              {servingOptions.map((option) => (
-                <Button
-                  key={option.label}
-                  variant={selectedSize === option.label ? "default" : "outline"}
-                  className={`px-6 py-2 rounded-full ${
-                    selectedSize === option.label 
-                      ? "bg-foreground text-background" 
-                      : "bg-transparent border-muted-foreground/20 text-foreground"
-                  }`}
-                  onClick={() => setSelectedSize(option.label)}
-                >
-                  {option.label}
-                </Button>
-              ))}
-            </div>
+            
+            {!showCustomInput ? (
+              <div className="space-y-3">
+                <div className="flex gap-2 flex-wrap">
+                  {servingOptions.map((option) => (
+                    <Button
+                      key={option.label}
+                      variant={selectedSize === option.label ? "default" : "outline"}
+                      className={`px-6 py-2 rounded-full ${
+                        selectedSize === option.label 
+                          ? "bg-foreground text-background" 
+                          : "bg-transparent border-muted-foreground/20 text-foreground"
+                      }`}
+                      onClick={() => setSelectedSize(option.label)}
+                    >
+                      {option.label}
+                    </Button>
+                  ))}
+                  
+                  {/* Custom Input Button - only show for grams and ml */}
+                  {canUseCustomInput && (
+                    <Button
+                      variant="outline"
+                      className="px-6 py-2 rounded-full bg-transparent border-muted-foreground/20 text-foreground flex items-center gap-2"
+                      onClick={() => setShowCustomInput(true)}
+                    >
+                      <Edit className="w-4 h-4" />
+                      Custom
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    placeholder="Enter amount"
+                    value={customAmount}
+                    onChange={(e) => setCustomAmount(e.target.value)}
+                    className="flex-1 h-10 rounded-full"
+                    min="1"
+                    step="1"
+                  />
+                  <span className="text-sm text-muted-foreground min-w-[20px]">
+                    {servingOptions[0]?.unit || 'g'}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="w-8 h-8 text-green-600 hover:text-green-700 hover:bg-green-50"
+                    onClick={handleCustomAmountSubmit}
+                    disabled={!customAmount || parseFloat(customAmount) <= 0}
+                  >
+                    <Check className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="w-8 h-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                    onClick={handleCustomAmountCancel}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Enter the amount in {servingOptions[0]?.unit || 'grams'}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Number of Servings */}
