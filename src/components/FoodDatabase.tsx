@@ -1,43 +1,106 @@
-import { useState } from 'react';
-import { Search, ArrowLeft, Plus, Flame } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, ArrowLeft, Plus, Flame, Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
 
 interface FoodDatabaseProps {
   onClose: () => void;
 }
 
 interface FoodItem {
+  id: string;
   name: string;
+  brand?: string;
   calories: number;
-  unit: string;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  sugar: number;
+  sodium: number;
+  servingSize: string;
+  servingUnit: string;
 }
 
 const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<FoodItem[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const suggestedFoods: FoodItem[] = [
-    { name: 'Peanut Butter', calories: 94, unit: 'tbsp' },
-    { name: 'Avocado', calories: 130, unit: 'serving' },
-    { name: 'Egg', calories: 74, unit: 'large' },
-    { name: 'Apples', calories: 72, unit: 'medium' },
-    { name: 'Spinach', calories: 7, unit: 'cup' },
-    { name: 'Bananas', calories: 105, unit: 'medium' },
+    { id: "1", name: "Chicken Breast", calories: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, sugar: 0, sodium: 74, servingSize: "100", servingUnit: "g", brand: "Fresh" },
+    { id: "2", name: "Brown Rice", calories: 123, protein: 2.6, carbs: 23, fat: 0.9, fiber: 1.8, sugar: 0.4, sodium: 7, servingSize: "100", servingUnit: "g" },
+    { id: "3", name: "Broccoli", calories: 34, protein: 2.8, carbs: 7, fat: 0.4, fiber: 2.6, sugar: 1.5, sodium: 33, servingSize: "100", servingUnit: "g" },
+    { id: "4", name: "Salmon", calories: 208, protein: 20, carbs: 0, fat: 13, fiber: 0, sugar: 0, sodium: 59, servingSize: "100", servingUnit: "g" },
+    { id: "5", name: "Avocado", calories: 160, protein: 2, carbs: 9, fat: 15, fiber: 7, sugar: 0.7, sodium: 7, servingSize: "100", servingUnit: "g" },
+    { id: "6", name: "Greek Yogurt", calories: 100, protein: 10, carbs: 6, fat: 0.4, fiber: 0, sugar: 6, sodium: 36, servingSize: "100", servingUnit: "g" },
   ];
 
-  const FoodItem = ({ food }: { food: FoodItem }) => (
+  const searchUSDAFoods = async (query: string) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('usda-food-search', {
+        body: { query: query.trim(), pageSize: 20 }
+      });
+
+      if (error) {
+        console.error('Error searching foods:', error);
+        setSearchResults([]);
+      } else {
+        setSearchResults(data?.foods || []);
+      }
+    } catch (error) {
+      console.error('Error calling USDA API:', error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // Debounce search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchQuery) {
+        searchUSDAFoods(searchQuery);
+      } else {
+        setSearchResults([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const FoodItem: React.FC<{ food: FoodItem }> = ({ food }) => (
     <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-1">
         <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
           <Flame className="w-4 h-4 text-muted-foreground" />
         </div>
-        <div>
-          <h4 className="font-medium text-foreground">{food.name}</h4>
-          <p className="text-sm text-muted-foreground">{food.calories} cal · {food.unit}</p>
+        <div className="flex-1">
+          <div className="flex items-start justify-between">
+            <div>
+              <h4 className="font-medium text-foreground">{food.name}</h4>
+              {food.brand && (
+                <p className="text-xs text-muted-foreground mb-1">{food.brand}</p>
+              )}
+              <p className="text-sm text-muted-foreground">{food.calories} cal · {food.servingSize}{food.servingUnit}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2 mt-2 text-xs text-muted-foreground">
+            <span>P: {food.protein}g</span>
+            <span>C: {food.carbs}g</span>
+            <span>F: {food.fat}g</span>
+          </div>
         </div>
       </div>
-      <Button size="icon" variant="ghost" className="w-8 h-8">
+      <Button size="icon" variant="ghost" className="w-8 h-8 shrink-0">
         <Plus className="w-4 h-4" />
       </Button>
     </div>
@@ -54,9 +117,11 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
       </div>
       <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-6 max-w-xs">{description}</p>
-      <Button className="w-full max-w-xs">
-        {buttonText}
-      </Button>
+      {buttonText && (
+        <Button className="w-full max-w-xs">
+          {buttonText}
+        </Button>
+      )}
     </div>
   );
 
@@ -110,19 +175,49 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
               <div className="relative mb-6">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
-                  placeholder="Describe what you ate"
+                  placeholder="Search foods in USDA database..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 h-12 rounded-xl bg-muted border-0"
                 />
+                {isSearching && (
+                  <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground animate-spin" />
+                )}
               </div>
 
-              {/* Suggestions */}
-              <div className="space-y-2">
-                <h3 className="text-lg font-semibold text-foreground mb-4">Suggestions</h3>
-                {suggestedFoods.map((food, index) => (
-                  <FoodItem key={index} food={food} />
-                ))}
+              {/* Results */}
+              <div className="space-y-2 pb-20">
+                {searchQuery ? (
+                  <>
+                    {isSearching ? (
+                      <div className="flex justify-center py-8">
+                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                        <span className="ml-2 text-muted-foreground">Searching USDA database...</span>
+                      </div>
+                    ) : searchResults.length > 0 ? (
+                      <>
+                        <h3 className="text-lg font-semibold text-foreground mb-4">
+                          Search Results ({searchResults.length})
+                        </h3>
+                        {searchResults.map((food) => (
+                          <FoodItem key={food.id} food={food} />
+                        ))}
+                      </>
+                    ) : (
+                      <div className="text-center py-8 text-muted-foreground">
+                        <p className="text-lg mb-2">No foods found</p>
+                        <p className="text-sm">Try a different search term</p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-lg font-semibold text-foreground mb-4">Suggestions</h3>
+                    {suggestedFoods.map((food) => (
+                      <FoodItem key={food.id} food={food} />
+                    ))}
+                  </>
+                )}
               </div>
 
               {/* Bottom buttons */}

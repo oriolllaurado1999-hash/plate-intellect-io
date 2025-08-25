@@ -1,4 +1,4 @@
 project_id = "binzsdvpbzbnspqgbnvg"
 
-[functions.virtual-trainer]
+[functions.usda-food-search]
 verify_jwt = false
