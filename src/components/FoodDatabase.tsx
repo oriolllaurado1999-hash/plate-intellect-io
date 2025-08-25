@@ -175,7 +175,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
               <div className="relative mb-6">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
-                  placeholder="Search foods in USDA database..."
+                  placeholder="Add your food here"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 h-12 rounded-xl bg-muted border-0"
