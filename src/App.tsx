@@ -12,7 +12,6 @@ import Goals from "./pages/Goals";
 import Progress from "./pages/Progress";
 import Activity from "./pages/Activity";
 import Profile from "./pages/Profile";
-import MonthlyReport from "./pages/MonthlyReport";
 import Onboarding from "./pages/Onboarding";
 import OnboardingPreview from "./pages/OnboardingPreview";
 import Subscription from "./pages/Subscription";
@@ -81,7 +80,6 @@ const App = () => (
                 <Route path="progress" element={<Progress />} />
                 <Route path="activity" element={<Activity />} />
                 <Route path="profile" element={<Profile />} />
-                <Route path="monthly-report" element={<MonthlyReport />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

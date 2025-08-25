@@ -260,14 +260,6 @@ const Index = () => {
           <span className="text-xl font-bold text-foreground">Kalore</span>
         </div>
         <div className="flex items-center gap-3">
-          <Button 
-            onClick={() => window.location.href = '/monthly-report'}
-            variant="outline"
-            size="sm"
-            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 hover:from-blue-600 hover:to-purple-600"
-          >
-            📊 Monthly Report
-          </Button>
           <button 
             onClick={() => setShowDayStreak(true)}
             className="flex items-center gap-1 bg-card px-3 py-1 rounded-full hover:bg-card/90 transition-colors shadow-md dark:shadow-lg"
