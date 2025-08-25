@@ -55,7 +55,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col [&>button[aria-label='Close']]:hidden">
+      <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col [&>button]:hidden">
         <SheetHeader className="p-4 pb-0 flex-shrink-0">
           <div className="flex items-center justify-between">
             <button
@@ -260,7 +260,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
             </Carousel>
 
             {/* Page Indicators */}
-            <div className="flex justify-center gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-8">
               <div 
                 className="w-2 h-2 rounded-full transition-colors duration-200"
                 style={{ backgroundColor: activeCarouselSection === 0 ? '#4AD4B2' : 'hsl(var(--border))' }}
