@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface CustomFoodModalProps {
   open: boolean;
@@ -37,6 +39,7 @@ interface CustomFoodData {
 
 export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [foodData, setFoodData] = useState<CustomFoodData>({
     brandName: '',
@@ -78,34 +81,88 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
     }
   };
 
-  const handleSave = () => {
-    // Here you would save the custom food to your database
-    console.log('Saving custom food:', foodData);
-    onOpenChange(false);
-    setCurrentStep(1);
-    setFoodData({
-      brandName: '',
-      description: '',
-      servingSize: '',
-      servingPerContainer: '',
-      calories: '',
-      protein: '',
-      carbs: '',
-      totalFat: '',
-      saturatedFat: '',
-      polyunsaturatedFat: '',
-      monounsaturatedFat: '',
-      transFat: '',
-      cholesterol: '',
-      sodium: '',
-      potassium: '',
-      sugar: '',
-      fiber: '',
-      vitaminA: '',
-      vitaminC: '',
-      calcium: '',
-      iron: ''
-    });
+  const handleSave = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to save custom foods",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { error } = await supabase.from('custom_foods').insert({
+        user_id: user.id,
+        brand_name: foodData.brandName || null,
+        description: foodData.description,
+        serving_size: foodData.servingSize,
+        serving_per_container: foodData.servingPerContainer,
+        calories: parseFloat(foodData.calories) || 0,
+        protein: parseFloat(foodData.protein) || 0,
+        carbs: parseFloat(foodData.carbs) || 0,
+        total_fat: parseFloat(foodData.totalFat) || 0,
+        saturated_fat: parseFloat(foodData.saturatedFat) || 0,
+        polyunsaturated_fat: parseFloat(foodData.polyunsaturatedFat) || 0,
+        monounsaturated_fat: parseFloat(foodData.monounsaturatedFat) || 0,
+        trans_fat: parseFloat(foodData.transFat) || 0,
+        cholesterol: parseFloat(foodData.cholesterol) || 0,
+        sodium: parseFloat(foodData.sodium) || 0,
+        potassium: parseFloat(foodData.potassium) || 0,
+        sugar: parseFloat(foodData.sugar) || 0,
+        fiber: parseFloat(foodData.fiber) || 0,
+      });
+
+      if (error) {
+        console.error('Error saving custom food:', error);
+        toast({
+          title: "Error",
+          description: "Failed to save custom food. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Success",
+        description: "Custom food saved successfully!",
+      });
+
+      onOpenChange(false);
+      setCurrentStep(1);
+      setFoodData({
+        brandName: '',
+        description: '',
+        servingSize: '',
+        servingPerContainer: '',
+        calories: '',
+        protein: '',
+        carbs: '',
+        totalFat: '',
+        saturatedFat: '',
+        polyunsaturatedFat: '',
+        monounsaturatedFat: '',
+        transFat: '',
+        cholesterol: '',
+        sodium: '',
+        potassium: '',
+        sugar: '',
+        fiber: '',
+        vitaminA: '',
+        vitaminC: '',
+        calcium: '',
+        iron: ''
+      });
+    } catch (error) {
+      console.error('Error saving custom food:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const renderStep1 = () => (

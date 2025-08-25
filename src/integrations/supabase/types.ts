@@ -41,6 +41,78 @@ export type Database = {
         }
         Relationships: []
       }
+      custom_foods: {
+        Row: {
+          brand_name: string | null
+          calories: number
+          carbs: number | null
+          cholesterol: number | null
+          created_at: string
+          description: string
+          fiber: number | null
+          id: string
+          monounsaturated_fat: number | null
+          polyunsaturated_fat: number | null
+          potassium: number | null
+          protein: number | null
+          saturated_fat: number | null
+          serving_per_container: string
+          serving_size: string
+          sodium: number | null
+          sugar: number | null
+          total_fat: number | null
+          trans_fat: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          brand_name?: string | null
+          calories: number
+          carbs?: number | null
+          cholesterol?: number | null
+          created_at?: string
+          description: string
+          fiber?: number | null
+          id?: string
+          monounsaturated_fat?: number | null
+          polyunsaturated_fat?: number | null
+          potassium?: number | null
+          protein?: number | null
+          saturated_fat?: number | null
+          serving_per_container: string
+          serving_size: string
+          sodium?: number | null
+          sugar?: number | null
+          total_fat?: number | null
+          trans_fat?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          brand_name?: string | null
+          calories?: number
+          carbs?: number | null
+          cholesterol?: number | null
+          created_at?: string
+          description?: string
+          fiber?: number | null
+          id?: string
+          monounsaturated_fat?: number | null
+          polyunsaturated_fat?: number | null
+          potassium?: number | null
+          protein?: number | null
+          saturated_fat?: number | null
+          serving_per_container?: string
+          serving_size?: string
+          sodium?: number | null
+          sugar?: number | null
+          total_fat?: number | null
+          trans_fat?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       daily_coach_messages: {
         Row: {
           created_at: string
