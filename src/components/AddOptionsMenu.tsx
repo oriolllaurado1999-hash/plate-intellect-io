@@ -67,7 +67,8 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Top option */}
           <button
             onClick={options[0].onClick}
-            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
           >
             {React.createElement(options[0].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
@@ -80,7 +81,8 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Right option */}
           <button
             onClick={options[1].onClick}
-            className="absolute right-0 top-1/2 transform translate-x-4 -translate-y-1/2 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute right-0 top-1/2 transform translate-x-4 -translate-y-1/2 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
           >
             {React.createElement(options[1].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
@@ -93,7 +95,8 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Bottom option */}
           <button
             onClick={options[2].onClick}
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
           >
             {React.createElement(options[2].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
@@ -106,7 +109,8 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Left option */}
           <button
             onClick={options[3].onClick}
-            className="absolute left-0 top-1/2 transform -translate-x-4 -translate-y-1/2 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute left-0 top-1/2 transform -translate-x-4 -translate-y-1/2 w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 hover:opacity-80 transition-opacity"
+            style={{ backgroundColor: '#4AD4B220' }}
           >
             {React.createElement(options[3].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
