@@ -53,18 +53,60 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
 
     setIsSearching(true);
     try {
-      const { data, error } = await supabase.functions.invoke('usda-food-search', {
-        body: { query: query.trim(), pageSize: 20 }
+      // Search both USDA and Open Food Facts APIs in parallel
+      const [usdaResponse, offResponse] = await Promise.allSettled([
+        supabase.functions.invoke('usda-food-search', {
+          body: { query: query.trim(), pageSize: 10 }
+        }),
+        supabase.functions.invoke('openfoodfacts-search', {
+          body: { query: query.trim(), pageSize: 10 }
+        })
+      ]);
+
+      let allFoods: FoodItem[] = [];
+
+      // Process USDA results
+      if (usdaResponse.status === 'fulfilled' && !usdaResponse.value.error) {
+        const usdaFoods = usdaResponse.value.data?.foods || [];
+        allFoods = [...allFoods, ...usdaFoods];
+        console.log(`Found ${usdaFoods.length} USDA foods`);
+      } else {
+        console.error('USDA search failed:', usdaResponse.status === 'fulfilled' ? usdaResponse.value.error : usdaResponse.reason);
+      }
+
+      // Process Open Food Facts results
+      if (offResponse.status === 'fulfilled' && !offResponse.value.error) {
+        const offFoods = offResponse.value.data?.foods || [];
+        allFoods = [...allFoods, ...offFoods];
+        console.log(`Found ${offFoods.length} Open Food Facts foods`);
+      } else {
+        console.error('Open Food Facts search failed:', offResponse.status === 'fulfilled' ? offResponse.value.error : offResponse.reason);
+      }
+
+      // Remove duplicates based on name similarity and sort by relevance
+      const uniqueFoods = allFoods.filter((food, index, arr) => {
+        return index === arr.findIndex(f => 
+          f.name.toLowerCase().trim() === food.name.toLowerCase().trim()
+        );
       });
 
-      if (error) {
-        console.error('Error searching foods:', error);
-        setSearchResults([]);
-      } else {
-        setSearchResults(data?.foods || []);
-      }
+      // Sort by name relevance to query
+      const sortedFoods = uniqueFoods.sort((a, b) => {
+        const queryLower = query.toLowerCase();
+        const aName = a.name.toLowerCase();
+        const bName = b.name.toLowerCase();
+        
+        // Exact matches first
+        if (aName.includes(queryLower) && !bName.includes(queryLower)) return -1;
+        if (!aName.includes(queryLower) && bName.includes(queryLower)) return 1;
+        
+        // Then by name length (shorter names are usually more relevant)
+        return aName.length - bName.length;
+      });
+
+      setSearchResults(sortedFoods.slice(0, 20)); // Limit to 20 results
     } catch (error) {
-      console.error('Error calling USDA API:', error);
+      console.error('Error searching foods:', error);
       setSearchResults([]);
     } finally {
       setIsSearching(false);
@@ -186,13 +228,17 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                     {isSearching ? (
                       <div className="flex justify-center py-8">
                         <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                        <span className="ml-2 text-muted-foreground">Searching USDA database...</span>
+                        <span className="ml-2 text-muted-foreground">Searching food databases...</span>
                       </div>
                     ) : searchResults.length > 0 ? (
                       <>
                         <h3 className="text-lg font-semibold text-foreground mb-4">
                           Search Results ({searchResults.length})
                         </h3>
+                        <div className="text-xs text-muted-foreground mb-4 flex gap-4">
+                          <span>🇺🇸 USDA Database</span>
+                          <span>🌍 Open Food Facts</span>
+                        </div>
                         {searchResults.map((food) => (
                           <FoodItemCard key={food.id} food={food} onClick={() => handleFoodSelect(food)} />
                         ))}
