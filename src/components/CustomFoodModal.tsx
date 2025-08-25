@@ -531,7 +531,18 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <h2 className="text-lg font-semibold">Add Food</h2>
-          <div className="w-10 h-10"></div>
+          {currentStep > 1 ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={prevStep}
+              className="w-10 h-10 rounded-full bg-muted"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+          ) : (
+            <div className="w-10 h-10"></div>
+          )}
         </SheetHeader>
 
         <div className="flex-1 overflow-y-auto">
