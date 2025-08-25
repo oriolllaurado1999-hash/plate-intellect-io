@@ -17,8 +17,6 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
   const [startRotation, setStartRotation] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  if (!isOpen) return null;
-
   const handleScanFood = () => {
     onScanFood();
     onClose();
@@ -151,6 +149,10 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
       transition: isDragging ? 'none' : 'transform 0.3s ease-out',
     };
   };
+
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div 
