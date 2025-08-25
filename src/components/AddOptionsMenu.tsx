@@ -1,3 +1,4 @@
+import React from 'react';
 import { Search, Bookmark, Dumbbell, ScanLine, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -52,32 +53,71 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
 
   return (
     <div className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
-      <div className="bg-card rounded-2xl p-6 w-full max-w-sm">
+      <div className="bg-card rounded-full p-8 w-80 h-80 relative flex flex-col items-center justify-center">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="absolute top-6 left-0 right-0 flex items-center justify-center">
           <h3 className="text-lg font-semibold text-foreground">Add to diary</h3>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-muted rounded-full transition-colors"
+            className="absolute right-6 p-1 hover:bg-muted rounded-full transition-colors"
           >
             <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
-        {/* Options Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {options.map((option, index) => (
-            <button
-              key={index}
-              onClick={option.onClick}
-              className="bg-muted/50 rounded-xl p-6 flex flex-col items-center gap-3 hover:bg-muted transition-colors"
-            >
-              <option.icon className="w-8 h-8 text-foreground" />
-              <span className="text-sm font-medium text-foreground text-center">
-                {option.label}
-              </span>
-            </button>
-          ))}
+        {/* Circular Options Layout */}
+        <div className="relative w-48 h-48">
+          {/* Top option */}
+          <button
+            onClick={options[0].onClick}
+            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+          >
+            {React.createElement(options[0].icon, { className: "w-6 h-6 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[0].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
+
+          {/* Right option */}
+          <button
+            onClick={options[1].onClick}
+            className="absolute right-0 top-1/2 transform translate-x-2 -translate-y-1/2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+          >
+            {React.createElement(options[1].icon, { className: "w-6 h-6 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[1].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
+
+          {/* Bottom option */}
+          <button
+            onClick={options[2].onClick}
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+          >
+            {React.createElement(options[2].icon, { className: "w-6 h-6 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[2].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
+
+          {/* Left option */}
+          <button
+            onClick={options[3].onClick}
+            className="absolute left-0 top-1/2 transform -translate-x-2 -translate-y-1/2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+          >
+            {React.createElement(options[3].icon, { className: "w-6 h-6 text-foreground" })}
+            <span className="text-xs font-medium text-foreground text-center leading-tight">
+              {options[3].label.split(' ').map((word, i) => (
+                <div key={i}>{word}</div>
+              ))}
+            </span>
+          </button>
         </div>
       </div>
     </div>
