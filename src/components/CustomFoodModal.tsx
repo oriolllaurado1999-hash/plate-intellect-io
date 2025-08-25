@@ -67,7 +67,7 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
   };
 
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 2) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -196,6 +196,123 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
             type="number"
             value={foodData.totalFat}
             onChange={(e) => updateField('totalFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Saturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.saturatedFat}
+            onChange={(e) => updateField('saturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Polyunsaturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.polyunsaturatedFat}
+            onChange={(e) => updateField('polyunsaturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Monounsaturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.monounsaturatedFat}
+            onChange={(e) => updateField('monounsaturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Trans fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.transFat}
+            onChange={(e) => updateField('transFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Cholesterol</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.cholesterol}
+            onChange={(e) => updateField('cholesterol', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Sodium</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.sodium}
+            onChange={(e) => updateField('sodium', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Potassium</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.potassium}
+            onChange={(e) => updateField('potassium', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Sugar</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.sugar}
+            onChange={(e) => updateField('sugar', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Fiber</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.fiber}
+            onChange={(e) => updateField('fiber', e.target.value)}
             className="h-12 text-base flex-1"
           />
           <span className="text-muted-foreground">(g)</span>
@@ -339,12 +456,6 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
         return renderStep1();
       case 2:
         return renderStep2();
-      case 3:
-        return renderStep3();
-      case 4:
-        return renderStep4();
-      case 5:
-        return renderStep5();
       default:
         return renderStep1();
     }
@@ -375,11 +486,11 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
 
         <div className="p-6 pt-2 flex-shrink-0">
           <Button
-            onClick={currentStep === 5 ? handleSave : nextStep}
+            onClick={currentStep === 2 ? handleSave : nextStep}
             className="w-full h-12 text-base font-semibold rounded-full"
             disabled={(currentStep === 1 && !foodData.description) || (currentStep === 2 && !foodData.calories)}
           >
-            {currentStep === 5 ? 'Save food' : 'Next'}
+            {currentStep === 2 ? 'Save food' : 'Next'}
           </Button>
         </div>
       </SheetContent>
