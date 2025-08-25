@@ -52,8 +52,14 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
-      <div className="bg-card rounded-full p-8 w-80 h-80 relative flex flex-col items-center justify-center">
+    <div 
+      className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-card rounded-full p-8 w-80 h-80 relative flex flex-col items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Close button */}
         <button
           onClick={onClose}
