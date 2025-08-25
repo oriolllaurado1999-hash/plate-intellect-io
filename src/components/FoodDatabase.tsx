@@ -3,6 +3,7 @@ import { Search, ArrowLeft, Edit, Loader2, Plus, Flame } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
@@ -161,7 +162,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
             </TabsTrigger>
           </TabsList>
 
-          <div className="flex-1 overflow-auto">
+          <ScrollArea className="flex-1">
             <TabsContent value="all" className="flex-1 m-0 p-4 pb-24">
               {/* Search */}
               <div className="relative mb-6">
@@ -170,7 +171,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                   placeholder="Add your food here"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-12 rounded-xl bg-muted border-0"
+                  className="pl-10 h-12 rounded-xl bg-primary/5 border-0"
                 />
                 {isSearching && (
                   <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground animate-spin" />
@@ -259,13 +260,13 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                 />
               </div>
             </TabsContent>
-          </div>
+          </ScrollArea>
         </Tabs>
       </div>
 
       {/* Fixed bottom button */}
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border z-20">
-        <Button className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" variant="outline">
+        <Button className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2 bg-primary/5 border-0 hover:bg-primary/10">
           <Edit className="w-4 h-4" />
           Manual Add
         </Button>
