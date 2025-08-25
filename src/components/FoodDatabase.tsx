@@ -9,7 +9,7 @@ import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
 import { CustomFoodModal } from './CustomFoodModal';
 import foodBasketImage from '@/assets/food-basket.png';
-import mealPlateImage from '@/assets/meal-plate.png';
+import mealPlateImage from '@/assets/meal-plate-transparent.png';
 
 interface FoodDatabaseProps {
   onClose: () => void;
