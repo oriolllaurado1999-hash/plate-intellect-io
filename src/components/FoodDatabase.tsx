@@ -268,7 +268,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
             </TabsContent>
 
             <TabsContent value="my-foods" className="h-full m-0 overflow-y-auto">
-              <div className="p-4 pb-32">
+              <div className="p-4">
                 <EmptyState
                   title="My Foods"
                   description="Add a custom food to your personal list."
@@ -321,13 +321,6 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
         </Tabs>
       </div>
 
-      {/* Fixed bottom button */}
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border z-20">
-        <Button className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" variant="outline">
-          <Edit className="w-4 h-4" />
-          Manual Add
-        </Button>
-      </div>
 
       {/* Food Detail Modal */}
       <FoodDetailModal
