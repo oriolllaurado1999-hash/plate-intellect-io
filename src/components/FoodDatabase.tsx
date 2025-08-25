@@ -38,6 +38,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   const [isSearching, setIsSearching] = useState(false);
   const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('all');
 
   const suggestedFoods: FoodItem[] = [
     { id: "1", name: "Chicken Breast", calories: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, sugar: 0, sodium: 74, servingSize: "100", servingUnit: "g", brand: "Fresh" },
@@ -181,7 +182,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
 
       {/* Tabs */}
       <div className="flex-1 flex flex-col min-h-0">
-        <Tabs defaultValue="all" className="flex-1 flex flex-col min-h-0">
+        <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0">
           <TabsList className="mx-4 mt-4 grid w-auto grid-cols-4 bg-transparent p-0 h-auto flex-shrink-0">
             <TabsTrigger 
               value="all" 
@@ -321,6 +322,15 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
         </Tabs>
       </div>
 
+      {/* Fixed bottom button - only show in "all" tab */}
+      {activeTab === 'all' && (
+        <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border z-20">
+          <Button className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" variant="outline">
+            <Edit className="w-4 h-4" />
+            Manual Add
+          </Button>
+        </div>
+      )}
 
       {/* Food Detail Modal */}
       <FoodDetailModal
