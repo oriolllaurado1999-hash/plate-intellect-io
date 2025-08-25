@@ -63,13 +63,13 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
         </button>
 
         {/* Circular Options Layout */}
-        <div className="relative w-56 h-56">
+        <div className="relative w-64 h-64">
           {/* Top option */}
           <button
             onClick={options[0].onClick}
-            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-3 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[0].icon, { className: "w-7 h-7 text-foreground" })}
+            {React.createElement(options[0].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[0].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
@@ -80,9 +80,9 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Right option */}
           <button
             onClick={options[1].onClick}
-            className="absolute right-0 top-1/2 transform translate-x-3 -translate-y-1/2 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute right-0 top-1/2 transform translate-x-4 -translate-y-1/2 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[1].icon, { className: "w-7 h-7 text-foreground" })}
+            {React.createElement(options[1].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[1].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
@@ -93,9 +93,9 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Bottom option */}
           <button
             onClick={options[2].onClick}
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-3 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[2].icon, { className: "w-7 h-7 text-foreground" })}
+            {React.createElement(options[2].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[2].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
@@ -106,9 +106,9 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Left option */}
           <button
             onClick={options[3].onClick}
-            className="absolute left-0 top-1/2 transform -translate-x-3 -translate-y-1/2 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute left-0 top-1/2 transform -translate-x-4 -translate-y-1/2 w-24 h-24 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[3].icon, { className: "w-7 h-7 text-foreground" })}
+            {React.createElement(options[3].icon, { className: "w-8 h-8 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[3].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
