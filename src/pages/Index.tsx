@@ -3,7 +3,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useDateDashboard } from '@/hooks/useDateDashboard';
 import { useDashboardData } from '@/hooks/useDashboardData';
-import { useCoachMessages } from '@/hooks/useCoachMessages';
+
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,7 +24,7 @@ import DayStreakModal from '@/components/DayStreakModal';
 import AddOptionsMenu from '@/components/AddOptionsMenu';
 import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
-import VirtualTrainer from '@/components/VirtualTrainer';
+
 import SubscriptionButton from '@/components/SubscriptionButton';
 import { useCameraContext } from '@/contexts/CameraContext';
 
@@ -35,7 +35,7 @@ const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
   const { data: realDashboardData } = useDashboardData();
-  const { generateDailyMessage, regenerateDailyMessage } = useCoachMessages();
+  
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [showDayStreak, setShowDayStreak] = useState(false);
@@ -169,35 +169,7 @@ const Index = () => {
   }, [user, refreshKey]);
 
   // Generate daily coach message when user enters the app
-  useEffect(() => {
-    const generateCoachMessage = async () => {
-      if (user?.id && !loading) {
-        try {
-          const appLanguage = currentLanguage;
-          await generateDailyMessage(appLanguage);
-        } catch (error) {
-          console.error('Error generating daily coach message:', error);
-        }
-      }
-    };
-
-    generateCoachMessage();
-  }, [user?.id, loading, generateDailyMessage]);
-
-  // Regenerate coach message when language changes
-  useEffect(() => {
-    const regenerateOnLanguageChange = async () => {
-      if (user?.id && !loading && currentLanguage) {
-        try {
-          await regenerateDailyMessage(currentLanguage);
-        } catch (error) {
-          console.error('Error regenerating coach message for language change:', error);
-        }
-      }
-    };
-
-    regenerateOnLanguageChange();
-  }, [currentLanguage, user?.id, loading, regenerateDailyMessage]);
+  // Removed - Virtual coach functionality eliminated to reduce AI costs
 
 
   const handleAnalysisComplete = (analysis: any, imageUrl: string) => {
@@ -736,9 +708,6 @@ const Index = () => {
         </div>
 
         {/* Virtual Trainer */}
-        <div className="mb-6">
-          <VirtualTrainer />
-        </div>
       </div>
 
 

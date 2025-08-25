@@ -2,6 +2,3 @@ project_id = "binzsdvpbzbnspqgbnvg"
 
 [functions.virtual-trainer]
 verify_jwt = false
-
-[functions.daily-coach-message]
-verify_jwt = false

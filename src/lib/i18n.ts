@@ -38,10 +38,11 @@ export interface Translations {
   tapToAddFirstMeal: string;
 
   // Kalore Coach
-  kaloreCoach: string;
-  yourPersonalizedVirtualTrainer: string;
-  virtualTrainerReady: string;
-  welcomeMessage: string;
+  // Virtual trainer functionality removed to reduce AI costs
+  // kaloreCoach: string;
+  // yourPersonalizedVirtualTrainer: string;
+  // virtualTrainerReady: string;
+  // welcomeMessage: string;
   quickQuestions: string[];
   quickQuestionsLabel: string;
   placeholder: string;
@@ -239,10 +240,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Tap + to add your first meal of the day",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Your personalized virtual trainer",
-    virtualTrainerReady: "Your virtual trainer is ready to help you",
-    welcomeMessage: "Hello! 👋 I'm your virtual trainer Kalore Coach. I'm here to help you with your nutritional goals. How can I help you today?",
+  // Coach-related translations (Removed)
+  // kaloreCoach: "Kalore Coach",
+  // yourPersonalizedVirtualTrainer: "Your personalized virtual trainer",
+  // virtualTrainerReady: "Your virtual trainer is ready to help you",
+  // welcomeMessage: "Hello! 👋 I'm your virtual trainer Kalore Coach. I'm here to help you with your nutritional goals. How can I help you today?",
     quickQuestions: [
       "What should I eat now?",
       "How am I doing with my goals today?", 
@@ -444,10 +446,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Toca + para agregar tu primera comida del día",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Tu entrenador virtual personalizado",
-    virtualTrainerReady: "Tu entrenador virtual está listo para ayudarte",
-    welcomeMessage: "¡Hola! 👋 Soy tu entrenador virtual Kalore Coach. Estoy aquí para ayudarte con tus objetivos nutricionales. ¿Cómo puedo ayudarte hoy?",
+    // Coach translations removed to reduce AI costs
+    // kaloreCoach: "Kalore Coach",
+    // yourPersonalizedVirtualTrainer: "Tu entrenador virtual personalizado",
+    // virtualTrainerReady: "Tu entrenador virtual está listo para ayudarte",
+    // welcomeMessage: "¡Hola! 👋 Soy tu entrenador virtual Kalore Coach. Estoy aquí para ayudarte con tus objetivos nutricionales. ¿Cómo puedo ayudarte hoy?",
     quickQuestions: [
       "¿Qué debería comer ahora?",
       "¿Cómo voy con mis objetivos hoy?",
@@ -649,10 +652,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "点击 + 添加今天的第一餐",
 
     // Kalore Coach
-    kaloreCoach: "Kalore 教练",
-    yourPersonalizedVirtualTrainer: "您的个性化虚拟教练",
-    virtualTrainerReady: "您的虚拟教练准备好帮助您",
-    welcomeMessage: "你好！👋 我是你的虚拟教练 Kalore Coach。我在这里帮助你实现营养目标。今天我能为你做什么？",
+    // Coach translations removed (Chinese)
+    // kaloreCoach: "Kalore 教练",
+    // yourPersonalizedVirtualTrainer: "您的个性化虚拟教练",
+    // virtualTrainerReady: "您的虚拟教练准备好帮助您",
+    // welcomeMessage: "你好！👋 我是你的虚拟教练 Kalore Coach。我在这里帮助你实现营养目标。今天我能为你做什么？",
     quickQuestions: [
       "我现在应该吃什么？",
       "我今天的目标完成得怎么样？",
@@ -854,10 +858,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Toque + para adicionar sua primeira refeição do dia",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Seu treinador virtual personalizado",
-    virtualTrainerReady: "Seu treinador virtual está pronto para ajudá-lo",
-    welcomeMessage: "Olá! 👋 Eu sou seu treinador virtual Kalore Coach. Estou aqui para ajudá-lo com seus objetivos nutricionais. Como posso ajudá-lo hoje?",
+    // Coach translations removed (Portuguese)
+    // kaloreCoach: "Kalore Coach",
+    // yourPersonalizedVirtualTrainer: "Seu treinador virtual personalizado",
+    // virtualTrainerReady: "Seu treinador virtual está pronto para ajudá-lo",
+    // welcomeMessage: "Olá! 👋 Eu sou seu treinador virtual Kalore Coach. Estou aqui para ajudá-lo com seus objetivos nutricionais. Como posso ajudá-lo hoje?",
     quickQuestions: [
       "O que devo comer agora?",
       "Como estou indo com meus objetivos hoje?",
@@ -1059,10 +1064,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Appuyez sur + pour ajouter votre premier repas de la journée",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Votre entraîneur virtuel personnalisé",
-    virtualTrainerReady: "Votre entraîneur virtuel est prêt à vous aider",
-    welcomeMessage: "Salut ! 👋 Je suis votre entraîneur virtuel Kalore Coach. Je suis là pour vous aider avec vos objectifs nutritionnels. Comment puis-je vous aider aujourd'hui ?",
+    // Coach translations removed (French)
+    // kaloreCoach: "Kalore Coach",
+    // yourPersonalizedVirtualTrainer: "Votre entraîneur virtuel personnalisé",
+    // virtualTrainerReady: "Votre entraîneur virtuel est prêt à vous aider",
+    // welcomeMessage: "Salut ! 👋 Je suis votre entraîneur virtuel Kalore Coach. Je suis là pour vous aider avec vos objectifs nutritionnels. Comment puis-je vous aider aujourd'hui ?",
     quickQuestions: [
       "Que dois-je manger maintenant ?",
       "Comment vais-je avec mes objectifs aujourd'hui ?",
@@ -1264,10 +1270,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Tippen Sie auf +, um Ihre erste Mahlzeit des Tages hinzuzufügen",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Ihr personalisierter virtueller Trainer",
-    virtualTrainerReady: "Ihr virtueller Trainer ist bereit, Ihnen zu helfen",
-    welcomeMessage: "Hallo! 👋 Ich bin Ihr virtueller Trainer Kalore Coach. Ich bin hier, um Ihnen bei Ihren Ernährungszielen zu helfen. Wie kann ich Ihnen heute helfen?",
+    // Coach translations removed (German)
+    // kaloreCoach: "Kalore Coach",
+    // yourPersonalizedVirtualTrainer: "Ihr personalisierter virtueller Trainer",
+    // virtualTrainerReady: "Ihr virtueller Trainer ist bereit, Ihnen zu helfen",
+    // welcomeMessage: "Hallo! 👋 Ich bin Ihr virtueller Trainer Kalore Coach. Ich bin hier, um Ihnen bei Ihren Ernährungszielen zu helfen. Wie kann ich Ihnen heute helfen?",
     quickQuestions: [
       "Was soll ich jetzt essen?",
       "Wie geht es mir heute mit meinen Zielen?",
@@ -1469,10 +1476,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Tocca + per aggiungere il tuo primo pasto della giornata",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Il tuo allenatore virtuale personalizzato",
-    virtualTrainerReady: "Il tuo allenatore virtuale è pronto ad aiutarti",
-    welcomeMessage: "Ciao! 👋 Sono il tuo allenatore virtuale Kalore Coach. Sono qui per aiutarti con i tuoi obiettivi nutrizionali. Come posso aiutarti oggi?",
+    // Coach translations removed (Italian)
+    // kaloreCoach: "Kalore Coach",
+    // yourPersonalizedVirtualTrainer: "Il tuo allenatore virtuale personalizzato",
+    // virtualTrainerReady: "Il tuo allenatore virtuale è pronto ad aiutarti",
+    // welcomeMessage: "Ciao! 👋 Sono il tuo allenatore virtuale Kalore Coach. Sono qui per aiutarti con i tuoi obiettivi nutrizionali. Come posso aiutarti oggi?",
     quickQuestions: [
       "Cosa dovrei mangiare ora?",
       "Come sto andando con i miei obiettivi oggi?",
@@ -1674,10 +1682,11 @@ export const translations: Record<string, Translations> = {
     tapToAddFirstMeal: "Нажмите +, чтобы добавить первый прием пищи дня",
 
     // Kalore Coach
-    kaloreCoach: "Kalore Coach",
-    yourPersonalizedVirtualTrainer: "Ваш персонализированный виртуальный тренер",
-    virtualTrainerReady: "Ваш виртуальный тренер готов помочь вам",
-    welcomeMessage: "Привет! 👋 Я ваш виртуальный тренер Kalore Coach. Я здесь, чтобы помочь вам с вашими целями питания. Как я могу помочь вам сегодня?",
+    // Coach translations removed (Russian)
+    // kaloreCoach: "Kalore Coach",
+    // yourPersonalizedVirtualTrainer: "Ваш персонализированный виртуальный тренер",
+    // virtualTrainerReady: "Ваш виртуальный тренер готов помочь вам",
+    // welcomeMessage: "Привет! 👋 Я ваш виртуальный тренер Kalore Coach. Я здесь, чтобы помочь вам с вашими целями питания. Как я могу помочь вам сегодня?",
     quickQuestions: [
       "Что мне сейчас съесть?",
       "Как дела с моими целями сегодня?",
