@@ -149,10 +149,11 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
     console.log('Logging food:', food, servings, size);
   };
 
-  const EmptyState = ({ title, description, buttonText }: {
+  const EmptyState = ({ title, description, buttonText, onButtonClick }: {
     title: string; 
     description: string; 
     buttonText: string;
+    onButtonClick?: () => void;
   }) => (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
       <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
@@ -161,7 +162,10 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
       <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-6 max-w-xs">{description}</p>
       {buttonText && (
-        <Button className="w-full max-w-xs">
+        <Button 
+          className="w-full max-w-xs" 
+          onClick={onButtonClick}
+        >
           {buttonText}
         </Button>
       )}
@@ -275,20 +279,9 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                 <EmptyState
                   title="My Foods"
                   description="Add a custom food to your personal list."
-                  buttonText=""
+                  buttonText="Add food"
+                  onButtonClick={() => setIsCustomFoodModalOpen(true)}
                 />
-                
-                {/* Add food button for My foods section */}
-                <div className="mt-1">
-                  <Button 
-                    onClick={() => setIsCustomFoodModalOpen(true)}
-                    className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" 
-                    variant="outline"
-                  >
-                    <Edit className="w-4 h-4" />
-                    Add food
-                  </Button>
-                </div>
               </div>
             </TabsContent>
 
