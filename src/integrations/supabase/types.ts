@@ -383,6 +383,63 @@ export type Database = {
         }
         Relationships: []
       }
+      saved_foods: {
+        Row: {
+          calories: number
+          carbs: number | null
+          created_at: string
+          fat: number | null
+          fiber: number | null
+          food_brand: string | null
+          food_id: string
+          food_name: string
+          id: string
+          protein: number | null
+          serving_size: string
+          serving_unit: string
+          sodium: number | null
+          sugar: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          calories: number
+          carbs?: number | null
+          created_at?: string
+          fat?: number | null
+          fiber?: number | null
+          food_brand?: string | null
+          food_id: string
+          food_name: string
+          id?: string
+          protein?: number | null
+          serving_size: string
+          serving_unit: string
+          sodium?: number | null
+          sugar?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          calories?: number
+          carbs?: number | null
+          created_at?: string
+          fat?: number | null
+          fiber?: number | null
+          food_brand?: string | null
+          food_id?: string
+          food_name?: string
+          id?: string
+          protein?: number | null
+          serving_size?: string
+          serving_unit?: string
+          sodium?: number | null
+          sugar?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           created_at: string

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, ChevronDown, ChevronRight, Bookmark, Edit, Flame, Beef, Wheat, Leaf, Grape, Candy, Salad, Heart, Check, X } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronRight, BookmarkCheck, Bookmark, Edit, Flame, Beef, Wheat, Leaf, Grape, Candy, Salad, Heart, Check, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Input } from '@/components/ui/input';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface FoodItem {
   id: string;
@@ -41,6 +43,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [customAmount, setCustomAmount] = useState('');
   const [showCustomInput, setShowCustomInput] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   // Generate serving options based on food type and database info
   const getServingOptions = (food: FoodItem | null) => {
@@ -115,6 +120,31 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
     option.unit === 'g' || option.unit === 'ml'
   );
   
+  // Check if food is saved when food changes
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (!food) return;
+      
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data } = await supabase
+          .from('saved_foods')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('food_id', food.id)
+          .maybeSingle();
+
+        setIsSaved(!!data);
+      } catch (error) {
+        console.error('Error checking if food is saved:', error);
+      }
+    };
+
+    checkIfSaved();
+  }, [food?.id]);
+
   // Set initial selected size when food changes
   useEffect(() => {
     if (food && servingOptions.length > 0) {
@@ -177,6 +207,78 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
     }
   };
 
+  const handleBookmarkToggle = async () => {
+    if (!food || isLoading) return;
+    
+    setIsLoading(true);
+    
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to save foods",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (isSaved) {
+        // Remove from saved foods
+        const { error } = await supabase
+          .from('saved_foods')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('food_id', food.id);
+
+        if (error) throw error;
+
+        setIsSaved(false);
+        toast({
+          title: "Removed from saved foods",
+          description: `${food.name} has been removed from your saved foods`,
+        });
+      } else {
+        // Add to saved foods
+        const { error } = await supabase
+          .from('saved_foods')
+          .insert({
+            user_id: user.id,
+            food_id: food.id,
+            food_name: food.name,
+            food_brand: food.brand || null,
+            calories: food.calories,
+            protein: food.protein,
+            carbs: food.carbs,
+            fat: food.fat,
+            fiber: food.fiber,
+            sugar: food.sugar,
+            sodium: food.sodium,
+            serving_size: food.servingSize,
+            serving_unit: food.servingUnit,
+          });
+
+        if (error) throw error;
+
+        setIsSaved(true);
+        toast({
+          title: "Saved to favorites",
+          description: `${food.name} has been added to your saved foods`,
+        });
+      }
+    } catch (error) {
+      console.error('Error toggling bookmark:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update saved food. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (!isOpen || !food) return null;
 
   return (
@@ -200,8 +302,18 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
           {/* Food Name and Bookmark */}
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-foreground">{food.name}</h1>
-            <Button variant="ghost" size="icon" className="w-8 h-8">
-              <Bookmark className="w-5 h-5" />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="w-8 h-8"
+              onClick={handleBookmarkToggle}
+              disabled={isLoading}
+            >
+              {isSaved ? (
+                <BookmarkCheck className="w-5 h-5 text-green-600 fill-green-600" />
+              ) : (
+                <Bookmark className="w-5 h-5" />
+              )}
             </Button>
           </div>
 
