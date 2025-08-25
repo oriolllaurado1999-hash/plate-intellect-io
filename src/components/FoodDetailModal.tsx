@@ -198,8 +198,23 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                 {/* Section 2: Additional Nutrients */}
                 <CarouselItem>
                   <div className="space-y-4">
-                    {/* Additional nutrition cards */}
-                    <div className="grid grid-cols-2 gap-3">
+                    {/* Health Score - Large Card */}
+                    <Card className="shadow-lg border border-border/50">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground mb-1">Health Score</p>
+                            <p className="text-3xl font-bold text-foreground" style={{ color: '#4AD4B2' }}>8.5</p>
+                          </div>
+                          <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: '#4AD4B220' }}>
+                            <Heart className="w-8 h-8" style={{ color: '#4AD4B2' }} />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Micronutrient Cards */}
+                    <div className="grid grid-cols-3 gap-3">
                       {/* Fiber */}
                       <Card className="shadow-lg border border-border/50">
                         <CardContent className="p-4 text-center">
@@ -236,19 +251,6 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                             {Math.round(food.sodium * servings)}mg
                           </div>
                           <div className="text-xs text-muted-foreground">Sodium</div>
-                        </CardContent>
-                      </Card>
-
-                      {/* Health Score */}
-                      <Card className="shadow-lg border border-border/50">
-                        <CardContent className="p-4 text-center">
-                          <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#4AD4B220' }}>
-                            <Heart className="w-6 h-6" style={{ color: '#4AD4B2' }} />
-                          </div>
-                          <div className="text-lg font-bold text-foreground mb-1">
-                            8.5
-                          </div>
-                          <div className="text-xs text-muted-foreground">Health</div>
                         </CardContent>
                       </Card>
                     </div>
