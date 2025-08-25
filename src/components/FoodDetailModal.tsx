@@ -32,6 +32,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
   const [selectedSize, setSelectedSize] = useState('Large');
   const [servings, setServings] = useState(1);
   const [showNutritionFacts, setShowNutritionFacts] = useState(false);
+  const [activeCarouselSection, setActiveCarouselSection] = useState(0);
 
   if (!food) return null;
 
@@ -115,130 +116,157 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
             </div>
           </div>
 
-          {/* Nutrition Cards */}
-          <div className="mb-8 space-y-4">
-            {/* Main Calorie Card */}
-            <Card className="shadow-lg border border-border/50">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Calories</p>
-                    <p className="text-3xl font-bold text-foreground">{Math.round(food.calories * servings)}</p>
-                  </div>
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Flame className="w-8 h-8 text-primary" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Macro Cards */}
-            <div className="grid grid-cols-3 gap-3">
-              {/* Protein */}
-              <Card className="shadow-lg border border-border/50">
-                <CardContent className="p-4 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-protein/10 rounded-full flex items-center justify-center">
-                    <Beef className="w-6 h-6" style={{ color: 'hsl(var(--protein))' }} />
-                  </div>
-                  <div className="text-lg font-bold text-foreground mb-1">
-                    {Math.round(food.protein * servings)}g
-                  </div>
-                  <div className="text-xs text-muted-foreground">Protein</div>
-                </CardContent>
-              </Card>
-
-              {/* Carbs */}
-              <Card className="shadow-lg border border-border/50">
-                <CardContent className="p-4 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-carbs/10 rounded-full flex items-center justify-center">
-                    <Wheat className="w-6 h-6" style={{ color: 'hsl(var(--carbs))' }} />
-                  </div>
-                  <div className="text-lg font-bold text-foreground mb-1">
-                    {Math.round(food.carbs * servings)}g
-                  </div>
-                  <div className="text-xs text-muted-foreground">Carbs</div>
-                </CardContent>
-              </Card>
-
-              {/* Fats */}
-              <Card className="shadow-lg border border-border/50">
-                <CardContent className="p-4 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-fat/10 rounded-full flex items-center justify-center">
-                    <Leaf className="w-6 h-6" style={{ color: 'hsl(var(--fat))' }} />
-                  </div>
-                  <div className="text-lg font-bold text-foreground mb-1">
-                    {Math.round(food.fat * servings)}g
-                  </div>
-                  <div className="text-xs text-muted-foreground">Fats</div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Additional Nutrition Carousel */}
-            <div className="mb-8">
-              <Carousel className="w-full">
-                <CarouselContent className="-ml-2 md:-ml-4">
-                  {/* Fiber */}
-                  <CarouselItem className="pl-2 md:pl-4 basis-1/4">
+          {/* Nutrition Carousel */}
+          <div className="mb-8">
+            <Carousel 
+              className="w-full"
+              setApi={(api) => {
+                if (!api) return;
+                
+                // Set initial active section
+                setActiveCarouselSection(api.selectedScrollSnap());
+                
+                // Listen for scroll changes
+                api.on('select', () => {
+                  setActiveCarouselSection(api.selectedScrollSnap());
+                });
+              }}
+            >
+              <CarouselContent>
+                {/* Section 1: Main Macros */}
+                <CarouselItem>
+                  <div className="space-y-4">
+                    {/* Main Calorie Card */}
                     <Card className="shadow-lg border border-border/50">
-                      <CardContent className="p-3 text-center">
-                        <div className="w-10 h-10 mx-auto mb-2 rounded-full flex items-center justify-center" style={{ backgroundColor: '#8B5FBF20' }}>
-                          <Grape className="w-5 h-5" style={{ color: '#8B5FBF' }} />
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm text-muted-foreground mb-1">Calories</p>
+                            <p className="text-3xl font-bold text-foreground">{Math.round(food.calories * servings)}</p>
+                          </div>
+                          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                            <Flame className="w-8 h-8 text-primary" />
+                          </div>
                         </div>
-                        <div className="text-base font-bold text-foreground mb-1">
-                          {Math.round(food.fiber * servings)}g
-                        </div>
-                        <div className="text-xs text-muted-foreground">Fiber</div>
                       </CardContent>
                     </Card>
-                  </CarouselItem>
 
-                  {/* Sugar */}
-                  <CarouselItem className="pl-2 md:pl-4 basis-1/4">
-                    <Card className="shadow-lg border border-border/50">
-                      <CardContent className="p-3 text-center">
-                        <div className="w-10 h-10 mx-auto mb-2 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FF6B9D20' }}>
-                          <Candy className="w-5 h-5" style={{ color: '#FF6B9D' }} />
-                        </div>
-                        <div className="text-base font-bold text-foreground mb-1">
-                          {Math.round(food.sugar * servings)}g
-                        </div>
-                        <div className="text-xs text-muted-foreground">Sugar</div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
+                    {/* Macro Cards */}
+                    <div className="grid grid-cols-3 gap-3">
+                      {/* Protein */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 bg-protein/10 rounded-full flex items-center justify-center">
+                            <Beef className="w-6 h-6" style={{ color: 'hsl(var(--protein))' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.protein * servings)}g
+                          </div>
+                          <div className="text-xs text-muted-foreground">Protein</div>
+                        </CardContent>
+                      </Card>
 
-                  {/* Sodium */}
-                  <CarouselItem className="pl-2 md:pl-4 basis-1/4">
-                    <Card className="shadow-lg border border-border/50">
-                      <CardContent className="p-3 text-center">
-                        <div className="w-10 h-10 mx-auto mb-2 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FFB36620' }}>
-                          <Salad className="w-5 h-5" style={{ color: '#FFB366' }} />
-                        </div>
-                        <div className="text-base font-bold text-foreground mb-1">
-                          {Math.round(food.sodium * servings)}mg
-                        </div>
-                        <div className="text-xs text-muted-foreground">Sodium</div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
+                      {/* Carbs */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 bg-carbs/10 rounded-full flex items-center justify-center">
+                            <Wheat className="w-6 h-6" style={{ color: 'hsl(var(--carbs))' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.carbs * servings)}g
+                          </div>
+                          <div className="text-xs text-muted-foreground">Carbs</div>
+                        </CardContent>
+                      </Card>
 
-                  {/* Health Score */}
-                  <CarouselItem className="pl-2 md:pl-4 basis-1/4">
-                    <Card className="shadow-lg border border-border/50">
-                      <CardContent className="p-3 text-center">
-                        <div className="w-10 h-10 mx-auto mb-2 rounded-full flex items-center justify-center" style={{ backgroundColor: '#4AD4B220' }}>
-                          <Heart className="w-5 h-5" style={{ color: '#4AD4B2' }} />
-                        </div>
-                        <div className="text-base font-bold text-foreground mb-1">
-                          8.5
-                        </div>
-                        <div className="text-xs text-muted-foreground">Health</div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                </CarouselContent>
-              </Carousel>
+                      {/* Fats */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 bg-fat/10 rounded-full flex items-center justify-center">
+                            <Leaf className="w-6 h-6" style={{ color: 'hsl(var(--fat))' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.fat * servings)}g
+                          </div>
+                          <div className="text-xs text-muted-foreground">Fats</div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                </CarouselItem>
+
+                {/* Section 2: Additional Nutrients */}
+                <CarouselItem>
+                  <div className="space-y-4">
+                    {/* Additional nutrition cards */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Fiber */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#8B5FBF20' }}>
+                            <Grape className="w-6 h-6" style={{ color: '#8B5FBF' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.fiber * servings)}g
+                          </div>
+                          <div className="text-xs text-muted-foreground">Fiber</div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Sugar */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FF6B9D20' }}>
+                            <Candy className="w-6 h-6" style={{ color: '#FF6B9D' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.sugar * servings)}g
+                          </div>
+                          <div className="text-xs text-muted-foreground">Sugar</div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Sodium */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FFB36620' }}>
+                            <Salad className="w-6 h-6" style={{ color: '#FFB366' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.sodium * servings)}mg
+                          </div>
+                          <div className="text-xs text-muted-foreground">Sodium</div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Health Score */}
+                      <Card className="shadow-lg border border-border/50">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#4AD4B220' }}>
+                            <Heart className="w-6 h-6" style={{ color: '#4AD4B2' }} />
+                          </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            8.5
+                          </div>
+                          <div className="text-xs text-muted-foreground">Health</div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
+
+            {/* Page Indicators */}
+            <div className="flex justify-center gap-2 mt-4">
+              <div 
+                className="w-2 h-2 rounded-full transition-colors duration-200"
+                style={{ backgroundColor: activeCarouselSection === 0 ? '#4AD4B2' : 'hsl(var(--border))' }}
+              ></div>
+              <div 
+                className="w-2 h-2 rounded-full transition-colors duration-200"
+                style={{ backgroundColor: activeCarouselSection === 1 ? '#4AD4B2' : 'hsl(var(--border))' }}
+              ></div>
             </div>
           </div>
 
