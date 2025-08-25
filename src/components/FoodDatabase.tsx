@@ -172,7 +172,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
           </TabsList>
 
           <div className="flex-1 overflow-auto">
-            <TabsContent value="all" className="flex-1 m-0 p-4">
+            <TabsContent value="all" className="flex-1 m-0 p-4 pb-24">
               {/* Search */}
               <div className="relative mb-6">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -188,7 +188,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
               </div>
 
               {/* Results */}
-              <div className="space-y-2 pb-20">
+              <div className="space-y-2 pb-24">
                 {searchQuery ? (
                   <>
                     {isSearching ? (
