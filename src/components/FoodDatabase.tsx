@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ArrowLeft, Plus, Flame, Loader2, Edit } from 'lucide-react';
+import { Search, ArrowLeft, Edit, Loader2, Plus, Flame } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import FoodItemCard from './FoodItemCard';
+import FoodDetailModal from './FoodDetailModal';
 
 interface FoodDatabaseProps {
   onClose: () => void;
@@ -28,6 +30,8 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<FoodItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const suggestedFoods: FoodItem[] = [
     { id: "1", name: "Chicken Breast", calories: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, sugar: 0, sodium: 74, servingSize: "100", servingUnit: "g", brand: "Fresh" },
@@ -79,36 +83,22 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const FoodItem: React.FC<{ food: FoodItem }> = ({ food }) => (
-    <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
-      <div className="flex items-center gap-3 flex-1">
-        <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
-          <Flame className="w-4 h-4 text-muted-foreground" />
-        </div>
-        <div className="flex-1">
-          <div className="flex items-start justify-between">
-            <div>
-              <h4 className="font-medium text-foreground">{food.name}</h4>
-              {food.brand && (
-                <p className="text-xs text-muted-foreground mb-1">{food.brand}</p>
-              )}
-              <p className="text-sm text-muted-foreground">{food.calories} cal · {food.servingSize}{food.servingUnit}</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-2 mt-2 text-xs text-muted-foreground">
-            <span>P: {food.protein}g</span>
-            <span>C: {food.carbs}g</span>
-            <span>F: {food.fat}g</span>
-          </div>
-        </div>
-      </div>
-      <Button size="icon" variant="ghost" className="w-8 h-8 shrink-0">
-        <Plus className="w-4 h-4" />
-      </Button>
-    </div>
-  );
+  const handleFoodSelect = (food: FoodItem) => {
+    setSelectedFood(food);
+    setIsModalOpen(true);
+  };
 
-  const EmptyState = ({ title, description, buttonText }: { 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedFood(null);
+  };
+
+  const handleLogFood = (food: FoodItem, servings: number, size: string) => {
+    // Handle food logging logic here
+    console.log('Logging food:', food, servings, size);
+  };
+
+  const EmptyState = ({ title, description, buttonText }: {
     title: string; 
     description: string; 
     buttonText: string;
@@ -202,7 +192,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                           Search Results ({searchResults.length})
                         </h3>
                         {searchResults.map((food) => (
-                          <FoodItem key={food.id} food={food} />
+                          <FoodItemCard key={food.id} food={food} onClick={() => handleFoodSelect(food)} />
                         ))}
                       </>
                     ) : (
@@ -216,7 +206,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                   <>
                     <h3 className="text-lg font-semibold text-foreground mb-4">Suggestions</h3>
                     {suggestedFoods.map((food) => (
-                      <FoodItem key={food.id} food={food} />
+                      <FoodItemCard key={food.id} food={food} onClick={() => handleFoodSelect(food)} />
                     ))}
                   </>
                 )}
@@ -280,6 +270,14 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
           Manual Add
         </Button>
       </div>
+
+      {/* Food Detail Modal */}
+      <FoodDetailModal
+        food={selectedFood}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onLog={handleLogFood}
+      />
     </div>
   );
 };
