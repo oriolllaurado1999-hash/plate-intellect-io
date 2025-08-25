@@ -463,33 +463,28 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent 
-        side="bottom" 
-        className="h-[100vh] p-0 gap-0 flex flex-col animate-slide-in-right data-[state=closed]:animate-slide-out-right"
-      >
-        <div className="flex items-center justify-between p-6 pb-4 border-b border-border">
+      <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col [&>button]:hidden">
+        <SheetHeader className="p-6 pb-4 flex-row items-center space-y-0">
           {currentStep > 1 && (
             <Button
               variant="ghost"
               size="icon"
               onClick={prevStep}
-              className="w-10 h-10 rounded-full bg-muted"
+              className="w-10 h-10 rounded-full bg-muted mr-4"
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
           )}
-          {currentStep === 1 && <div className="w-10 h-10" />}
-          <h2 className="text-lg font-semibold text-foreground">Add Food</h2>
-          <div className="w-10 h-10" />
-        </div>
+          <h2 className="text-lg font-semibold text-center flex-1">Add Food</h2>
+        </SheetHeader>
 
         <div className="flex-1 overflow-y-auto">
-          <div className="p-6 pb-6">
+          <div className="px-6 pb-6">
             {renderStepContent()}
           </div>
         </div>
 
-        <div className="p-6 pt-2 flex-shrink-0 border-t border-border bg-background">
+        <div className="p-6 pt-2 flex-shrink-0">
           <Button
             onClick={currentStep === 5 ? handleSave : nextStep}
             className="w-full h-12 text-base font-semibold rounded-full"
