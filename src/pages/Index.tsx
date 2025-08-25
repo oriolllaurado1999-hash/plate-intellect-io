@@ -23,6 +23,7 @@ import WearableSync from '@/components/WearableSync';
 import DayStreakModal from '@/components/DayStreakModal';
 import AddOptionsMenu from '@/components/AddOptionsMenu';
 import FoodDatabase from '@/components/FoodDatabase';
+import SavedFoods from '@/components/SavedFoods';
 import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
 
@@ -47,6 +48,7 @@ const Index = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
   const [showFoodDatabase, setShowFoodDatabase] = useState(false);
+  const [showSavedFoods, setShowSavedFoods] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
@@ -212,6 +214,16 @@ const Index = () => {
 
   const handleFoodDatabase = () => {
     setShowFoodDatabase(true);
+  };
+
+  const handleSavedFoods = () => {
+    setShowSavedFoods(true);
+  };
+
+  const handleLogFood = (food: any, servings: number, size: string) => {
+    // Handle food logging logic here
+    console.log('Logging food:', food, servings, size);
+    // TODO: Implement actual food logging to database
   };
 
   const handleCameraClose = () => {
@@ -734,12 +746,20 @@ const Index = () => {
         onClose={() => setShowAddOptions(false)}
         onScanFood={handleScanFood}
         onFoodDatabase={handleFoodDatabase}
+        onSavedFoods={handleSavedFoods}
       />
 
       {/* Food Database */}
       {showFoodDatabase && (
         <FoodDatabase onClose={() => setShowFoodDatabase(false)} />
       )}
+
+      {/* Saved Foods */}
+      <SavedFoods
+        isOpen={showSavedFoods}
+        onClose={() => setShowSavedFoods(false)}
+        onLog={handleLogFood}
+      />
 
       {/* Modals */}
       {showScanner && (

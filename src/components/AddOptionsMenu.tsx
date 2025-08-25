@@ -6,9 +6,10 @@ interface AddOptionsMenuProps {
   onClose: () => void;
   onScanFood: () => void;
   onFoodDatabase: () => void;
+  onSavedFoods: () => void;
 }
 
-const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase }: AddOptionsMenuProps) => {
+const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFoods }: AddOptionsMenuProps) => {
   if (!isOpen) return null;
 
   const handleScanFood = () => {
@@ -30,8 +31,7 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase }: AddOpti
       icon: Bookmark,
       label: 'Saved foods',
       onClick: () => {
-        // TODO: Implement saved foods functionality
-        console.log('Saved foods clicked');
+        onSavedFoods();
         onClose();
       }
     },
