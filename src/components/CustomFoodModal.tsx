@@ -1,0 +1,497 @@
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
+
+interface CustomFoodModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+interface CustomFoodData {
+  brandName: string;
+  description: string;
+  servingSize: string;
+  servingPerContainer: string;
+  calories: string;
+  protein: string;
+  carbs: string;
+  totalFat: string;
+  saturatedFat: string;
+  polyunsaturatedFat: string;
+  monounsaturatedFat: string;
+  transFat: string;
+  cholesterol: string;
+  sodium: string;
+  potassium: string;
+  sugar: string;
+  fiber: string;
+  vitaminA: string;
+  vitaminC: string;
+  calcium: string;
+  iron: string;
+}
+
+export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
+  const { t } = useTranslation();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [foodData, setFoodData] = useState<CustomFoodData>({
+    brandName: '',
+    description: '',
+    servingSize: '',
+    servingPerContainer: '',
+    calories: '',
+    protein: '',
+    carbs: '',
+    totalFat: '',
+    saturatedFat: '',
+    polyunsaturatedFat: '',
+    monounsaturatedFat: '',
+    transFat: '',
+    cholesterol: '',
+    sodium: '',
+    potassium: '',
+    sugar: '',
+    fiber: '',
+    vitaminA: '',
+    vitaminC: '',
+    calcium: '',
+    iron: ''
+  });
+
+  const updateField = (field: keyof CustomFoodData, value: string) => {
+    setFoodData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const nextStep = () => {
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleSave = () => {
+    // Here you would save the custom food to your database
+    console.log('Saving custom food:', foodData);
+    onOpenChange(false);
+    setCurrentStep(1);
+    setFoodData({
+      brandName: '',
+      description: '',
+      servingSize: '',
+      servingPerContainer: '',
+      calories: '',
+      protein: '',
+      carbs: '',
+      totalFat: '',
+      saturatedFat: '',
+      polyunsaturatedFat: '',
+      monounsaturatedFat: '',
+      transFat: '',
+      cholesterol: '',
+      sodium: '',
+      potassium: '',
+      sugar: '',
+      fiber: '',
+      vitaminA: '',
+      vitaminC: '',
+      calcium: '',
+      iron: ''
+    });
+  };
+
+  const renderStep1 = () => (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Input
+          placeholder="Brand name"
+          value={foodData.brandName}
+          onChange={(e) => updateField('brandName', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+      
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Description*</Label>
+        <Input
+          value={foodData.description}
+          onChange={(e) => updateField('description', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Serving size*</Label>
+        <Input
+          placeholder="ex. 1 cup"
+          value={foodData.servingSize}
+          onChange={(e) => updateField('servingSize', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Serving per container*</Label>
+        <Input
+          placeholder="ex. 1"
+          value={foodData.servingPerContainer}
+          onChange={(e) => updateField('servingPerContainer', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+    </div>
+  );
+
+  const renderStep2 = () => (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Calories*</Label>
+        <Input
+          type="number"
+          value={foodData.calories}
+          onChange={(e) => updateField('calories', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Protein</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.protein}
+            onChange={(e) => updateField('protein', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Carbs</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.carbs}
+            onChange={(e) => updateField('carbs', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Total fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.totalFat}
+            onChange={(e) => updateField('totalFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Saturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.saturatedFat}
+            onChange={(e) => updateField('saturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Polyunsaturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.polyunsaturatedFat}
+            onChange={(e) => updateField('polyunsaturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderStep3 = () => (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Saturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.saturatedFat}
+            onChange={(e) => updateField('saturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Polyunsaturated fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.polyunsaturatedFat}
+            onChange={(e) => updateField('polyunsaturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Monounsaturated</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.monounsaturatedFat}
+            onChange={(e) => updateField('monounsaturatedFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Trans fat</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.transFat}
+            onChange={(e) => updateField('transFat', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Cholesterol</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.cholesterol}
+            onChange={(e) => updateField('cholesterol', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Sodium</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.sodium}
+            onChange={(e) => updateField('sodium', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderStep4 = () => (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Sodium</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.sodium}
+            onChange={(e) => updateField('sodium', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Potassium</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.potassium}
+            onChange={(e) => updateField('potassium', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(mg)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Sugar</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.sugar}
+            onChange={(e) => updateField('sugar', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Fiber</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.fiber}
+            onChange={(e) => updateField('fiber', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Vitamin A</Label>
+        <Input
+          type="number"
+          value={foodData.vitaminA}
+          onChange={(e) => updateField('vitaminA', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Vitamin C</Label>
+        <Input
+          type="number"
+          value={foodData.vitaminC}
+          onChange={(e) => updateField('vitaminC', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+    </div>
+  );
+
+  const renderStep5 = () => (
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Fiber</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            type="number"
+            value={foodData.fiber}
+            onChange={(e) => updateField('fiber', e.target.value)}
+            className="h-12 text-base flex-1"
+          />
+          <span className="text-muted-foreground">(g)</span>
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Vitamin A</Label>
+        <Input
+          type="number"
+          value={foodData.vitaminA}
+          onChange={(e) => updateField('vitaminA', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Vitamin C</Label>
+        <Input
+          type="number"
+          value={foodData.vitaminC}
+          onChange={(e) => updateField('vitaminC', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Calcium</Label>
+        <Input
+          type="number"
+          value={foodData.calcium}
+          onChange={(e) => updateField('calcium', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label className="text-muted-foreground">Iron</Label>
+        <Input
+          type="number"
+          value={foodData.iron}
+          onChange={(e) => updateField('iron', e.target.value)}
+          className="h-12 text-base"
+        />
+      </div>
+    </div>
+  );
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return renderStep1();
+      case 2:
+        return renderStep2();
+      case 3:
+        return renderStep3();
+      case 4:
+        return renderStep4();
+      case 5:
+        return renderStep5();
+      default:
+        return renderStep1();
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md mx-4 rounded-3xl p-0 gap-0 max-h-[90vh] overflow-hidden">
+        <DialogHeader className="p-6 pb-4 flex-row items-center space-y-0">
+          {currentStep > 1 && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={prevStep}
+              className="w-10 h-10 rounded-full bg-muted mr-4"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+          )}
+          <DialogTitle className="text-center flex-1">Add Food</DialogTitle>
+        </DialogHeader>
+
+        <div className="px-6 pb-6 flex-1 overflow-y-auto">
+          {renderStepContent()}
+        </div>
+
+        <div className="p-6 pt-2">
+          <Button
+            onClick={currentStep === 5 ? handleSave : nextStep}
+            className="w-full h-12 text-base font-semibold rounded-full"
+            disabled={currentStep === 1 && !foodData.description}
+          >
+            {currentStep === 5 ? 'Save food' : 'Next'}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

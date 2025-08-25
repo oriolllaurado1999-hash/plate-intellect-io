@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
 import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
+import { CustomFoodModal } from './CustomFoodModal';
 
 interface FoodDatabaseProps {
   onClose: () => void;
@@ -39,6 +40,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
+  const [isCustomFoodModalOpen, setIsCustomFoodModalOpen] = useState(false);
 
   const suggestedFoods: FoodItem[] = [
     { id: "1", name: "Chicken Breast", calories: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, sugar: 0, sodium: 74, servingSize: "100", servingUnit: "g", brand: "Fresh" },
@@ -273,8 +275,20 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                 <EmptyState
                   title="My Foods"
                   description="Add a custom food to your personal list."
-                  buttonText="Add food"
+                  buttonText=""
                 />
+                
+                {/* Add food button for My foods section */}
+                <div className="mt-6">
+                  <Button 
+                    onClick={() => setIsCustomFoodModalOpen(true)}
+                    className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" 
+                    variant="outline"
+                  >
+                    <Edit className="w-4 h-4" />
+                    Add food
+                  </Button>
+                </div>
               </div>
             </TabsContent>
 
@@ -338,6 +352,12 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onLog={handleLogFood}
+      />
+
+      {/* Custom Food Modal */}
+      <CustomFoodModal
+        open={isCustomFoodModalOpen}
+        onOpenChange={setIsCustomFoodModalOpen}
       />
     </div>
   );
