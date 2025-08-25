@@ -5,9 +5,10 @@ interface AddOptionsMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onScanFood: () => void;
+  onFoodDatabase: () => void;
 }
 
-const AddOptionsMenu = ({ isOpen, onClose, onScanFood }: AddOptionsMenuProps) => {
+const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase }: AddOptionsMenuProps) => {
   if (!isOpen) return null;
 
   const handleScanFood = () => {
@@ -38,8 +39,7 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood }: AddOptionsMenuProps) =>
       icon: Search,
       label: 'Food Database',
       onClick: () => {
-        // TODO: Implement food database functionality
-        console.log('Food Database clicked');
+        onFoodDatabase();
         onClose();
       }
     },

@@ -22,6 +22,7 @@ import FloatingAddButton from '@/components/FloatingAddButton';
 import WearableSync from '@/components/WearableSync';
 import DayStreakModal from '@/components/DayStreakModal';
 import AddOptionsMenu from '@/components/AddOptionsMenu';
+import FoodDatabase from '@/components/FoodDatabase';
 import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
 
@@ -45,6 +46,7 @@ const Index = () => {
   const [expandedCard, setExpandedCard] = useState<'calories' | 'protein' | 'carbs' | 'fat' | 'fiber' | 'sugar' | 'sodium' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
+  const [showFoodDatabase, setShowFoodDatabase] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
@@ -206,6 +208,10 @@ const Index = () => {
     setIsCameraActive(true);
     setShowScanner(true);
     setIsAnalyzing(true);
+  };
+
+  const handleFoodDatabase = () => {
+    setShowFoodDatabase(true);
   };
 
   const handleCameraClose = () => {
@@ -727,7 +733,13 @@ const Index = () => {
         isOpen={showAddOptions}
         onClose={() => setShowAddOptions(false)}
         onScanFood={handleScanFood}
+        onFoodDatabase={handleFoodDatabase}
       />
+
+      {/* Food Database */}
+      {showFoodDatabase && (
+        <FoodDatabase onClose={() => setShowFoodDatabase(false)} />
+      )}
 
       {/* Modals */}
       {showScanner && (
