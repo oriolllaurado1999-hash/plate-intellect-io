@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ArrowLeft, Plus, Flame, Loader2 } from 'lucide-react';
+import { Search, ArrowLeft, Plus, Flame, Loader2, Edit } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -275,8 +275,9 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
 
       {/* Fixed bottom button */}
       <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border z-20">
-        <Button className="w-full h-12 text-base font-semibold rounded-2xl" variant="outline">
-          📝 Manual Add
+        <Button className="w-full h-12 text-base font-semibold rounded-full flex items-center gap-2" variant="outline">
+          <Edit className="w-4 h-4" />
+          Manual Add
         </Button>
       </div>
     </div>
