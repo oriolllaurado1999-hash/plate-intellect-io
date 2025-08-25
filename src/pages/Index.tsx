@@ -26,6 +26,7 @@ import FoodDatabase from '@/components/FoodDatabase';
 import SavedFoods from '@/components/SavedFoods';
 import WaterGlass from '@/components/WaterGlass';
 import ExpandedNutritionCard from '@/components/ExpandedNutritionCard';
+import CreateMealModal from '@/components/CreateMealModal';
 
 import SubscriptionButton from '@/components/SubscriptionButton';
 import { useCameraContext } from '@/contexts/CameraContext';
@@ -49,6 +50,7 @@ const Index = () => {
   const [showAddOptions, setShowAddOptions] = useState(false);
   const [showFoodDatabase, setShowFoodDatabase] = useState(false);
   const [showSavedFoods, setShowSavedFoods] = useState(false);
+  const [showCreateMeal, setShowCreateMeal] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
@@ -218,6 +220,10 @@ const Index = () => {
 
   const handleSavedFoods = () => {
     setShowSavedFoods(true);
+  };
+
+  const handleCreateMeal = () => {
+    setShowCreateMeal(true);
   };
 
   const handleLogFood = (food: any, servings: number, size: string) => {
@@ -747,6 +753,7 @@ const Index = () => {
         onScanFood={handleScanFood}
         onFoodDatabase={handleFoodDatabase}
         onSavedFoods={handleSavedFoods}
+        onCreateMeal={handleCreateMeal}
       />
 
       {/* Food Database */}
@@ -871,6 +878,12 @@ const Index = () => {
         unit="mg"
         color="#FFB366"
         icon={<Salad className="w-4 h-4" style={{ color: '#FFB366' }} />}
+      />
+
+      {/* Create Meal Modal */}
+      <CreateMealModal
+        isOpen={showCreateMeal}
+        onClose={() => setShowCreateMeal(false)}
       />
     </div>
   );
