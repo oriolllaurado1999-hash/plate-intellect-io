@@ -39,10 +39,10 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
   const [showNutritionFacts, setShowNutritionFacts] = useState(false);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
 
-  if (!food) return null;
-
   // Generate serving options based on food type and database info
-  const getServingOptions = (food: FoodItem) => {
+  const getServingOptions = (food: FoodItem | null) => {
+    if (!food) return [];
+    
     // If the food has predefined serving options, use those
     if (food.servingOptions && food.servingOptions.length > 0) {
       return food.servingOptions;
@@ -113,10 +113,11 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
       const defaultOption = servingOptions.find(option => option.amount === parseFloat(food.servingSize)) || servingOptions[1] || servingOptions[0];
       setSelectedSize(defaultOption.label);
     }
-  }, [food?.id]); // Only run when food changes
+  }, [food?.id]);
 
   // Calculate nutrition multiplier based on selected serving size
   const getServingMultiplier = () => {
+    if (!food) return 1;
     const selectedOption = servingOptions.find(option => option.label === selectedSize);
     if (!selectedOption) return 1;
     
@@ -125,6 +126,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
   };
 
   const servingMultiplier = getServingMultiplier();
+
+  // Early return after all hooks have been called
+  if (!food) return null;
 
   const handleLog = () => {
     onLog?.(food, servings, selectedSize);
