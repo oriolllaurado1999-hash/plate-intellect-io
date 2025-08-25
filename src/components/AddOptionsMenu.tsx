@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bookmark, Dumbbell, ScanLine, X, UtensilsCrossed } from 'lucide-react';
+import { Search, Bookmark, Dumbbell, ScanLine, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface AddOptionsMenuProps {
@@ -8,10 +8,9 @@ interface AddOptionsMenuProps {
   onScanFood: () => void;
   onFoodDatabase: () => void;
   onSavedFoods: () => void;
-  onCreateMeal: () => void;
 }
 
-const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFoods, onCreateMeal }: AddOptionsMenuProps) => {
+const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFoods }: AddOptionsMenuProps) => {
   if (!isOpen) return null;
 
   const handleScanFood = () => {
@@ -21,10 +20,11 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
 
   const options = [
     {
-      icon: UtensilsCrossed,
-      label: 'Create meal',
+      icon: Dumbbell,
+      label: 'Log exercise',
       onClick: () => {
-        onCreateMeal();
+        // TODO: Implement log exercise functionality
+        console.log('Log exercise clicked');
         onClose();
       }
     },
