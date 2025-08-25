@@ -221,12 +221,9 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
               </div>
 
               {/* Bottom buttons */}
-              <div className="fixed bottom-4 left-4 right-4 flex gap-3">
-                <Button variant="outline" className="flex-1 h-12 rounded-xl">
+              <div className="fixed bottom-4 left-4 right-4">
+                <Button variant="outline" className="w-full h-12 rounded-xl">
                   📝 Manual Add
-                </Button>
-                <Button variant="outline" className="flex-1 h-12 rounded-xl">
-                  🎤 Voice Log
                 </Button>
               </div>
             </TabsContent>
