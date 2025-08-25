@@ -163,7 +163,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
       <p className="text-muted-foreground mb-6 max-w-xs">{description}</p>
       {buttonText && (
         <Button 
-          className="w-full max-w-xs" 
+          className="w-full max-w-xs rounded-full" 
           onClick={onButtonClick}
         >
           {buttonText}
