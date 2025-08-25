@@ -54,25 +54,22 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
   return (
     <div className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4">
       <div className="bg-card rounded-full p-8 w-80 h-80 relative flex flex-col items-center justify-center">
-        {/* Header */}
-        <div className="absolute top-6 left-0 right-0 flex items-center justify-center">
-          <h3 className="text-lg font-semibold text-foreground">Add to diary</h3>
-          <button
-            onClick={onClose}
-            className="absolute right-6 p-1 hover:bg-muted rounded-full transition-colors"
-          >
-            <X className="w-5 h-5 text-muted-foreground" />
-          </button>
-        </div>
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 hover:bg-muted rounded-full transition-colors"
+        >
+          <X className="w-5 h-5 text-muted-foreground" />
+        </button>
 
         {/* Circular Options Layout */}
-        <div className="relative w-48 h-48">
+        <div className="relative w-56 h-56">
           {/* Top option */}
           <button
             onClick={options[0].onClick}
-            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-3 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[0].icon, { className: "w-6 h-6 text-foreground" })}
+            {React.createElement(options[0].icon, { className: "w-7 h-7 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[0].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
@@ -83,9 +80,9 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Right option */}
           <button
             onClick={options[1].onClick}
-            className="absolute right-0 top-1/2 transform translate-x-2 -translate-y-1/2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute right-0 top-1/2 transform translate-x-3 -translate-y-1/2 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[1].icon, { className: "w-6 h-6 text-foreground" })}
+            {React.createElement(options[1].icon, { className: "w-7 h-7 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[1].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
@@ -96,9 +93,9 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Bottom option */}
           <button
             onClick={options[2].onClick}
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-3 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[2].icon, { className: "w-6 h-6 text-foreground" })}
+            {React.createElement(options[2].icon, { className: "w-7 h-7 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[2].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
@@ -109,9 +106,9 @@ const AddOptionsMenu = ({ isOpen, onClose, onScanFood, onFoodDatabase, onSavedFo
           {/* Left option */}
           <button
             onClick={options[3].onClick}
-            className="absolute left-0 top-1/2 transform -translate-x-2 -translate-y-1/2 w-16 h-16 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
+            className="absolute left-0 top-1/2 transform -translate-x-3 -translate-y-1/2 w-20 h-20 bg-muted/50 rounded-full flex flex-col items-center justify-center gap-1 hover:bg-muted transition-colors"
           >
-            {React.createElement(options[3].icon, { className: "w-6 h-6 text-foreground" })}
+            {React.createElement(options[3].icon, { className: "w-7 h-7 text-foreground" })}
             <span className="text-xs font-medium text-foreground text-center leading-tight">
               {options[3].label.split(' ').map((word, i) => (
                 <div key={i}>{word}</div>
