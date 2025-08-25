@@ -53,8 +53,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl p-0 z-[90]">
-        <SheetHeader className="p-4 pb-0">
+      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl p-0 z-[90] flex flex-col">
+        <SheetHeader className="p-4 pb-0 flex-shrink-0">
           <div className="flex items-center justify-between">
             <button
               onClick={onClose}
@@ -67,8 +67,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
           </div>
         </SheetHeader>
 
-        <div className="flex-1 min-h-0">
-          <div className="h-full overflow-y-auto p-4 pb-32">
+        <div className="flex-1 overflow-y-auto">
+          <div className="p-4 pb-32">
           {/* Food Name and Bookmark */}
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-foreground">{food.name}</h1>
@@ -211,7 +211,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
         </div>
 
         {/* Fixed bottom button */}
-        <div className="fixed bottom-0 left-0 right-0 p-6 bg-background border-t border-border">
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-background border-t border-border flex-shrink-0">
           <Button 
             onClick={handleLog}
             className="w-full h-12 text-base font-semibold rounded-full bg-foreground text-background hover:bg-foreground/90"
