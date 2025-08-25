@@ -134,8 +134,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
             >
               <CarouselContent>
                 {/* Section 1: Main Macros */}
-                <CarouselItem>
-                  <div className="space-y-4">
+                 <CarouselItem>
+                   <div className="space-y-4 pb-8">
                     {/* Main Calorie Card */}
                     <Card className="shadow-lg dark:shadow-xl border border-border/50">
                       <CardContent className="p-6">
@@ -196,8 +196,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                 </CarouselItem>
 
                 {/* Section 2: Additional Nutrients */}
-                <CarouselItem>
-                  <div className="space-y-4">
+                 <CarouselItem>
+                   <div className="space-y-4 pb-8">
                     {/* Health Score - Large Card */}
                      <Card className="shadow-lg dark:shadow-xl border border-border/50">
                        <CardContent className="p-6">
