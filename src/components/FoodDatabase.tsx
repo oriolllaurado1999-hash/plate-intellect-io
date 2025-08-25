@@ -133,9 +133,9 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
       </div>
 
       {/* Tabs */}
-      <div className="flex-1 flex flex-col">
-        <Tabs defaultValue="all" className="flex-1 flex flex-col">
-          <TabsList className="mx-4 mt-4 grid w-auto grid-cols-4 bg-transparent p-0 h-auto">
+      <div className="flex-1 flex flex-col min-h-0">
+        <Tabs defaultValue="all" className="flex-1 flex flex-col min-h-0">
+          <TabsList className="mx-4 mt-4 grid w-auto grid-cols-4 bg-transparent p-0 h-auto flex-shrink-0">
             <TabsTrigger 
               value="all" 
               className="text-muted-foreground data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-foreground data-[state=active]:bg-transparent rounded-none pb-3"
@@ -162,24 +162,25 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
             </TabsTrigger>
           </TabsList>
 
-          <ScrollArea className="flex-1">
-            <TabsContent value="all" className="flex-1 m-0 p-4 pb-24">
-              {/* Search */}
-              <div className="relative mb-6">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  placeholder="Add your food here"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-12 rounded-xl bg-primary/5 border-0"
-                />
-                {isSearching && (
-                  <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground animate-spin" />
-                )}
-              </div>
+          <div className="flex-1 min-h-0 overflow-hidden">
+            <TabsContent value="all" className="h-full m-0 overflow-y-auto">
+              <div className="p-4 pb-32">
+                {/* Search */}
+                <div className="relative mb-6">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    placeholder="Add your food here"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-12 rounded-xl bg-primary/5 border-0"
+                  />
+                  {isSearching && (
+                    <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground animate-spin" />
+                  )}
+                </div>
 
-              {/* Results */}
-              <div className="space-y-2 pb-24">
+                {/* Results */}
+                <div className="space-y-2">
                 {searchQuery ? (
                   <>
                     {isSearching ? (
@@ -210,28 +211,33 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                       <FoodItemCard key={food.id} food={food} onClick={() => handleFoodSelect(food)} />
                     ))}
                   </>
-                )}
+                  )}
+                </div>
               </div>
             </TabsContent>
 
-            <TabsContent value="my-foods" className="flex-1 m-0">
-              <EmptyState
-                title="My Foods"
-                description="Add a custom food to your personal list."
-                buttonText="Add food"
-              />
+            <TabsContent value="my-foods" className="h-full m-0 overflow-y-auto">
+              <div className="p-4 pb-32">
+                <EmptyState
+                  title="My Foods"
+                  description="Add a custom food to your personal list."
+                  buttonText="Add food"
+                />
+              </div>
             </TabsContent>
 
-            <TabsContent value="my-meals" className="flex-1 m-0">
-              <EmptyState
-                title="My Meals"
-                description="Quickly log your go-to meal combinations."
-                buttonText="Create meal"
-              />
+            <TabsContent value="my-meals" className="h-full m-0 overflow-y-auto">
+              <div className="p-4 pb-32">
+                <EmptyState
+                  title="My Meals"
+                  description="Quickly log your go-to meal combinations."
+                  buttonText="Create meal"
+                />
+              </div>
             </TabsContent>
 
-            <TabsContent value="saved-foods" className="flex-1 m-0">
-              <div className="p-4">
+            <TabsContent value="saved-foods" className="h-full m-0 overflow-y-auto">
+              <div className="p-4 pb-32">
                 {/* Saved food example */}
                 <div className="bg-card rounded-xl p-4 mb-4 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent"></div>
@@ -260,7 +266,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
                 />
               </div>
             </TabsContent>
-          </ScrollArea>
+          </div>
         </Tabs>
       </div>
 

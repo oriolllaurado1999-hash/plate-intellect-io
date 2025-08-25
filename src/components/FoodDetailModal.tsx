@@ -67,7 +67,8 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
           </div>
         </SheetHeader>
 
-        <div className="flex-1 overflow-auto p-4 pb-24">
+        <div className="flex-1 min-h-0">
+          <div className="h-full overflow-y-auto p-4 pb-32">
           {/* Food Name and Bookmark */}
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-foreground">{food.name}</h1>
@@ -205,6 +206,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                 ))}
               </div>
             )}
+          </div>
           </div>
         </div>
 
