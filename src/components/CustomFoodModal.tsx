@@ -463,7 +463,7 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="fixed inset-0 bg-background rounded-none p-0 gap-0 overflow-hidden z-[90] w-full h-full max-w-none"
+      <DialogContent className="fixed inset-0 bg-background z-[90] flex flex-col max-w-none w-full h-full"
         style={{ zIndex: 90 }}
       >
         <DialogHeader className="p-6 pb-4 flex-row items-center space-y-0">
