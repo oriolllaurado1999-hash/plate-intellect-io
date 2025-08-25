@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
 import { CustomFoodModal } from './CustomFoodModal';
+import foodBasketImage from '@/assets/food-basket.png';
 
 interface FoodDatabaseProps {
   onClose: () => void;
@@ -156,9 +157,19 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
     onButtonClick?: () => void;
   }) => (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
-        <div className="w-8 h-8 bg-muted-foreground/20 rounded-full"></div>
-      </div>
+      {title === "My Foods" ? (
+        <div className="w-16 h-16 mb-4 flex items-center justify-center">
+          <img 
+            src={foodBasketImage} 
+            alt="Food basket" 
+            className="w-16 h-16 object-contain"
+          />
+        </div>
+      ) : (
+        <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+          <div className="w-8 h-8 bg-muted-foreground/20 rounded-full"></div>
+        </div>
+      )}
       <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
       <p className="text-muted-foreground mb-6 max-w-xs">{description}</p>
       {buttonText && (
