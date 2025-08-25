@@ -52,7 +52,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl p-0">
+      <SheetContent side="bottom" className="h-[90vh] rounded-t-3xl p-0 z-[90]">
         <SheetHeader className="p-4 pb-0">
           <div className="flex items-center justify-between">
             <button
