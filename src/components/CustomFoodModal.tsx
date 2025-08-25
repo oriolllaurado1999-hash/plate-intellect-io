@@ -521,8 +521,21 @@ export function CustomFoodModal({ open, onOpenChange }: CustomFoodModalProps) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="h-[100vh] rounded-t-none p-0 z-[90] flex flex-col [&>button]:hidden">
-        <SheetHeader className="p-6 pb-4 flex-row items-center justify-center space-y-0">
+        <SheetHeader className="p-6 pb-4 flex-row items-center justify-between space-y-0">
+          {currentStep > 1 ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={prevStep}
+              className="w-10 h-10 rounded-full bg-muted"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+          ) : (
+            <div className="w-10 h-10"></div>
+          )}
           <h2 className="text-lg font-semibold">Add Food</h2>
+          <div className="w-10 h-10"></div>
         </SheetHeader>
 
         <div className="flex-1 overflow-y-auto">
