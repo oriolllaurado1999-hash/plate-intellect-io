@@ -25,6 +25,11 @@ interface FoodItem {
   sodium: number;
   servingSize: string;
   servingUnit: string;
+  servingOptions?: Array<{
+    label: string;
+    amount: number;
+    unit: string;
+  }>;
 }
 
 const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {

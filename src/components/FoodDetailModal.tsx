@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ChevronDown, ChevronRight, Bookmark, Edit, Flame, Beef, Wheat, Leaf, Grape, Candy, Salad, Heart } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,11 @@ interface FoodItem {
   sodium: number;
   servingSize: string;
   servingUnit: string;
+  servingOptions?: Array<{
+    label: string;
+    amount: number;
+    unit: string;
+  }>;
 }
 
 interface FoodDetailModalProps {
@@ -29,14 +34,97 @@ interface FoodDetailModalProps {
 }
 
 const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps) => {
-  const [selectedSize, setSelectedSize] = useState('Large');
+  const [selectedSize, setSelectedSize] = useState('');
   const [servings, setServings] = useState(1);
   const [showNutritionFacts, setShowNutritionFacts] = useState(false);
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
 
   if (!food) return null;
 
-  const sizes = ['Large', 'Medium', 'Small'];
+  // Generate serving options based on food type and database info
+  const getServingOptions = (food: FoodItem) => {
+    // If the food has predefined serving options, use those
+    if (food.servingOptions && food.servingOptions.length > 0) {
+      return food.servingOptions;
+    }
+
+    const foodName = food.name.toLowerCase();
+    const baseAmount = parseFloat(food.servingSize) || 100;
+    
+    // Generate options based on food type
+    if (foodName.includes('apple') || foodName.includes('banana') || foodName.includes('orange') || 
+        foodName.includes('pear') || foodName.includes('peach') || foodName.includes('fruit')) {
+      return [
+        { label: 'Small', amount: baseAmount * 0.6, unit: food.servingUnit },
+        { label: 'Medium', amount: baseAmount, unit: food.servingUnit },
+        { label: 'Large', amount: baseAmount * 1.4, unit: food.servingUnit }
+      ];
+    }
+    
+    if (foodName.includes('chicken') || foodName.includes('beef') || foodName.includes('salmon') || 
+        foodName.includes('fish') || foodName.includes('meat')) {
+      return [
+        { label: '50g', amount: 50, unit: 'g' },
+        { label: '100g', amount: 100, unit: 'g' },
+        { label: '150g', amount: 150, unit: 'g' },
+        { label: '200g', amount: 200, unit: 'g' }
+      ];
+    }
+    
+    if (foodName.includes('rice') || foodName.includes('pasta') || foodName.includes('quinoa') || 
+        foodName.includes('grain')) {
+      return [
+        { label: '50g (dry)', amount: 50, unit: 'g' },
+        { label: '75g (dry)', amount: 75, unit: 'g' },
+        { label: '100g (dry)', amount: 100, unit: 'g' }
+      ];
+    }
+    
+    if (foodName.includes('bread') || foodName.includes('toast')) {
+      return [
+        { label: '1 slice', amount: 30, unit: 'g' },
+        { label: '2 slices', amount: 60, unit: 'g' },
+        { label: '3 slices', amount: 90, unit: 'g' }
+      ];
+    }
+    
+    if (foodName.includes('milk') || foodName.includes('juice') || foodName.includes('water') || 
+        foodName.includes('drink') || foodName.includes('beverage')) {
+      return [
+        { label: '100ml', amount: 100, unit: 'ml' },
+        { label: '200ml', amount: 200, unit: 'ml' },
+        { label: '250ml (1 cup)', amount: 250, unit: 'ml' }
+      ];
+    }
+    
+    // Default serving options for other foods
+    return [
+      { label: '50g', amount: 50, unit: 'g' },
+      { label: '100g', amount: 100, unit: 'g' },
+      { label: '150g', amount: 150, unit: 'g' }
+    ];
+  };
+
+  const servingOptions = getServingOptions(food);
+  
+  // Set initial selected size when food changes
+  useEffect(() => {
+    if (food && servingOptions.length > 0) {
+      const defaultOption = servingOptions.find(option => option.amount === parseFloat(food.servingSize)) || servingOptions[1] || servingOptions[0];
+      setSelectedSize(defaultOption.label);
+    }
+  }, [food?.id]); // Only run when food changes
+
+  // Calculate nutrition multiplier based on selected serving size
+  const getServingMultiplier = () => {
+    const selectedOption = servingOptions.find(option => option.label === selectedSize);
+    if (!selectedOption) return 1;
+    
+    const baseAmount = parseFloat(food.servingSize) || 100;
+    return selectedOption.amount / baseAmount;
+  };
+
+  const servingMultiplier = getServingMultiplier();
 
   const handleLog = () => {
     onLog?.(food, servings, selectedSize);
@@ -82,19 +170,19 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
           {/* Measurement */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold text-foreground mb-3">Measurement</h3>
-            <div className="flex gap-2">
-              {sizes.map((size) => (
+            <div className="flex gap-2 flex-wrap">
+              {servingOptions.map((option) => (
                 <Button
-                  key={size}
-                  variant={selectedSize === size ? "default" : "outline"}
+                  key={option.label}
+                  variant={selectedSize === option.label ? "default" : "outline"}
                   className={`px-6 py-2 rounded-full ${
-                    selectedSize === size 
+                    selectedSize === option.label 
                       ? "bg-foreground text-background" 
                       : "bg-transparent border-muted-foreground/20 text-foreground"
                   }`}
-                  onClick={() => setSelectedSize(size)}
+                  onClick={() => setSelectedSize(option.label)}
                 >
-                  {size}
+                  {option.label}
                 </Button>
               ))}
             </div>
@@ -142,7 +230,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="text-sm text-muted-foreground mb-1">Calories</p>
-                            <p className="text-3xl font-bold text-foreground">{Math.round(food.calories * servings)}</p>
+                            <p className="text-3xl font-bold text-foreground">{Math.round(food.calories * servingMultiplier * servings)}</p>
                           </div>
                           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                             <Flame className="w-8 h-8 text-primary" />
@@ -159,9 +247,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                           <div className="w-12 h-12 mx-auto mb-3 bg-protein/10 rounded-full flex items-center justify-center">
                             <Beef className="w-6 h-6" style={{ color: 'hsl(var(--protein))' }} />
                           </div>
-                          <div className="text-lg font-bold text-foreground mb-1">
-                            {Math.round(food.protein * servings)}g
-                          </div>
+                           <div className="text-lg font-bold text-foreground mb-1">
+                             {Math.round(food.protein * servingMultiplier * servings)}g
+                           </div>
                           <div className="text-xs text-muted-foreground">Protein</div>
                         </CardContent>
                       </Card>
@@ -172,9 +260,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                          <div className="w-12 h-12 mx-auto mb-3 bg-carbs/10 rounded-full flex items-center justify-center">
                            <Wheat className="w-6 h-6" style={{ color: 'hsl(var(--carbs))' }} />
                          </div>
-                         <div className="text-lg font-bold text-foreground mb-1">
-                           {Math.round(food.carbs * servings)}g
-                         </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.carbs * servingMultiplier * servings)}g
+                          </div>
                          <div className="text-xs text-muted-foreground">Carbs</div>
                        </CardContent>
                      </Card>
@@ -185,9 +273,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                          <div className="w-12 h-12 mx-auto mb-3 bg-fat/10 rounded-full flex items-center justify-center">
                            <Leaf className="w-6 h-6" style={{ color: 'hsl(var(--fat))' }} />
                          </div>
-                         <div className="text-lg font-bold text-foreground mb-1">
-                           {Math.round(food.fat * servings)}g
-                         </div>
+                          <div className="text-lg font-bold text-foreground mb-1">
+                            {Math.round(food.fat * servingMultiplier * servings)}g
+                          </div>
                          <div className="text-xs text-muted-foreground">Fats</div>
                        </CardContent>
                      </Card>
@@ -221,9 +309,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                            <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#8B5FBF20' }}>
                              <Grape className="w-6 h-6" style={{ color: '#8B5FBF' }} />
                            </div>
-                           <div className="text-lg font-bold text-foreground mb-1">
-                             {Math.round(food.fiber * servings)}g
-                           </div>
+                            <div className="text-lg font-bold text-foreground mb-1">
+                              {Math.round(food.fiber * servingMultiplier * servings)}g
+                            </div>
                            <div className="text-xs text-muted-foreground">Fiber</div>
                          </CardContent>
                        </Card>
@@ -234,9 +322,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                            <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FF6B9D20' }}>
                              <Candy className="w-6 h-6" style={{ color: '#FF6B9D' }} />
                            </div>
-                           <div className="text-lg font-bold text-foreground mb-1">
-                             {Math.round(food.sugar * servings)}g
-                           </div>
+                            <div className="text-lg font-bold text-foreground mb-1">
+                              {Math.round(food.sugar * servingMultiplier * servings)}g
+                            </div>
                            <div className="text-xs text-muted-foreground">Sugar</div>
                          </CardContent>
                        </Card>
@@ -247,9 +335,9 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
                            <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FFB36620' }}>
                              <Salad className="w-6 h-6" style={{ color: '#FFB366' }} />
                            </div>
-                           <div className="text-lg font-bold text-foreground mb-1">
-                             {Math.round(food.sodium * servings)}mg
-                           </div>
+                            <div className="text-lg font-bold text-foreground mb-1">
+                              {Math.round(food.sodium * servingMultiplier * servings)}mg
+                            </div>
                            <div className="text-xs text-muted-foreground">Sodium</div>
                          </CardContent>
                        </Card>
@@ -288,15 +376,15 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
 
             {showNutritionFacts && (
               <div className="space-y-3 mt-4">
-                {[
-                  { label: 'Saturated Fat', value: `${Math.round(food.fat * 0.3 * servings)}g` },
-                  { label: 'Polyunsaturated Fat', value: `${Math.round(food.fat * 0.1 * servings)}g` },
-                  { label: 'Monounsaturated Fat', value: `${Math.round(food.fat * 0.4 * servings)}g` },
-                  { label: 'Cholesterol', value: `${Math.round(food.protein * 10 * servings)}mg` },
-                  { label: 'Sodium', value: `${Math.round(food.sodium * servings)}mg` },
-                  { label: 'Fiber', value: `${Math.round(food.fiber * servings)}g` },
-                  { label: 'Sugar', value: `${Math.round(food.sugar * servings)}g` },
-                ].map((item) => (
+                 {[
+                   { label: 'Saturated Fat', value: `${Math.round(food.fat * 0.3 * servingMultiplier * servings)}g` },
+                   { label: 'Polyunsaturated Fat', value: `${Math.round(food.fat * 0.1 * servingMultiplier * servings)}g` },
+                   { label: 'Monounsaturated Fat', value: `${Math.round(food.fat * 0.4 * servingMultiplier * servings)}g` },
+                   { label: 'Cholesterol', value: `${Math.round(food.protein * 10 * servingMultiplier * servings)}mg` },
+                   { label: 'Sodium', value: `${Math.round(food.sodium * servingMultiplier * servings)}mg` },
+                   { label: 'Fiber', value: `${Math.round(food.fiber * servingMultiplier * servings)}g` },
+                   { label: 'Sugar', value: `${Math.round(food.sugar * servingMultiplier * servings)}g` },
+                 ].map((item) => (
                   <div key={item.label} className="flex items-center justify-between py-3 px-4 bg-muted/30 rounded-xl">
                     <span className="text-foreground">{item.label}</span>
                     <span className="font-semibold text-foreground">{item.value}</span>
