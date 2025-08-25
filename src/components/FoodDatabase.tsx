@@ -36,6 +36,8 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
     { id: "4", name: "Salmon", calories: 208, protein: 20, carbs: 0, fat: 13, fiber: 0, sugar: 0, sodium: 59, servingSize: "100", servingUnit: "g" },
     { id: "5", name: "Avocado", calories: 160, protein: 2, carbs: 9, fat: 15, fiber: 7, sugar: 0.7, sodium: 7, servingSize: "100", servingUnit: "g" },
     { id: "6", name: "Greek Yogurt", calories: 100, protein: 10, carbs: 6, fat: 0.4, fiber: 0, sugar: 6, sodium: 36, servingSize: "100", servingUnit: "g" },
+    { id: "7", name: "Quinoa", calories: 120, protein: 4.4, carbs: 22, fat: 1.9, fiber: 2.8, sugar: 0.9, sodium: 7, servingSize: "100", servingUnit: "g" },
+    { id: "8", name: "Sweet Potato", calories: 86, protein: 1.6, carbs: 20, fat: 0.1, fiber: 3, sugar: 4.2, sodium: 5, servingSize: "100", servingUnit: "g" },
   ];
 
   const searchUSDAFoods = async (query: string) => {
