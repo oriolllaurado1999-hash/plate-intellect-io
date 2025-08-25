@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ChevronDown, ChevronRight, Bookmark, Edit } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronRight, Bookmark, Edit, Flame, Beef, Wheat, Droplets } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface FoodItem {
   id: string;
@@ -62,11 +63,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
               <ArrowLeft className="w-5 h-5 text-foreground" />
             </button>
             <h2 className="text-lg font-semibold text-foreground">Selected food</h2>
-            <button className="w-10 h-10 bg-muted rounded-full flex items-center justify-between">
-              <div className="w-1 h-1 bg-foreground rounded-full"></div>
-              <div className="w-1 h-1 bg-foreground rounded-full"></div>
-              <div className="w-1 h-1 bg-foreground rounded-full"></div>
-            </button>
+            <div className="w-10"></div>
           </div>
         </SheetHeader>
 
@@ -116,41 +113,63 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
             </div>
           </div>
 
-          {/* Calories */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                <span className="text-lg">🔥</span>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Calories</p>
-                <p className="text-3xl font-bold text-foreground">{Math.round(food.calories * servings)}</p>
-              </div>
-            </div>
+          {/* Nutrition Cards */}
+          <div className="mb-8 space-y-4">
+            {/* Main Calorie Card */}
+            <Card className="shadow-lg border border-border/50">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Calories</p>
+                    <p className="text-3xl font-bold text-foreground">{Math.round(food.calories * servings)}</p>
+                  </div>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Flame className="w-8 h-8 text-primary" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            {/* Macros */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span className="text-sm text-muted-foreground">Protein</span>
-                </div>
-                <p className="text-xl font-semibold text-foreground">{Math.round(food.protein * servings)}g</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  <span className="text-sm text-muted-foreground">Carbs</span>
-                </div>
-                <p className="text-xl font-semibold text-foreground">{Math.round(food.carbs * servings)}g</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-1 mb-1">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-sm text-muted-foreground">Fats</span>
-                </div>
-                <p className="text-xl font-semibold text-foreground">{Math.round(food.fat * servings)}g</p>
-              </div>
+            {/* Macro Cards */}
+            <div className="grid grid-cols-3 gap-3">
+              {/* Protein */}
+              <Card className="shadow-lg border border-border/50">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-protein/10 rounded-full flex items-center justify-center">
+                    <Beef className="w-6 h-6" style={{ color: 'hsl(var(--protein))' }} />
+                  </div>
+                  <div className="text-lg font-bold text-foreground mb-1">
+                    {Math.round(food.protein * servings)}g
+                  </div>
+                  <div className="text-xs text-muted-foreground">Protein</div>
+                </CardContent>
+              </Card>
+
+              {/* Carbs */}
+              <Card className="shadow-lg border border-border/50">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-carbs/10 rounded-full flex items-center justify-center">
+                    <Wheat className="w-6 h-6" style={{ color: 'hsl(var(--carbs))' }} />
+                  </div>
+                  <div className="text-lg font-bold text-foreground mb-1">
+                    {Math.round(food.carbs * servings)}g
+                  </div>
+                  <div className="text-xs text-muted-foreground">Carbs</div>
+                </CardContent>
+              </Card>
+
+              {/* Fats */}
+              <Card className="shadow-lg border border-border/50">
+                <CardContent className="p-4 text-center">
+                  <div className="w-12 h-12 mx-auto mb-3 bg-fat/10 rounded-full flex items-center justify-center">
+                    <Droplets className="w-6 h-6" style={{ color: 'hsl(var(--fat))' }} />
+                  </div>
+                  <div className="text-lg font-bold text-foreground mb-1">
+                    {Math.round(food.fat * servings)}g
+                  </div>
+                  <div className="text-xs text-muted-foreground">Fats</div>
+                </CardContent>
+              </Card>
             </div>
           </div>
 
