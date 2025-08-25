@@ -9,6 +9,7 @@ import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
 import { CustomFoodModal } from './CustomFoodModal';
 import foodBasketImage from '@/assets/food-basket.png';
+import mealPlateImage from '@/assets/meal-plate.png';
 
 interface FoodDatabaseProps {
   onClose: () => void;
@@ -162,6 +163,14 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
           <img 
             src={foodBasketImage} 
             alt="Food basket" 
+            className="w-24 h-24 object-contain"
+          />
+        </div>
+      ) : title === "My Meals" ? (
+        <div className="w-24 h-24 mb-4 flex items-center justify-center">
+          <img 
+            src={mealPlateImage} 
+            alt="Meal plate" 
             className="w-24 h-24 object-contain"
           />
         </div>
