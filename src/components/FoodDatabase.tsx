@@ -9,6 +9,7 @@ import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
 import { CustomFoodModal } from './CustomFoodModal';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
 import foodBasketImage from '@/assets/food-basket.png';
 import mealPlateImage from '@/assets/meal-plate-transparent.png';
 
@@ -47,6 +48,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   const [savedFoods, setSavedFoods] = useState<FoodItem[]>([]);
   const [isLoadingSavedFoods, setIsLoadingSavedFoods] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const suggestedFoods: FoodItem[] = [
     { id: "1", name: "Chicken Breast", calories: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, sugar: 0, sodium: 74, servingSize: "100", servingUnit: "g", brand: "Fresh" },
@@ -213,9 +215,76 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
     setSelectedFood(null);
   };
 
-  const handleLogFood = (food: FoodItem, servings: number, size: string) => {
-    // Handle food logging logic here
-    console.log('Logging food:', food, servings, size);
+  const handleLogFood = async (food: FoodItem, servings: number, size: string) => {
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to save food items.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      // Calculate nutritional values based on servings
+      const totalCalories = Math.round(food.calories * servings);
+      const totalProtein = Math.round(food.protein * servings);
+      const totalCarbs = Math.round(food.carbs * servings);
+      const totalFat = Math.round(food.fat * servings);
+      const totalFiber = Math.round(food.fiber * servings);
+
+      // Create a new meal entry
+      const { data: meal, error: mealError } = await supabase
+        .from('meals')
+        .insert({
+          user_id: user.id,
+          name: food.name,
+          meal_type: 'snack', // Default to snack for manually added foods
+          meal_date: new Date().toISOString().split('T')[0], // Today's date
+          total_calories: totalCalories,
+          total_protein: totalProtein,
+          total_carbs: totalCarbs,
+          total_fat: totalFat,
+          total_fiber: totalFiber,
+        })
+        .select()
+        .single();
+
+      if (mealError) throw mealError;
+
+      // Create meal item entry
+      const { error: itemError } = await supabase
+        .from('meal_items')
+        .insert({
+          meal_id: meal.id,
+          food_name: food.name,
+          quantity: servings,
+          calories: totalCalories,
+          protein: totalProtein,
+          carbs: totalCarbs,
+          fat: totalFat,
+          fiber: totalFiber,
+        });
+
+      if (itemError) throw itemError;
+
+      toast({
+        title: "Food Logged Successfully!",
+        description: `${food.name} has been added to your recently uploaded foods.`,
+      });
+      
+      // Close the modal and Food Database
+      handleCloseModal();
+      onClose();
+      
+    } catch (error) {
+      console.error('Error logging food:', error);
+      toast({
+        title: "Error",
+        description: "Failed to log food. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const EmptyState = ({ title, description, buttonText, onButtonClick }: {
