@@ -87,11 +87,11 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: meal.image_url ? `url(${meal.image_url})` : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          backgroundPosition: meal.image_url ? 'center 20%' : 'center center',
+          backgroundPosition: meal.image_url ? 'center center' : 'center center',
         }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       {/* Header */}
@@ -117,8 +117,8 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
 
       {/* Bottom Card */}
       <div className="absolute bottom-0 left-0 right-0 z-10">
-        <Card className="rounded-t-3xl border-0 shadow-2xl min-h-[60vh]">
-          <CardContent className="p-6 space-y-6">
+        <Card className="rounded-t-3xl border-0 shadow-2xl h-[60vh] max-h-[60vh] overflow-hidden">
+          <CardContent className="p-6 space-y-6 h-full overflow-y-auto">
             {/* Meal Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
