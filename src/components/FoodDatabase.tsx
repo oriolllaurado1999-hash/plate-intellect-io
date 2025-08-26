@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ArrowLeft, Edit, Loader2, Plus, Flame } from 'lucide-react';
+import { Search, ArrowLeft, Edit, Loader2, Plus, Flame, Bookmark } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
 import { CustomFoodModal } from './CustomFoodModal';
+import { useToast } from '@/hooks/use-toast';
 import foodBasketImage from '@/assets/food-basket.png';
 import mealPlateImage from '@/assets/meal-plate-transparent.png';
 
@@ -43,6 +44,9 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
   const [isCustomFoodModalOpen, setIsCustomFoodModalOpen] = useState(false);
+  const [savedFoods, setSavedFoods] = useState<FoodItem[]>([]);
+  const [isLoadingSavedFoods, setIsLoadingSavedFoods] = useState(false);
+  const { toast } = useToast();
 
   const suggestedFoods: FoodItem[] = [
     { id: "1", name: "Chicken Breast", calories: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, sugar: 0, sodium: 74, servingSize: "100", servingUnit: "g", brand: "Fresh" },
@@ -135,6 +139,69 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
+
+  // Load saved foods when switching to saved-foods tab
+  useEffect(() => {
+    if (activeTab === 'saved-foods') {
+      loadSavedFoods();
+    }
+  }, [activeTab]);
+
+  const loadSavedFoods = async () => {
+    setIsLoadingSavedFoods(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        console.log('No user found');
+        setSavedFoods([]);
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('saved_foods')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error loading saved foods:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load saved foods. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Convert saved foods to FoodItem format
+      const convertedFoods: FoodItem[] = (data || []).map(savedFood => ({
+        id: savedFood.food_id,
+        name: savedFood.food_name,
+        brand: savedFood.food_brand || undefined,
+        calories: Number(savedFood.calories),
+        protein: Number(savedFood.protein),
+        carbs: Number(savedFood.carbs),
+        fat: Number(savedFood.fat),
+        fiber: Number(savedFood.fiber),
+        sugar: Number(savedFood.sugar),
+        sodium: Number(savedFood.sodium),
+        servingSize: savedFood.serving_size,
+        servingUnit: savedFood.serving_unit,
+      }));
+
+      setSavedFoods(convertedFoods);
+    } catch (error) {
+      console.error('Error loading saved foods:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingSavedFoods(false);
+    }
+  };
 
   const handleFoodSelect = (food: FoodItem) => {
     setSelectedFood(food);
@@ -317,32 +384,30 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
 
             <TabsContent value="saved-foods" className="h-full m-0 overflow-y-auto">
               <div className="p-4 pb-32">
-                {/* Saved food example */}
-                <div className="bg-card rounded-xl p-4 mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent"></div>
-                  <div className="relative flex items-center justify-between">
-                    <div>
-                      <div className="text-xs text-muted-foreground mb-1">🕘 9 AM</div>
-                      <h4 className="font-semibold text-foreground">Smoked Salmon</h4>
-                      <h4 className="font-semibold text-foreground">Avocado Salad</h4>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="icon" className="w-8 h-8">
-                        <span className="text-lg">−</span>
-                      </Button>
-                      <span className="text-foreground font-medium min-w-[20px] text-center">1</span>
-                      <Button variant="ghost" size="icon" className="w-8 h-8">
-                        <Plus className="w-4 h-4" />
-                      </Button>
-                    </div>
+                {isLoadingSavedFoods ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    <span className="ml-2 text-muted-foreground">Loading saved foods...</span>
                   </div>
-                </div>
-
-                <EmptyState
-                  title="No saved foods yet"
-                  description="Tap 🔖 on any logged food to save here."
-                  buttonText=""
-                />
+                ) : savedFoods.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-12">
+                    <Bookmark className="w-12 h-12 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-semibold text-foreground mb-2">No saved foods yet</h3>
+                    <p className="text-muted-foreground text-center">
+                      Tap 🔖 on any food detail to save here.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {savedFoods.map((food) => (
+                      <FoodItemCard
+                        key={food.id}
+                        food={food}
+                        onClick={() => handleFoodSelect(food)}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </TabsContent>
           </div>
