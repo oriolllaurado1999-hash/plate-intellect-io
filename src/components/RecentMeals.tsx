@@ -100,105 +100,113 @@ export default function RecentMeals() {
 
   if (loading) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Clock className="h-5 w-5 text-primary" />
-            {t.recentlyUploaded}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-lg animate-pulse">
-                <div className="w-12 h-12 bg-muted rounded-lg"></div>
-                <div className="flex-1 space-y-2">
-                  <div className="h-4 bg-muted rounded w-3/4"></div>
-                  <div className="h-3 bg-muted rounded w-1/2"></div>
+      <div>
+        {/* Title outside of cards */}
+        <div className="flex items-center gap-2 mb-4 px-1">
+          <Clock className="h-5 w-5 text-primary" />
+          <h2 className="text-lg font-semibold text-foreground">{t.recentlyUploaded}</h2>
+        </div>
+        
+        <div className="space-y-3">
+          {[...Array(3)].map((_, i) => (
+            <Card key={i}>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4 animate-pulse">
+                  <div className="w-20 h-20 bg-muted rounded-xl"></div>
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-muted rounded w-3/4"></div>
+                    <div className="h-3 bg-muted rounded w-1/2"></div>
+                    <div className="h-3 bg-muted rounded w-2/3"></div>
+                  </div>
                 </div>
-                <div className="h-6 bg-muted rounded w-16"></div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Clock className="h-5 w-5 text-primary" />
-          {t.recentlyUploaded}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        {recentMeals.length === 0 ? (
-          <div className="text-center py-8">
-            <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
-              <Camera className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <p className="text-muted-foreground">{t.noRecentMeals}</p>
-            <p className="text-sm text-muted-foreground mt-1">{t.startScanning}</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {recentMeals.map((meal) => (
-              <div
-                key={meal.id}
-                className="flex items-center gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer bg-card"
-                onClick={() => setSelectedMeal(meal)}
-              >
-                {/* Food Image */}
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
-                  {meal.image_url ? (
-                    <img 
-                      src={meal.image_url} 
-                      alt={meal.name}
-                      className="w-full h-full object-cover rounded-xl"
-                    />
-                  ) : (
-                    <Camera className="h-8 w-8 text-primary" />
-                  )}
-                </div>
-                
-                {/* Food Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-base truncate text-foreground">{meal.name}</h4>
-                    <span className="text-sm text-muted-foreground ml-2 flex-shrink-0">
-                      {formatTime(meal.created_at)}
-                    </span>
-                  </div>
-                  
-                  {/* Calories prominently displayed */}
-                  <div className="flex items-center gap-1 mb-3">
-                    <Flame className="h-4 w-4" style={{ color: '#4AD4B2' }} />
-                    <span className="font-semibold text-foreground">{Math.round(meal.total_calories)} calories</span>
-                  </div>
-                  
-                  {/* Macronutrients */}
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                      <span className="text-sm text-muted-foreground">{Math.round(meal.total_protein)}g</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <span className="text-sm text-muted-foreground">{Math.round(meal.total_carbs)}g</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                      <span className="text-sm text-muted-foreground">{Math.round(meal.total_fat)}g</span>
-                    </div>
-                  </div>
-                </div>
+    <div>
+      {/* Title outside of cards */}
+      <div className="flex items-center gap-2 mb-4 px-1">
+        <Clock className="h-5 w-5 text-primary" />
+        <h2 className="text-lg font-semibold text-foreground">{t.recentlyUploaded}</h2>
+      </div>
+
+      {recentMeals.length === 0 ? (
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center py-8">
+              <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+                <Camera className="h-8 w-8 text-muted-foreground" />
               </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
+              <p className="text-muted-foreground">{t.noRecentMeals}</p>
+              <p className="text-sm text-muted-foreground mt-1">{t.startScanning}</p>
+            </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {recentMeals.map((meal) => (
+            <Card 
+              key={meal.id}
+              className="hover:bg-muted/50 transition-colors cursor-pointer"
+              onClick={() => setSelectedMeal(meal)}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  {/* Large Food Image */}
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
+                    {meal.image_url ? (
+                      <img 
+                        src={meal.image_url} 
+                        alt={meal.name}
+                        className="w-full h-full object-cover rounded-xl"
+                      />
+                    ) : (
+                      <Camera className="h-10 w-10 text-primary" />
+                    )}
+                  </div>
+                  
+                  {/* Food Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-base truncate text-foreground">{meal.name}</h4>
+                      <span className="text-sm text-muted-foreground ml-2 flex-shrink-0">
+                        {formatTime(meal.created_at)}
+                      </span>
+                    </div>
+                    
+                    {/* Calories prominently displayed */}
+                    <div className="flex items-center gap-1 mb-3">
+                      <Flame className="h-4 w-4" style={{ color: '#4AD4B2' }} />
+                      <span className="font-semibold text-foreground">{Math.round(meal.total_calories)} calories</span>
+                    </div>
+                    
+                    {/* Macronutrients with emojis */}
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1">
+                        <span className="text-sm">🥩</span>
+                        <span className="text-sm text-muted-foreground">{Math.round(meal.total_protein)}g</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-sm">🌾</span>
+                        <span className="text-sm text-muted-foreground">{Math.round(meal.total_carbs)}g</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-sm">🥑</span>
+                        <span className="text-sm text-muted-foreground">{Math.round(meal.total_fat)}g</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
 
       {/* Food Nutrition Detail Modal */}
       {selectedMeal && (
@@ -221,6 +229,6 @@ export default function RecentMeals() {
           onClose={() => setSelectedMeal(null)}
         />
       )}
-    </Card>
+    </div>
   );
 }
