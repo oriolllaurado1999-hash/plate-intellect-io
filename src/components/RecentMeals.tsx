@@ -157,8 +157,8 @@ export default function RecentMeals() {
             >
               <CardContent className="p-0">
                 <div className="flex items-center">
-                  {/* Large Food Image - Full Height */}
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center overflow-hidden flex-shrink-0">
+                  {/* Large Food Image - Full Height without borders */}
+                  <div className="w-24 h-24 overflow-hidden flex-shrink-0">
                     {meal.image_url ? (
                       <img 
                         src={meal.image_url} 
@@ -166,7 +166,9 @@ export default function RecentMeals() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <Camera className="h-12 w-12 text-primary" />
+                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                        <Camera className="h-12 w-12 text-primary" />
+                      </div>
                     )}
                   </div>
                   
