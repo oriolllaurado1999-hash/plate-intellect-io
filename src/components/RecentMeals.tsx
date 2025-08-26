@@ -147,44 +147,50 @@ export default function RecentMeals() {
             {recentMeals.map((meal) => (
               <div
                 key={meal.id}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                className="flex items-center gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer bg-card"
                 onClick={() => setSelectedMeal(meal)}
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg flex items-center justify-center overflow-hidden">
+                {/* Food Image */}
+                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
                   {meal.image_url ? (
                     <img 
                       src={meal.image_url} 
                       alt={meal.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-xl"
                     />
                   ) : (
-                    <Camera className="h-6 w-6 text-primary" />
+                    <Camera className="h-8 w-8 text-primary" />
                   )}
                 </div>
                 
+                {/* Food Info */}
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-medium truncate">{meal.name}</h4>
-                  <div className="flex items-center gap-1 mt-1">
-                    <span className="text-xs text-muted-foreground">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold text-base truncate text-foreground">{meal.name}</h4>
+                    <span className="text-sm text-muted-foreground ml-2 flex-shrink-0">
                       {formatTime(meal.created_at)}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mt-2">
+                  
+                  {/* Calories prominently displayed */}
+                  <div className="flex items-center gap-1 mb-3">
+                    <Flame className="h-4 w-4" style={{ color: '#4AD4B2' }} />
+                    <span className="font-semibold text-foreground">{Math.round(meal.total_calories)} calories</span>
+                  </div>
+                  
+                  {/* Macronutrients */}
+                  <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
-                      <Flame className="h-3 w-3" style={{ color: '#4AD4B2' }} />
-                      <span className="text-xs font-medium">{Math.round(meal.total_calories)}</span>
+                      <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                      <span className="text-sm text-muted-foreground">{Math.round(meal.total_protein)}g</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Beef className="h-3 w-3 text-protein" />
-                      <span className="text-xs">{Math.round(meal.total_protein)}g</span>
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <span className="text-sm text-muted-foreground">{Math.round(meal.total_carbs)}g</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Wheat className="h-3 w-3 text-carbs" />
-                      <span className="text-xs">{Math.round(meal.total_carbs)}g</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Leaf className="h-3 w-3 text-fat" />
-                      <span className="text-xs">{Math.round(meal.total_fat)}g</span>
+                      <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                      <span className="text-sm text-muted-foreground">{Math.round(meal.total_fat)}g</span>
                     </div>
                   </div>
                 </div>
