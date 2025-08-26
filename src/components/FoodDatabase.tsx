@@ -269,7 +269,7 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
         >
           <ArrowLeft className="w-5 h-5 text-foreground" />
         </button>
-        <h1 className="text-lg font-semibold text-foreground">Log Food</h1>
+        <h1 className="text-lg font-semibold text-foreground">Food Database</h1>
         <div className="w-10 h-10" /> {/* Spacer */}
       </div>
 
