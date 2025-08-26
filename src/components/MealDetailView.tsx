@@ -31,6 +31,9 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
   const [dragStartY, setDragStartY] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [isEditingQuantity, setIsEditingQuantity] = useState(false);
+  const [tempQuantity, setTempQuantity] = useState('1');
   const [ingredients, setIngredients] = useState<string[]>(() => {
     // Smart ingredient detection
     const detectIngredients = (name: string): string[] => {
@@ -127,6 +130,29 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
       console.error('Error toggling bookmark:', error);
       toast.error('Failed to update bookmark');
     }
+  };
+
+  // Calculate nutritional values based on quantity
+  const calculateNutritionValue = (baseValue: number) => {
+    return Math.round(baseValue * quantity);
+  };
+
+  const handleQuantityEdit = () => {
+    setIsEditingQuantity(true);
+    setTempQuantity(quantity.toString());
+  };
+
+  const handleQuantitySave = () => {
+    const newQuantity = parseFloat(tempQuantity);
+    if (!isNaN(newQuantity) && newQuantity > 0) {
+      setQuantity(newQuantity);
+    }
+    setIsEditingQuantity(false);
+  };
+
+  const handleQuantityCancel = () => {
+    setTempQuantity(quantity.toString());
+    setIsEditingQuantity(false);
   };
 
   const formatTime = (dateString: string) => {
@@ -275,10 +301,52 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
 
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold text-foreground">{meal.name}</h2>
-              <Button variant="outline" size="sm" className="rounded-full px-4">
-                <span className="mr-2">1</span>
-                <Edit className="w-4 h-4" />
-              </Button>
+              {isEditingQuantity ? (
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={tempQuantity}
+                    onChange={(e) => setTempQuantity(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleQuantitySave();
+                      } else if (e.key === 'Escape') {
+                        handleQuantityCancel();
+                      }
+                    }}
+                    className="w-16 text-center"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    autoFocus
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleQuantitySave}
+                    className="rounded-full px-3"
+                  >
+                    ✓
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleQuantityCancel}
+                    className="rounded-full px-3"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              ) : (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="rounded-full px-4"
+                  onClick={handleQuantityEdit}
+                >
+                  <span className="mr-2">{quantity}</span>
+                  <Edit className="w-4 h-4" />
+                </Button>
+              )}
             </div>
 
             {/* Nutrition Carousel */}
@@ -295,7 +363,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Calories</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(meal.total_calories)}
+                          {calculateNutritionValue(meal.total_calories)}
                         </div>
                       </CardContent>
                     </Card>
@@ -308,7 +376,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Protein</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(meal.total_protein)}g
+                          {calculateNutritionValue(meal.total_protein)}g
                         </div>
                       </CardContent>
                     </Card>
@@ -321,7 +389,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Carbs</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(meal.total_carbs)}g
+                          {calculateNutritionValue(meal.total_carbs)}g
                         </div>
                       </CardContent>
                     </Card>
@@ -334,7 +402,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Fats</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(meal.total_fat)}g
+                          {calculateNutritionValue(meal.total_fat)}g
                         </div>
                       </CardContent>
                     </Card>
@@ -352,7 +420,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Fiber</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(meal.total_fiber || 0)}g
+                          {calculateNutritionValue(meal.total_fiber || 0)}g
                         </div>
                       </CardContent>
                     </Card>
@@ -365,7 +433,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Sugar</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(0)}g
+                          {calculateNutritionValue(0)}g
                         </div>
                       </CardContent>
                     </Card>
@@ -378,7 +446,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           <span className="text-xs text-muted-foreground">Sodium</span>
                         </div>
                         <div className="text-lg font-semibold text-foreground">
-                          {Math.round(0)}mg
+                          {calculateNutritionValue(0)}mg
                         </div>
                       </CardContent>
                     </Card>
@@ -446,7 +514,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
                           </div>
                         )}
                         <div className="text-sm text-muted-foreground">
-                          {Math.round(meal.total_calories / ingredients.length)} cal
+                          {calculateNutritionValue(meal.total_calories / ingredients.length)} cal
                         </div>
                       </div>
                     </div>
