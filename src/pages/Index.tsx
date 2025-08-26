@@ -36,7 +36,7 @@ const Index = () => {
   const { setIsCameraActive } = useCameraContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { data: dashboardData, loading } = useDateDashboard(selectedDate);
-  const { data: realDashboardData } = useDashboardData();
+  const { data: realDashboardData, refetch: refetchDashboard } = useDashboardData();
   
   const [showScanner, setShowScanner] = useState(false);
   const [showReview, setShowReview] = useState(false);
@@ -334,7 +334,7 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-4xl font-bold text-foreground mb-1">
-                        {dashboardData.calorieGoal - dashboardData.todayCalories}
+                        {realDashboardData.calorieGoal - realDashboardData.todayCalories}
                       </div>
                       <div className="text-muted-foreground">{t.caloriesLeft}</div>
                     </div>
@@ -351,7 +351,7 @@ const Index = () => {
                           fill="none"
                           stroke="#4AD4B2"
                           strokeWidth="2"
-                          strokeDasharray={`${(dashboardData.todayCalories / dashboardData.calorieGoal) * 100}, 100`}
+                          strokeDasharray={`${(realDashboardData.todayCalories / realDashboardData.calorieGoal) * 100}, 100`}
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -369,7 +369,7 @@ const Index = () => {
                     className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">
-                      {Math.max(0, Math.round(dashboardData.todayProtein * 4 - dashboardData.todayProtein))}g
+                      {Math.max(0, realDashboardData.proteinGoal - realDashboardData.todayProtein)}g
                     </div>
                     <div className="text-xs text-muted-foreground mb-3">{t.proteinLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -385,7 +385,7 @@ const Index = () => {
                           fill="none"
                           stroke="hsl(var(--protein))"
                           strokeWidth="3"
-                          strokeDasharray="25, 100"
+                          strokeDasharray={`${(realDashboardData.todayProtein / realDashboardData.proteinGoal) * 100}, 100`}
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -400,7 +400,7 @@ const Index = () => {
                     className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">
-                      {Math.max(0, Math.round(dashboardData.todayCarbs * 2.5 - dashboardData.todayCarbs))}g
+                      {Math.max(0, realDashboardData.carbsGoal - realDashboardData.todayCarbs)}g
                     </div>
                     <div className="text-xs text-muted-foreground mb-3">{t.carbsLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -416,7 +416,7 @@ const Index = () => {
                           fill="none"
                           stroke="hsl(var(--carbs))"
                           strokeWidth="3"
-                          strokeDasharray="40, 100"
+                          strokeDasharray={`${(realDashboardData.todayCarbs / realDashboardData.carbsGoal) * 100}, 100`}
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -431,7 +431,7 @@ const Index = () => {
                     className="bg-card rounded-xl p-4 text-center shadow-lg dark:shadow-xl border border-border/50 hover-scale transition-all duration-200"
                   >
                     <div className="text-lg font-bold text-foreground mb-1">
-                      {Math.max(0, Math.round(dashboardData.todayFat * 1.5 - dashboardData.todayFat))}g
+                      {Math.max(0, realDashboardData.fatGoal - realDashboardData.todayFat)}g
                     </div>
                     <div className="text-xs text-muted-foreground mb-3">{t.fatLeft}</div>
                     <div className="w-12 h-12 mx-auto relative">
@@ -447,7 +447,7 @@ const Index = () => {
                           fill="none"
                           stroke="hsl(var(--fat))"
                           strokeWidth="3"
-                          strokeDasharray="60, 100"
+                          strokeDasharray={`${(realDashboardData.todayFat / realDashboardData.fatGoal) * 100}, 100`}
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -751,7 +751,10 @@ const Index = () => {
 
       {/* Food Database */}
       {showFoodDatabase && (
-        <FoodDatabase onClose={() => setShowFoodDatabase(false)} />
+        <FoodDatabase 
+          onClose={() => setShowFoodDatabase(false)}
+          onFoodAdded={refetchDashboard}
+        />
       )}
 
       {/* Saved Foods */}

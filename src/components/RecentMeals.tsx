@@ -109,7 +109,7 @@ export default function RecentMeals() {
         
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
-            <Card key={i} className="rounded-2xl overflow-hidden">
+            <Card key={i} className="rounded-2xl overflow-hidden shadow-md">
               <CardContent className="p-0">
                 <div className="flex items-center animate-pulse">
                   <div className="w-24 h-24 bg-muted"></div>
@@ -152,7 +152,7 @@ export default function RecentMeals() {
           {recentMeals.map((meal) => (
             <Card 
               key={meal.id}
-              className="hover:bg-muted/50 transition-colors cursor-pointer rounded-2xl overflow-hidden"
+              className="hover:bg-muted/50 transition-colors cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
               onClick={() => setSelectedMeal(meal)}
             >
               <CardContent className="p-0">

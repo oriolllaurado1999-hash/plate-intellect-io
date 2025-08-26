@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -8,6 +8,9 @@ interface DashboardData {
   todayCarbs: number;
   todayFat: number;
   calorieGoal: number;
+  proteinGoal: number;
+  carbsGoal: number;
+  fatGoal: number;
   weeklyCalories: Array<{
     date: string;
     calories: number;
@@ -27,120 +30,134 @@ export const useDashboardData = () => {
     todayCarbs: 0,
     todayFat: 0,
     calorieGoal: 2000,
+    proteinGoal: 150,
+    carbsGoal: 250,
+    fatGoal: 65,
     weeklyCalories: [],
     totalCaloriesWeek: 0,
     avgCaloriesDaily: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  useEffect(() => {
+  const fetchDashboardData = useCallback(async () => {
     if (!user) return;
 
-    const fetchDashboardData = async () => {
-      try {
-        setLoading(true);
+    try {
+      setLoading(true);
 
-        // Get user profile for calorie goal
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('daily_calorie_goal')
-          .eq('user_id', user.id)
-          .single();
+      // Get user profile for nutrition goals
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('daily_calorie_goal, protein_goal, carbs_goal, fat_goal')
+        .eq('user_id', user.id)
+        .single();
 
-        const calorieGoal = profile?.daily_calorie_goal || 2000;
+      const calorieGoal = profile?.daily_calorie_goal || 2000;
+      const proteinGoal = profile?.protein_goal || 150;
+      const carbsGoal = profile?.carbs_goal || 250;
+      const fatGoal = profile?.fat_goal || 65;
 
-        // Get today's date
-        const today = new Date().toISOString().split('T')[0];
+      // Get today's date
+      const today = new Date().toISOString().split('T')[0];
 
-        // Get today's meals
-        const { data: todayMeals } = await supabase
-          .from('meals')
-          .select('total_calories, total_protein, total_carbs, total_fat')
-          .eq('user_id', user.id)
-          .eq('meal_date', today);
+      // Get today's meals
+      const { data: todayMeals } = await supabase
+        .from('meals')
+        .select('total_calories, total_protein, total_carbs, total_fat')
+        .eq('user_id', user.id)
+        .eq('meal_date', today);
 
-        // Calculate today's totals
-        const todayTotals = todayMeals?.reduce(
-          (acc, meal) => ({
-            calories: acc.calories + (meal.total_calories || 0),
-            protein: acc.protein + (meal.total_protein || 0),
-            carbs: acc.carbs + (meal.total_carbs || 0),
-            fat: acc.fat + (meal.total_fat || 0),
-          }),
-          { calories: 0, protein: 0, carbs: 0, fat: 0 }
-        ) || { calories: 0, protein: 0, carbs: 0, fat: 0 };
+      // Calculate today's totals
+      const todayTotals = todayMeals?.reduce(
+        (acc, meal) => ({
+          calories: acc.calories + (meal.total_calories || 0),
+          protein: acc.protein + (meal.total_protein || 0),
+          carbs: acc.carbs + (meal.total_carbs || 0),
+          fat: acc.fat + (meal.total_fat || 0),
+        }),
+        { calories: 0, protein: 0, carbs: 0, fat: 0 }
+      ) || { calories: 0, protein: 0, carbs: 0, fat: 0 };
 
-        // Get last 7 days of data
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-        const startDate = sevenDaysAgo.toISOString().split('T')[0];
+      // Get last 7 days of data
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+      const startDate = sevenDaysAgo.toISOString().split('T')[0];
 
-        const { data: weeklyMeals } = await supabase
-          .from('meals')
-          .select('meal_date, total_calories, total_protein, total_carbs, total_fat')
-          .eq('user_id', user.id)
-          .gte('meal_date', startDate)
-          .order('meal_date');
+      const { data: weeklyMeals } = await supabase
+        .from('meals')
+        .select('meal_date, total_calories, total_protein, total_carbs, total_fat')
+        .eq('user_id', user.id)
+        .gte('meal_date', startDate)
+        .order('meal_date');
 
-        // Group by date and sum totals
-        const dailyTotals = new Map();
-        
-        // Initialize all 7 days with 0 values
-        for (let i = 0; i < 7; i++) {
-          const date = new Date();
-          date.setDate(date.getDate() - (6 - i));
-          const dateStr = date.toISOString().split('T')[0];
-          dailyTotals.set(dateStr, {
-            date: dateStr,
-            calories: 0,
-            protein: 0,
-            carbs: 0,
-            fat: 0,
-          });
-        }
-
-        // Add actual data
-        weeklyMeals?.forEach(meal => {
-          const existing = dailyTotals.get(meal.meal_date) || {
-            date: meal.meal_date,
-            calories: 0,
-            protein: 0,
-            carbs: 0,
-            fat: 0,
-          };
-          
-          dailyTotals.set(meal.meal_date, {
-            ...existing,
-            calories: existing.calories + (meal.total_calories || 0),
-            protein: existing.protein + (meal.total_protein || 0),
-            carbs: existing.carbs + (meal.total_carbs || 0),
-            fat: existing.fat + (meal.total_fat || 0),
-          });
+      // Group by date and sum totals
+      const dailyTotals = new Map();
+      
+      // Initialize all 7 days with 0 values
+      for (let i = 0; i < 7; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - (6 - i));
+        const dateStr = date.toISOString().split('T')[0];
+        dailyTotals.set(dateStr, {
+          date: dateStr,
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0,
         });
-
-        const weeklyCalories = Array.from(dailyTotals.values());
-        const totalCaloriesWeek = weeklyCalories.reduce((sum, day) => sum + day.calories, 0);
-        const avgCaloriesDaily = Math.round(totalCaloriesWeek / 7);
-
-        setData({
-          todayCalories: Math.round(todayTotals.calories),
-          todayProtein: Math.round(todayTotals.protein),
-          todayCarbs: Math.round(todayTotals.carbs),
-          todayFat: Math.round(todayTotals.fat),
-          calorieGoal,
-          weeklyCalories,
-          totalCaloriesWeek: Math.round(totalCaloriesWeek),
-          avgCaloriesDaily,
-        });
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      } finally {
-        setLoading(false);
       }
-    };
 
+      // Add actual data
+      weeklyMeals?.forEach(meal => {
+        const existing = dailyTotals.get(meal.meal_date) || {
+          date: meal.meal_date,
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0,
+        };
+        
+        dailyTotals.set(meal.meal_date, {
+          ...existing,
+          calories: existing.calories + (meal.total_calories || 0),
+          protein: existing.protein + (meal.total_protein || 0),
+          carbs: existing.carbs + (meal.total_carbs || 0),
+          fat: existing.fat + (meal.total_fat || 0),
+        });
+      });
+
+      const weeklyCalories = Array.from(dailyTotals.values());
+      const totalCaloriesWeek = weeklyCalories.reduce((sum, day) => sum + day.calories, 0);
+      const avgCaloriesDaily = Math.round(totalCaloriesWeek / 7);
+
+      setData({
+        todayCalories: Math.round(todayTotals.calories),
+        todayProtein: Math.round(todayTotals.protein),
+        todayCarbs: Math.round(todayTotals.carbs),
+        todayFat: Math.round(todayTotals.fat),
+        calorieGoal,
+        proteinGoal,
+        carbsGoal,
+        fatGoal,
+        weeklyCalories,
+        totalCaloriesWeek: Math.round(totalCaloriesWeek),
+        avgCaloriesDaily,
+      });
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [user, refreshTrigger]);
+
+  const refetch = useCallback(() => {
+    setRefreshTrigger(prev => prev + 1);
+  }, []);
+
+  useEffect(() => {
     fetchDashboardData();
-  }, [user]);
+  }, [fetchDashboardData]);
 
-  return { data, loading };
+  return { data, loading, refetch };
 };

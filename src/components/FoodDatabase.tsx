@@ -15,6 +15,7 @@ import mealPlateImage from '@/assets/meal-plate-transparent.png';
 
 interface FoodDatabaseProps {
   onClose: () => void;
+  onFoodAdded?: () => void;
 }
 
 interface FoodItem {
@@ -37,7 +38,7 @@ interface FoodItem {
   }>;
 }
 
-const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
+const FoodDatabase = ({ onClose, onFoodAdded }: FoodDatabaseProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<FoodItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -272,6 +273,9 @@ const FoodDatabase = ({ onClose }: FoodDatabaseProps) => {
         title: "Food Logged Successfully!",
         description: `${food.name} has been added to your recently uploaded foods.`,
       });
+      
+      // Trigger dashboard refresh
+      onFoodAdded?.();
       
       // Close the modal and Food Database
       handleCloseModal();
