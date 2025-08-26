@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { Clock, Camera, Flame, Beef, Wheat, Leaf } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
-import FoodNutritionDetail from './FoodNutritionDetail';
+import MealDetailView from './MealDetailView';
 
 interface RecentMeal {
   id: string;
@@ -210,24 +209,10 @@ export default function RecentMeals() {
         </div>
       )}
 
-      {/* Food Nutrition Detail Modal */}
+      {/* Meal Detail View */}
       {selectedMeal && (
-        <FoodNutritionDetail
-          analysis={{
-            foods: [{
-              name: selectedMeal.name,
-              quantity: 1,
-              calories: selectedMeal.total_calories || 0,
-              protein: selectedMeal.total_protein || 0,
-              carbs: selectedMeal.total_carbs || 0,
-              fat: selectedMeal.total_fat || 0,
-              fiber: 0,
-              confidence: 0.8
-            }],
-            overall_confidence: 0.8,
-            meal_name: selectedMeal.name
-          }}
-          imageUrl={selectedMeal.image_url || ''}
+        <MealDetailView
+          meal={selectedMeal}
           onClose={() => setSelectedMeal(null)}
         />
       )}
