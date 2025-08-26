@@ -53,6 +53,7 @@ const Index = () => {
   const [activeCarouselSection, setActiveCarouselSection] = useState(0);
   const [waterConsumed, setWaterConsumed] = useState(0); // ml de agua consumida
   const [hasMealsToday, setHasMealsToday] = useState(false);
+  const [isMealDetailOpen, setIsMealDetailOpen] = useState(false);
 
   // Mock meal data - in real app this would come from the dashboard data
   const mockMeals = [
@@ -681,7 +682,7 @@ const Index = () => {
         <div className="mb-6">
           {/* Show Recently Uploaded only if user has meals today */}
           {hasMealsToday && (
-            <RecentMeals key={refreshKey} />
+            <RecentMeals key={refreshKey} onMealDetailOpen={setIsMealDetailOpen} />
           )}
           
           {/* Analysis in progress card - only shown when analyzing */}
@@ -729,8 +730,8 @@ const Index = () => {
       </div>
 
 
-      {/* Floating Add Button - Hidden when camera is active */}
-      {!showScanner && (
+      {/* Floating Add Button - Hidden when camera is active or meal detail is open */}
+      {!showScanner && !isMealDetailOpen && (
         <button 
           onClick={handleAddButtonClick}
           className="fixed bottom-20 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:opacity-90 transition-colors z-[60]"

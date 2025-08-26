@@ -14,11 +14,16 @@ interface RecentMeal {
   total_protein: number;
   total_carbs: number;
   total_fat: number;
+  total_fiber?: number;
   created_at: string;
   image_url?: string;
 }
 
-export default function RecentMeals() {
+interface RecentMealsProps {
+  onMealDetailOpen?: (isOpen: boolean) => void;
+}
+
+export default function RecentMeals({ onMealDetailOpen }: RecentMealsProps = {}) {
   const [recentMeals, setRecentMeals] = useState<RecentMeal[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMeal, setSelectedMeal] = useState<any>(null);
@@ -35,7 +40,7 @@ export default function RecentMeals() {
         
         const { data, error } = await supabase
           .from('meals')
-          .select('id, name, meal_type, total_calories, total_protein, total_carbs, total_fat, created_at, image_url')
+          .select('id, name, meal_type, total_calories, total_protein, total_carbs, total_fat, total_fiber, created_at, image_url')
           .eq('user_id', user.id)
           .eq('meal_date', today)
           .order('created_at', { ascending: false });
@@ -152,7 +157,10 @@ export default function RecentMeals() {
             <Card 
               key={meal.id}
               className="hover:bg-muted/50 transition-colors cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
-              onClick={() => setSelectedMeal(meal)}
+              onClick={() => {
+                setSelectedMeal(meal);
+                onMealDetailOpen?.(true);
+              }}
             >
               <CardContent className="p-0">
                 <div className="flex items-center">
@@ -213,7 +221,10 @@ export default function RecentMeals() {
       {selectedMeal && (
         <MealDetailView
           meal={selectedMeal}
-          onClose={() => setSelectedMeal(null)}
+          onClose={() => {
+            setSelectedMeal(null);
+            onMealDetailOpen?.(false);
+          }}
         />
       )}
     </div>

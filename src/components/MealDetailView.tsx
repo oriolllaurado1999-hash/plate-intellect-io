@@ -1,8 +1,10 @@
-import React from 'react';
-import { ArrowLeft, Edit, Share, MoreHorizontal, Flame, Plus } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft, Edit, Share, MoreHorizontal, Flame, Plus, Beef, Wheat, Leaf, Activity, Cherry, Salad, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Input } from '@/components/ui/input';
 
 interface MealDetailViewProps {
   meal: {
@@ -12,6 +14,7 @@ interface MealDetailViewProps {
     total_protein: number;
     total_carbs: number;
     total_fat: number;
+    total_fiber?: number;
     created_at: string;
     image_url?: string;
   };
@@ -19,6 +22,32 @@ interface MealDetailViewProps {
 }
 
 const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
+  const [ingredients, setIngredients] = useState<string[]>(() => {
+    // Smart ingredient detection
+    const detectIngredients = (name: string): string[] => {
+      const commonIngredients = [
+        'coffee', 'milk', 'sugar', 'cream', 'water', 'ice', 'vanilla', 'chocolate',
+        'chicken', 'beef', 'pork', 'fish', 'salmon', 'tuna', 'rice', 'pasta',
+        'bread', 'cheese', 'egg', 'eggs', 'butter', 'oil', 'salt', 'pepper',
+        'tomato', 'onion', 'garlic', 'lettuce', 'spinach', 'carrot', 'potato',
+        'apple', 'banana', 'orange', 'lemon', 'avocado', 'honey', 'yogurt'
+      ];
+      
+      const lowerName = name.toLowerCase();
+      const detected = commonIngredients.filter(ingredient => 
+        lowerName.includes(ingredient)
+      );
+      
+      // If no common ingredients detected, use the meal name as the main ingredient
+      return detected.length > 0 ? detected : [name];
+    };
+    
+    return detectIngredients(meal.name);
+  });
+  
+  const [editingIngredient, setEditingIngredient] = useState<number | null>(null);
+  const [editValue, setEditValue] = useState('');
+
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString('en-US', { 
@@ -28,13 +57,37 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
     });
   };
 
+  const handleEditIngredient = (index: number) => {
+    setEditingIngredient(index);
+    setEditValue(ingredients[index]);
+  };
+
+  const handleSaveIngredient = (index: number) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index] = editValue;
+    setIngredients(newIngredients);
+    setEditingIngredient(null);
+  };
+
+  const handleRemoveIngredient = (index: number) => {
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredients(newIngredients);
+  };
+
+  const addNewIngredient = () => {
+    setIngredients([...ingredients, 'New ingredient']);
+    setEditingIngredient(ingredients.length);
+    setEditValue('New ingredient');
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-background">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: meal.image_url ? `url(${meal.image_url})` : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          backgroundPosition: meal.image_url ? 'center 20%' : 'center center',
         }}
       >
         {/* Overlay */}
@@ -97,38 +150,90 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
               </div>
             </div>
 
-            {/* Macronutrients */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <span className="text-sm text-muted-foreground">Protein</span>
-                </div>
-                <div className="text-xl font-semibold text-foreground">
-                  {Math.round(meal.total_protein)}g
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-orange-500" />
-                  <span className="text-sm text-muted-foreground">Carbs</span>
-                </div>
-                <div className="text-xl font-semibold text-foreground">
-                  {Math.round(meal.total_carbs)}g
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="w-3 h-3 rounded-full bg-blue-500" />
-                  <span className="text-sm text-muted-foreground">Fats</span>
-                </div>
-                <div className="text-xl font-semibold text-foreground">
-                  {Math.round(meal.total_fat)}g
-                </div>
-              </div>
-            </div>
+            {/* Nutrition Carousel */}
+            <Carousel className="w-full">
+              <CarouselContent>
+                {/* First slide - Main macronutrients */}
+                <CarouselItem>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Beef className="w-4 h-4 text-red-500" />
+                        <span className="text-sm text-muted-foreground">Protein</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(meal.total_protein)}g
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Wheat className="w-4 h-4 text-orange-500" />
+                        <span className="text-sm text-muted-foreground">Carbs</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(meal.total_carbs)}g
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Leaf className="w-4 h-4 text-blue-500" />
+                        <span className="text-sm text-muted-foreground">Fats</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(meal.total_fat)}g
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+
+                {/* Second slide - Additional nutrients */}
+                <CarouselItem>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Salad className="w-4 h-4 text-green-500" />
+                        <span className="text-sm text-muted-foreground">Fiber</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(meal.total_fiber || 0)}g
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Cherry className="w-4 h-4 text-pink-500" />
+                        <span className="text-sm text-muted-foreground">Sugar</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(0)}g
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Activity className="w-4 h-4 text-purple-500" />
+                        <span className="text-sm text-muted-foreground">Sodium</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(0)}mg
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Activity className="w-4 h-4 text-emerald-500" />
+                        <span className="text-sm text-muted-foreground">Health Score</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        85/100
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
 
             {/* Page Indicators */}
             <div className="flex justify-center gap-2 py-4">
@@ -140,25 +245,59 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-foreground">Ingredients</h3>
-                <Button variant="ghost" size="sm" className="text-muted-foreground">
+                <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={addNewIngredient}>
                   <Plus className="w-4 h-4 mr-2" />
                   Add More
                 </Button>
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center justify-between py-3 border-b">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-muted rounded-full" />
-                    <div>
-                      <div className="font-medium text-foreground">{meal.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {Math.round(meal.total_calories)} cal
+                {ingredients.map((ingredient, index) => (
+                  <div key={index} className="flex items-center justify-between py-3 border-b">
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                        <Salad className="w-4 h-4 text-muted-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        {editingIngredient === index ? (
+                          <Input
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={() => handleSaveIngredient(index)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                handleSaveIngredient(index);
+                              }
+                            }}
+                            className="font-medium text-foreground"
+                            autoFocus
+                          />
+                        ) : (
+                          <div 
+                            className="font-medium text-foreground cursor-pointer hover:text-primary"
+                            onClick={() => handleEditIngredient(index)}
+                          >
+                            {ingredient}
+                          </div>
+                        )}
+                        <div className="text-sm text-muted-foreground">
+                          {Math.round(meal.total_calories / ingredients.length)} cal
+                        </div>
                       </div>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-sm text-muted-foreground">1 serving</div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleRemoveIngredient(index)}
+                        className="h-8 w-8 p-0 hover:bg-red-100 hover:text-red-600"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">1 serving</div>
-                </div>
+                ))}
               </div>
             </div>
 
