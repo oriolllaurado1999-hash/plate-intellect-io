@@ -109,11 +109,11 @@ export default function RecentMeals() {
         
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
-            <Card key={i}>
-              <CardContent className="p-4">
-                <div className="flex items-center gap-4 animate-pulse">
-                  <div className="w-20 h-20 bg-muted rounded-xl"></div>
-                  <div className="flex-1 space-y-2">
+            <Card key={i} className="rounded-2xl overflow-hidden">
+              <CardContent className="p-0">
+                <div className="flex items-center animate-pulse">
+                  <div className="w-24 h-24 bg-muted"></div>
+                  <div className="flex-1 p-4 space-y-2">
                     <div className="h-4 bg-muted rounded w-3/4"></div>
                     <div className="h-3 bg-muted rounded w-1/2"></div>
                     <div className="h-3 bg-muted rounded w-2/3"></div>
@@ -152,26 +152,26 @@ export default function RecentMeals() {
           {recentMeals.map((meal) => (
             <Card 
               key={meal.id}
-              className="hover:bg-muted/50 transition-colors cursor-pointer"
+              className="hover:bg-muted/50 transition-colors cursor-pointer rounded-2xl overflow-hidden"
               onClick={() => setSelectedMeal(meal)}
             >
-              <CardContent className="p-4">
-                <div className="flex items-center gap-4">
-                  {/* Large Food Image */}
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
+              <CardContent className="p-0">
+                <div className="flex items-center">
+                  {/* Large Food Image - Full Height */}
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center overflow-hidden flex-shrink-0">
                     {meal.image_url ? (
                       <img 
                         src={meal.image_url} 
                         alt={meal.name}
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
-                      <Camera className="h-10 w-10 text-primary" />
+                      <Camera className="h-12 w-12 text-primary" />
                     )}
                   </div>
                   
                   {/* Food Info */}
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-semibold text-base truncate text-foreground">{meal.name}</h4>
                       <span className="text-sm text-muted-foreground ml-2 flex-shrink-0">
@@ -185,18 +185,18 @@ export default function RecentMeals() {
                       <span className="font-semibold text-foreground">{Math.round(meal.total_calories)} calories</span>
                     </div>
                     
-                    {/* Macronutrients with emojis */}
+                    {/* Macronutrients with Lucide React icons */}
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1">
-                        <span className="text-sm">🥩</span>
+                        <Beef className="h-4 w-4 text-red-500" />
                         <span className="text-sm text-muted-foreground">{Math.round(meal.total_protein)}g</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <span className="text-sm">🌾</span>
+                        <Wheat className="h-4 w-4 text-orange-500" />
                         <span className="text-sm text-muted-foreground">{Math.round(meal.total_carbs)}g</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <span className="text-sm">🥑</span>
+                        <Leaf className="h-4 w-4 text-blue-500" />
                         <span className="text-sm text-muted-foreground">{Math.round(meal.total_fat)}g</span>
                       </div>
                     </div>
