@@ -23,6 +23,9 @@ interface MealDetailViewProps {
 }
 
 const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [dragStartY, setDragStartY] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
   const [ingredients, setIngredients] = useState<string[]>(() => {
     // Smart ingredient detection
     const detectIngredients = (name: string): string[] => {
@@ -81,6 +84,33 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
     setEditValue('New ingredient');
   };
 
+  const handleDragStart = (e: React.TouchEvent | React.MouseEvent) => {
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    setDragStartY(clientY);
+  };
+
+  const handleDragMove = (e: React.TouchEvent | React.MouseEvent) => {
+    if (dragStartY === 0) return;
+    
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const offset = clientY - dragStartY;
+    setDragOffset(Math.max(0, offset));
+  };
+
+  const handleDragEnd = () => {
+    if (dragOffset > 100) {
+      setIsExpanded(false);
+    } else if (dragOffset < -100) {
+      setIsExpanded(true);
+    }
+    setDragStartY(0);
+    setDragOffset(0);
+  };
+
+  const togglePanel = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-background">
       {/* Background Image */}
@@ -122,11 +152,26 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
       </div>
 
       {/* Bottom Card */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
+      <div 
+        className={`absolute bottom-0 left-0 right-0 z-10 transition-transform duration-300 ease-out ${
+          isExpanded ? 'translate-y-0' : 'translate-y-[40vh]'
+        }`}
+        style={{ transform: `translateY(${dragOffset}px)` }}
+      >
         <Card className="rounded-t-3xl border-0 shadow-2xl h-[60vh] max-h-[60vh] overflow-hidden">
           {/* Drag Handle */}
-          <div className="flex justify-center py-2 bg-muted/10 rounded-t-3xl">
-            <div className="w-12 h-1 bg-muted-foreground/30 rounded-full cursor-grab active:cursor-grabbing"></div>
+          <div 
+            className="flex justify-center py-3 bg-muted/10 rounded-t-3xl cursor-grab active:cursor-grabbing"
+            onMouseDown={handleDragStart}
+            onMouseMove={handleDragMove}
+            onMouseUp={handleDragEnd}
+            onMouseLeave={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onTouchEnd={handleDragEnd}
+            onClick={togglePanel}
+          >
+            <div className="w-12 h-1 bg-muted-foreground/30 rounded-full"></div>
           </div>
           
           <CardContent className="p-6 space-y-6 h-full overflow-y-auto">
@@ -148,111 +193,113 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
               </Button>
             </div>
 
-            {/* Nutrition Cards */}
-            <div className="grid grid-cols-2 gap-3">
-              {/* Calories */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Flame className="w-4 h-4 text-orange-600" />
-                    <span className="text-xs text-muted-foreground">Calories</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(meal.total_calories)}
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Nutrition Carousel */}
+            <Carousel className="w-full">
+              <CarouselContent>
+                {/* First slide - Calories, Protein, Carbs, Fats */}
+                <CarouselItem>
+                  <Card className="border-0 shadow-sm bg-muted/20">
+                    <CardContent className="p-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Flame className="w-4 h-4 text-orange-600" />
+                            <span className="text-sm text-muted-foreground">Calories</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(meal.total_calories)}
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Beef className="w-4 h-4 text-red-500" />
+                            <span className="text-sm text-muted-foreground">Protein</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(meal.total_protein)}g
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Wheat className="w-4 h-4 text-orange-500" />
+                            <span className="text-sm text-muted-foreground">Carbs</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(meal.total_carbs)}g
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Leaf className="w-4 h-4 text-blue-500" />
+                            <span className="text-sm text-muted-foreground">Fats</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(meal.total_fat)}g
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
 
-              {/* Protein */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Beef className="w-4 h-4 text-red-500" />
-                    <span className="text-xs text-muted-foreground">Protein</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(meal.total_protein)}g
-                  </div>
-                </CardContent>
-              </Card>
+                {/* Second slide - Fiber, Sugar, Sodium, Health Score */}
+                <CarouselItem>
+                  <Card className="border-0 shadow-sm bg-muted/20">
+                    <CardContent className="p-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Salad className="w-4 h-4 text-green-500" />
+                            <span className="text-sm text-muted-foreground">Fiber</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(meal.total_fiber || 0)}g
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Cherry className="w-4 h-4 text-pink-500" />
+                            <span className="text-sm text-muted-foreground">Sugar</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(0)}g
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Activity className="w-4 h-4 text-purple-500" />
+                            <span className="text-sm text-muted-foreground">Sodium</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            {Math.round(0)}mg
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <div className="flex items-center justify-center gap-2 mb-2">
+                            <Activity className="w-4 h-4 text-emerald-500" />
+                            <span className="text-sm text-muted-foreground">Health Score</span>
+                          </div>
+                          <div className="text-xl font-semibold text-foreground">
+                            8.5/10
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              </CarouselContent>
+            </Carousel>
 
-              {/* Carbs */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Wheat className="w-4 h-4 text-orange-500" />
-                    <span className="text-xs text-muted-foreground">Carbs</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(meal.total_carbs)}g
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Fats */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Leaf className="w-4 h-4 text-blue-500" />
-                    <span className="text-xs text-muted-foreground">Fats</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(meal.total_fat)}g
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Fiber */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Salad className="w-4 h-4 text-green-500" />
-                    <span className="text-xs text-muted-foreground">Fiber</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(meal.total_fiber || 0)}g
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Sugar */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Cherry className="w-4 h-4 text-pink-500" />
-                    <span className="text-xs text-muted-foreground">Sugar</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(0)}g
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Sodium */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Activity className="w-4 h-4 text-purple-500" />
-                    <span className="text-xs text-muted-foreground">Sodium</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    {Math.round(0)}mg
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Health Score */}
-              <Card className="border-0 shadow-sm bg-muted/20">
-                <CardContent className="p-3 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <Activity className="w-4 h-4 text-emerald-500" />
-                    <span className="text-xs text-muted-foreground">Health Score</span>
-                  </div>
-                  <div className="text-lg font-semibold text-foreground">
-                    8.5/10
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Page Indicators */}
+            <div className="flex justify-center gap-2 py-4">
+              <div className="w-2 h-2 rounded-full bg-foreground" />
+              <div className="w-2 h-2 rounded-full bg-muted-foreground/30" />
             </div>
 
             {/* Ingredients Section */}
