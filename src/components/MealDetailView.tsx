@@ -87,7 +87,7 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: meal.image_url ? `url(${meal.image_url})` : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          backgroundPosition: meal.image_url ? 'center center' : 'center center',
+          backgroundPosition: meal.image_url ? 'center 35%' : 'center center',
         }}
       >
         {/* Overlay */}
