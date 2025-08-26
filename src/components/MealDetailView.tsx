@@ -213,7 +213,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
           <ArrowLeft className="w-6 h-6 text-white" />
         </button>
         
-        <h1 className="text-lg font-semibold text-white text-center flex-1">Nutrition</h1>
+        <h1 className="text-lg font-semibold text-white absolute left-1/2 transform -translate-x-1/2">Nutrition</h1>
         
         <div className="flex gap-2">
           <button className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
