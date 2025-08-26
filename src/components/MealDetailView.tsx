@@ -87,7 +87,7 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: meal.image_url ? `url(${meal.image_url})` : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          backgroundPosition: meal.image_url ? 'center 35%' : 'center center',
+          backgroundPosition: meal.image_url ? 'center 25%' : 'center center',
         }}
       >
         {/* Overlay */}
@@ -137,25 +137,22 @@ const MealDetailView = ({ meal, onClose }: MealDetailViewProps) => {
               </Button>
             </div>
 
-            {/* Calories */}
-            <div className="flex items-center gap-3 py-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Flame className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-sm text-muted-foreground">Calories</div>
-                <div className="text-3xl font-bold text-foreground">
-                  {Math.round(meal.total_calories)}
-                </div>
-              </div>
-            </div>
-
             {/* Nutrition Carousel */}
             <Carousel className="w-full">
               <CarouselContent>
-                {/* First slide - Main macronutrients */}
+                {/* First slide - Calories and main macronutrients */}
                 <CarouselItem>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Flame className="w-4 h-4 text-orange-600" />
+                        <span className="text-sm text-muted-foreground">Calories</span>
+                      </div>
+                      <div className="text-xl font-semibold text-foreground">
+                        {Math.round(meal.total_calories)}
+                      </div>
+                    </div>
+                    
                     <div className="text-center">
                       <div className="flex items-center justify-center gap-2 mb-2">
                         <Beef className="w-4 h-4 text-red-500" />
