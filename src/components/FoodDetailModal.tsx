@@ -310,7 +310,7 @@ const FoodDetailModal = ({ food, isOpen, onClose, onLog }: FoodDetailModalProps)
               disabled={isLoading}
             >
               {isSaved ? (
-                <BookmarkCheck className="w-5 h-5 text-green-600 fill-green-600" />
+                <BookmarkCheck className="w-5 h-5" style={{ color: '#4AD4B2', fill: '#4AD4B2' }} />
               ) : (
                 <Bookmark className="w-5 h-5" />
               )}
