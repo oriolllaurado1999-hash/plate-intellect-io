@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Edit, Share, Trash2, Flame, Plus, Beef, Wheat, Leaf, Activity, Cherry, Salad, X, Bookmark, GripHorizontal } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Input } from '@/components/ui/input';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'sonner';
 
 interface MealDetailViewProps {
   meal: {
@@ -23,9 +26,11 @@ interface MealDetailViewProps {
 }
 
 const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
+  const { user } = useAuth();
   const [isExpanded, setIsExpanded] = useState(true);
   const [dragStartY, setDragStartY] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const [ingredients, setIngredients] = useState<string[]>(() => {
     // Smart ingredient detection
     const detectIngredients = (name: string): string[] => {
@@ -51,6 +56,78 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
   
   const [editingIngredient, setEditingIngredient] = useState<number | null>(null);
   const [editValue, setEditValue] = useState('');
+
+  // Check if meal is bookmarked on component mount
+  useEffect(() => {
+    const checkBookmarkStatus = async () => {
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('saved_foods')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('food_name', meal.name)
+          .single();
+        
+        if (data && !error) {
+          setIsBookmarked(true);
+        }
+      } catch (error) {
+        // Meal not bookmarked
+        setIsBookmarked(false);
+      }
+    };
+
+    checkBookmarkStatus();
+  }, [user, meal.name]);
+
+  const handleBookmarkToggle = async () => {
+    if (!user) {
+      toast.error('Please sign in to bookmark meals');
+      return;
+    }
+
+    try {
+      if (isBookmarked) {
+        // Remove bookmark
+        const { error } = await supabase
+          .from('saved_foods')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('food_name', meal.name);
+
+        if (error) throw error;
+        
+        setIsBookmarked(false);
+        toast.success('Meal removed from saved foods');
+      } else {
+        // Add bookmark
+        const { error } = await supabase
+          .from('saved_foods')
+          .insert({
+            user_id: user.id,
+            food_id: `meal_${meal.id}`,
+            food_name: meal.name,
+            calories: meal.total_calories,
+            protein: meal.total_protein,
+            carbs: meal.total_carbs,
+            fat: meal.total_fat,
+            fiber: meal.total_fiber || 0,
+            serving_size: '1',
+            serving_unit: 'serving'
+          });
+
+        if (error) throw error;
+        
+        setIsBookmarked(true);
+        toast.success('Meal saved to your favorites');
+      }
+    } catch (error) {
+      console.error('Error toggling bookmark:', error);
+      toast.error('Failed to update bookmark');
+    }
+  };
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
@@ -136,7 +213,7 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
           <ArrowLeft className="w-6 h-6 text-white" />
         </button>
         
-        <h1 className="text-lg font-semibold text-white">Nutrition</h1>
+        <h1 className="text-lg font-semibold text-white text-center flex-1">Nutrition</h1>
         
         <div className="flex gap-2">
           <button className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
@@ -178,7 +255,18 @@ const MealDetailView = ({ meal, onClose, onDelete }: MealDetailViewProps) => {
             {/* Meal Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Bookmark className="w-4 h-4 text-primary" />
+                <button 
+                  onClick={handleBookmarkToggle}
+                  className="p-1 rounded-full hover:bg-muted/50 transition-colors"
+                >
+                  <Bookmark 
+                    className={`w-4 h-4 transition-colors ${
+                      isBookmarked 
+                        ? 'text-primary fill-primary' 
+                        : 'text-muted-foreground hover:text-primary'
+                    }`} 
+                  />
+                </button>
                 <span className="text-sm text-muted-foreground">
                   {formatTime(meal.created_at)}
                 </span>
