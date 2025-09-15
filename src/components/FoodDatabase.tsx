@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import FoodItemCard from './FoodItemCard';
 import FoodDetailModal from './FoodDetailModal';
 import { CustomFoodModal } from './CustomFoodModal';
+import CreateMealModal from './CreateMealModal';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import foodBasketImage from '@/assets/food-basket.png';
@@ -46,6 +47,7 @@ const FoodDatabase = ({ onClose, onFoodAdded }: FoodDatabaseProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
   const [isCustomFoodModalOpen, setIsCustomFoodModalOpen] = useState(false);
+  const [isCreateMealModalOpen, setIsCreateMealModalOpen] = useState(false);
   const [savedFoods, setSavedFoods] = useState<FoodItem[]>([]);
   const [isLoadingSavedFoods, setIsLoadingSavedFoods] = useState(false);
   const { toast } = useToast();
@@ -451,6 +453,7 @@ const FoodDatabase = ({ onClose, onFoodAdded }: FoodDatabaseProps) => {
                   title="My Meals"
                   description="Quickly log your go-to meal combinations."
                   buttonText="Create meal"
+                  onButtonClick={() => setIsCreateMealModalOpen(true)}
                 />
               </div>
             </TabsContent>
@@ -509,6 +512,13 @@ const FoodDatabase = ({ onClose, onFoodAdded }: FoodDatabaseProps) => {
       <CustomFoodModal
         open={isCustomFoodModalOpen}
         onOpenChange={setIsCustomFoodModalOpen}
+      />
+
+      {/* Create Meal Modal */}
+      <CreateMealModal
+        isOpen={isCreateMealModalOpen}
+        onClose={() => setIsCreateMealModalOpen(false)}
+        onMealCreated={onFoodAdded}
       />
     </div>
   );
