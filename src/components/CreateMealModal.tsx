@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/carousel';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import FoodDatabase from './FoodDatabase';
@@ -31,11 +32,25 @@ interface CreateMealModalProps {
 const CreateMealModal = ({ isOpen, onClose, onMealCreated }: CreateMealModalProps) => {
   const [mealName, setMealName] = useState('Tap to Name');
   const [mealItems, setMealItems] = useState<MealItem[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [isEditingName, setIsEditingName] = useState(false);
   const [showFoodDatabase, setShowFoodDatabase] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   const { toast } = useToast();
+
+  // Carousel effect
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+ 
+    setCurrent(api.selectedScrollSnap())
+ 
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
 
   // Nutrition slides configuration
   const nutritionSlides = [
@@ -287,47 +302,53 @@ const CreateMealModal = ({ isOpen, onClose, onMealCreated }: CreateMealModalProp
               </div>
 
               {/* Nutrition Carousel */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-3 gap-4">
-                  {nutritionSlides[currentSlide].items.map((item) => (
-                    <div key={item.key} className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        <item.icon 
-                          className="h-5 w-5" 
-                          style={{ color: item.color }} 
-                        />
+              <Carousel setApi={setApi} className="w-full">
+                <CarouselContent>
+                  {nutritionSlides.map((slide, index) => (
+                    <CarouselItem key={index}>
+                      <div className="grid grid-cols-3 gap-4">
+                        {slide.items.map((item) => (
+                          <div key={item.key} className="text-center">
+                            <div className="flex items-center justify-center mb-2">
+                              <item.icon 
+                                className="h-5 w-5" 
+                                style={{ color: item.color }} 
+                              />
+                            </div>
+                            <div className="text-sm text-muted-foreground mb-1">{item.label}</div>
+                            <div className="text-xl font-bold">
+                              {Math.round(totals[item.key as keyof typeof totals])}{item.unit}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="text-sm text-muted-foreground mb-1">{item.label}</div>
-                      <div className="text-xl font-bold">
-                        {Math.round(totals[item.key as keyof typeof totals])}{item.unit}
-                      </div>
-                    </div>
+                    </CarouselItem>
                   ))}
-                </div>
+                </CarouselContent>
 
                 {/* Carousel indicators */}
                 <div className="flex justify-center gap-2 mt-4">
                   {nutritionSlides.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentSlide(index)}
+                      onClick={() => api?.scrollTo(index)}
                       className={`w-2 h-2 rounded-full transition-colors ${
-                        currentSlide === index ? 'bg-primary' : 'bg-muted'
+                        current === index ? 'bg-primary' : 'bg-muted'
                       }`}
                     />
                   ))}
                 </div>
+              </Carousel>
 
-                {/* Health Score */}
-                <div className="flex items-center justify-between pt-4 border-t">
-                  <div className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-red-500" />
-                    <span className="font-medium">Health Score</span>
-                  </div>
-                  <Badge variant="outline">
-                    {mealItems.length > 0 ? `${healthScore}/10` : 'N/A'}
-                  </Badge>
+              {/* Health Score */}
+              <div className="flex items-center justify-between pt-4 border-t">
+                <div className="flex items-center gap-2">
+                  <Heart className="h-5 w-5 text-red-500" />
+                  <span className="font-medium">Health Score</span>
                 </div>
+                <Badge variant="outline">
+                  {mealItems.length > 0 ? `${healthScore}/10` : 'N/A'}
+                </Badge>
               </div>
             </CardContent>
           </Card>
